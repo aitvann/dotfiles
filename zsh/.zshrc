@@ -21,6 +21,10 @@ export FZF_DEFAULT_OPTS='--height 40 --layout=reverse --multi --preview "bat --c
 source "/usr/share/fzf/completion.zsh"
 source "$HOME/.config/zsh/key-bindings.zsh"
 
+# telling SSH hot to access the gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
 # IFS=: read -ra selected < <(
 #   rg --color=always --line-number --no-heading --smart-case "${*:-}" |
 #     fzf --ansi \
