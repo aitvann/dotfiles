@@ -61,7 +61,7 @@ set hlsearch
 set incsearch
 
 " colorscheme
-colorscheme nord
+colorscheme gruvbox
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
 let g:gruvbox_contrast_dark = 'medium'
