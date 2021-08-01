@@ -15,6 +15,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 " open file with ranger window
 Plug 'kevinhwang91/rnvimr'
+" fzf integration
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " tree file browser, use ranger instead
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " checks for syntax and shows errors, use LS instead
@@ -46,11 +49,13 @@ call plug#end()
 
 " general
 set hidden
-set relativenumber
+set number relativenumber
+set nu rnu
 set nowrap
 syntax on
+" set cursorline cursorcolumn
 
-"tab
+" tab
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -74,18 +79,23 @@ let g:airline_right_sep=''
 " ranger
 let g:rnvimr_enable_picker = 1
 
+"fzf
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
 
 " mappings
 " let g:mapleader=','
 imap jj <Esc> 
 nmap U :redo<CR>
-
-" mappings-windows
-" map <C-Q> :q<CR>
-" map <C-O> <C-W>o
+nmap <C-H> :noh<CR>
 " to the right
 map <C-R> <C-W>L
 " moving around
+nmap <silent> gw :Lines<CR>
+nmap <silent> gW :Rg<CR>
+nmap <silent> gf :Files<CR>
+nmap <silent> gb :Buffers<CR>
+" moving over the windows
 nmap <silent> gh :call WinMove('h')<CR>
 nmap <silent> gj :call WinMove('j')<CR>
 nmap <silent> gk :call WinMove('k')<CR>
@@ -109,22 +119,18 @@ map <silent> <Right> zl
 nmap <silent> '' <C-W>v
 nmap <silent> 't :call OpenTerminal()<CR>
 nmap <silent> 'r :RnvimrToggle<CR>
-
 " mappings-buffers
 nmap <silent> <Tab> :bnext<CR>
 nmap <silent> <S-Tab> :bprevious<CR>
 nmap <silent> <Backspace> :call DeleteBuffer()<CR>
-
-" mappings-nerdtree
-" map gn :NERDTreeToggle<CR>
-
 " mappings-easymotion
-" map <Leader> <Plug>(easymotion-prefix)
 map , <Plug>(easymotion-bd-f)
 nmap , <Plug>(easymotion-overwin-f)
-
+" map <Leader> <Plug>(easymotion-prefix)
 " mappings-ctrlp
 " let g:ctrlp_map = 'gp'
+" mappings-nerdtree
+" map gn :NERDTreeToggle<CR>
 
 
 " command! -nargs=? OpenTerminal execute 'terminal <args>' | let b:is_term = 1 | execute 'startinsert'
