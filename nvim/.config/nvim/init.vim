@@ -87,7 +87,7 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 " let g:mapleader=','
 imap jj <Esc> 
 nmap U :redo<CR>
-nmap <C-H> :noh<CR>
+nmap <silent> <C-H> :noh<CR>
 " to the right
 map <C-R> <C-W>L
 " moving around
@@ -119,11 +119,13 @@ map <silent> <Right> zl
 nmap <silent> '' <C-W>v
 nmap <silent> 't :call OpenTerminal()<CR>
 nmap <silent> 'r :RnvimrToggle<CR>
-" mappings-buffers
+" buffers
 nmap <silent> <Tab> :bnext<CR>
 nmap <silent> <S-Tab> :bprevious<CR>
 nmap <silent> <Backspace> :call DeleteBuffer()<CR>
-" mappings-easymotion
+" windows
+nmap <silent> <Del> :q<CR>
+" easymotion
 map , <Plug>(easymotion-bd-f)
 nmap , <Plug>(easymotion-overwin-f)
 " map <Leader> <Plug>(easymotion-prefix)
@@ -139,7 +141,7 @@ function! OpenTerminal()
     execute 'terminal'
     let b:is_term = 1 
     execute 'startinsert'
-    tmap <buffer> jj <C-\><C-N>
+    tmap <buffer> <Esc> <C-\><C-N>
 endfunction
 
 function! DeleteBuffer()
