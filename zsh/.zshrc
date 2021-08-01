@@ -128,5 +128,5 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source "$HOME/.config/zsh/put.zsh"
-source "$HOME/.config/zsh/fzf.zsh"
+source "$HOME/.config/fzf/conf.zsh"
 
