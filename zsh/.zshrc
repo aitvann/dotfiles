@@ -14,13 +14,6 @@ export ZSH="/home/aitvann/.oh-my-zsh"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--height 40 --layout=reverse --multi --preview "bat --color=always --style='numbers,header' {}" --color="border:grey"'
-
-source "/usr/share/fzf/completion.zsh"
-source "$HOME/.config/zsh/key-bindings.zsh"
-
 # telling SSH hot to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
@@ -145,3 +138,6 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source "$HOME/.config/zsh/fzf.zsh"
+
