@@ -34,18 +34,6 @@ gpgconf --launch gpg-agent
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-put() {
-    if [ $# -lt 1 ]; then
-        echo "put: missing operand";
-        return 1;
-    fi
-
-    for f in "$@"; do
-        mkdir -p -- "$(dirname -- "$f")"
-        touch -- "$f"
-    done
-}
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -139,5 +127,6 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+source "$HOME/.config/zsh/put.zsh"
 source "$HOME/.config/zsh/fzf.zsh"
 
