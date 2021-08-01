@@ -1,0 +1,6 @@
+--hidden
+
+# --ignore-file="$HOME/.config/ripgrep/.rgignore"
+--glob
+!.git
+

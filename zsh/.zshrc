@@ -14,7 +14,7 @@ export ZSH="/home/aitvann/.oh-my-zsh"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# telling SSH hot to access the gpg-agent
+# telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
@@ -127,6 +127,7 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 source "$HOME/.config/zsh/put.zsh"
 source "$HOME/.config/fzf/conf.zsh"
 
