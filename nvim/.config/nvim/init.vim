@@ -136,9 +136,11 @@ let g:nord_italic_comments = 1
 let g:gruvbox_contrast_dark = 'medium'
 set bg=dark
 
-" title-bar
+" status-bar
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
 
 " ranger
 let g:rnvimr_enable_picker = 1
