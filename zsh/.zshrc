@@ -131,3 +131,5 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 source "$HOME/.config/zsh/put.zsh"
 source "$HOME/.config/fzf/conf.zsh"
 
+# keybindings
+bindkey '' backward-kill-word
