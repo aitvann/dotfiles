@@ -1,14 +1,14 @@
 " plugins
 call plug#begin('~/.vim/plugged')
 " general
-" integrates vs code pluggins to vim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " delete the buffer without closing the window
 Plug 'qpkorr/vim-bufkill'
 " interactive git
 Plug 'tpope/vim-fugitive'
 " shows signs for added, modified, and removed lines.
 Plug 'airblade/vim-gitgutter'
+" integrates vs code pluggins to vim, was used for LSP, now use native
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " interface
 " status bar
@@ -22,7 +22,7 @@ Plug 'junegunn/fzf.vim'
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " checks for syntax and shows errors, use LS instead
 " Plug 'scrooloose/syntastic'
-" fuzzy file searcher, use fzf instead
+" fuzzy file searcher, use FZF instead
 " Plug 'kien/ctrlp.vim'
 
 " editing
@@ -34,6 +34,15 @@ Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 " gc to comment line
 Plug 'tpope/vim-commentary'
+
+" lsp
+" the bridge between lua and configuration of LS
+Plug 'neovim/nvim-lspconfig'
+" enable extra features from LS (inline hints for Rust)
+Plug 'nvim-lua/lsp_extensions.nvim'
+" autocompletion using LSP
+Plug 'nvim-lua/completion-nvim'
+Plug 'gfanto/fzf-lsp.nvim'
 
 " colorschemes
 Plug 'jdkanani/vim-material-theme'
@@ -52,7 +61,12 @@ set hidden
 set number relativenumber
 set nu rnu
 set nowrap
-syntax on
+syntax enable
+filetype plugin indent on
+set signcolumn=yes
+imap jj <Esc> 
+nmap U :redo<CR>
+nmap <silent> <C-H> :noh<CR>
 " set cursorline cursorcolumn
 
 " tab
@@ -64,6 +78,56 @@ set softtabstop=4
 " search
 set hlsearch
 set incsearch
+
+" windows
+nmap <silent> <Del> :q<CR>
+" to the right
+map <C-R> <C-W>L
+" moving over the windows
+nmap <silent> gh :call WinMove('h')<CR>
+nmap <silent> gj :call WinMove('j')<CR>
+nmap <silent> gk :call WinMove('k')<CR>
+nmap <silent> gl :call WinMove('l')<CR>
+" moving(swapping) current window
+map gsh <C-W>h <C-W>x
+map gsj <C-W>j <C-W>x
+map gsk <C-W>k <C-W>x
+map gsl <C-W>l <C-W>x
+" resizing
+nmap <silent> <S-Left> :vertical resize -1<CR>
+nmap <silent> <S-Down> :resize +1<CR>
+nmap <silent> <S-Up> :resize -1<CR>
+nmap <silent> <S-Right> :vertical resize +1<CR>
+" scrolling
+map <silent> <Left> zh
+map <silent> <Down> <C-E>
+map <silent> <Up> <C-Y>
+map <silent> <Right> zl
+
+" opening things
+nmap <silent> '' <C-W>v
+nmap <silent> 't :call OpenTerminal()<CR>
+nmap <silent> 'r :RnvimrToggle<CR>
+nmap <silent> 'a :CodeActions<CR>
+nmap <silent> 'M :Diagnostics<CR>
+nmap 'm <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nmap 'i <cmd>lua vim.lsp.buf.hover()<CR>
+
+" buffers
+nmap <silent> <Tab> :bnext<CR>
+nmap <silent> <S-Tab> :bprevious<CR>
+nmap <silent> <Backspace> :call DeleteBuffer()<CR>
+
+" moving around
+nmap <silent> gw :Lines<CR>
+nmap <silent> gW :Rg<CR>
+nmap <silent> gf :Files<CR>
+nmap <silent> gb :Buffers<CR>
+nmap <silent> gr :References<CR>
+nmap <silent> gd :Definitions<CR>
+nmap <silent> gD :Declarations<CR>
+nmap <silent> gi :Implementations<CR>
+
 
 " colorscheme
 colorscheme gruvbox
@@ -82,60 +146,28 @@ let g:rnvimr_enable_picker = 1
 "fzf
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
+" auto-completion
+set completeopt=menuone,noinsert,noselect
+imap <silent> <C-Space> <Plug>(completion_trigger)
 
-" mappings
-" let g:mapleader=','
-imap jj <Esc> 
-nmap U :redo<CR>
-nmap <silent> <C-H> :noh<CR>
-" to the right
-map <C-R> <C-W>L
-" moving around
-nmap <silent> gw :Lines<CR>
-nmap <silent> gW :Rg<CR>
-nmap <silent> gf :Files<CR>
-nmap <silent> gb :Buffers<CR>
-" moving over the windows
-nmap <silent> gh :call WinMove('h')<CR>
-nmap <silent> gj :call WinMove('j')<CR>
-nmap <silent> gk :call WinMove('k')<CR>
-nmap <silent> gl :call WinMove('l')<CR>
-" moving(swapping) current window
-map gsh <C-H> <C-W>x
-map gsj <C-J> <C-W>x
-map gsk <C-K> <C-W>x
-map gsl <C-L> <C-W>x
-" resizing
-map <silent> <S-Left> :vertical resize -1<CR>
-map <silent> <S-Down> :resize +1<CR>
-map <silent> <S-Up> :resize -1<CR>
-map <silent> <S-Right> :vertical resize +1<CR>
-" scrolling
-map <silent> <Left> zh
-map <silent> <Down> <C-E>
-map <silent> <Up> <C-Y>
-map <silent> <Right> zl
-" opening
-nmap <silent> '' <C-W>v
-nmap <silent> 't :call OpenTerminal()<CR>
-nmap <silent> 'r :RnvimrToggle<CR>
-" buffers
-nmap <silent> <Tab> :bnext<CR>
-nmap <silent> <S-Tab> :bprevious<CR>
-nmap <silent> <Backspace> :call DeleteBuffer()<CR>
-" windows
-nmap <silent> <Del> :q<CR>
 " easymotion
 map , <Plug>(easymotion-bd-f)
 nmap , <Plug>(easymotion-overwin-f)
 " map <Leader> <Plug>(easymotion-prefix)
-" mappings-ctrlp
+
+" ctrlp
 " let g:ctrlp_map = 'gp'
+
 " mappings-nerdtree
 " map gn :NERDTreeToggle<CR>
 
 
-" command! -nargs=? OpenTerminal execute 'terminal <args>' | let b:is_term = 1 | execute 'startinsert'
+luafile $HOME/.config/nvim/lsp-config.lua
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = 'ᐅ ', highlight = "Comment", enabled = {"ChainingHint"} }
+
 
 function! OpenTerminal()
     execute 'terminal'
@@ -168,3 +200,4 @@ endfunction
 if (has('termguicolors'))
   set termguicolors
 endif
+
