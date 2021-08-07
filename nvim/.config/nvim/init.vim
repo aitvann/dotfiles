@@ -18,6 +18,8 @@ Plug 'kevinhwang91/rnvimr'
 " fzf integration
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" select file using ranger when open folder
+Plug 'iberianpig/ranger-explorer.vim'
 " tree file browser, use ranger instead
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " checks for syntax and shows errors, use LS instead
