@@ -12,7 +12,9 @@ Plug 'airblade/vim-gitgutter'
 
 " interface
 " status bar
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'mengelbrecht/lightline-bufferline'
 " open file with ranger window
 Plug 'kevinhwang91/rnvimr'
 " fzf integration
@@ -20,6 +22,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " select file using ranger when open folder
 Plug 'iberianpig/ranger-explorer.vim'
+" status bar, use lightline instead it's faster, minimalistic and easily configurable
+" Plug 'vim-airline/vim-airline'
 " tree file browser, use ranger instead
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " checks for syntax and shows errors, use LS instead
@@ -69,6 +73,7 @@ set nowrap
 syntax enable
 filetype plugin indent on
 set signcolumn=yes
+set showtabline=2
 imap jj <Esc>
 nmap Y y$
 nmap U :redo<CR>
@@ -106,8 +111,8 @@ nmap <silent> <S-Up> :resize -1<CR>
 nmap <silent> <S-Right> :vertical resize +1<CR>
 " scrolling
 map <silent> <Left> zh
-map <silent> <Down> <C-E>
-map <silent> <Up> <C-Y>
+map <silent> <Down> 4<C-E>
+map <silent> <Up> 4<C-Y>
 map <silent> <Right> zl
 
 " opening things
@@ -143,10 +148,42 @@ let g:gruvbox_contrast_dark = 'medium'
 set bg=dark
 
 " status-bar
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
+let g:lightline = { 'colorscheme': 'gruvbox' }
+let g:lightline.component = {
+    \ 'buffers-section': 'buffers' }
+let g:lightline.component_function = {
+    \ 'gitstatus': 'GitStatus',
+    \ 'gitbranch': 'FugitiveHead',
+    \ 'lsp': 'LspStatus' }
+let g:lightline.component_expand = {
+    \ 'buffers': 'lightline#bufferline#buffers' }
+let g:lightline.component_type = {
+    \ 'buffers': 'tabsel' }
+let g:lightline.tabline = {
+    \ 'left': [ [ 'buffers' ] ],
+    \ 'right': [ [ 'buffers-section' ] ] }
+let g:lightline.active = {
+    \ 'left': [ [ 'mode' ],
+    \           [ 'gitbranch', 'gitstatus' ] ],
+    \ 'right': [ [ 'lsp' ],
+    \            [ 'percent', 'lineinfo' ],
+    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+let g:lightline.inactive = {
+    \ 'left': [ [ 'filename' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'percent' ] ] }
+let g:lightline.separator = { 'left': '', 'right': '' }
+let g:lightline.subseparator = { 'left': '', 'right': '' }
+let g:lightline.tabline_separator = { 'left': '', 'right': '' }
+let g:lightline.tabline_subseparator = { 'left': '│', 'right': '│' }
+let g:lightline#bufferline#shorten_path = 0
+
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#show_buffers = 1
 
 " ranger
 let g:rnvimr_enable_picker = 1
@@ -210,6 +247,31 @@ function! WinMove(key)
         endif
         exec "wincmd ".a:key
     endif
+endfunction
+
+function! GitStatus()
+    let l:res = []
+
+    let [a, m, r] = GitGutterGetHunkSummary()
+    if (a > 0)
+        call add(l:res, printf('+%d', a))
+    endif
+    if (m > 0)
+        call add(l:res, printf('~%d', m))
+    endif
+    if (r > 0)
+        call add(l:res, printf('-%d', r))
+    endif
+
+    return join(l:res, ' ')
+endfunction
+
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")[6:-2]
+  endif
+
+  return 'Ok'
 endfunction
 
 if (has('termguicolors'))
