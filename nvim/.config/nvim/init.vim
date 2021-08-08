@@ -36,6 +36,8 @@ Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 " gc to comment line
 Plug 'tpope/vim-commentary'
+" formating using other formaters
+Plug 'sbdchd/neoformat'
 
 " lsp
 " the bridge between lua and configuration of LS
@@ -53,6 +55,7 @@ Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 
 " langs
+Plug 'cespare/vim-toml'
 " Plug 'rust-lang/rust.vim'
 
 call plug#end()
@@ -66,9 +69,9 @@ set nowrap
 syntax enable
 filetype plugin indent on
 set signcolumn=yes
-imap jj <Esc> 
+imap jj <Esc>
+nmap Y y$
 nmap U :redo<CR>
-nmap <silent> <C-H> :noh<CR>
 " set cursorline cursorcolumn
 
 " tab
@@ -80,6 +83,7 @@ set softtabstop=4
 " search
 set hlsearch
 set incsearch
+nmap <silent> <C-H> :noh<CR>
 
 " windows
 nmap <silent> <Del> :q<CR>
@@ -126,7 +130,7 @@ nmap <silent> gW :Rg<CR>
 nmap <silent> gf :Files<CR>
 nmap <silent> gb :Buffers<CR>
 nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nmap <silent> gd <cmd>lua vim.lsp.buf.references()<CR>
+nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nmap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nmap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 
@@ -158,6 +162,12 @@ imap <silent> <C-Space> <Plug>(completion_trigger)
 map , <Plug>(easymotion-bd-f)
 nmap , <Plug>(easymotion-overwin-f)
 " map <Leader> <Plug>(easymotion-prefix)
+
+" formating
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 " ctrlp
 " let g:ctrlp_map = 'gp'
