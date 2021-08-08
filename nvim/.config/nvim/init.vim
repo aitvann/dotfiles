@@ -125,10 +125,10 @@ nmap <silent> gw :Lines<CR>
 nmap <silent> gW :Rg<CR>
 nmap <silent> gf :Files<CR>
 nmap <silent> gb :Buffers<CR>
-nmap <silent> gr :References<CR>
-nmap <silent> gd :Definitions<CR>
-nmap <silent> gD :Declarations<CR>
-nmap <silent> gi :Implementations<CR>
+nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nmap <silent> gd <cmd>lua vim.lsp.buf.references()<CR>
+nmap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nmap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 
 
 " colorscheme
@@ -167,6 +167,7 @@ nmap , <Plug>(easymotion-overwin-f)
 
 
 luafile $HOME/.config/nvim/lsp-config.lua
+
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *

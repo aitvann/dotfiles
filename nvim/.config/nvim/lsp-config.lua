@@ -18,3 +18,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+require'fzf_lsp'.setup()
+
