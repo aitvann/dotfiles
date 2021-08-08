@@ -6,7 +6,7 @@ Plug 'qpkorr/vim-bufkill'
 " interactive git
 Plug 'tpope/vim-fugitive'
 " shows signs for added, modified, and removed lines.
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 " integrates vs code pluggins to vim, was used for LSP, now use native
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -105,10 +105,10 @@ map gsj <C-W>j <C-W>x
 map gsk <C-W>k <C-W>x
 map gsl <C-W>l <C-W>x
 " resizing
-nmap <silent> <S-Left> :vertical resize -1<CR>
-nmap <silent> <S-Down> :resize +1<CR>
-nmap <silent> <S-Up> :resize -1<CR>
-nmap <silent> <S-Right> :vertical resize +1<CR>
+nmap <silent> <S-Left> :vertical resize -4<CR>
+nmap <silent> <S-Down> :resize +4<CR>
+nmap <silent> <S-Up> :resize -4<CR>
+nmap <silent> <S-Right> :vertical resize +4<CR>
 " scrolling
 map <silent> <Left> zh
 map <silent> <Down> 4<C-E>
@@ -203,8 +203,19 @@ nmap , <Plug>(easymotion-overwin-f)
 " formating
 augroup fmt
   autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+  autocmd BufWritePre * Neoformat
 augroup END
+
+" VCS
+nmap } <plug>(signify-next-hunk)
+nmap { <plug>(signify-prev-hunk)
+
+omap ih <plug>(signify-motion-inner-pending)
+xmap ih <plug>(signify-motion-inner-visual)
+omap ah <plug>(signify-motion-outer-pending)
+xmap ah <plug>(signify-motion-outer-visual)
+
+autocmd User SignifyHunk call ShowCurrentHunk()
 
 " ctrlp
 " let g:ctrlp_map = 'gp'
@@ -252,29 +263,36 @@ endfunction
 function! GitStatus()
     let l:res = []
 
-    let [a, m, r] = GitGutterGetHunkSummary()
-    if (a > 0)
-        call add(l:res, printf('+%d', a))
+    let [added, modified, removed] = sy#repo#get_stats()
+    if (added > 0)
+        call add(l:res, printf('+%d', added))
     endif
-    if (m > 0)
-        call add(l:res, printf('~%d', m))
+    if (modified > 0)
+        call add(l:res, printf('~%d', modified))
     endif
-    if (r > 0)
-        call add(l:res, printf('-%d', r))
+    if (removed > 0)
+        call add(l:res, printf('-%d', removed))
     endif
 
     return join(l:res, ' ')
 endfunction
 
 function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")[6:-2]
-  endif
+    if luaeval('#vim.lsp.buf_get_clients() > 0')
+        return luaeval("require('lsp-status').status()")[6:-2]
+    endif
 
-  return 'Ok'
+    return 'Ok'
+endfunction
+
+function! ShowCurrentHunk() abort
+    let h = sy#util#get_hunk_stats()
+    if !empty(h)
+        echo printf('[Hunk %d/%d]', h.current_hunk, h.total_hunks)
+    endif
 endfunction
 
 if (has('termguicolors'))
-  set termguicolors
+    set termguicolors
 endif
 
