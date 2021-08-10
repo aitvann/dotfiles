@@ -7,6 +7,8 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-fugitive'
 " shows signs for added, modified, and removed lines.
 Plug 'mhinz/vim-signify'
+" smooth scrolling
+Plug 'yuttie/comfortable-motion.vim'
 " integrates vs code pluggins to vim, was used for LSP, now use native
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -77,19 +79,20 @@ set showtabline=2
 imap jj <Esc>
 nmap Y y$
 nmap U :redo<CR>
-nnoremap ]o o<Esc>
-nnoremap [o O<Esc>
 " set cursorline cursorcolumn
 
 " leader key
 let mapleader = "'"
 nmap <silent> <leader><leader> :call OpenTerminal()<CR>
+nmap          <leader>o        o<Esc>
+nmap          <leader>O        O<Esc>
 nmap <silent> <leader>e        :RnvimrToggle<CR>
 nmap <silent> <leader>a        :CodeActions<CR>
 nmap <silent> <leader>M        :Diagnostics<CR>
 nmap          <leader>m        <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nmap          <leader>i        <cmd>lua vim.lsp.buf.hover()<CR>
 nmap          <leader>r        <cmd>lua vim.lsp.buf.rename()<CR>
+nmap          <leader>tc       :ToggleAutoComment<CR>
 
 " tab
 set expandtab
@@ -113,9 +116,10 @@ nmap <silent> <S-Up> :resize -4<CR>
 nmap <silent> <S-Right> :vertical resize +4<CR>
 " scrolling
 map <silent> <Left> zh
-map <silent> <Down> 4<C-E>
-map <silent> <Up> 4<C-Y>
+map <silent> <Down> L:call comfortable_motion#flick(100)<CR>
+map <silent> <Up> H:call comfortable_motion#flick(-100)<CR>
 map <silent> <Right> zl
+let g:comfortable_motion_no_default_key_mappings = 1
 
 
 " buffers
