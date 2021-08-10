@@ -77,7 +77,19 @@ set showtabline=2
 imap jj <Esc>
 nmap Y y$
 nmap U :redo<CR>
+nnoremap ]o o<Esc>
+nnoremap [o O<Esc>
 " set cursorline cursorcolumn
+
+" leader key
+let mapleader = "'"
+nmap <silent> <leader><leader> :call OpenTerminal()<CR>
+nmap <silent> <leader>e        :RnvimrToggle<CR>
+nmap <silent> <leader>a        :CodeActions<CR>
+nmap <silent> <leader>M        :Diagnostics<CR>
+nmap          <leader>m        <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nmap          <leader>i        <cmd>lua vim.lsp.buf.hover()<CR>
+nmap          <leader>r        <cmd>lua vim.lsp.buf.rename()<CR>
 
 " tab
 set expandtab
@@ -94,16 +106,6 @@ nmap <silent> <C-H> :noh<CR>
 nmap <silent> <Del> :q<CR>
 " to the right
 map <C-R> <C-W>L
-" moving over the windows
-nmap <silent> gh :call WinMove('h')<CR>
-nmap <silent> gj :call WinMove('j')<CR>
-nmap <silent> gk :call WinMove('k')<CR>
-nmap <silent> gl :call WinMove('l')<CR>
-" moving(swapping) current window
-map gsh <C-W>h <C-W>x
-map gsj <C-W>j <C-W>x
-map gsk <C-W>k <C-W>x
-map gsl <C-W>l <C-W>x
 " resizing
 nmap <silent> <S-Left> :vertical resize -4<CR>
 nmap <silent> <S-Down> :resize +4<CR>
@@ -115,19 +117,27 @@ map <silent> <Down> 4<C-E>
 map <silent> <Up> 4<C-Y>
 map <silent> <Right> zl
 
-" opening things
-nmap <silent> '' <C-W>v
-nmap <silent> 't :call OpenTerminal()<CR>
-nmap <silent> 'r :RnvimrToggle<CR>
-nmap <silent> 'a :CodeActions<CR>
-nmap <silent> 'M :Diagnostics<CR>
-nmap 'm <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nmap 'i <cmd>lua vim.lsp.buf.hover()<CR>
 
 " buffers
 nmap <silent> <Tab> :bnext<CR>
 nmap <silent> <S-Tab> :bprevious<CR>
 nmap <silent> <Backspace> :call DeleteBuffer()<CR>
+
+function! OpenTerminal()
+    execute 'terminal'
+    let b:is_term = 1 
+    execute 'startinsert'
+    tmap <buffer> <Esc> <C-\><C-N>
+endfunction
+
+function! DeleteBuffer()
+    if (get(b:, 'is_term', 0) == 1)
+        exec "BD!"
+    else
+        exec "BD"
+    endif
+endfunction
+
 
 " moving around
 nmap <silent> gw :Lines<CR>
@@ -138,6 +148,31 @@ nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nmap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nmap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nmap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nmap <silent> gs <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nmap <silent> gS <cmd>lua vim.lsp.buf.workspace_symbol()<CR><CR>
+" moving over the windows
+nmap <silent> gh :call WinMove('h')<CR>
+nmap <silent> gj :call WinMove('j')<CR>
+nmap <silent> gk :call WinMove('k')<CR>
+nmap <silent> gl :call WinMove('l')<CR>
+" moving(swapping) current window
+map gsh <C-W>h <C-W>x
+map gsj <C-W>j <C-W>x
+map gsk <C-W>k <C-W>x
+map gsl <C-W>l <C-W>x
+
+function! WinMove(key)
+    let t:curwin = winnr()
+    exec "wincmd ".a:key
+    if (t:curwin == winnr())
+        if (match(a:key, '[jk]'))
+            wincmd v
+        else
+            wincmd s
+        endif
+        exec "wincmd ".a:key
+    endif
+endfunction
 
 
 " colorscheme
@@ -146,6 +181,11 @@ let g:nord_italic = 1
 let g:nord_italic_comments = 1
 let g:gruvbox_contrast_dark = 'medium'
 set bg=dark
+
+if (has('termguicolors'))
+    set termguicolors
+endif
+
 
 " status-bar
 let g:lightline = { 'colorscheme': 'gruvbox' }
@@ -178,88 +218,6 @@ let g:lightline.tabline_separator = { 'left': '', 'right': '' }
 let g:lightline.tabline_subseparator = { 'left': '│', 'right': '│' }
 let g:lightline#bufferline#shorten_path = 0
 
-autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
-
-" let g:airline_left_sep=''
-" let g:airline_right_sep=''
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_buffers = 1
-
-" ranger
-let g:rnvimr_enable_picker = 1
-
-"fzf
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-
-" auto-completion
-set completeopt=menuone,noinsert,noselect
-imap <silent> <C-Space> <Plug>(completion_trigger)
-
-" easymotion
-map , <Plug>(easymotion-bd-f)
-nmap , <Plug>(easymotion-overwin-f)
-" map <Leader> <Plug>(easymotion-prefix)
-
-" formating
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * Neoformat
-augroup END
-
-" VCS
-nmap } <plug>(signify-next-hunk)
-nmap { <plug>(signify-prev-hunk)
-
-omap ih <plug>(signify-motion-inner-pending)
-xmap ih <plug>(signify-motion-inner-visual)
-omap ah <plug>(signify-motion-outer-pending)
-xmap ah <plug>(signify-motion-outer-visual)
-
-autocmd User SignifyHunk call ShowCurrentHunk()
-
-" ctrlp
-" let g:ctrlp_map = 'gp'
-
-" mappings-nerdtree
-" map gn :NERDTreeToggle<CR>
-
-
-luafile $HOME/.config/nvim/lsp-config.lua
-
-
-" Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = 'ᐅ ', highlight = "Comment", enabled = {"ChainingHint"} }
-
-
-function! OpenTerminal()
-    execute 'terminal'
-    let b:is_term = 1 
-    execute 'startinsert'
-    tmap <buffer> <Esc> <C-\><C-N>
-endfunction
-
-function! DeleteBuffer()
-    if (get(b:, 'is_term', 0) == 1)
-        exec "BD!"
-    else
-        exec "BD"
-    endif
-endfunction
-
-function! WinMove(key)
-    let t:curwin = winnr()
-    exec "wincmd ".a:key
-    if (t:curwin == winnr())
-        if (match(a:key, '[jk]'))
-            wincmd v
-        else
-            wincmd s
-        endif
-        exec "wincmd ".a:key
-    endif
-endfunction
-
 function! GitStatus()
     let l:res = []
 
@@ -285,6 +243,46 @@ function! LspStatus() abort
     return 'Ok'
 endfunction
 
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#show_buffers = 1
+
+
+" ranger
+let g:rnvimr_enable_picker = 1
+
+"fzf
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+" auto-completion
+set completeopt=menuone,noinsert,noselect
+imap <silent> <C-Space> <Plug>(completion_trigger)
+
+" easymotion
+map , <Plug>(easymotion-bd-f)
+nmap , <Plug>(easymotion-overwin-f)
+
+" formating
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * Neoformat
+augroup END
+
+
+" VCS
+nmap } <plug>(signify-next-hunk)zz
+nmap { <plug>(signify-prev-hunk)zz
+
+omap ih <plug>(signify-motion-inner-pending)
+xmap ih <plug>(signify-motion-inner-visual)
+omap ah <plug>(signify-motion-outer-pending)
+xmap ah <plug>(signify-motion-outer-visual)
+
+autocmd User SignifyHunk call ShowCurrentHunk()
+
 function! ShowCurrentHunk() abort
     let h = sy#util#get_hunk_stats()
     if !empty(h)
@@ -292,7 +290,35 @@ function! ShowCurrentHunk() abort
     endif
 endfunction
 
-if (has('termguicolors'))
-    set termguicolors
-endif
+
+" disable autocomment by default
+let b:autocomment = 0
+autocmd BufNewFile,BufRead * :DisableAutoComment
+
+command! EnableAutoComment :set formatoptions+=cro | :let b:autocomment = 1
+command! DisableAutoComment :set formatoptions-=cro | :let b:autocomment = 0
+command! ToggleAutoComment call ToggleAutoComment()
+
+function! ToggleAutoComment()
+    if (b:autocomment)
+        :DisableAutoComment
+    else
+        :EnableAutoComment
+    endif
+endfunction
+
+
+" ctrlp
+" let g:ctrlp_map = 'gp'
+
+" mappings-nerdtree
+" map gn :NERDTreeToggle<CR>
+
+
+luafile $HOME/.config/nvim/lsp-config.lua
+
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = 'ᐅ ', highlight = "Comment", enabled = {"ChainingHint"} }
 
