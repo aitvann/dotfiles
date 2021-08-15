@@ -83,16 +83,16 @@ nmap U :redo<CR>
 
 " leader key
 let mapleader = "'"
-nmap <silent> <leader><leader> :call OpenTerminal()<CR>
-nmap          <leader>o        o<Esc>
-nmap          <leader>O        O<Esc>
-nmap <silent> <leader>e        :RnvimrToggle<CR>
-nmap <silent> <leader>a        :CodeActions<CR>
-nmap <silent> <leader>M        :Diagnostics<CR>
-nmap          <leader>m        <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nmap          <leader>i        <cmd>lua vim.lsp.buf.hover()<CR>
-nmap          <leader>r        <cmd>lua vim.lsp.buf.rename()<CR>
-nmap          <leader>tc       :ToggleAutoComment<CR>
+nmap <silent> <leader>;         :call OpenTerminal()<CR>
+nmap          <leader>o         o<Esc>
+nmap          <leader>O         O<Esc>
+nmap <silent> <leader>e         :RnvimrToggle<CR>
+nmap <silent> <leader>a         :CodeActions<CR>
+nmap <silent> <leader>M         :Diagnostics<CR>
+nmap          <leader>m         <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nmap          <leader>i         <cmd>lua vim.lsp.buf.hover()<CR>
+nmap          <leader>r         <cmd>lua vim.lsp.buf.rename()<CR>
+nmap          <leader>tc        :ToggleAutoComment<CR>
 
 " tab
 set expandtab
@@ -116,8 +116,8 @@ nmap <silent> <S-Up> :resize -4<CR>
 nmap <silent> <S-Right> :vertical resize +4<CR>
 " scrolling
 map <silent> <Left> zh
-map <silent> <Down> L:call comfortable_motion#flick(100)<CR>
-map <silent> <Up> H:call comfortable_motion#flick(-100)<CR>
+map <silent> <Down> L:call comfortable_motion#flick(40)<CR>
+map <silent> <Up> H:call comfortable_motion#flick(-40)<CR>
 map <silent> <Right> zl
 let g:comfortable_motion_no_default_key_mappings = 1
 
