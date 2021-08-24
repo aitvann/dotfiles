@@ -13,6 +13,7 @@ Plug 'yuttie/comfortable-motion.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " interface
+Plug 'mhinz/vim-startify'
 " status bar
 Plug 'itchyny/lightline.vim'
 Plug 'nvim-lua/lsp-status.nvim'
@@ -22,8 +23,6 @@ Plug 'kevinhwang91/rnvimr'
 " fzf integration
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" select file using ranger when open folder
-Plug 'iberianpig/ranger-explorer.vim'
 " status bar, use lightline instead it's faster, minimalistic and easily configurable
 " Plug 'vim-airline/vim-airline'
 " tree file browser, use ranger instead
@@ -92,6 +91,10 @@ nmap <silent> <leader>M         :Diagnostics<CR>
 nmap          <leader>m         <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nmap          <leader>i         <cmd>lua vim.lsp.buf.hover()<CR>
 nmap          <leader>r         <cmd>lua vim.lsp.buf.rename()<CR>
+nmap          <leader>sl        :SLoad<CR>
+nmap          <leader>ss        :SSave<CR>
+nmap          <leader>sd        :SDelete<CR>
+nmap          <leader>sc        :SClose<CR>
 nmap          <leader>tc        :ToggleAutoComment<CR>
 
 " tab
@@ -191,7 +194,32 @@ if (has('termguicolors'))
 endif
 
 
-" status-bar
+" startify
+let g:startify_session_dir = $HOME . '/.config/nvim/sessions'
+let g:startify_change_to_vcs_root = 1
+let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'w', 'e', 'r', 'u', 'i', 'o', 'x', 'c', 'v', 'm']
+let g:startify_lists = [
+    \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+    \ { 'type': 'sessions',  'header': ['   Sessions']       },
+    \ { 'type': 'files',     'header': ['   MRU']            },
+    \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+    \ ]
+let g:startify_custom_header = [
+    \ '⠀⠀⠀⠀⢶⣶⣶⣶⣶⡄⠀⢲⣶⣶⣶⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣄⠀⠻⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣧⡀⠙⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣷⣄⠈⢿⣿⣿⣿⣷⣄⠀⢤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⡄⠀⠀⠀⣤⣤⠀⠀⠀⢠⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣤⢠⣤⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣆⠀⠻⣿⣿⣿⣿⣆⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⣿⠀⠀⠀⢸⣿⡇⠀⣀⣤⣤⣀⡀⢀⣀⣤⣄⡀⠀⣿⡇⠀⢀⣀⠀⢀⣠⣤⣀⠀⢸⣿⢸⣿⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢙⣿⣿⣿⣿⡧⠀⢘⣿⣿⣿⣿⣧⡀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⣿⣿⠶⠶⠶⢾⣿⡇⠚⠋⠁⣈⣿⣷⣿⣯⣀⡉⠛⠃⣿⣇⣴⡟⠁⣴⣿⣉⣉⣹⣷⢸⣿⢸⣿⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⡟⠀⣠⣿⣿⣿⣿⣿⣿⣿⣄⠈⢻⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⣿⠀⠀⠀⢸⣿⡇⣾⡟⠋⠉⣿⣿⣈⡉⠙⠻⣿⡆⣿⡟⠹⣿⡄⣿⣏⠉⠉⢉⣉⢹⣿⢸⣿⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⠋⠀⣴⣿⣿⣿⣿⠿⣿⣿⣿⣿⣆⠀⠹⠿⠿⠿⠿⠿⠇⠀⠀⠀⠿⠿⠀⠀⠀⠸⠿⠇⠻⠷⠶⠞⠿⠿⠙⠷⠶⠶⠟⠃⠿⠇⠀⠘⠿⠮⠻⠷⠶⠿⠋⠸⠿⠸⠿⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⡿⠃⢀⣾⣿⣿⣿⡿⠃⠀⠘⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⠟⠁⣰⣿⣿⣿⣿⡟⠁⠀⠀⠀⠈⢻⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+    \ '⠀⠀⠀⠀⠼⠿⠿⠿⠿⠋⠀⠼⠿⠿⠿⠿⠋⠀⠀⠀⠀⠀⠀⠀⠻⠿⠿⠿⠿⠧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+    \]
+
+
+" lightline
 let g:lightline = { 'colorscheme': 'gruvbox' }
 let g:lightline.component = {
     \ 'buffers-section': 'buffers' }
@@ -264,6 +292,7 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 " auto-completion
 set completeopt=menuone,noinsert,noselect
 imap <silent> <C-Space> <Plug>(completion_trigger)
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 
 " easymotion
 map , <Plug>(easymotion-bd-f)
@@ -276,7 +305,7 @@ augroup fmt
 augroup END
 
 
-" VCS
+" signify
 nmap } <plug>(signify-next-hunk)zz
 nmap { <plug>(signify-prev-hunk)zz
 
@@ -285,7 +314,10 @@ xmap ih <plug>(signify-motion-inner-visual)
 omap ah <plug>(signify-motion-outer-pending)
 xmap ah <plug>(signify-motion-outer-visual)
 
-autocmd User SignifyHunk call ShowCurrentHunk()
+augroup hunk
+    autocmd!
+    autocmd User SignifyHunk call ShowCurrentHunk()
+augroup END
 
 function! ShowCurrentHunk() abort
     let h = sy#util#get_hunk_stats()
@@ -297,7 +329,10 @@ endfunction
 
 " disable autocomment by default
 let b:autocomment = 0
-autocmd BufNewFile,BufRead * :DisableAutoComment
+augroup autocomment
+    autocmd!
+    autocmd BufNewFile,BufRead * :DisableAutoComment
+augroup END
 
 command! EnableAutoComment :set formatoptions+=cro | :let b:autocomment = 1
 command! DisableAutoComment :set formatoptions-=cro | :let b:autocomment = 0
@@ -323,6 +358,8 @@ luafile $HOME/.config/nvim/lsp-config.lua
 
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = 'ᐅ ', highlight = "Comment", enabled = {"ChainingHint"} }
-
+augroup hints
+    autocmd!
+    autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+    \ lua require'lsp_extensions'.inlay_hints{ prefix = 'ᐅ ', highlight = "Comment", enabled = {"ChainingHint"} }
+augroup END
