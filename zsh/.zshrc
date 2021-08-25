@@ -11,22 +11,9 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="/home/aitvann/.oh-my-zsh"
 
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
-
-# IFS=: read -ra selected < <(
-#   rg --color=always --line-number --no-heading --smart-case "${*:-}" |
-#     fzf --ansi \
-#         --color "hl:-1:underline,hl+:-1:underline:reverse" \
-#         --delimiter : \
-#         --preview 'bat --color=always {1} --highlight-line {2}' \
-#         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
-# )
-# [ -n "${selected[0]}" ] && vim "${selected[0]}" "+${selected[1]}"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
