@@ -1,6 +1,6 @@
 let b:autocomment = 0
 
-nmap <leader>c    :ToggleAutoComment<CR>
+nmap <leader>c :ToggleAutoComment<CR>
 
 augroup autocomment
     autocmd!

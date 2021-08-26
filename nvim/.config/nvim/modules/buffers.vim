@@ -1,6 +1,7 @@
-nmap <silent> <Tab> :bnext<CR>
-nmap <silent> <S-Tab> :bprevious<CR>
-nmap <silent> <Backspace> :call DeleteBuffer()<CR>
+nmap <silent> <Tab>         :bnext<CR>
+nmap <silent> <S-Tab>       :bprevious<CR>
+nmap <silent> <Backspace>   :call DeleteBuffer()<CR>
+nmap <silent> <leader>;     :call OpenTerminal()<CR>
 
 function! OpenTerminal()
     execute 'terminal'

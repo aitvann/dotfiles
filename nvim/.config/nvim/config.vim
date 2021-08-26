@@ -4,6 +4,7 @@
 " 'g - git
 " g - go
 " gs - go swap
+" gc - go comment
 " <space> - debug
 
 
@@ -23,6 +24,7 @@ source ~/.config/nvim/modules/plugin-easymotion.vim
 source ~/.config/nvim/modules/plugin-neoformat.vim
 source ~/.config/nvim/modules/plugin-signify.vim
 source ~/.config/nvim/modules/plugin-comfort-scrolling.vim
+source ~/.config/nvim/modules/plugin-fugitive.vim
 " source ~/.config/nvim/modules/plugin-ctrlp.vim
 " source ~/.config/nvim/modules/plugin-mappings-nerdtree.vim
 
