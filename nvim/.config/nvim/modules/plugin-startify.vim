@@ -1,6 +1,6 @@
 let g:startify_session_dir = $HOME . '/.config/nvim/sessions'
 let g:startify_change_to_vcs_root = 1
-let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'w', 'e', 'r', 'u', 'i', 'o', 'x', 'c', 'v', 'm']
+let g:startify_custom_indices = ['a', 'd', 'f', 'l', 'w', 'r', 'u', 'o', 'x', 'c', 'm', 'n', 'z', 'y', 'p']
 let g:startify_lists = [
     \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
     \ { 'type': 'sessions',  'header': ['   Sessions']       },

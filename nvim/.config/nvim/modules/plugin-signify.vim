@@ -6,7 +6,7 @@ xmap ih <plug>(signify-motion-inner-visual)
 omap ah <plug>(signify-motion-outer-pending)
 xmap ah <plug>(signify-motion-outer-visual)
 
-augroup hunk
+augroup signify
     autocmd!
     autocmd User SignifyHunk call ShowCurrentHunk()
 augroup END

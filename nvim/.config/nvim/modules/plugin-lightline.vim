@@ -1,4 +1,4 @@
-let g:lightline = { 'colorscheme': 'gruvbox' }
+let g:lightline = { 'colorscheme': 'tokyonight' }
 let g:lightline.component = {
     \ 'buffers-section': 'buffers' }
 let g:lightline.component_function = {

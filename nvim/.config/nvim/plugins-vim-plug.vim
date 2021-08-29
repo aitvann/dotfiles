@@ -18,6 +18,9 @@ Plug 'yuttie/comfortable-motion.vim'
 " jump over the file
 Plug 'easymotion/vim-easymotion'
 
+" highlight color code
+Plug 'norcalli/nvim-colorizer.lua'
+
 " integrates vs code pluggins to vim, was used for LSP, now use native
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -101,6 +104,7 @@ Plug 'jdkanani/vim-material-theme'
 Plug 'kaicataldo/material.vim'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
+Plug 'ghifarit53/tokyonight-vim'
 
 
 

@@ -14,8 +14,10 @@ command! ToggleAutoComment call ToggleAutoComment()
 function! ToggleAutoComment()
     if (b:autocomment)
         :DisableAutoComment
+        echo "Auto-comment disabled"
     else
         :EnableAutoComment
+        echo "Auto-comment enabled"
     endif
 endfunction
 

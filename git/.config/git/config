@@ -1,7 +1,7 @@
 [user]
     name = Ivan Aytzhanov
     email = aitvann@gmail.com
-    signinkey = 1AA36C4408AB6ACE
+    signingkey = D9C6344BD3E34E49879F6EDF7A59A32597F270D6
 [core]
     excludesfile = /home/aitvann/.config/git/.gitignore_global
 [commit]
