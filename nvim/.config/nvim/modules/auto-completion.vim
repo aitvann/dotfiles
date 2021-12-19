@@ -1,4 +1,4 @@
 set completeopt=menuone,noinsert,noselect
 
-source ~/.config/nvim/modules/plugin-complition-nvim.vim
+luafile ~/.config/nvim/modules/plugin-nvim-cmp.lua
 

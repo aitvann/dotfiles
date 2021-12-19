@@ -75,8 +75,15 @@ Plug 'tpope/vim-surround'
 " gc to comment line
 Plug 'tpope/vim-commentary'
 
-" formating using other formaters
+" formating using multiple formaters
 Plug 'sbdchd/neoformat'
+
+" autocomplition using multiple sources
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-path'
+
+" snippets (required by `nvim-cmp`)
+Plug 'hrsh7th/vim-vsnip'
 
 
 
@@ -90,8 +97,9 @@ Plug 'neovim/nvim-lspconfig'
 " enable extra features from LS (inline hints for Rust)
 Plug 'nvim-lua/lsp_extensions.nvim'
 
-" autocompletion using LSP
-Plug 'nvim-lua/completion-nvim'
+" source for complitions using LSP
+Plug 'hrsh7th/cmp-nvim-lsp'
+
 Plug 'gfanto/fzf-lsp.nvim'
 
 
