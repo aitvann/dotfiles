@@ -13,7 +13,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-fugitive'
 
 " smooth scrolling
-Plug 'yuttie/comfortable-motion.vim'
+Plug 'karb94/neoscroll.nvim'
 
 " jump over the file
 Plug 'easymotion/vim-easymotion'

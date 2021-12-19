@@ -4,6 +4,7 @@ set nowrap
 set signcolumn=yes
 set showtabline=2
 set number relativenumber
+set scrolloff=10
 " set cursorline cursorcolumn
 
 if (has('termguicolors'))

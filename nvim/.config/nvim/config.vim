@@ -23,9 +23,9 @@ source ~/.config/nvim/modules/plugin-fzf.vim
 source ~/.config/nvim/modules/plugin-easymotion.vim
 source ~/.config/nvim/modules/plugin-neoformat.vim
 source ~/.config/nvim/modules/plugin-signify.vim
-source ~/.config/nvim/modules/plugin-comfort-scrolling.vim
 source ~/.config/nvim/modules/plugin-fugitive.vim
 luafile ~/.config/nvim/modules/plugin-nvim-colorizer.lua
+luafile ~/.config/nvim/modules/plugin-neoscroll.lua
 " source ~/.config/nvim/modules/plugin-ctrlp.vim
 " source ~/.config/nvim/modules/plugin-mappings-nerdtree.vim
 
