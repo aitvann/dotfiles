@@ -6,6 +6,10 @@ set showtabline=2
 set number relativenumber
 " set cursorline cursorcolumn
 
+if (has('termguicolors'))
+    set termguicolors
+endif
+
 syntax enable
 filetype plugin indent on
 

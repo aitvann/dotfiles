@@ -1,7 +1,3 @@
-if (has('termguicolors'))
-    set termguicolors
-endif
-
 " tokyonight
 let g:tokyonight_style = 'storm'
 let g:tokyonight_enable_italic = 1

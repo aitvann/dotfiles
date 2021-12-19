@@ -50,7 +50,7 @@ function! LspStatus() abort
         return luaeval("require('lsp-status').status()")[6:-2]
     endif
 
-    return 'Ok'
+    return 'No Lsp'
 endfunction
 
 augroup fmt
