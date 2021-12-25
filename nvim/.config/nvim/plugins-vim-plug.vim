@@ -21,6 +21,9 @@ Plug 'easymotion/vim-easymotion'
 " highlight color code
 Plug 'norcalli/nvim-colorizer.lua'
 
+" sugar for lua mapping
+Plug 'b0o/mapx.nvim'
+
 " integrates vs code pluggins to vim, was used for LSP, now use native
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
