@@ -24,3 +24,7 @@ cmp.setup({
         { name = 'path' }, -- group index 1
     })
 })
+
+vim.cmd [[
+    set completeopt=menuone,noinsert,noselect
+]]
