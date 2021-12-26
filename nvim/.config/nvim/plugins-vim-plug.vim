@@ -24,6 +24,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 " sugar for lua mapping
 Plug 'b0o/mapx.nvim'
 
+" useful lua functions
+Plug 'nvim-lua/plenary.nvim'
+
 " integrates vs code pluggins to vim, was used for LSP, now use native
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -47,9 +50,10 @@ Plug 'mengelbrecht/lightline-bufferline'
 " open file with ranger window
 Plug 'kevinhwang91/rnvimr'
 
-" fzf integration
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" fuzzy finder over lists
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'xiyaowong/telescope-emoji.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " status bar, use lightline instead it's faster, minimalistic and easily configurable
 " Plug 'vim-airline/vim-airline'
@@ -102,8 +106,6 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 
 " source for complitions using LSP
 Plug 'hrsh7th/cmp-nvim-lsp'
-
-Plug 'gfanto/fzf-lsp.nvim'
 
 
 

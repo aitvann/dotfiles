@@ -1,27 +1,25 @@
-local lsp = require'lspconfig'
-local cmp = require'cmp_nvim_lsp'
-local status = require'lsp-status'
-local fzf = require'fzf_lsp'
-local mapx = require'mapx'
-mapx.setup{ global = true }
+local lsp = require 'lspconfig'
+local cmp = require 'cmp_nvim_lsp'
+local status = require 'lsp-status'
+local mapx = require 'mapx'
+mapx.setup{ global = 'force' }
 
 -- compose `to_attach` functions from all pluggins
 local on_attach = function(client)
     status.on_attach(client)
 
-
     -- mappings
-    nnoremap("gr",          "<cmd> lua vim.lsp.buf.references()<CR>", "silent")
-    nnoremap("gd",          "<cmd> lua vim.lsp.buf.definition()<CR>", "silent")
-    nnoremap("gD",          "<cmd> lua vim.lsp.buf.declaration()<CR>", "silent")
-    nnoremap("gi",          "<cmd> lua vim.lsp.buf.implementation()<CR>", "silent")
-    nnoremap("gs",          "<cmd> lua vim.lsp.buf.document_symbol()<CR>", "silent")
-    nnoremap("gS",          "<cmd> lua vim.lsp.buf.workspace_symbol()<CR>", "silent")
-    nnoremap("<leader>a",   "<cmd> lua vim.lsp.buf.code_action()<CR>", "silent")
-    nnoremap("<leader>M",   "<cmd> lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "silent")
-    nnoremap("<leader>m",   "<cmd> lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "silent")
-    nnoremap("<leader>i",   "<cmd> lua vim.lsp.buf.hover()<CR>", "silent")
-    nnoremap("<leader>r",   "<cmd> lua vim.lsp.buf.rename()<CR>", "silent")
+    nnoremap("gr",          "<cmd> lua require'telescope.builtin'.lsp_references()          <CR>", "silent")
+    nnoremap("gd",          "<cmd> lua require'telescope.builtin'.lsp_definitions()         <CR>", "silent")
+    nnoremap("gt",          "<cmd> lua require'telescope.builtin'.lsp_type_definitions()    <CR>", "silent")
+    nnoremap("gi",          "<cmd> lua require'telescope.builtin'.lsp_implementations()     <CR>", "silent")
+    nnoremap("gs",          "<cmd> lua require'telescope.builtin'.lsp_document_symbols()    <CR>", "silent")
+    nnoremap("gS",          "<cmd> lua require'telescope.builtin'.lsp_workspace_symbols()   <CR>", "silent")
+    nnoremap("<leader>M",   "<cmd> lua require'telescope.builtin'.diagnostics()             <CR>", "silent")
+    nnoremap("<leader>m",   "<cmd> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })<CR>", "silent")
+    nnoremap("<leader>a",   "<cmd> lua require'telescope.builtin'.lsp_code_actions(require'telescope.themes'.get_cursor())<CR>", "silent")
+    nnoremap("<leader>i",   "<cmd> lua vim.lsp.buf.hover({ focusable = false }) <CR>", "silent")
+    nnoremap("<leader>r",   "<cmd> lua vim.lsp.buf.rename()                     <CR>", "silent")
 
     -- hover highlighting
     if client.resolved_capabilities.document_highlight then
@@ -66,8 +64,9 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp.update_capabilities(capabilities) -- update capabilities from 'cmp_nvim_lsp` plugin
 capabilities = vim.tbl_extend('keep', capabilities, status.capabilities) -- update capabilities from `lsp-status` plugin
 
-local function load_settings(path)
-    local res, module = pcall(require, 'modules.lsp.settings.' .. path)
+-- tries to load settings or return empty
+local function load_settings(server)
+    local res, module = pcall(require, 'modules.lsp.settings.' .. server)
     if (res) then
         return module
     else
@@ -106,7 +105,3 @@ status.config({
     indicator_hint = '?',
     indicator_ok = 'Ok',
 })
-
--- fzf
-fzf.setup()
-

@@ -6,6 +6,7 @@ set showtabline=2
 set number relativenumber
 set scrolloff=10
 set updatetime=1000
+set encoding=utf-8
 " set cursorline cursorcolumn
 
 if (has('termguicolors'))
