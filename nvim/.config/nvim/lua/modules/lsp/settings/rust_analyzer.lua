@@ -1,7 +1,7 @@
 return {
     ["rust-analyzer"] = {
-        diagnostics = {
-            enable = false
+        checkOnSave = {
+            command = "clippy"
         }
     }
 }
