@@ -1,0 +1,27 @@
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 1s
+
+tools:
+  markdown-markdownlint: &markdown-markdownlint
+    lint-command: 'markdownlint -s'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l %m'
+      - '%f:%l:%c %m'
+      - '%f: %l: %m'
+  # cargo clippy works for the whole package, the efm-lang-server expects it to work with a single file
+  # thus, a self-written clippy-efm-filter tool is used to filter the output of clippy for a specific file,
+  # probably grep can be used for this, but I don't know how :)
+  rust-clippy: &rust-clippy
+    lint-command: 'cargo clippy --message-format=short --color never --quiet &> /dev/stdout | clippy-efm-filter ${INPUT}'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+
+languages:
+  markdown:
+    - <<: *markdown-markdownlint
+  rust:
+    - <<: *rust-clippy

@@ -75,7 +75,11 @@ local function load_settings(server)
 end
 
 
-local servers = { 'rust_analyzer', 'sumneko_lua' }
+local servers = {
+    'rust_analyzer', --rust
+    'sumneko_lua', --lua
+    'efm' --lsp front for linters
+}
 for _, server in ipairs(servers) do
     lsp[server].setup {
         on_attach = on_attach,
