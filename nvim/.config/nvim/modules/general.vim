@@ -36,6 +36,9 @@ xmap > >gv
 xmap < <gv
 " to the right
 nmap <C-R> <C-W>L
+" move block of code
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " leader
 let mapleader = "'"

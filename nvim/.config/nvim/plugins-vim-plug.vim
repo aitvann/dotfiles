@@ -27,6 +27,9 @@ Plug 'b0o/mapx.nvim'
 " useful lua functions
 Plug 'nvim-lua/plenary.nvim'
 
+" analyze file structure
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " integrates vs code pluggins to vim, was used for LSP, now use native
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
