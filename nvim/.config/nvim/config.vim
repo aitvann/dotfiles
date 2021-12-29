@@ -26,6 +26,7 @@ luafile ~/.config/nvim/lua/modules/plugin-neoscroll.lua
 luafile ~/.config/nvim/lua/modules/plugin-telescope.lua
 luafile ~/.config/nvim/lua/modules/plugin-telescope-emoji.lua
 luafile ~/.config/nvim/lua/modules/plugin-treesitter.lua
+luafile ~/.config/nvim/lua/modules/plugin-renamer.lua
 luafile ~/.config/nvim/lua/modules/lsp/init.lua
 " source ~/.config/nvim/modules/plugin-ctrlp.vim
 " source ~/.config/nvim/modules/plugin-mappings-nerdtree.vim

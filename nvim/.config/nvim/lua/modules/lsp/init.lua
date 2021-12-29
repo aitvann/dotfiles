@@ -19,7 +19,8 @@ local on_attach = function(client)
     nnoremap("<leader>m",   "<cmd> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })<CR>", "silent")
     nnoremap("<leader>a",   "<cmd> lua require'telescope.builtin'.lsp_code_actions(require'telescope.themes'.get_cursor())<CR>", "silent")
     nnoremap("<leader>i",   "<cmd> lua vim.lsp.buf.hover({ focusable = false }) <CR>", "silent")
-    nnoremap("<leader>r",   "<cmd> lua vim.lsp.buf.rename()                     <CR>", "silent")
+    nnoremap("<leader>r",   "<cmd> lua require('renamer').rename()<cr>", "silent")
+    nnoremap("<leader>R",   "<cmd> lua require('renamer').rename() require'renamer.mappings.utils'.clear_line()<cr>", "silent")
 
     -- hover highlighting
     if client.resolved_capabilities.document_highlight then

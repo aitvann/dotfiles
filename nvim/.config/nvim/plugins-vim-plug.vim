@@ -58,6 +58,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'xiyaowong/telescope-emoji.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
+" better renaming input
+Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
+
 " status bar, use lightline instead it's faster, minimalistic and easily configurable
 " Plug 'vim-airline/vim-airline'
 
