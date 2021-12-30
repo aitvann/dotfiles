@@ -1,7 +1,7 @@
 return {
-    ["rust-analyzer"] = {
+    ['rust-analyzer'] = {
         checkOnSave = {
-            command = "clippy"
-        }
-    }
+            command = 'check',
+        },
+    },
 }

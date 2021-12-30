@@ -20,7 +20,7 @@ local on_attach = function(client)
 
     -- mappings
     -- stylua: ignore start
-    mapx.group('silent', 'buffer', function()
+    mapx.group('silent', function()
         nnoremap('gr',          function() telescope.lsp_references() end)
         nnoremap('gd',          function() telescope.lsp_definitions() end)
         nnoremap('gt',          function() telescope.lsp_type_definitions() end)

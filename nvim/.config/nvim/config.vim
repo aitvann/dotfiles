@@ -23,6 +23,7 @@ source ~/.config/nvim/modules/plugin-signify.vim
 source ~/.config/nvim/modules/plugin-fugitive.vim
 luafile ~/.config/nvim/lua/toggling.lua
 luafile ~/.config/nvim/lua/auto-comment.lua
+luafile ~/.config/nvim/lua/colorscheme.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-cmp.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-colorizer.lua
 luafile ~/.config/nvim/lua/modules/plugin-neoscroll.lua

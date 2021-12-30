@@ -126,7 +126,8 @@ Plug 'jdkanani/vim-material-theme'
 Plug 'kaicataldo/material.vim'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
-Plug 'ghifarit53/tokyonight-vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'rebelot/kanagawa.nvim'
 
 
 
