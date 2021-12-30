@@ -4,6 +4,13 @@ local lsp = require 'lspconfig'
 local cmp = require 'cmp_nvim_lsp'
 local status = require 'lsp-status'
 local null_ls = require 'null-ls'
+
+local telescope = require 'telescope.builtin'
+local telescope_themes = require 'telescope.themes'
+
+local renamer = require 'renamer'
+local renamer_utils = require 'renamer.mappings.utils'
+
 local mapx = require 'mapx'
 mapx.setup { global = 'force' }
 
@@ -12,26 +19,25 @@ local on_attach = function(client)
     status.on_attach(client)
 
     -- mappings
-    nnoremap('gr', '<cmd> lua require\'telescope.builtin\'.lsp_references()          <CR>', 'silent')
-    nnoremap('gd', '<cmd> lua require\'telescope.builtin\'.lsp_definitions()         <CR>', 'silent')
-    nnoremap('gt', '<cmd> lua require\'telescope.builtin\'.lsp_type_definitions()    <CR>', 'silent')
-    nnoremap('gi', '<cmd> lua require\'telescope.builtin\'.lsp_implementations()     <CR>', 'silent')
-    nnoremap('gs', '<cmd> lua require\'telescope.builtin\'.lsp_document_symbols()    <CR>', 'silent')
-    nnoremap('gS', '<cmd> lua require\'telescope.builtin\'.lsp_workspace_symbols()   <CR>', 'silent')
-    nnoremap('<leader>M', '<cmd> lua require\'telescope.builtin\'.diagnostics()             <CR>', 'silent')
-    nnoremap('<leader>m', '<cmd> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })<CR>', 'silent')
-    nnoremap(
-        '<leader>a',
-        '<cmd> lua require\'telescope.builtin\'.lsp_code_actions(require\'telescope.themes\'.get_cursor())<CR>',
-        'silent'
-    )
-    nnoremap('<leader>i', '<cmd> lua vim.lsp.buf.hover({ focusable = false }) <CR>', 'silent')
-    nnoremap('<leader>r', '<cmd> lua require(\'renamer\').rename()<cr>', 'silent')
-    nnoremap(
-        '<leader>R',
-        '<cmd> lua require(\'renamer\').rename() require\'renamer.mappings.utils\'.clear_line()<cr>',
-        'silent'
-    )
+    -- stylua: ignore start
+    mapx.group('silent', 'buffer', function()
+        nnoremap('gr',          function() telescope.lsp_references() end)
+        nnoremap('gd',          function() telescope.lsp_definitions() end)
+        nnoremap('gt',          function() telescope.lsp_type_definitions() end)
+        nnoremap('gi',          function() telescope.lsp_implementations() end)
+        nnoremap('gs',          function() telescope.lsp_document_symbols() end)
+        nnoremap('gS',          function() telescope.lsp_workspace_symbols() end)
+        nnoremap('<leader>M',   function() telescope.diagnostics() end)
+        nnoremap('<leader>m',   function() vim.lsp.diagnostic.show_line_diagnostics({ focusable = false }) end)
+        nnoremap('<leader>a',   function() telescope.lsp_code_actions(telescope_themes.get_cursor()) end)
+        nnoremap('<leader>i',   function() vim.lsp.buf.hover({ focusable = false }) end)
+        nnoremap('<leader>r',   function() renamer.rename() end)
+        nnoremap('<leader>R',   function()
+            renamer.rename()
+            renamer_utils.clear_line()
+        end)
+    end)
+    -- stylua: ignore end
 
     -- hover highlighting
     if client.resolved_capabilities.document_highlight then
@@ -40,6 +46,17 @@ local on_attach = function(client)
                 autocmd! * <buffer>
                 autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
                 autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+            augroup END
+        ]]
+    end
+
+    -- code_lens
+    if client.resolved_capabilities.code_lens then
+        vim.cmd [[
+            augroup lsp_codelens_refresh
+                autocmd! * <buffer>
+                autocmd BufEnter,InsertLeave,BufWritePost <buffer> lua vim.lsp.codelens.refresh()
+                autocmd CursorHold <buffer> lua vim.lsp.codelens.refresh()
             augroup END
         ]]
     end
