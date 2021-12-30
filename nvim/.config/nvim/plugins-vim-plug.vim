@@ -113,6 +113,9 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 " source for complitions using LSP
 Plug 'hrsh7th/cmp-nvim-lsp'
 
+" bridge between language tools that don't speak LSP and the LSP ecosystem
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
 
 
 " --------------------------------------------------------------------------------

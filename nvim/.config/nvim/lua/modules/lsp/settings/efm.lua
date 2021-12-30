@@ -1,5 +1,0 @@
-return {
-    efm = {
-        rootMarkers = {".git/"},
-    }
-}
