@@ -5,6 +5,10 @@
 " 't - Toggle
 "   'tf - Toggle Formatting
 "   'tc - Toggle auto Comment
+" ] - go to next
+"   ]d - go to next Diagnostic
+" [ - go to previous
+"   [d - go to previous Diagnostic
 " g - Go
 " gs - Go Swap
 " gc - Go Comment

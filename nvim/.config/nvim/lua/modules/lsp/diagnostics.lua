@@ -9,8 +9,10 @@ M.on_attach = function(_)
     -- mappings
     -- stylua: ignore start
     mapx.group('silent', 'buffer', function()
-        nnoremap('<leader>M', function() telescope.diagnostics() end)
-        nnoremap('<leader>m', function() vim.lsp.diagnostic.show_line_diagnostics() end)
+        nnoremap('<leader>M',   function() telescope.diagnostics() end)
+        nnoremap('<leader>m',   function() vim.lsp.diagnostic.show_line_diagnostics() end)
+        nnoremap('[d',          function() vim.diagnostic.goto_prev() end)
+        nnoremap(']d',          function() vim.diagnostic.goto_next() end)
     end)
     -- stylua: ignore end
 
