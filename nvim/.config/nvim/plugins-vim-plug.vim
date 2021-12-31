@@ -61,6 +61,9 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " better renaming input
 Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 
+" better signature help
+Plug 'ray-x/lsp_signature.nvim'
+
 " status bar, use lightline instead it's faster, minimalistic and easily configurable
 " Plug 'vim-airline/vim-airline'
 

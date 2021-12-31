@@ -3,6 +3,7 @@ local toggling = require 'toggling'
 local lsp = require 'lspconfig'
 local cmp = require 'cmp_nvim_lsp'
 local status = require 'lsp-status'
+local signature = require 'lsp_signature'
 local null_ls = require 'null-ls'
 
 local telescope = require 'telescope.builtin'
@@ -16,6 +17,7 @@ mapx.setup { global = 'force' }
 
 -- compose `to_attach` functions from all pluggins
 local on_attach = function(client)
+    signature.on_attach(client)
     status.on_attach(client)
 
     -- mappings
@@ -103,6 +105,14 @@ local function load_settings(server)
     end
 end
 
+-- enable diagnostics
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    underline = true,
+    signs = false,
+    update_in_insert = false,
+})
+
 local servers = {
     'rust_analyzer', --rust
     'sumneko_lua', --lua
@@ -114,14 +124,6 @@ for _, server in ipairs(servers) do
         settings = load_settings(server),
     }
 end
-
--- enable diagnostics
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    underline = false,
-    signs = true,
-    update_in_insert = true,
-})
 
 -- formatting
 nnoremap('<leader>tf', '<cmd> lua require"toggling".toggle"fmt_on_save"<CR>', 'silent')
