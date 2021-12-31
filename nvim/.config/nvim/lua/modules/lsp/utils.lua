@@ -3,29 +3,34 @@ local utils = require 'utils'
 
 local M = {}
 
--- loads options for each langserver from an options directory
+-- loads options for server
 -- module name: the same as langserver name in `lspconfig`
 -- module structure:
 --     `settings_name` - `string`, name of settings object
 --     `settings` - `object`, settings object ot pass to `lspconfig` setup
 --     `on_attach` - `fuction(client)`, function to call on `on_attach`
+M.load_options_for = function(server)
+    local res, module = pcall(require, 'modules.lsp.options.' .. server)
+    local server_options = res and module or {}
+
+    local settings = {}
+    if server_options.settings_name and server_options.settings then
+        settings[module.settings_name] = module.settings
+    end
+
+    local on_attach = server_options.on_attach or function() end
+
+    return {
+        settings = settings,
+        on_attach = on_attach,
+    }
+end
+
+-- loads options for each langserver from an options directory
 M.load_options = function(servers)
     local options = {}
     for _, server in ipairs(servers) do
-        local res, module = pcall(require, 'modules.lsp.options.' .. server)
-        local server_options = res and module or {}
-
-        local settings = {}
-        if server_options.settings_name and server_options.settings then
-            settings[module.settings_name] = module.settings
-        end
-
-        local on_attach = server_options.on_attach or function() end
-
-        options[server] = {
-            settings = settings,
-            on_attach = on_attach,
-        }
+        options[server] = M.load_options_for(server)
     end
     return options
 end

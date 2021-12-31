@@ -19,10 +19,12 @@ lsp_utils.apply_handlers()
 
 -- compose `to_attach` functions
 local on_attach = function(client)
+    local server_options = options[client.name] or lsp_utils.load_options_for(client.name)
+
     signature.on_attach(client)
     status.on_attach(client)
     diagnostics.on_attach(client)
-    options[client.name].on_attach(client)
+    server_options.on_attach(client)
 
     lsp_utils.resolve_capabilities(client.resolved_capabilities)
 end
@@ -42,6 +44,7 @@ end
 
 -- null-ls
 null_ls.setup {
+    on_attach = on_attach,
     sources = {
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.markdownlint,
