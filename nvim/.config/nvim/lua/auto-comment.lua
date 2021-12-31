@@ -1,7 +1,5 @@
 local toggling = require 'toggling'
-
 local mapx = require 'mapx'
-mapx.setup { global = 'force' }
 
 nnoremap('<leader>tc', '<cmd> lua require"toggling".toggle"auto_comment"<CR>', 'silent')
 toggling.register_initial('auto_comment', false)

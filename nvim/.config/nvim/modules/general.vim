@@ -2,11 +2,11 @@ set hidden
 set autoread
 set nowrap
 set signcolumn=yes
-set showtabline=2
 set number relativenumber
 set scrolloff=10
 set updatetime=1000
 set encoding=utf-8
+set noshowmode
 " set cursorline cursorcolumn
 
 if (has('termguicolors'))
@@ -37,8 +37,8 @@ xmap < <gv
 " to the right
 nmap <C-R> <C-W>L
 " move block of code
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
 
 " leader
 let mapleader = "'"

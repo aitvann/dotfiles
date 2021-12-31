@@ -9,9 +9,6 @@ let g:lightline.component_expand = {
     \ 'buffers': 'lightline#bufferline#buffers' }
 let g:lightline.component_type = {
     \ 'buffers': 'tabsel' }
-let g:lightline.tabline = {
-    \ 'left': [ [ 'buffers' ] ],
-    \ 'right': [ [ 'buffers-section' ] ] }
 let g:lightline.active = {
     \ 'left': [ [ 'mode' ],
     \           [ 'gitbranch', 'gitstatus' ] ],
@@ -26,7 +23,6 @@ let g:lightline.separator = { 'left': '', 'right': '' }
 let g:lightline.subseparator = { 'left': '', 'right': '' }
 let g:lightline.tabline_separator = { 'left': '', 'right': '' }
 let g:lightline.tabline_subseparator = { 'left': '│', 'right': '│' }
-let g:lightline#bufferline#shorten_path = 0
 
 function! GitStatus()
     let l:res = []
