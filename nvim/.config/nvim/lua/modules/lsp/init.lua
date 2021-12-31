@@ -1,4 +1,6 @@
+local lsp_utils = require 'modules.lsp.utils'
 local toggling = require 'toggling'
+local diagnostics = require 'modules.lsp.diagnostics'
 
 local lsp = require 'lspconfig'
 local cmp = require 'cmp_nvim_lsp'
@@ -6,88 +8,23 @@ local status = require 'lsp-status'
 local signature = require 'lsp_signature'
 local null_ls = require 'null-ls'
 
-local telescope = require 'telescope.builtin'
-local telescope_themes = require 'telescope.themes'
+local servers = {
+    'rust_analyzer', --rust
+    'sumneko_lua', --lua
+}
+local options = lsp_utils.load_options(servers)
 
-local renamer = require 'renamer'
-local renamer_utils = require 'renamer.mappings.utils'
+-- apply handlers
+lsp_utils.apply_handlers()
 
-local mapx = require 'mapx'
-mapx.setup { global = 'force' }
-
--- compose `to_attach` functions from all pluggins
+-- compose `to_attach` functions
 local on_attach = function(client)
     signature.on_attach(client)
     status.on_attach(client)
+    diagnostics.on_attach(client)
+    options[client.name].on_attach(client)
 
-    -- mappings
-    -- stylua: ignore start
-    mapx.group('silent', function()
-        nnoremap('gr',          function() telescope.lsp_references() end)
-        nnoremap('gd',          function() telescope.lsp_definitions() end)
-        nnoremap('gt',          function() telescope.lsp_type_definitions() end)
-        nnoremap('gi',          function() telescope.lsp_implementations() end)
-        nnoremap('gs',          function() telescope.lsp_document_symbols() end)
-        nnoremap('gS',          function() telescope.lsp_workspace_symbols() end)
-        nnoremap('<leader>M',   function() telescope.diagnostics() end)
-        nnoremap('<leader>m',   function() vim.lsp.diagnostic.show_line_diagnostics({ focusable = false }) end)
-        nnoremap('<leader>a',   function() telescope.lsp_code_actions(telescope_themes.get_cursor()) end)
-        nnoremap('<leader>i',   function() vim.lsp.buf.hover({ focusable = false }) end)
-        nnoremap('<leader>r',   function() renamer.rename() end)
-        nnoremap('<leader>R',   function()
-            renamer.rename()
-            renamer_utils.clear_line()
-        end)
-    end)
-    -- stylua: ignore end
-
-    -- hover highlighting
-    if client.resolved_capabilities.document_highlight then
-        vim.cmd [[
-            augroup lsp_document_highlight
-                autocmd! * <buffer>
-                autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-                autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-            augroup END
-        ]]
-    end
-
-    -- code_lens
-    if client.resolved_capabilities.code_lens then
-        vim.cmd [[
-            augroup lsp_codelens_refresh
-                autocmd! * <buffer>
-                autocmd BufEnter,InsertLeave,BufWritePost <buffer> lua vim.lsp.codelens.refresh()
-                autocmd CursorHold <buffer> lua vim.lsp.codelens.refresh()
-            augroup END
-        ]]
-    end
-
-    -- inline type hints
-    vim.cmd [[
-        highlight LspReferenceRead  guibg=#3a405e
-        highlight LspReferenceText  guibg=#3a405e
-        highlight LspReferenceWrite guibg=#3a405e
-
-        augroup inline_type_hints
-            autocmd! * <buffer>
-            autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost <buffer>
-            \ lua require'lsp_extensions'.inlay_hints{ prefix = 'ᐅ ', highlight = "Comment", enabled = {"ChainingHint"} }
-        augroup END
-    ]]
-
-    -- diagnostics in line number
-    vim.cmd [[
-        highlight DiagnosticLineNrError   guifg=#FF0000 gui=bold
-        highlight DiagnosticLineNrWarn    guifg=#FFA500 gui=bold
-        highlight DiagnosticLineNrInfo    guifg=#00AA00 gui=bold
-        highlight DiagnosticLineNrHint    guifg=#CCCCCC gui=bold
-
-        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
-        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
-        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
-        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
-    ]]
+    lsp_utils.resolve_capabilities(client.resolved_capabilities)
 end
 
 -- construct capabilities object
@@ -95,46 +32,13 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp.update_capabilities(capabilities) -- update capabilities from 'cmp_nvim_lsp` plugin
 capabilities = vim.tbl_extend('keep', capabilities, status.capabilities) -- update capabilities from `lsp-status` plugin
 
--- tries to load settings or return empty
-local function load_settings(server)
-    local res, module = pcall(require, 'modules.lsp.settings.' .. server)
-    if res then
-        return module
-    else
-        return {}
-    end
-end
-
--- enable diagnostics
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    underline = true,
-    signs = false,
-    update_in_insert = false,
-})
-
-local servers = {
-    'rust_analyzer', --rust
-    'sumneko_lua', --lua
-}
-for _, server in ipairs(servers) do
-    lsp[server].setup {
+for server_name, server_options in pairs(options) do
+    lsp[server_name].setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        settings = load_settings(server),
+        settings = server_options.settings,
     }
 end
-
--- formatting
-nnoremap('<leader>tf', '<cmd> lua require"toggling".toggle"fmt_on_save"<CR>', 'silent')
-toggling.register_initial('fmt_on_save', true)
-toggling.register_description('fmt_on_save', 'Formatting on save')
-vim.cmd [[
-    augroup fmt
-        autocmd!
-        autocmd BufWritePre * lua if require'toggling'.is_enabled'fmt_on_save' then vim.lsp.buf.formatting_sync() end
-    augroup END
-]]
 
 -- null-ls
 null_ls.setup {
@@ -162,3 +66,7 @@ status.config {
     indicator_hint = '?',
     indicator_ok = 'Ok',
 }
+
+-- formatting
+toggling.register_initial('fmt_on_save', true)
+toggling.register_description('fmt_on_save', 'Formatting on save')

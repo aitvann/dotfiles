@@ -3,7 +3,6 @@ set autoread
 set nowrap
 set signcolumn=yes
 set number relativenumber
-set scrolloff=10
 set updatetime=1000
 set encoding=utf-8
 set noshowmode
