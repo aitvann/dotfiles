@@ -9,9 +9,6 @@ call plug#begin('~/.nvim/plugins')
 " delete the buffer without closing the window
 Plug 'qpkorr/vim-bufkill'
 
-" interactive git
-Plug 'tpope/vim-fugitive'
-
 " smooth scrolling
 Plug 'karb94/neoscroll.nvim'
 
@@ -30,9 +27,6 @@ Plug 'nvim-lua/plenary.nvim'
 " analyze file structure
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" integrates vs code pluggins to vim, was used for LSP, now use native
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 
 
 " --------------------------------------------------------------------------------
@@ -41,9 +35,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " start screen
 Plug 'mhinz/vim-startify'
-
-" shows signs for added, modified, and removed lines.
-Plug 'mhinz/vim-signify'
 
 " status bar
 Plug 'itchyny/lightline.vim'
@@ -64,17 +55,15 @@ Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 " better signature help
 Plug 'ray-x/lsp_signature.nvim'
 
-" status bar, use lightline instead it's faster, minimalistic and easily configurable
-" Plug 'vim-airline/vim-airline'
+" Magit for neovim
+Plug 'TimUntersberger/neogit'
 
-" tree file browser, use ranger instead
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" diff tab
+Plug 'sindrets/diffview.nvim'
 
-" checks for syntax and shows errors, use LS instead
-" Plug 'scrooloose/syntastic'
-
-" fuzzy file searcher, use FZF instead
-" Plug 'kien/ctrlp.vim'
+" shows signs for added, modified, and removed lines.
+" and other git stuff inside buffer
+Plug 'lewis6991/gitsigns.nvim'
 
 
 
@@ -139,7 +128,6 @@ Plug 'rebelot/kanagawa.nvim'
 " --------------------------------------------------------------------------------
 
 Plug 'cespare/vim-toml'
-" Plug 'rust-lang/rust.vim'
 
 
 
