@@ -19,7 +19,6 @@ source ~/.config/nvim/modules/general.vim
 source ~/.config/nvim/modules/windows.vim
 source ~/.config/nvim/modules/buffers.vim
 source ~/.config/nvim/modules/colorscheme.vim
-source ~/.config/nvim/modules/plugin-startify.vim
 source ~/.config/nvim/modules/plugin-lightline.vim
 source ~/.config/nvim/modules/plugin-rnvimr.vim
 source ~/.config/nvim/modules/plugin-easymotion.vim
@@ -29,6 +28,7 @@ luafile ~/.config/nvim/lua/auto-comment.lua
 luafile ~/.config/nvim/lua/colorscheme.lua
 luafile ~/.config/nvim/lua/tabs.lua
 luafile ~/.config/nvim/lua/git.lua
+luafile ~/.config/nvim/lua/start-screen.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-cmp.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-colorizer.lua
 luafile ~/.config/nvim/lua/modules/plugin-neoscroll.lua

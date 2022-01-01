@@ -1,7 +1,6 @@
 local neogit = require 'neogit'
 local diffview = require 'diffview'
 local gitsigns = require 'gitsigns'
-local mapx = require 'mapx'
 
 neogit.setup {
     disable_signs = false,
@@ -54,6 +53,7 @@ neogit.setup {
         -- modify status buffer mappings
         status = {
             ['<Space>'] = 'Toggle',
+            ['<Esc>'] = 'Close',
         },
     },
 }
