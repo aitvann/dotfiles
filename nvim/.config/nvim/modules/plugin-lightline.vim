@@ -1,16 +1,8 @@
 let g:lightline = { 'colorscheme': 'tokyonight' }
-let g:lightline.component = {
-    \ 'buffers-section': 'buffers' }
 let g:lightline.component_function = {
-    \ 'gitbranch': 'FugitiveHead',
-    \ 'lsp': 'LspStatus' }
-let g:lightline.component_expand = {
-    \ 'buffers': 'lightline#bufferline#buffers' }
-let g:lightline.component_type = {
-    \ 'buffers': 'tabsel' }
+    \ 'lsp': 'LspStatus'}
 let g:lightline.active = {
-    \ 'left': [ [ 'mode' ],
-    \           [ 'gitbranch'] ],
+    \ 'left': [ [ 'mode' ] ],
     \ 'right': [ [ 'lsp' ],
     \            [ 'percent', 'lineinfo' ],
     \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
