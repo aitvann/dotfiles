@@ -60,15 +60,6 @@ null_ls.setup {
 
 -- status
 status.register_progress()
-status.config {
-    current_function = false,
-
-    indicator_errors = 'E',
-    indicator_warnings = 'W',
-    indicator_info = 'I',
-    indicator_hint = '?',
-    indicator_ok = 'Ok',
-}
 
 -- formatting
 toggling.register_initial('fmt_on_save', true)

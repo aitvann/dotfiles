@@ -54,6 +54,7 @@ neogit.setup {
         status = {
             ['<Space>'] = 'Toggle',
             ['<Esc>'] = 'Close',
+            ['<Enter>'] = 'GoToFile',
         },
     },
 }
@@ -105,8 +106,8 @@ diffview.setup {
         -- The `view` bindings are active in the diff buffers, only when the current
         -- tabpage is a Diffview.
         view = {
-            ['<n>'] = cb 'select_next_entry', -- Open the diff for the next file
-            ['<p>'] = cb 'select_prev_entry', -- Open the diff for the previous file
+            ['<Tab>'] = cb 'select_next_entry', -- Open the diff for the next file
+            ['<S-Tab>'] = cb 'select_prev_entry', -- Open the diff for the previous file
             ['<Enter>'] = cb 'goto_file', -- Open the file in a new split in previous tabpage
             ['<C-w><C-f>'] = cb 'goto_file_split', -- Open the file in a new split
             ['<C-w><Enter>'] = cb 'goto_file_tab', -- Open the file in a new tabpage
@@ -126,8 +127,8 @@ diffview.setup {
             ['U'] = cb 'unstage_all', -- Unstage all entries.
             ['X'] = cb 'restore_entry', -- Restore entry to the state on the left side.
             ['R'] = cb 'refresh_files', -- Update stats and entries in the file list.
-            ['<n>'] = cb 'select_next_entry',
-            ['<p>'] = cb 'select_prev_entry',
+            ['<Tab>'] = cb 'select_next_entry',
+            ['<S-Tab>'] = cb 'select_prev_entry',
             ['<Enter>'] = cb 'goto_file',
             ['<C-w><C-f>'] = cb 'goto_file_split',
             ['<C-w><Enter>'] = cb 'goto_file_tab',
@@ -149,8 +150,8 @@ diffview.setup {
             ['<cr>'] = cb 'select_entry',
             ['o'] = cb 'select_entry',
             ['<2-LeftMouse>'] = cb 'select_entry',
-            ['<n>'] = cb 'select_next_entry',
-            ['<p>'] = cb 'select_prev_entry',
+            ['<Tab>'] = cb 'select_next_entry',
+            ['<S-Tab>'] = cb 'select_prev_entry',
             ['<Enter>'] = cb 'goto_file',
             ['<C-w><C-f>'] = cb 'goto_file_split',
             ['<C-w><Enter>'] = cb 'goto_file_tab',
@@ -191,9 +192,9 @@ gitsigns.setup {
         ['n <leader>hs'] = '<cmd>Gitsigns stage_hunk<CR>',
         ['v <leader>hs'] = ':Gitsigns stage_hunk<CR>',
         ['n <leader>hu'] = '<cmd>Gitsigns undo_stage_hunk<CR>',
-        ['n <leader>hr'] = '<cmd>Gitsigns reset_hunk<CR>',
-        ['v <leader>hr'] = ':Gitsigns reset_hunk<CR>',
-        ['n <leader>gR'] = '<cmd>Gitsigns reset_buffer<CR>',
+        ['n <leader>hx'] = '<cmd>Gitsigns reset_hunk<CR>',
+        ['v <leader>hx'] = ':Gitsigns reset_hunk<CR>',
+        ['n <leader>gX'] = '<cmd>Gitsigns reset_buffer<CR>',
         ['n <leader>hp'] = '<cmd>Gitsigns preview_hunk<CR>',
         ['n <leader>gB'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
         ['n <leader>gS'] = '<cmd>Gitsigns stage_buffer<CR>',

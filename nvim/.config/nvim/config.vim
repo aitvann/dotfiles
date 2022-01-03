@@ -7,12 +7,18 @@
 "   'tc - Toggle auto Comment
 " ] - go to next
 "   ]d - go to next Diagnostic
+"   ]h - go to next Hunk
 " [ - go to previous
 "   [d - go to previous Diagnostic
+"   [h - go to previous Hunk
 " g - Go
 " gs - Go Swap
 " gc - Go Comment
-" <space> - debug
+" <Tab> in normal - cycle buffers forward
+" <S-Tab> in normal - cycle buffers backward
+" <Space> in normal - inline toggle
+" <Tab> in insert - inline toggle
+" <Enter> - go to file
 
 
 source ~/.config/nvim/modules/general.vim
