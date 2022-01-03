@@ -77,7 +77,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 
 " gc to comment line
-Plug 'tpope/vim-commentary'
+Plug 'numToStr/Comment.nvim'
+" context aware commenting
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " formating using multiple formaters
 Plug 'sbdchd/neoformat'

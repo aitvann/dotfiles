@@ -28,7 +28,7 @@ source ~/.config/nvim/modules/plugin-rnvimr.vim
 source ~/.config/nvim/modules/plugin-easymotion.vim
 luafile ~/.config/nvim/lua/utils.lua
 luafile ~/.config/nvim/lua/toggling.lua
-luafile ~/.config/nvim/lua/auto-comment.lua
+luafile ~/.config/nvim/lua/commenting.lua
 luafile ~/.config/nvim/lua/colorscheme.lua
 luafile ~/.config/nvim/lua/tabs.lua
 luafile ~/.config/nvim/lua/git.lua
