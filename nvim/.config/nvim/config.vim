@@ -33,6 +33,7 @@ luafile ~/.config/nvim/lua/colorscheme.lua
 luafile ~/.config/nvim/lua/tabs.lua
 luafile ~/.config/nvim/lua/git.lua
 luafile ~/.config/nvim/lua/start-screen.lua
+luafile ~/.config/nvim/lua/session.lua
 luafile ~/.config/nvim/lua/status-line/init.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-cmp.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-colorizer.lua
