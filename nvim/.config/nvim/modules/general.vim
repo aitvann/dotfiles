@@ -6,6 +6,7 @@ set number relativenumber
 set updatetime=1000
 set encoding=utf-8
 set noshowmode
+set showtabline=2
 " set cursorline cursorcolumn
 
 if (has('termguicolors'))

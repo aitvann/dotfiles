@@ -32,7 +32,7 @@ mapx.group('silent', function()
     noremap('<leader>sd', '<cmd>SDelete<CR>')
     noremap('<leader>sc', function()
         utils.close_buffer_by_name 'NeogitStatus'
-        utils.close_buffer_by_name 'diffview'
+        vim.cmd 'DiffviewClose'
         vim.cmd 'SClose'
     end)
 end)

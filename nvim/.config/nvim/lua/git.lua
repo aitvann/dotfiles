@@ -101,15 +101,15 @@ diffview.setup {
     },
     hooks = {}, -- See ':h diffview-config-hooks'
     key_bindings = {
-        disable_defaults = false, -- Disable the default key bindings
+        disable_defaults = true, -- Disable the default key bindings
         -- The `view` bindings are active in the diff buffers, only when the current
         -- tabpage is a Diffview.
         view = {
-            ['<tab>'] = cb 'select_next_entry', -- Open the diff for the next file
-            ['<s-tab>'] = cb 'select_prev_entry', -- Open the diff for the previous file
-            ['gf'] = cb 'goto_file', -- Open the file in a new split in previous tabpage
+            ['<n>'] = cb 'select_next_entry', -- Open the diff for the next file
+            ['<p>'] = cb 'select_prev_entry', -- Open the diff for the previous file
+            ['<Enter>'] = cb 'goto_file', -- Open the file in a new split in previous tabpage
             ['<C-w><C-f>'] = cb 'goto_file_split', -- Open the file in a new split
-            ['<C-w>gf'] = cb 'goto_file_tab', -- Open the file in a new tabpage
+            ['<C-w><Enter>'] = cb 'goto_file_tab', -- Open the file in a new tabpage
             ['<leader>e'] = cb 'focus_files', -- Bring focus to the files panel
             ['<leader>b'] = cb 'toggle_files', -- Toggle the files panel.
         },
@@ -126,11 +126,11 @@ diffview.setup {
             ['U'] = cb 'unstage_all', -- Unstage all entries.
             ['X'] = cb 'restore_entry', -- Restore entry to the state on the left side.
             ['R'] = cb 'refresh_files', -- Update stats and entries in the file list.
-            ['<tab>'] = cb 'select_next_entry',
-            ['<s-tab>'] = cb 'select_prev_entry',
-            ['gf'] = cb 'goto_file',
+            ['<n>'] = cb 'select_next_entry',
+            ['<p>'] = cb 'select_prev_entry',
+            ['<Enter>'] = cb 'goto_file',
             ['<C-w><C-f>'] = cb 'goto_file_split',
-            ['<C-w>gf'] = cb 'goto_file_tab',
+            ['<C-w><Enter>'] = cb 'goto_file_tab',
             ['i'] = cb 'listing_style', -- Toggle between 'list' and 'tree' views
             ['f'] = cb 'toggle_flatten_dirs', -- Flatten empty subdirectories in tree listing style.
             ['<leader>e'] = cb 'focus_files',
@@ -149,11 +149,11 @@ diffview.setup {
             ['<cr>'] = cb 'select_entry',
             ['o'] = cb 'select_entry',
             ['<2-LeftMouse>'] = cb 'select_entry',
-            ['<tab>'] = cb 'select_next_entry',
-            ['<s-tab>'] = cb 'select_prev_entry',
-            ['gf'] = cb 'goto_file',
+            ['<n>'] = cb 'select_next_entry',
+            ['<p>'] = cb 'select_prev_entry',
+            ['<Enter>'] = cb 'goto_file',
             ['<C-w><C-f>'] = cb 'goto_file_split',
-            ['<C-w>gf'] = cb 'goto_file_tab',
+            ['<C-w><Enter>'] = cb 'goto_file_tab',
             ['<leader>e'] = cb 'focus_files',
             ['<leader>b'] = cb 'toggle_files',
         },
@@ -166,11 +166,16 @@ diffview.setup {
 
 gitsigns.setup {
     signs = {
-        add = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-        change = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-        delete = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-        topdelete = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-        changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+        add = { hl = 'GitSignsAdd', text = '▍', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+        change = { hl = 'GitSignsChange', text = '▍', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+        delete = { hl = 'GitSignsDelete', text = '▸', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+        topdelete = { hl = 'GitSignsDelete', text = '▾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+        changedelete = {
+            hl = 'GitSignsChange',
+            text = '▍',
+            numhl = 'GitSignsChangeNr',
+            linehl = 'GitSignsChangeLn',
+        },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false, -- Toggle with `:Gitsigns toggle_numhl`

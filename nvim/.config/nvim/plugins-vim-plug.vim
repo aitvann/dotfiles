@@ -36,10 +36,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " start screen
 Plug 'mhinz/vim-startify'
 
-" status bar
-Plug 'itchyny/lightline.vim'
+" status line
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'mengelbrecht/lightline-bufferline'
 
 " open file with ranger window
 Plug 'kevinhwang91/rnvimr'

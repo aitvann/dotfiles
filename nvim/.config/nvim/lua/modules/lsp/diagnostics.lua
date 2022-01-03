@@ -18,15 +18,10 @@ M.on_attach = function(_)
 
     -- diagnostics in line number
     vim.cmd [[
-        highlight DiagnosticLineNrError   guifg=#FF0000 gui=bold
-        highlight DiagnosticLineNrWarn    guifg=#FFA500 gui=bold
-        highlight DiagnosticLineNrInfo    guifg=#00AA00 gui=bold
-        highlight DiagnosticLineNrHint    guifg=#CCCCCC gui=bold
-
-        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
-        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
-        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
-        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
+        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticError
+        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticWarn
+        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticInfo
+        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticHint
     ]]
 end
 
