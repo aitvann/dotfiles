@@ -21,4 +21,15 @@ M.close_buffer_by_name = function(name)
     end
 end
 
+M.close_current_buffer = function()
+    local bufname = vim.api.nvim_exec('echo @%', true)
+    local is_term = vim.startswith(bufname, 'term')
+    local is_shell = vim.endswith(bufname, 'zsh') or vim.endswith(bufname, 'bash')
+    if is_term and is_shell then
+        vim.cmd 'Bdelete!'
+    else
+        vim.cmd 'Bdelete'
+    end
+end
+
 return M

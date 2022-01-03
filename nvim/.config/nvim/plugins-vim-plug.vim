@@ -7,7 +7,7 @@ call plug#begin('~/.nvim/plugins')
 " --------------------------------------------------------------------------------
 
 " delete the buffer without closing the window
-Plug 'qpkorr/vim-bufkill'
+Plug 'moll/vim-bbye'
 
 " smooth scrolling
 Plug 'karb94/neoscroll.nvim'
@@ -38,7 +38,6 @@ Plug 'mhinz/vim-startify'
 
 " status line
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'nvim-lua/lsp-status.nvim'
 
 " open file with ranger window
 Plug 'kevinhwang91/rnvimr'
@@ -81,9 +80,6 @@ Plug 'numToStr/Comment.nvim'
 " context aware commenting
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
-" formating using multiple formaters
-Plug 'sbdchd/neoformat'
-
 " autocomplition using multiple sources
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-path'
@@ -108,6 +104,9 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 
 " bridge between language tools that don't speak LSP and the LSP ecosystem
 Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" get progress state and messages from LSP
+Plug 'nvim-lua/lsp-status.nvim'
 
 
 

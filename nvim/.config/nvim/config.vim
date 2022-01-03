@@ -23,7 +23,6 @@
 
 source ~/.config/nvim/modules/general.vim
 source ~/.config/nvim/modules/windows.vim
-source ~/.config/nvim/modules/buffers.vim
 source ~/.config/nvim/modules/plugin-rnvimr.vim
 source ~/.config/nvim/modules/plugin-easymotion.vim
 source ~/.config/nvim/modules/resize.vim
@@ -36,6 +35,7 @@ luafile ~/.config/nvim/lua/git.lua
 luafile ~/.config/nvim/lua/start-screen.lua
 luafile ~/.config/nvim/lua/session.lua
 luafile ~/.config/nvim/lua/auto-pairs.lua
+luafile ~/.config/nvim/lua/buffers.lua
 luafile ~/.config/nvim/lua/status-line/init.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-cmp.lua
 luafile ~/.config/nvim/lua/modules/plugin-nvim-colorizer.lua
