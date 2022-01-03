@@ -71,7 +71,7 @@ Plug 'lewis6991/gitsigns.nvim'
 " --------------------------------------------------------------------------------
 
 " automaticaly close ", (, {, etc.
-Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 
 " easily change the sorrounding
 Plug 'tpope/vim-surround'
