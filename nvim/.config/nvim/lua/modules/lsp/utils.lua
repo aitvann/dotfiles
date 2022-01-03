@@ -42,7 +42,7 @@ end
 M.resolve_capabilities = function(resolved_capabilities)
     for capability, value in pairs(resolved_capabilities) do
         local res, module = pcall(require, 'modules.lsp.capabilities.' .. capability)
-        if res then
+        if res and value then
             module(value)
         end
     end

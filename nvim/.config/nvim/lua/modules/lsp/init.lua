@@ -20,11 +20,11 @@ lsp_utils.apply_handlers()
 -- compose `to_attach` functions
 local on_attach = function(client)
     local server_options = options[client.name] or lsp_utils.load_options_for(client.name)
+    server_options.on_attach(client)
 
     signature.on_attach(client)
     status.on_attach(client)
     diagnostics.on_attach(client)
-    server_options.on_attach(client)
 
     lsp_utils.resolve_capabilities(client.resolved_capabilities)
 end

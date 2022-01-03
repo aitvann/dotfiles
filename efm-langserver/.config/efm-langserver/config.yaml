@@ -5,12 +5,12 @@ lint-debounce: 1s
 
 tools:
   markdown-markdownlint: &markdown-markdownlint
-    lint-command: 'markdownlint -s'
+    lint-command: "markdownlint -s"
     lint-stdin: true
     lint-formats:
-      - '%f:%l %m'
-      - '%f:%l:%c %m'
-      - '%f: %l: %m'
+      - "%f:%l %m"
+      - "%f:%l:%c %m"
+      - "%f: %l: %m"
 
 languages:
   markdown:
