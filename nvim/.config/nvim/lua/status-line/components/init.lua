@@ -4,6 +4,6 @@ local require = function(s)
 end
 
 return {
-    lsp_status_or_filename = require 'lsp-status-or-filename',
+    progress_or_filename = require 'progress-or-filename',
     diagnostics = require 'diagnostics',
 }

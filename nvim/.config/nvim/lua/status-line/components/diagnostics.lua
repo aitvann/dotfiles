@@ -1,39 +1,9 @@
 local highlight = require 'lualine.highlight'
-local utils = require 'lualine.utils.utils'
 
 local M = require('lualine.components.diagnostics'):extend()
 
-local default_options = {
-    colored = true,
-    symbols = { added = '+', modified = '~', removed = '-' },
-    diff_color = {
-        added = {
-            fg = utils.extract_color_from_hllist(
-                'fg',
-                { 'GitSignsAdd', 'GitGutterAdd', 'DiffAdded', 'DiffAdd' },
-                '#90ee90'
-            ),
-        },
-        modified = {
-            fg = utils.extract_color_from_hllist(
-                'fg',
-                { 'GitSignsChange', 'GitGutterChange', 'DiffChanged', 'DiffChange' },
-                '#f0e130'
-            ),
-        },
-        removed = {
-            fg = utils.extract_color_from_hllist(
-                'fg',
-                { 'GitSignsDelete', 'GitGutterDelete', 'DiffRemoved', 'DiffDelete' },
-                '#ff0038'
-            ),
-        },
-    },
-}
-
 M.init = function(self, options)
     M.super.init(self, options)
-    self.options = vim.tbl_deep_extend('keep', self.options or {}, default_options)
 
     if self.options.colored then
         self.highlights = {
@@ -76,7 +46,7 @@ M.update_status = function(self)
 
     local status = M.super.update_status(self)
     if status == '' then
-        return (colors['info'] or '') .. 'Ok'
+        return (colors['hint'] or '') .. 'Ok'
     else
         return status
     end
