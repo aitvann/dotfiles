@@ -1,4 +1,3 @@
-local utils = require 'utils'
 local mapx = require 'mapx'
 
 vim.cmd [[
@@ -24,15 +23,17 @@ vim.cmd [[
         \ '⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⠟⠁⣰⣿⣿⣿⣿⡟⠁⠀⠀⠀⠈⢻⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
         \ '⠀⠀⠀⠀⠼⠿⠿⠿⠿⠋⠀⠼⠿⠿⠿⠿⠋⠀⠀⠀⠀⠀⠀⠀⠻⠿⠿⠿⠿⠧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
         \]
+    let g:startify_session_before_save = [ 'call CloseGit()' ]
+
+    function! CloseGit()
+        exec 'DiffviewClose'
+        call luaeval('require"utils".close_buffer_by_name"NeogitStatus"')
+    endfunction
 ]]
 
 mapx.group('silent', function()
     noremap('<leader>sl', '<cmd>SLoad<CR>')
     noremap('<leader>ss', '<cmd>SSave<CR>')
     noremap('<leader>sd', '<cmd>SDelete<CR>')
-    noremap('<leader>sc', function()
-        utils.close_buffer_by_name 'NeogitStatus'
-        vim.cmd 'DiffviewClose'
-        vim.cmd 'SClose'
-    end)
+    noremap('<leader>sc', '<cmd>SClose<CR>')
 end)
