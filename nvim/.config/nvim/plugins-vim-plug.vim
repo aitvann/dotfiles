@@ -113,12 +113,14 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 " Colorschemes
 " --------------------------------------------------------------------------------
 
+Plug 'rktjmp/lush.nvim'
 Plug 'jdkanani/vim-material-theme'
 Plug 'kaicataldo/material.vim'
-Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'rebelot/kanagawa.nvim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'ellisonleao/gruvbox.nvim'
 
 
 
