@@ -1,8 +1,9 @@
 " resizing
-nmap <silent> <S-Left> :vertical resize -4<CR>
-nmap <silent> <S-Down> :resize +4<CR>
-nmap <silent> <S-Up> :resize -4<CR>
-nmap <silent> <S-Right> :vertical resize +4<CR>
+nnoremap <silent> <S-Left> :call ResizeLeft(4)<cr>
+nnoremap <silent> <S-Down> :call ResizeDown(4)<cr>
+nnoremap <silent> <S-Up> :call ResizeUp(4)<cr>
+nnoremap <silent> <S-Right> :call ResizeRight(4)<cr>
+
 " scrolling
 map <silent> <Left> zh
 map <silent> <Down> L:call comfortable_motion#flick(40)<CR>

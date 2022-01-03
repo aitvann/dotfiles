@@ -26,6 +26,7 @@ source ~/.config/nvim/modules/windows.vim
 source ~/.config/nvim/modules/buffers.vim
 source ~/.config/nvim/modules/plugin-rnvimr.vim
 source ~/.config/nvim/modules/plugin-easymotion.vim
+source ~/.config/nvim/modules/resize.vim
 luafile ~/.config/nvim/lua/utils.lua
 luafile ~/.config/nvim/lua/toggling.lua
 luafile ~/.config/nvim/lua/commenting.lua
