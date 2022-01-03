@@ -1,9 +1,9 @@
 return function(_)
     vim.cmd [[
-        augroup lsp_document_highlight
+        augroup lsp_codelens_refresh
             autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+            autocmd BufEnter,InsertLeave,BufWritePost <buffer> lua vim.lsp.codelens.refresh()
+            autocmd CursorHold <buffer> lua vim.lsp.codelens.refresh()
         augroup END
     ]]
 end
