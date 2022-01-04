@@ -1,8 +1,7 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
-local builtin = require 'telescope.builtin'
 
-local mapx = require 'mapx'
+local emoji = require 'telescope-emoji'
 
 telescope.setup {
     defaults = {
@@ -112,21 +111,13 @@ telescope.setup {
     },
 }
 
+emoji.setup {
+    action = function(selection)
+        -- selection is a table.
+        -- {name="", value="", cagegory="", description=""}
+        vim.cmd('normal i' .. selection.value)
+    end,
+}
+
 telescope.load_extension 'emoji'
 telescope.load_extension 'fzf'
-
--- stylua: ignore start
-mapx.group('silent', function()
-    -- general
-    nnoremap('gf', function() builtin.find_files { hidden = true } end)
-    nnoremap('gw', function() builtin.current_buffer_fuzzy_find() end)
-    nnoremap('gW', function() builtin.live_grep() end)
-    nnoremap('gb', function() builtin.buffers() end)
-    nnoremap('gJ', function() builtin.jumplist() end)
-    inoremap('<C-j>', function() telescope.extensions.emoji.search() end)
-
-    -- git
-    nnoremap('<leader>gm', function() builtin.git_commits() end)
-    nnoremap('<leader>gb', function() builtin.git_branches() end)
-end)
--- stylua: ignore end

@@ -1,6 +1,8 @@
-local lsp_utils = require 'modules.lsp.utils'
+require 'lsp.plugin-renamer'
+
+local lsp_utils = require 'lsp.utils'
 local toggling = require 'toggling'
-local diagnostics = require 'modules.lsp.diagnostics'
+local diagnostics = require 'lsp.diagnostics'
 
 local lsp = require 'lspconfig'
 local cmp = require 'cmp_nvim_lsp'

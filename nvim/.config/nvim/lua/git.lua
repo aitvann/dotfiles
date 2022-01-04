@@ -2,6 +2,9 @@ local neogit = require 'neogit'
 local diffview = require 'diffview'
 local gitsigns = require 'gitsigns'
 
+local builtin = require 'telescope.builtin'
+local mapx = require 'mapx'
+
 neogit.setup {
     disable_signs = false,
     disable_hint = true,
@@ -236,6 +239,10 @@ gitsigns.setup {
     },
 }
 
-nnoremap('<leader>gs', function()
-    neogit.open()
-end, 'silent')
+-- stylua: ignore start
+mapx.group('silent', function()
+    nnoremap('<leader>gs', function() neogit.open() end)
+    nnoremap('<leader>gm', function() builtin.git_commits() end)
+    nnoremap('<leader>gb', function() builtin.git_branches() end)
+end)
+-- stylua: ignore end

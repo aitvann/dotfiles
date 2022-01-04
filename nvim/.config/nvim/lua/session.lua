@@ -1,7 +1,6 @@
 local mapx = require 'mapx'
 
 vim.cmd [[
-
     let g:startify_session_before_save = [ 'call CloseGit()' ]
 
     function! CloseGit()

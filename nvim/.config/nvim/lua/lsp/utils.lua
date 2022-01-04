@@ -10,7 +10,7 @@ local M = {}
 --     `settings` - `object`, settings object ot pass to `lspconfig` setup
 --     `on_attach` - `fuction(client)`, function to call on `on_attach`
 M.load_options_for = function(server)
-    local res, module = pcall(require, 'modules.lsp.options.' .. server)
+    local res, module = pcall(require, 'lsp.options.' .. server)
     local server_options = res and module or {}
 
     local settings = {}
@@ -41,7 +41,7 @@ end
 --     function(capability_value) - function to call if capability were resolved
 M.resolve_capabilities = function(resolved_capabilities)
     for capability, value in pairs(resolved_capabilities) do
-        local res, module = pcall(require, 'modules.lsp.capabilities.' .. capability)
+        local res, module = pcall(require, 'lsp.capabilities.' .. capability)
         if res and value then
             module(value)
         end
@@ -54,7 +54,7 @@ end
 --     handler_name - string, a handler name in `vim.lsp.handlers` object
 --     hander - object, a handler object
 M.apply_handlers = function()
-    local handlers_path = 'lua/modules/lsp/handlers'
+    local handlers_path = 'lua/lsp/handlers'
     local root = utils.get_config_root()
     local handler_files = scandir.scan_dir(root .. '/' .. handlers_path, { depth = 1 })
     for _, file in ipairs(handler_files) do

@@ -25,6 +25,4 @@ cmp.setup {
     }),
 }
 
-vim.cmd [[
-    set completeopt=menuone,noinsert
-]]
+vim.cmd 'set completeopt=menuone,noinsert'

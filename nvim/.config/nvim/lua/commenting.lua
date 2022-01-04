@@ -26,6 +26,7 @@ comment.setup {
     toggler = {
         ---Line-comment toggle keymap
         line = 'gcc',
+        block = 'g~', -- disable
     },
 
     ---LHS of operator-pending mappings in NORMAL + VISUAL mode
@@ -33,6 +34,7 @@ comment.setup {
     opleader = {
         ---Line-comment keymap
         line = 'gc',
+        block = 'g~', --disable
     },
 
     ---LHS of extra mappings

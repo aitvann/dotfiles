@@ -1,6 +1,0 @@
-require('mapx').group('silent', function()
-    nnoremap('gt', ':tabnew %<CR>')
-    nnoremap('H', ':tabn<CR>')
-    nnoremap('L', ':tabp<CR>')
-    nnoremap('<S-Del>', ':tabclose<CR>')
-end)
