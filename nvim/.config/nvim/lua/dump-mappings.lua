@@ -23,18 +23,26 @@ local function format_mapping(n, map)
     return get_indent(n) .. '* `' .. table.concat(map.keys.nvim) .. '`' .. label
 end
 
-M.dump_key = function(mod, key, buffer)
+-- @param mod char: mapping mode (n, v, i, ..)
+-- @param key string: first keys of mapping
+-- @param buffer num: buffer id
+-- @param result string: result
+M.dump_key = function(mod, key, buffer, result)
+    local res = result or ''
     local source = which_key.get_mappings(mod, key, buffer)
-    print(format_mapping(#key - 1, source.mapping))
+    res = res .. format_mapping(#key - 1, source.mapping) .. '\n'
     for _, map in ipairs(source.mappings) do
         if map.id then
-            print(format_mapping(#key, map))
+            res = res .. format_mapping(#key, map) .. '\n'
         elseif map.group then
-            M.dump_key(mod, map.keys.keys, buffer)
+            res = res .. M.dump_key(mod, map.keys.keys, buffer)
         end
     end
+    return res
 end
 
+-- @param mod char: mapping mode (n, v, i, ..)
+-- @param buffer num: buffer id
 M.dump = function(mod, buffer)
     return M.dump_key(mod, '', buffer)
 end

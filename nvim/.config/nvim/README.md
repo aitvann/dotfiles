@@ -98,4 +98,4 @@ copying and pasting all the mappings manually
 * `g`
   * `gc` - +Go Comment
 
-[format_key]: https://github.com/aitvann/dotfiles/blob/master/nvim/.config/nvim/lua/dump-mappings.lua#L38
+[format_key]: https://github.com/aitvann/dotfiles/blob/master/nvim/.config/nvim/lua/dump-mappings.lua#L46
