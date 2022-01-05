@@ -26,7 +26,7 @@ comment.setup {
     toggler = {
         ---Line-comment toggle keymap
         line = 'gcc',
-        block = 'g~', -- disable
+        block = 'ъъ', -- disable
     },
 
     ---LHS of operator-pending mappings in NORMAL + VISUAL mode
@@ -34,7 +34,7 @@ comment.setup {
     opleader = {
         ---Line-comment keymap
         line = 'gc',
-        block = 'g~', --disable
+        block = 'ъъ', --disable
     },
 
     ---LHS of extra mappings
@@ -88,9 +88,12 @@ comment.setup {
     post_hook = nil,
 }
 
+require('mapx').nname('gc', 'Go Comment')
+require('mapx').vname('gc', 'Go Comment')
+
 nnoremap('<leader>tc', function()
     toggling.toggle 'auto_comment'
-end)
+end, 'Toggle auto-Comment')
 toggling.register_initial('auto_comment', false)
 toggling.register_description('auto_comment', 'Auto-comment')
 toggling.register_on_enable('auto_comment', function()

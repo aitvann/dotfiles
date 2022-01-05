@@ -6,11 +6,11 @@ return function(_)
     mapx.group('silent', 'buffer', function()
         nnoremap('<leader>r', function()
             renamer.rename()
-        end)
+        end, 'PARTIALLY Rename object under cursor')
 
         nnoremap('<leader>R', function()
             renamer.rename()
             renamer_utils.clear_line()
-        end)
+        end, 'COPLETELY Rename object under cursor')
     end)
 end

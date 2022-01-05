@@ -101,4 +101,6 @@ M.call_on_disable_hook = function(toggle_name)
     end
 end
 
+require('mapx').nname('<leader>t', 'Toggling')
+
 return M

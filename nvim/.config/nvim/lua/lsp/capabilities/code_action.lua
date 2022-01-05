@@ -5,5 +5,5 @@ return function(_)
     nnoremap('<leader>a', function()
         local theme = telescope_themes.get_cursor()
         telescope.lsp_code_actions(theme)
-    end, 'silent', 'buffer')
+    end, 'silent', 'buffer', 'show code Actions')
 end

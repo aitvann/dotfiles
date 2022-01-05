@@ -1,4 +1,6 @@
 local utils = require 'utils'
+
+local telescope = require 'telescope'
 local builtin = require 'telescope.builtin'
 local mapx = require 'mapx'
 
@@ -14,6 +16,7 @@ vim.cmd 'set noshowmode'
 vim.o.showtabline = 2
 vim.o.termguicolors = true
 vim.o.numberwidth = 2
+vim.o.timeoutlen = 2000
 
 mapx.group('silent', function()
     inoremap('jj', '<Esc>')
@@ -22,6 +25,7 @@ mapx.group('silent', function()
     nnoremap('<Del>', '<cmd>q<CR>')
     nnoremap('<C-R>', '<C-W>L')
     nnoremap('vv', 'V')
+    nnoremap('gi', 'gi<Esc>zzi')
     xnoremap('>', '>gv')
     xnoremap('J', '<cmd>m \'>+1<CR>gv=gv')
     xnoremap('K', '<cmd>m \'<-2<CR>gv=gv')
@@ -31,11 +35,16 @@ end)
 vim.g.mapleader = '\''
 vim.g.maplocalleader = '\''
 mapx.group('silent', function()
-    nnoremap('<leader>o', 'o<Esc>')
-    nnoremap('<leader>O', 'O<Esc>')
+    nnoremap('<leader>o', 'o<Esc>', 'create line ABOVE in normal mode')
+    nnoremap('<leader>O', 'O<Esc>', 'create line BELOW in normal mode')
+    nnoremap('<leader>;', function()
+        vim.cmd 'terminal'
+        vim.cmd 'startinsert'
+        tnoremap('<Esc>', '<C-\\><C-N>')
+    end, 'open terminal')
 end)
 
--- tab
+-- tabulation
 vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -44,44 +53,40 @@ vim.o.softtabstop = 4
 -- search
 vim.o.hlsearch = true
 vim.o.incsearch = true
-nnoremap('<C-H>', '<cmd>noh<CR>', 'silent')
+nnoremap('<C-H>', '<cmd>noh<CR>', 'silent', 'no search Highlight')
 
 -- buffers
 mapx.group('silent', function()
-    nnoremap('<Tab>', '<cmd>bnext<CR>')
-    nnoremap('<S-Tab>', '<cmd>bprevious<CR>')
-    nnoremap('<Backspace>', utils.close_current_buffer)
-    nnoremap('<leader>;', function()
-        vim.cmd 'terminal'
-        vim.cmd 'startinsert'
-        tnoremap('<Esc>', '<C-\\><C-N>')
-    end)
+    nnoremap('<Tab>', '<cmd>bnext<CR>', 'cycle trought buffers forward')
+    nnoremap('<S-Tab>', '<cmd>bprevious<CR>', 'cycle trought buffers backward')
+    nnoremap('<Backspace>', utils.close_current_buffer, 'close buffer')
 end)
 
 -- tabs
 mapx.group('silent', function()
-    nnoremap('gt', ':tabnew %<CR>')
-    nnoremap('H', ':tabn<CR>')
-    nnoremap('L', ':tabp<CR>')
-    nnoremap('<S-Del>', ':tabclose<CR>')
+    nnoremap('gt', ':tabnew %<CR>', 'Go to new Tab')
+    nnoremap('L', ':tabn<CR>', 'cycle tabs to the Left')
+    nnoremap('H', ':tabp<CR>', 'cycle tabs to the Right')
+    nnoremap('<S-Del>', ':tabclose<CR>', 'CLOSE tab')
 end)
 
 -- moving over the windows
 -- stylua: ignore start
+mapx.nname('g', 'Go to')
 mapx.group('silent', function ()
-    nnoremap('gh', function() vim.fn.WinMove('h') end)
-    nnoremap('gl', function() vim.fn.WinMove('l') end)
-    nnoremap('gk', function() vim.fn.WinMove('k') end)
-    nnoremap('gj', function() vim.fn.WinMove('j') end)
+    nnoremap('gh', function() vim.fn.WinMove('h') end, 'GO to the LEFT window')
+    nnoremap('gl', function() vim.fn.WinMove('l') end, 'GO to the RIGHT window')
+    nnoremap('gk', function() vim.fn.WinMove('k') end, 'GO to the ABOVE window')
+    nnoremap('gj', function() vim.fn.WinMove('j') end, 'GO to the BELOW window')
 end)
 -- stylua: ignore end
 
 -- moving(swapping) current window
 mapx.group('silent', function()
-    nnoremap('gsh', '<C-W>h <C-W>x')
-    nnoremap('gsj', '<C-W>j <C-W>x')
-    nnoremap('gsk', '<C-W>k <C-W>x')
-    nnoremap('gsl', '<C-W>l <C-W>x')
+    nnoremap('gph', '<C-W>h <C-W>x', 'Go to the LEFT, Pulling the current window with you')
+    nnoremap('gpl', '<C-W>l <C-W>x', 'Go to the RIFHT, Pulling the current window with you')
+    nnoremap('gpk', '<C-W>k <C-W>x', 'Go UP, Pulling the current window with you')
+    nnoremap('gpj', '<C-W>j <C-W>x', 'Go DOWN, Pulling the current window with you')
 end)
 
 vim.cmd [[
@@ -102,27 +107,27 @@ vim.cmd [[
 -- resizing
 -- stylua: ignore start
 mapx.group('silent', function ()
-    nnoremap('<S-Left>',    function() vim.fn.ResizeLeft(4) end)
-    nnoremap('<S-Right>',   function() vim.fn.ResizeRight(4) end)
-    nnoremap('<S-Up>',      function() vim.fn.ResizeUp(4) end)
-    nnoremap('<S-Down>',    function() vim.fn.ResizeDown(4) end)
+    nnoremap('<S-Left>',    function() vim.fn.ResizeLeft(4) end, 'move window divider LEFT')
+    nnoremap('<S-Right>',   function() vim.fn.ResizeRight(4) end, 'move window divider RIGHT')
+    nnoremap('<S-Up>',      function() vim.fn.ResizeUp(4) end, 'move window divider UP')
+    nnoremap('<S-Down>',    function() vim.fn.ResizeDown(4) end, 'move window divider DOWN')
 end)
 -- stylua: ignore end
 
 -- scrolling
 mapx.group('silent', function()
-    noremap('<Left>', 'zh')
-    noremap('<Right>', 'zl')
+    noremap('<Left>', 'zh', 'scroll horizontally to the LEFT')
+    noremap('<Right>', 'zl', 'scroll horizontally to the RIGHT')
 end)
 
 -- navigation
 -- stylua: ignore start
 mapx.group('silent', function()
-    nnoremap('gf', function() builtin.find_files { hidden = true } end)
-    nnoremap('gw', function() builtin.current_buffer_fuzzy_find() end)
-    nnoremap('gW', function() builtin.live_grep() end)
-    nnoremap('gb', function() builtin.buffers() end)
-    nnoremap('gJ', function() builtin.jumplist() end)
-    inoremap('<C-j>', function() telescope.extensions.emoji.search() end)
+    nnoremap('gf', function() builtin.find_files { hidden = true } end, 'Go to a File')
+    nnoremap('gw', function() builtin.current_buffer_fuzzy_find() end, 'Go to Word in the CURRENT buffer')
+    nnoremap('gW', function() builtin.live_grep() end, 'Go to Word in the PROJECT')
+    nnoremap('gb', function() builtin.buffers() end, 'Go to a buffer')
+    nnoremap('gJ', function() builtin.jumplist() end, 'Go to Jump point')
+    inoremap('<C-j>', function() telescope.extensions.emoji.search() end, 'insert emoJi')
 end)
 -- stylua: ignore end

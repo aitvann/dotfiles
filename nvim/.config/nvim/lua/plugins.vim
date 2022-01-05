@@ -63,6 +63,9 @@ Plug 'sindrets/diffview.nvim'
 " and other git stuff inside buffer
 Plug 'lewis6991/gitsigns.nvim'
 
+" opens a popup with suggestions to complete a key binding
+Plug 'folke/which-key.nvim'
+
 
 
 " --------------------------------------------------------------------------------

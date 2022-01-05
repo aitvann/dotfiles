@@ -9,6 +9,7 @@ vim.cmd [[
     endfunction
 ]]
 
+mapx.nname('<leader>s', 'Session')
 mapx.group('silent', function()
     noremap('<leader>sl', '<cmd>SLoad<CR>')
     noremap('<leader>ss', '<cmd>SSave<CR>')

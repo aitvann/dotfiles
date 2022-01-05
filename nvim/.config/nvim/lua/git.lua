@@ -2,7 +2,9 @@ local neogit = require 'neogit'
 local diffview = require 'diffview'
 local gitsigns = require 'gitsigns'
 
+local which_key = require 'which-key'
 local builtin = require 'telescope.builtin'
+
 local mapx = require 'mapx'
 
 neogit.setup {
@@ -239,10 +241,43 @@ gitsigns.setup {
     },
 }
 
+which_key.register({
+    ['<leader>'] = {
+        h = {
+            name = 'Hunk',
+            s = 'Stage Hunk',
+            u = 'Unstage Hunk',
+            x = 'Reset Hunk',
+            p = 'Preview Hunk',
+        },
+        g = {
+            name = 'Git',
+            X = 'Git Reset BUFFER',
+            B = 'Git show current line Blame',
+            S = 'Git Stage BUFFER',
+            U = 'Git reset BUFFER index',
+        },
+    },
+}, { mode = 'n' })
+
+which_key.register({
+    ['<leader>h'] = {
+        name = 'Hunk',
+        s = 'Stage selected Hunks',
+        x = 'RESET selected Hunks',
+    },
+}, { mode = 'v' })
+
+which_key.register {
+    [']h'] = 'GOTO NEXT Hunk',
+    ['[h'] = 'GOTO PREVIOUS Hunk',
+}
+
+mapx.nname('<leader>g', 'Git')
 -- stylua: ignore start
 mapx.group('silent', function()
-    nnoremap('<leader>gs', function() neogit.open() end)
-    nnoremap('<leader>gm', function() builtin.git_commits() end)
-    nnoremap('<leader>gb', function() builtin.git_branches() end)
+    nnoremap('<leader>gs', function() neogit.open() end, 'open Git Status')
+    nnoremap('<leader>gm', function() builtin.git_commits() end, 'open Git coMMits')
+    nnoremap('<leader>gb', function() builtin.git_branches() end, 'open Git Branches')
 end)
 -- stylua: ignore end
