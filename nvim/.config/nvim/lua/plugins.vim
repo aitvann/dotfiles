@@ -66,6 +66,9 @@ Plug 'lewis6991/gitsigns.nvim'
 " opens a popup with suggestions to complete a key binding
 Plug 'folke/which-key.nvim'
 
+" Show treesetter oputput, make queries 
+Plug 'nvim-treesitter/playground'
+
 
 
 " --------------------------------------------------------------------------------
