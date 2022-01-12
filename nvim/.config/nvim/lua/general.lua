@@ -81,7 +81,17 @@ mapx.group('silent', function ()
 end)
 -- stylua: ignore end
 
--- moving(swapping) current window
+-- mirroring current window
+mapx.nname('gm', 'Go Mirror window')
+mapx.group('silent', function()
+    nmap('gmh', 'gh<Del>gh', 'GO to the LEFT window mirroring the current window')
+    nmap('gml', 'gl<Del>gl', 'GO to the RIGHT window mirroring the current window')
+    nmap('gmk', 'gk<Del>gk', 'GO to the ABOVE window mirroring the current window')
+    nmap('gmj', 'gj<Del>gj', 'GO to the BELOW window mirroring the current window')
+end)
+
+-- moving(pulling) current window
+mapx.nname('gp', 'Go Pull window')
 mapx.group('silent', function()
     nnoremap('gph', '<C-W>h <C-W>x', 'Go to the LEFT, Pulling the current window with you')
     nnoremap('gpl', '<C-W>l <C-W>x', 'Go to the RIFHT, Pulling the current window with you')
