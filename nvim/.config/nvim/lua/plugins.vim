@@ -27,6 +27,9 @@ Plug 'nvim-lua/plenary.nvim'
 " analyze file structure
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" easily create textobjects
+Plug 'kana/vim-textobj-user'
+
 
 
 " --------------------------------------------------------------------------------
@@ -92,6 +95,9 @@ Plug 'hrsh7th/cmp-path'
 
 " snippets (required by `nvim-cmp`)
 Plug 'hrsh7th/vim-vsnip'
+
+" v text object to select bar in foo_ba|r_bax
+Plug 'Julian/vim-textobj-variable-segment'
 
 
 
