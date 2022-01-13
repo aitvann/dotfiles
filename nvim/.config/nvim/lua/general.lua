@@ -40,7 +40,7 @@ mapx.group('silent', function()
     nnoremap('<leader>;', function()
         vim.cmd 'terminal'
         vim.cmd 'startinsert'
-        tnoremap('<Esc>', '<C-\\><C-N>')
+        tnoremap('<Esc>', '<C-\\><C-N>', 'buffer')
     end, 'open terminal')
 end)
 
