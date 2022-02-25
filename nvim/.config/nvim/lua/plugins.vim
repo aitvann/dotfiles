@@ -120,6 +120,9 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 " get progress state and messages from LSP
 Plug 'nvim-lua/lsp-status.nvim'
 
+" SQl lsp
+Plug 'nanotee/sqls.nvim'
+
 
 
 " --------------------------------------------------------------------------------

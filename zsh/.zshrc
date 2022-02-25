@@ -15,6 +15,8 @@ export ZSH="/home/aitvann/.oh-my-zsh"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
+# 
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -113,6 +115,9 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# path to install go packages
+export GOBIN="/usr/local/bin/"
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 source "$HOME/.config/zsh/put.zsh"
