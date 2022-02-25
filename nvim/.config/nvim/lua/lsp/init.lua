@@ -14,6 +14,7 @@ local servers = {
     'rust_analyzer', --rust
     'sumneko_lua', --lua
     'sqls', -- sql
+    'rnix', -- nix
 }
 local options = lsp_utils.load_options(servers)
 
