@@ -121,6 +121,7 @@ export GOBIN="/usr/local/bin/"
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 source "$HOME/.config/zsh/put.zsh"
+source "$HOME/.config/zsh/backup-keys.zsh"
 source "$HOME/.config/fzf/conf.zsh"
 
 # keybindings
