@@ -27,8 +27,9 @@ backup-keys() {(
     rm -r keys.tar
 
     echo "pushing to storage..."
-    rclone copy "$filename" storage:./keys/
-    rm "$filename"
+    # rclone copy "$filename" storage:./keys/
+    # rm "$filename"
+    mv "$filename" ~/data/keys/
 
     set +e
 )}
