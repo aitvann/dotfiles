@@ -26,7 +26,9 @@ local on_attach = function(client)
     local server_options = options[client.name] or lsp_utils.load_options_for(client.name)
     server_options.on_attach(client)
 
-    signature.on_attach(client)
+    signature.on_attach {
+        hint_enable = false,
+    }
     status.on_attach(client)
     diagnostics.on_attach(client)
 

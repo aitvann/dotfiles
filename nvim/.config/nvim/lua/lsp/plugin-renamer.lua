@@ -1,5 +1,5 @@
-local renamer = require'renamer'
-local mappings_utils = require'renamer.mappings.utils'
+local renamer = require 'renamer'
+local mappings_utils = require 'renamer.mappings.utils'
 
 renamer.setup {
     -- The popup title, shown if `border` is true
@@ -35,5 +35,7 @@ renamer.setup {
     },
     -- Custom handler to be run after successfully renaming the word. Receives
     -- save all the changes
-    handler = function(_) vim.api.nvim_command('wa') end,
+    handler = function(_)
+        vim.api.nvim_command 'wa'
+    end,
 }

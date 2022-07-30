@@ -17,6 +17,9 @@ vim.o.showtabline = 2
 vim.o.termguicolors = true
 vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
+vim.o.cursorline = true
+
+vim.cmd 'highlight CursorLine guibg=#3a405e'
 
 mapx.group('silent', function()
     inoremap('jj', '<Esc>')
@@ -73,7 +76,7 @@ end)
 -- moving over the windows
 -- stylua: ignore start
 mapx.nname('g', 'Go to')
-mapx.group('silent', function ()
+mapx.group('silent', function()
     nnoremap('gh', function() vim.fn.WinMove('h') end, 'GO to the LEFT window')
     nnoremap('gl', function() vim.fn.WinMove('l') end, 'GO to the RIGHT window')
     nnoremap('gk', function() vim.fn.WinMove('k') end, 'GO to the ABOVE window')

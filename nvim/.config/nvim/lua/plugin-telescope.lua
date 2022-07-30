@@ -1,8 +1,6 @@
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 
-local emoji = require 'telescope-emoji'
-
 telescope.setup {
     defaults = {
         prompt_prefix = ' ',
@@ -111,13 +109,4 @@ telescope.setup {
     },
 }
 
-emoji.setup {
-    action = function(selection)
-        -- selection is a table.
-        -- {name="", value="", cagegory="", description=""}
-        vim.cmd('normal i' .. selection.value)
-    end,
-}
-
-telescope.load_extension 'emoji'
 telescope.load_extension 'fzf'
