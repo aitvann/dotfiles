@@ -17,8 +17,8 @@ vim.o.showtabline = 2
 vim.o.termguicolors = true
 vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
-vim.o.cursorline = true
 
+vim.o.cursorline = true
 vim.cmd 'highlight CursorLine guibg=#3a405e'
 
 mapx.group('silent', function()

@@ -3,7 +3,6 @@ local telescope_themes = require 'telescope.themes'
 
 return function(_)
     nnoremap('<leader>a', function()
-        local theme = telescope_themes.get_cursor()
-        telescope.lsp_code_actions(theme)
+        vim.cmd 'CodeActionMenu'
     end, 'silent', 'buffer', 'show code Actions')
 end

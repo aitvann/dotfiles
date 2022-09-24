@@ -72,6 +72,9 @@ Plug 'folke/which-key.nvim'
 " Show treesetter oputput, make queries 
 Plug 'nvim-treesitter/playground'
 
+" Code actions with diffs
+Plug 'weilbith/nvim-code-action-menu'
+
 
 
 " --------------------------------------------------------------------------------
