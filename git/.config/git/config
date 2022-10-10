@@ -3,6 +3,6 @@
     email = aitvann@gmail.com
     signingkey = D9C6344BD3E34E49879F6EDF7A59A32597F270D6
 [core]
-    excludesfile = $XDG_CONFIG_HOME/git/.gitignore_global
+    excludesfile = ~/.config/git/.gitignore_global
 [commit]
     gpgsign = true

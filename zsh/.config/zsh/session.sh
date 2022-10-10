@@ -1,19 +1,25 @@
-ZSH_CONFIG_HOME=$XDG_CONFIG_HOME/zsh
+CONFIG_HOME=$XDG_CONFIG_HOME/zsh
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
+export DIRENV_LOG_FORMAT=''
+
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-# aliases
-alias l="ls -la"
+# keystrokes
+# xmodmap -e "keycode 64 = Mode_switch" # set Alt_l as the "Mode_switch"
+# xmodmap -e "keycode 43 = h H Left H" # h
+# xmodmap -e "keycode 44 = j J Down J" # j
+# xmodmap -e "keycode 45 = k K Up K" # k
+# xmodmap -e "keycode 46 = l L Right L" # l
 
-# key bindings
-bindkey '^[[1;5D' backward-word
-bindkey '^[[1;5C' forward-word
-bindkey '' backward-kill-word
+# aliases
+alias ls="exa"
+alias l="ls -la --color=auto"
 
 # scripts
-source "$ZSH_CONFIG_HOME/put.sh"
-source "$ZSH_CONFIG_HOME/backup-keys.sh"
+source "$CONFIG_HOME/put.sh"
+source "$CONFIG_HOME/backup-keys.sh"
+source "$CONFIG_HOME/init-env/init-env.sh"

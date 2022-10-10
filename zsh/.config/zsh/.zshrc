@@ -13,6 +13,7 @@ source $ZPLUG_SRC/init.zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "marlonrichert/zsh-autocomplete"
+zplug "spwhitt/nix-zsh-completions"
 
 if ! zplug check; then
     zplug install
@@ -23,9 +24,9 @@ zplug load
 # conflicts with marlonrichert/zsh-autocomplete
 # autoload -U compinit -d $ZSH_DATA/.zcompdump  && compinit -d $ZSH_DATA/.zcompdump
 
-HISTSIZE="10000"
-SAVEHIST=$HISTSIZE
-HISTFILE=$ZSH_DATA/.zsh_history
+export HISTSIZE="10000"
+export SAVEHIST=$HISTSIZE
+export HISTFILE=$ZSH_DATA/.zsh_history
 
 setopt HIST_FCNTL_LOCK
 setopt HIST_IGNORE_DUPS
@@ -33,6 +34,16 @@ setopt HIST_IGNORE_SPACE
 unsetopt HIST_EXPIRE_DUPS_FIRST
 setopt SHARE_HISTORY
 unsetopt EXTENDED_HISTORY
+
+eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"
+
+# key bindings
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[3~' delete-char
+bindkey '^[[3;5~' kill-word
+bindkey '' backward-kill-word
 
 autoload -U select-word-style
 select-word-style bash

@@ -13,7 +13,7 @@ backup-keys() {(
 
     echo "exporting password store..."
     mkdir keys/password-store
-    cp -r /home/aitvann/.password-store keys/password-store
+    cp -r $PASSWORD_STORE_DIR keys/password-store
 
     echo "encrypting keys..."
     tar -cf keys.tar -C keys/ .

@@ -1,0 +1,42 @@
+theme = "tokyonight_storm"
+
+[editor]
+line-number = "relative"
+mouse = true
+scrolloff = 16
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+C-s = ":w"
+"del" = "wclose"
+"$" = "goto_line_end"
+"^" = "goto_first_nonwhitespace"
+"." = "repeat_last_motion"
+
+# goto
+[keys.normal.g]
+f = "file_picker" 
+F = "goto_file" 
+
+# windows
+j = "jump_view_down"
+k = "jump_view_up"
+h = "jump_view_left"
+l = "jump_view_right"
+
+[keys.select]
+"$" = "goto_line_end"
+"^" = "goto_first_nonwhitespace"
+
+[keys.insert]
+j = { j = "normal_mode" }
