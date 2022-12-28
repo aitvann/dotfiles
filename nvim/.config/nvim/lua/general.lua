@@ -1,50 +1,50 @@
-local utils = require 'utils'
+local utils = require("utils")
 
-local telescope = require 'telescope'
-local builtin = require 'telescope.builtin'
-local mapx = require 'mapx'
+local telescope = require("telescope")
+local builtin = require("telescope.builtin")
+local mapx = require("mapx")
 
 vim.o.hidden = true
 vim.o.autoread = true
-vim.cmd 'set nowrap'
-vim.o.signcolumn = 'yes'
+vim.cmd("set nowrap")
+vim.o.signcolumn = "yes"
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.updatetime = 1000
-vim.o.encoding = 'utf-8'
-vim.cmd 'set noshowmode'
+vim.o.encoding = "utf-8"
+vim.cmd("set noshowmode")
 vim.o.showtabline = 2
 vim.o.termguicolors = true
 vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
 
 vim.o.cursorline = true
-vim.cmd 'highlight CursorLine guibg=#3a405e'
+vim.cmd("highlight CursorLine guibg=#3a405e")
 
-mapx.group('silent', function()
-    inoremap('jj', '<Esc>')
-    nnoremap('Y', 'y$')
-    nnoremap('U', '<cmd>redo<CR>')
-    nnoremap('<Del>', '<cmd>q<CR>')
-    nnoremap('<C-R>', '<C-W>L')
-    nnoremap('vv', 'V')
-    nnoremap('gi', 'gi<Esc>zzi')
-    xnoremap('>', '>gv')
-    xnoremap('J', '<cmd>m \'>+1<CR>gv=gv')
-    xnoremap('K', '<cmd>m \'<-2<CR>gv=gv')
+mapx.group("silent", function()
+	inoremap("jj", "<Esc>")
+	nnoremap("Y", "y$")
+	nnoremap("U", "<cmd>redo<CR>")
+	nnoremap("<Del>", "<cmd>q<CR>")
+	nnoremap("<C-R>", "<C-W>L")
+	nnoremap("vv", "V")
+	nnoremap("gi", "gi<Esc>zzi")
+	xnoremap(">", ">gv")
+	xnoremap("J", "<cmd>m '>+1<CR>gv=gv")
+	xnoremap("K", "<cmd>m '<-2<CR>gv=gv")
 end)
 
 -- leader
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-mapx.group('silent', function()
-    nnoremap('<leader>o', 'o<Esc>', 'create line ABOVE in normal mode')
-    nnoremap('<leader>O', 'O<Esc>', 'create line BELOW in normal mode')
-    nnoremap('<leader>;', function()
-        vim.cmd 'terminal'
-        vim.cmd 'startinsert'
-        tnoremap('<Esc>', '<C-\\><C-N>', 'buffer')
-    end, 'open terminal')
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+mapx.group("silent", function()
+	nnoremap("<leader>o", "o<Esc>", "create line ABOVE in normal mode")
+	nnoremap("<leader>O", "O<Esc>", "create line BELOW in normal mode")
+	nnoremap("<leader>;", function()
+		vim.cmd("terminal")
+		vim.cmd("startinsert")
+		tnoremap("<Esc>", "<C-\\><C-N>", "buffer")
+	end, "open terminal")
 end)
 
 -- tabulation
@@ -56,21 +56,21 @@ vim.o.softtabstop = 4
 -- search
 vim.o.hlsearch = true
 vim.o.incsearch = true
-nnoremap('<C-H>', '<cmd>noh<CR>', 'silent', 'no search Highlight')
+nnoremap("<C-H>", "<cmd>noh<CR>", "silent", "no search Highlight")
 
 -- buffers
-mapx.group('silent', function()
-    nnoremap('<Tab>', '<cmd>bnext<CR>', 'cycle trought buffers forward')
-    nnoremap('<S-Tab>', '<cmd>bprevious<CR>', 'cycle trought buffers backward')
-    nnoremap('<Backspace>', utils.close_current_buffer, 'close buffer')
+mapx.group("silent", function()
+	nnoremap("<Tab>", "<cmd>bnext<CR>", "cycle trought buffers forward")
+	nnoremap("<S-Tab>", "<cmd>bprevious<CR>", "cycle trought buffers backward")
+	nnoremap("<Backspace>", utils.close_current_buffer, "close buffer")
 end)
 
 -- tabs
-mapx.group('silent', function()
-    nnoremap('gt', ':tabnew %<CR>', 'Go to new Tab')
-    nnoremap('L', ':tabn<CR>', 'cycle tabs to the Left')
-    nnoremap('H', ':tabp<CR>', 'cycle tabs to the Right')
-    nnoremap('<S-Del>', ':tabclose<CR>', 'CLOSE tab')
+mapx.group("silent", function()
+	nnoremap("gt", ":tabnew %<CR>", "Go to new Tab")
+	nnoremap("L", ":tabn<CR>", "cycle tabs to the Left")
+	nnoremap("H", ":tabp<CR>", "cycle tabs to the Right")
+	nnoremap("<S-Del>", ":tabclose<CR>", "CLOSE tab")
 end)
 
 -- moving over the windows
@@ -85,24 +85,24 @@ end)
 -- stylua: ignore end
 
 -- mirroring current window
-mapx.nname('gm', 'Go Mirror window')
-mapx.group('silent', function()
-    nmap('gmh', 'gh<Del>gh', 'GO to the LEFT window mirroring the current window')
-    nmap('gml', 'gl<Del>gl', 'GO to the RIGHT window mirroring the current window')
-    nmap('gmk', 'gk<Del>gk', 'GO to the ABOVE window mirroring the current window')
-    nmap('gmj', 'gj<Del>gj', 'GO to the BELOW window mirroring the current window')
+mapx.nname("gm", "Go Mirror window")
+mapx.group("silent", function()
+	nmap("gmh", "gh<Del>gh", "GO to the LEFT window mirroring the current window")
+	nmap("gml", "gl<Del>gl", "GO to the RIGHT window mirroring the current window")
+	nmap("gmk", "gk<Del>gk", "GO to the ABOVE window mirroring the current window")
+	nmap("gmj", "gj<Del>gj", "GO to the BELOW window mirroring the current window")
 end)
 
 -- moving(pulling) current window
-mapx.nname('gp', 'Go Pull window')
-mapx.group('silent', function()
-    nnoremap('gph', '<C-W>h <C-W>x', 'Go to the LEFT, Pulling the current window with you')
-    nnoremap('gpl', '<C-W>l <C-W>x', 'Go to the RIFHT, Pulling the current window with you')
-    nnoremap('gpk', '<C-W>k <C-W>x', 'Go UP, Pulling the current window with you')
-    nnoremap('gpj', '<C-W>j <C-W>x', 'Go DOWN, Pulling the current window with you')
+mapx.nname("gp", "Go Pull window")
+mapx.group("silent", function()
+	nnoremap("gph", "<C-W>h <C-W>x", "Go to the LEFT, Pulling the current window with you")
+	nnoremap("gpl", "<C-W>l <C-W>x", "Go to the RIFHT, Pulling the current window with you")
+	nnoremap("gpk", "<C-W>k <C-W>x", "Go UP, Pulling the current window with you")
+	nnoremap("gpj", "<C-W>j <C-W>x", "Go DOWN, Pulling the current window with you")
 end)
 
-vim.cmd [[
+vim.cmd([[
     function! WinMove(key)
         let t:curwin = winnr()
         exec "wincmd ".a:key
@@ -115,7 +115,7 @@ vim.cmd [[
             exec "wincmd ".a:key
         endif
     endfunction
-]]
+]])
 
 -- resizing
 -- stylua: ignore start
@@ -128,9 +128,9 @@ end)
 -- stylua: ignore end
 
 -- scrolling
-mapx.group('silent', function()
-    noremap('<Left>', 'zh', 'scroll horizontally to the LEFT')
-    noremap('<Right>', 'zl', 'scroll horizontally to the RIGHT')
+mapx.group("silent", function()
+	noremap("<Left>", "zh", "scroll horizontally to the LEFT")
+	noremap("<Right>", "zl", "scroll horizontally to the RIGHT")
 end)
 
 -- navigation
