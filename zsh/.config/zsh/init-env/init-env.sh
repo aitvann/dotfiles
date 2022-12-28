@@ -27,6 +27,7 @@ init-env() {(
             exit 1
         fi
         cp $shell $shell_target
+        echo "source_up_if_exists" > .envrc
         echo "use nix" >> .envrc
     else
         if [ $(git rev-parse --is-inside-work-tree &> /dev/null)$? != 0 ]; then 
@@ -48,6 +49,7 @@ init-env() {(
         cp $flake $flake_target
         git add $flake_target
         git commit -m "chore: add flake environment"
+        echo "source_up_if_exists" > .envrc
         echo "use flake" >> .envrc
     fi
     

@@ -14,6 +14,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "marlonrichert/zsh-autocomplete"
 zplug "spwhitt/nix-zsh-completions"
+zplug 'ryutok/rust-zsh-completions'
 
 if ! zplug check; then
     zplug install

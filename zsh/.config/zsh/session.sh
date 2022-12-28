@@ -5,6 +5,12 @@ export EDITOR="$VISUAL"
 
 export DIRENV_LOG_FORMAT=''
 
+# TODO: install rust packages with nix
+# export PATH="$HOME/.local/share/cargo/bin:$PATH"
+
+# TODO: install everything uisng only nix
+# export PATH="$HOME/.local/bin:$PATH"
+
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
