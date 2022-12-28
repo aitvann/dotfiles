@@ -18,7 +18,7 @@ M.load_options_for = function(server)
         settings[module.settings_name] = module.settings
     end
 
-    local on_attach = server_options.on_attach or function() end
+    local on_attach = server_options.on_attach or function(_) end
 
     return {
         settings = settings,

@@ -9,6 +9,7 @@ local cmp = require 'cmp_nvim_lsp'
 local status = require 'lsp-status'
 local signature = require 'lsp_signature'
 local null_ls = require 'null-ls'
+local inlay_hints = require 'inlay-hints'
 
 local servers = {
     'rust_analyzer', --rust
@@ -22,7 +23,7 @@ local options = lsp_utils.load_options(servers)
 lsp_utils.apply_handlers()
 
 -- compose `to_attach` functions
-local on_attach = function(client)
+local on_attach = function(client, buffer)
     local server_options = options[client.name] or lsp_utils.load_options_for(client.name)
     server_options.on_attach(client)
 
@@ -31,13 +32,14 @@ local on_attach = function(client)
     }
     status.on_attach(client)
     diagnostics.on_attach(client)
+    inlay_hints.on_attach(client, buffer)
 
-    lsp_utils.resolve_capabilities(client.resolved_capabilities)
+    lsp_utils.resolve_capabilities(client.server_capabilities)
 end
 
 -- construct capabilities object
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = cmp.update_capabilities(capabilities) -- update capabilities from 'cmp_nvim_lsp` plugin
+capabilities = vim.tbl_extend('keep', capabilities, cmp.default_capabilities()); -- update capabilities from 'cmp_nvim_lsp` plugin
 capabilities = vim.tbl_extend('keep', capabilities, status.capabilities) -- update capabilities from `lsp-status` plugin
 
 for server_name, server_options in pairs(options) do
@@ -60,6 +62,17 @@ null_ls.setup {
         },
     },
 }
+
+-- inlay_hints
+inlay_hints.setup({
+    eol = {
+        type = {
+            format = function(hints)
+                return string.format("%s", hints)
+            end,
+        },
+    },
+})
 
 -- status
 status.register_progress()

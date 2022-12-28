@@ -48,7 +48,6 @@ Plug 'kevinhwang91/rnvimr'
 " fuzzy finder over lists
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'xiyaowong/telescope-emoji.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " better renaming input
 Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
@@ -111,14 +110,14 @@ Plug 'Julian/vim-textobj-variable-segment'
 " the bridge between lua and configuration of LS
 Plug 'neovim/nvim-lspconfig'
 
-" enable extra features from LS (inline hints for Rust)
-Plug 'nvim-lua/lsp_extensions.nvim'
-
 " source for complitions using LSP
 Plug 'hrsh7th/cmp-nvim-lsp'
 
 " bridge between language tools that don't speak LSP and the LSP ecosystem
 Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" enable inlay hints (inlay type hints for Rust)
+Plug 'simrat39/inlay-hints.nvim'
 
 " get progress state and messages from LSP
 Plug 'nvim-lua/lsp-status.nvim'

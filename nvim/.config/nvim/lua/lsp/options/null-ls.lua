@@ -3,8 +3,10 @@ return {
     on_attach = function(client)
         -- FIXME: actually find out if capability is resolved
         -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/436#issuecomment-993594777
-        client.resolved_capabilities = {}
-        client.resolved_capabilities.document_formatting = true
-        client.resolved_capabilities.document_range_formatting = true
+        --
+        -- deprecated
+        --[[ client.resolved_capabilities = {} ]]
+        --[[ client.resolved_capabilities.document_formatting = true ]]
+        --[[ client.resolved_capabilities.document_range_formatting = true ]]
     end,
 }
