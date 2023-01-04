@@ -18,9 +18,6 @@ Plug 'easymotion/vim-easymotion'
 " highlight color code
 Plug 'norcalli/nvim-colorizer.lua'
 
-" sugar for lua mapping
-Plug 'b0o/mapx.nvim'
-
 " useful lua functions
 Plug 'nvim-lua/plenary.nvim'
 

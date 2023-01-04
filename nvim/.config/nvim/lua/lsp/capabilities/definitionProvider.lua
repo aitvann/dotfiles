@@ -1,7 +1,5 @@
-local telescope = require 'telescope.builtin'
+local telescope = require("telescope.builtin")
 
 return function(_)
-    nnoremap('gd', function()
-        telescope.lsp_definitions()
-    end, 'silent', 'buffer', 'Go to Definitions')
+	vim.keymap.set("n", "gd", telescope.lsp_definitions, { silent = true, buffer = true, desc = "Go to Definitions" })
 end

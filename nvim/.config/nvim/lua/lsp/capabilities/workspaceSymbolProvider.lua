@@ -1,7 +1,9 @@
-local telescope = require 'telescope.builtin'
+local telescope = require("telescope.builtin")
 
 return function(_)
-    nnoremap('gS', function()
-        telescope.lsp_workspace_symbols()
-    end, 'silent', 'buffer', 'Go to WORKSPACE Symbols')
+    -- stylua: ignore start
+    vim.keymap.set("n", "gS", telescope.lsp_workspace_symbols,
+        { silent = true, buffer = true, desc = "Go to WORKSPACE Symbols" }
+    )
+	-- stylua: ignore end
 end

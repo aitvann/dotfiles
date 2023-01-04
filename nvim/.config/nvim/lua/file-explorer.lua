@@ -1,2 +1,2 @@
 vim.g.rnvimr_enable_picker = 1
-nnoremap('<leader>e', '<cmd>RnvimrToggle<CR>', 'open file Explorer')
+vim.keymap.set("n", "<leader>e", "<cmd>RnvimrToggle<CR>", { silent = true, desc = "open file Explorer" })
