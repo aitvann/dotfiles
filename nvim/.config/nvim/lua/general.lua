@@ -73,10 +73,10 @@ vim.keymap.set("n", 'gj', function() vim.fn.WinMove('j') end, { silent = true, d
 
 -- mirroring current window
 -- gm = Go Mirror window
-vim.keymap.set("n", "gmh", "gh<Del>gh", { silent = true, desc = "GO to the LEFT window mirroring the current window" })
-vim.keymap.set("n", "gml", "gl<Del>gl", { silent = true, desc = "GO to the RIGHT window mirroring the current window" })
-vim.keymap.set("n", "gmk", "gk<Del>gk", { silent = true, desc = "GO to the ABOVE window mirroring the current window" })
-vim.keymap.set("n", "gmj", "gj<Del>gj", { silent = true, desc = "GO to the BELOW window mirroring the current window" })
+vim.keymap.set("n", "gmh", "gh<Del>gh", { silent = true, remap = true, desc = "GO to the LEFT window mirroring the current window" })
+vim.keymap.set("n", "gml", "gl<Del>gl", { silent = true, remap = true, desc = "GO to the RIGHT window mirroring the current window" })
+vim.keymap.set("n", "gmk", "gk<Del>gk", { silent = true, remap = true, desc = "GO to the ABOVE window mirroring the current window" })
+vim.keymap.set("n", "gmj", "gj<Del>gj", { silent = true, remap = true, desc = "GO to the BELOW window mirroring the current window" })
 
 -- moving(pulling) current window
 -- gp = Go Pull window

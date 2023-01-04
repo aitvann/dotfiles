@@ -68,8 +68,11 @@ Plug 'folke/which-key.nvim'
 " Show treesetter oputput, make queries 
 Plug 'nvim-treesitter/playground'
 
-" Code actions with diffs
-Plug 'weilbith/nvim-code-action-menu'
+" Pretty icons
+Plug 'nvim-tree/nvim-web-devicons'
+
+" Pretty telescope select menu
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 
 
 
@@ -121,6 +124,9 @@ Plug 'nvim-lua/lsp-status.nvim'
 
 " SQl lsp
 Plug 'nanotee/sqls.nvim'
+
+" For pretty kind icons on completion
+Plug 'onsails/lspkind.nvim'
 
 
 
