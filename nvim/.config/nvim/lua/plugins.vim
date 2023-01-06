@@ -74,6 +74,9 @@ Plug 'nvim-tree/nvim-web-devicons'
 " Pretty telescope select menu
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 
+" Show code context at window top
+Plug 'nvim-treesitter/nvim-treesitter-context'
+
 
 
 " --------------------------------------------------------------------------------
@@ -100,6 +103,10 @@ Plug 'hrsh7th/vim-vsnip'
 
 " v text object to select bar in foo_ba|r_bax
 Plug 'Julian/vim-textobj-variable-segment'
+
+" Highlights parentheses in rainbo
+Plug 'mrjones2014/nvim-ts-rainbow'
+
 
 
 
