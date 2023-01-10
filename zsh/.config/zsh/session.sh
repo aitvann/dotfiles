@@ -24,6 +24,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 # aliases
 alias ls="exa"
 alias l="ls -la --color=auto"
+alias vi="nvim"
 
 # scripts
 source "$CONFIG_HOME/put.sh"
