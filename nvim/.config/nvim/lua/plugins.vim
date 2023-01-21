@@ -27,6 +27,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " easily create textobjects
 Plug 'kana/vim-textobj-user'
 
+" Sudo write
+Plug 'lambdalisue/suda.vim'
+
 
 
 " --------------------------------------------------------------------------------
