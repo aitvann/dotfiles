@@ -30,6 +30,9 @@ Plug 'kana/vim-textobj-user'
 " Sudo write
 Plug 'lambdalisue/suda.vim'
 
+" Load .envrc on cwd change
+Plug 'direnv/direnv.vim'
+
 
 
 " --------------------------------------------------------------------------------
