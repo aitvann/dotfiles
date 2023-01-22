@@ -5,6 +5,7 @@ backup-keys() {(
     set -e
 
     echo "exporting gpg keys..."
+    # use mktmp
     mkdir keys
     gpg --export --armor 3C47594A515D2C70B8EF97781AA36C4408AB6ACE > keys/aitvann.pub.asc
     gpg --export-secret-keys --armor 3C47594A515D2C70B8EF97781AA36C4408AB6ACE > keys/aitvann.priv.asc
