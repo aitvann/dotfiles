@@ -1,0 +1,30 @@
+{
+  description = "local system configuration";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    users = {
+      url = "path:../../users/";
+      flake = false;
+    };
+  };
+
+  outputs = inputs@{ nixpkgs, home-manager, users, ... }: {
+    nixosConfigurations = {
+      mars = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+            home-manager.users.aitvann = import "${users.outPath}/aitvann.nix";
+          }
+        ];
+      };
+    };
+  };
+}
