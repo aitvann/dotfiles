@@ -95,7 +95,10 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "overlay2";
+  };
 
   # TODO: make imperative (use gpg-agent.conf for ssh support and session file for starting service)
   programs.gnupg.agent = {

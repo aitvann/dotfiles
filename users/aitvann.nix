@@ -74,6 +74,7 @@
     ripgrep
     bat
     prismlauncher
+    docker-compose
 
     neovim
     sqls
@@ -87,9 +88,6 @@
     cargo-sweep
     cargo-cache
     cargo-expand
-
-    docker
-    docker-compose
 
     direnv
     nix-direnv
