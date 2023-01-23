@@ -40,21 +40,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "users": "users"
-      }
-    },
-    "users": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-dfvvg5altWy9xuH8C8NGkKL9HB2tpImpff20my1gWus=",
-        "path": "../../users/",
-        "type": "path"
-      },
-      "original": {
-        "path": "../../users/",
-        "type": "path"
+        "nixpkgs": "nixpkgs"
       }
     },
     "utils": {

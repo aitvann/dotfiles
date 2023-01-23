@@ -1,10 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   imports =
     [
       # Include the results of the hardware scan.
@@ -23,19 +17,10 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  # time.timeZone = "Europe/Moscow";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkbOptions in tty.
-  # };
 
   # Enable the X11 windowing system.
   # environment.pathsToLink = [ "/libexec" ];
@@ -43,22 +28,11 @@
     enable = true;
 
     displayManager = {
-      #     defaultSession = "none+i3";
       gdm.enable = true;
       gdm.wayland = false;
     };
 
     desktopManager.gnome.enable = true;
-
-    # windowManager.i3 = {
-    #   enable = true;
-    #   package = pkgs.i3-gaps;
-    #   extraPackages = with pkgs; [
-    #     i3lock
-    #     i3blocks
-    #     rofi      
-    #   ];
-    # };
   };
 
 
@@ -72,13 +46,6 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  # security.rtkit.enable = true;
-  #jservices.pipewire = {
-  # enable = true;
-  # alsa.enable = true;
-  # alsa.support32Bit = true;
-  # pulse.enable = true;
-  # };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
@@ -98,12 +65,6 @@
   virtualisation.docker = {
     enable = true;
     storageDriver = "overlay2";
-  };
-
-  # TODO: make imperative (use gpg-agent.conf for ssh support and session file for starting service)
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
   };
 
   networking.networkmanager.enableStrongSwan = true;
@@ -135,15 +96,11 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="6011", TAG+="uaccess", TAG+="udev-acl"
   '';
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   environment.systemPackages = with pkgs; [
     nixos-option
   ];
+
+  environment.pathsToLink = [ "/share/zsh" ];
 
   environment.sessionVariables = rec {
     XDG_CACHE_HOME = "$HOME/.cache";

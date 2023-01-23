@@ -5,13 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    users = {
-      url = "path:../../users/";
-      flake = false;
-    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, users, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, ... }: {
     nixosConfigurations = {
       mars = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -21,7 +17,7 @@
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
-            home-manager.users.aitvann = import "${users.outPath}/aitvann.nix";
+            home-manager.users.aitvann = ../../users/aitvann.nix;
           }
         ];
       };

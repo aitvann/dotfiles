@@ -25,6 +25,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 alias ls="exa"
 alias l="ls -la --color=auto"
 alias vi="nvim"
+alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/hosts/$HOST switch"
 
 # scripts
 source "$CONFIG_HOME/put.sh"

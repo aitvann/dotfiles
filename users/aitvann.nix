@@ -45,10 +45,18 @@
     browsers = [ "chromium" ];
   };
 
+  # TODO: custom package
+  # upstream package only works as long as
+  # there is no need in config and it does not override sshcontrol file
+  programs.gpg.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+  };
+
   home.packages = with pkgs; [
     nerdfonts
 
-    stow
     tdesktop
     discord
     element-desktop
@@ -56,28 +64,27 @@
     tor-browser-bundle-bin
     ledger-live-desktop
     monero-gui
+    prismlauncher
+
+    stow
     ranger
-    home-manager
-    git
     xclip
+    zplug
+    pass
+    docker-compose
+    git
+    direnv
+    nix-direnv
+    ripgrep
     htop
     jq
     exa
     alacritty
     zsh
     starship
-    zplug
-    gnupg
-    pass
-    helix
-    fzf
-    ripgrep
-    bat
-    prismlauncher
-    docker-compose
-
     neovim
     sqls
+
     rust-analyzer
     rnix-lsp
     sumneko-lua-language-server
@@ -88,10 +95,6 @@
     cargo-sweep
     cargo-cache
     cargo-expand
-
-    direnv
-    nix-direnv
-    gnumake
   ];
 
   home.stateVersion = "22.05";
