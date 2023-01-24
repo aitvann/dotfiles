@@ -62,6 +62,14 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # TODO: custom package
+  # upstream package only works as long as
+  # there is no need in config and it does not override sshcontrol file
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   virtualisation.docker = {
     enable = true;
     storageDriver = "overlay2";

@@ -45,15 +45,6 @@
     browsers = [ "chromium" ];
   };
 
-  # TODO: custom package
-  # upstream package only works as long as
-  # there is no need in config and it does not override sshcontrol file
-  programs.gpg.enable = true;
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-  };
-
   home.packages = with pkgs; [
     nerdfonts
 
