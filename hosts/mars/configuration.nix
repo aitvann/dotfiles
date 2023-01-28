@@ -5,8 +5,6 @@
       ./hardware-configuration.nix
     ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -34,7 +32,6 @@
 
     desktopManager.gnome.enable = true;
   };
-
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -104,24 +101,7 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="6011", TAG+="uaccess", TAG+="udev-acl"
   '';
 
-  environment.systemPackages = with pkgs; [
-    nixos-option
-  ];
-
   environment.pathsToLink = [ "/share/zsh" ];
-
-  environment.sessionVariables = rec {
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_BIN_HOME = "$HOME/.local/bin";
-    XDG_DATA_HOME = "$HOME/.local/share";
-
-    ZDOTDIR = "${XDG_CONFIG_HOME}/zsh";
-    PASSWORD_STORE_DIR = "${XDG_DATA_HOME}/password-store";
-    RIPGREP_CONFIG_PATH = "${XDG_CONFIG_HOME}/ripgrep/.ripgreprc";
-    CARGO_HOME = "${XDG_DATA_HOME}/cargo";
-    RUSTUP_HOME = "${XDG_DATA_HOME}/rustup";
-  };
 
   networking.extraHosts =
     ''

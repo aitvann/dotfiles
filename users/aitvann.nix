@@ -8,12 +8,6 @@
   home.username = "aitvann";
   home.homeDirectory = "/home/aitvann";
 
-  nixpkgs.overlays = [
-    (self: super: {
-      nix-direnv = super.nix-direnv.override { enableFlakes = true; };
-    })
-  ];
-
   programs.chromium = {
     enable = true;
     extensions = [
@@ -77,7 +71,7 @@
     sqls
 
     rust-analyzer
-    rnix-lsp
+    nil
     sumneko-lua-language-server
     stylua
     nodePackages_latest.prettier
