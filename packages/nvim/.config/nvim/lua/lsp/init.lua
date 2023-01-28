@@ -15,7 +15,6 @@ local servers = {
 	"rust_analyzer", --rust
 	"sumneko_lua", --lua
 	"sqls", -- sql
-	--[[ "rnix", -- nix ]]
 	"nil_ls", -- nix
 }
 local options = lsp_utils.load_options(servers)
@@ -58,9 +57,9 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.markdownlint,
 		null_ls.builtins.diagnostics.markdownlint,
-		null_ls.builtins.formatting.prettier.with({
-			filetypes = { "html", "json", "yaml" },
-		}),
+		--[[ null_ls.builtins.formatting.prettier.with({ ]]
+		--[[ 	filetypes = { "html", "json", "yaml" }, ]]
+		--[[ }), ]]
 	},
 })
 
