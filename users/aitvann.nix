@@ -50,6 +50,7 @@
     ledger-live-desktop
     monero-gui
     prismlauncher
+    openjdk8-bootstrap
 
     stow
     ranger
@@ -58,6 +59,7 @@
     pass
     docker-compose
     git
+    difftastic
     direnv
     nix-direnv
     ripgrep
@@ -67,14 +69,20 @@
     alacritty
     zsh
     starship
+    grpcui
+    grpcurl
+    clickhouse
+    helix
+
+    comma
+
     neovim
     sqls
-
     rust-analyzer
     nil
     sumneko-lua-language-server
     stylua
-    nodePackages_latest.prettier
+    # nodePackages_latest.prettier
 
     cargo
     cargo-sweep
