@@ -1,12 +1,23 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... } @ args:
 
-{
+let
+  wlib = import ../lib/wrapped-config.nix args;
+  stowConfig = wlib.stowConfig config.home.homeDirectory;
+in {
+  imports = [ ../wrapped-modules/helix.nix ];
+
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "discord"
   ];
 
   home.username = "aitvann";
   home.homeDirectory = "/home/aitvann";
+
+  programs.wHelix = {
+    enable = true;
+    dependencies = with pkgs; [ nodePackages_latest.prettier ];
+    config = stowConfig ../packages/helix;
+  };
 
   programs.chromium = {
     enable = true;
@@ -71,7 +82,7 @@
     starship
     grpcui
     clickhouse
-    helix
+    # helix
 
     comma
 
