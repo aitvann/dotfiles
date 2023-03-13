@@ -57,9 +57,9 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.markdownlint,
 		null_ls.builtins.diagnostics.markdownlint,
-		--[[ null_ls.builtins.formatting.prettier.with({ ]]
-		--[[ 	filetypes = { "html", "json", "yaml" }, ]]
-		--[[ }), ]]
+		null_ls.builtins.formatting.prettier.with({
+			filetypes = { "html", "json", "yaml" },
+		}),
 	},
 })
 

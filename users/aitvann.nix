@@ -82,7 +82,7 @@
     nil
     sumneko-lua-language-server
     stylua
-    # nodePackages_latest.prettier
+    nodePackages_latest.prettier
 
     cargo
     cargo-sweep
