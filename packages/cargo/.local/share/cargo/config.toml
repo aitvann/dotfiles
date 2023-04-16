@@ -1,5 +1,8 @@
 [registries.zubr]
 index = "ssh://git@git.tt-int.net/shared/crates/index.git"
 
+[registries.legacy]
+index = "ssh://git@git.tt-int.net/shared/crates/index.git"
+
 [registries.internal]
 index = "ssh://git@git.tt-int.net/phoenex/shared/crate-index.git"

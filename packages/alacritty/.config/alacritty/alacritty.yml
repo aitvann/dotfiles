@@ -163,3 +163,6 @@ schemes:
 
 colors: *tokyo-night-storm
 # colors: *gruvbox-dark
+
+key_bindings:
+  - { key: N, mods: Control|Shift, action: SpawnNewInstance }

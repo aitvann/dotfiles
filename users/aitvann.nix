@@ -31,6 +31,7 @@
       { id = "bfnaelmomeimhlpmgjnjophhpkkoljpa"; } # phantom
       { id = "nkbihfbeogaeaoehlefnkodbefgpgknn"; } # meta mask
       { id = "pncfbmialoiaghdehhbnbhkkgmjanfhe"; } # ublacklist
+      { id = "plhaalebpkihaccllnkdaokdoeaokmle"; } # draw.io for notion
     ];
   };
 
@@ -75,6 +76,7 @@
     helix
 
     comma
+    aerc
 
     neovim
     sqls
@@ -88,6 +90,7 @@
     cargo-sweep
     cargo-cache
     cargo-expand
+    cargo-nextest
   ];
 
   home.stateVersion = "22.05";
