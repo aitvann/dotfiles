@@ -49,7 +49,25 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+   services.pipewire = {
+     enable = true;
+     alsa.enable = true;
+     pulse.enable = true;
+   };
+   environment.etc = {
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+  	  bluez_monitor.properties = {
+  		["bluez5.enable-sbc-xq"] = true,
+  		["bluez5.enable-msbc"] = true,
+  		["bluez5.enable-hw-volume"] = true,
+  	  }
+    '';
+    "wireplumber/policy.lua.d/11-bluetooth-policy.lua".text = ''
+      bluetooth_policy.policy["media-role.use-headset-profile"] = true
+    '';
+   };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;

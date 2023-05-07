@@ -73,6 +73,7 @@
     grpcui
     grpcurl
     clickhouse
+    postgresql_14
     helix
 
     comma
