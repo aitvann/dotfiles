@@ -31,3 +31,4 @@ alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/host
 source "$CONFIG_HOME/put.sh"
 source "$CONFIG_HOME/backup-keys.sh"
 source "$CONFIG_HOME/init-env/init-env.sh"
+source "$CONFIG_HOME/deep-clean.sh"
