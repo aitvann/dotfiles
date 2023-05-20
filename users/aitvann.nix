@@ -3,6 +3,7 @@
 {
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "discord"
+    "obsidian"
   ];
 
   home.username = "aitvann";
@@ -52,6 +53,7 @@
     monero-gui
     prismlauncher
     openjdk8-bootstrap
+    obsidian
 
     stow
     ranger
@@ -75,6 +77,7 @@
     clickhouse
     postgresql_14
     helix
+    syncplay-nogui
 
     comma
     aerc
