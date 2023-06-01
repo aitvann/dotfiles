@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }:
-
-{
+{ config, pkgs, lib, ... } @ args: let
+    util = import ../lib/util.nix args;
+    packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
+in {
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "discord"
     "obsidian"
@@ -38,6 +39,14 @@
   programs.browserpass = {
     enable = true;
     browsers = [ "chromium" ];
+  };
+
+  # required
+  programs.zsh = {
+    enable = true;
+    dotDir = ".config/zsh";
+    # enableCompletion = false;
+    # initExtra = lib.readFile ../packages/zsh/.config/zsh/.zshrc;
   };
 
   home.packages = with pkgs; [
@@ -94,6 +103,12 @@
     cargo-cache
     cargo-expand
     cargo-nextest
+  ];
+
+  home.file = util.recursiveMerge [
+    (packageHomeFiles ../packages/helix)
+    # overrides config from `programs.zsh`
+    (packageHomeFiles ../packages/zsh)
   ];
 
   home.stateVersion = "22.05";
