@@ -16,7 +16,7 @@
       { id = "annfbnbieaamhaimclajlajpijgkdblo"; } # dark theme
       { id = "ibplnjkanclpjokhdolnendpplpjiace"; } # simple translate
       { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
-      { id = "bkhaagjahfmjljalopjnoealnfndnagc"; } # octotree
+      # { id = "bkhaagjahfmjljalopjnoealnfndnagc"; } # octotree
       { id = "jghecgabfgfdldnmbfkhmffcabddioke"; } # volume master
       { id = "naepdomgkenhinolocfifgehidddafch"; } # browserpass
       { id = "egjidjbpglichdcondbcbdnbeeppgdph"; } # trust-wallet
