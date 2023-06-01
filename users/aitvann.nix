@@ -16,13 +16,10 @@
       { id = "annfbnbieaamhaimclajlajpijgkdblo"; } # dark theme
       { id = "ibplnjkanclpjokhdolnendpplpjiace"; } # simple translate
       { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
-      # { id = "bkhaagjahfmjljalopjnoealnfndnagc"; } # octotree
       { id = "jghecgabfgfdldnmbfkhmffcabddioke"; } # volume master
       { id = "naepdomgkenhinolocfifgehidddafch"; } # browserpass
-      { id = "egjidjbpglichdcondbcbdnbeeppgdph"; } # trust-wallet
       # { id = "..."; } # https://github.com/FastForwardTeam/FastForward
       { id = "ennpfpdlaclocpomkiablnmbppdnlhoh"; } # rust search extension
-      { id = "jifeafcpcjjgnlcnkffmeegehmnmkefl"; } # ninja cockio
       { id = "lckanjgmijmafbedllaakclkaicjfmnk"; } # clear urls
       { id = "lanfdkkpgfjfdikkncbnojekcppdebfp"; } # canvas fingerprint defender
       { id = "pcbjiidheaempljdefbdplebgdgpjcbe"; } # audio context fingerprint defender
@@ -33,6 +30,8 @@
       { id = "nkbihfbeogaeaoehlefnkodbefgpgknn"; } # meta mask
       { id = "pncfbmialoiaghdehhbnbhkkgmjanfhe"; } # ublacklist
       { id = "plhaalebpkihaccllnkdaokdoeaokmle"; } # draw.io for notion
+      # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
+      { id = "mdjildafknihdffpkfmmpnpoiajfjnjd"; } # consent-o-matic
     ];
   };
 
