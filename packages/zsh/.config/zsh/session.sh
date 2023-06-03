@@ -26,6 +26,7 @@ alias ls="exa"
 alias l="ls -la --color=auto"
 alias vi="nvim"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/hosts/$HOST switch"
+alias nix-repl="nix repl nixpkgs"
 
 # scripts
 source "$CONFIG_HOME/put.sh"
