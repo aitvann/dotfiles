@@ -78,6 +78,7 @@ in {
     postgresql_14
     syncplay-nogui
     aerc
+    parallel
 
     comma
 
