@@ -1,3 +1,5 @@
+local bufdelete = require 'bufdelete'
+
 local M = {}
 
 M.get_config_root = function()
@@ -14,7 +16,7 @@ M.close_buffer_by_name = function(name)
 	local regex = '(%d+)......"' .. name
 	local bufnr = vim.b.cmd_buffers_output:match(regex)
 	if bufnr then
-		vim.cmd("bdelete " .. bufnr)
+        bufdelete.bufdelete(bufnr, true)
 	end
 end
 
@@ -23,9 +25,9 @@ M.close_current_buffer = function()
 	local is_term = vim.startswith(bufname, "term")
 	local is_shell = vim.endswith(bufname, "zsh") or vim.endswith(bufname, "bash")
 	if is_term and is_shell then
-		vim.cmd("Bdelete!")
+        bufdelete.bufdelete(0, true)
 	else
-		vim.cmd("Bdelete")
+        bufdelete.bufdelete(0, false)
 	end
 end
 

@@ -41,6 +41,116 @@ in {
     browsers = [ "chromium" ];
   };
 
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      # --------------------------------------------------------------------------------
+      # General
+      # --------------------------------------------------------------------------------
+
+      # delete the buffer without closing the window
+      bufdelete-nvim
+      # smooth scrolling
+      neoscroll-nvim
+      # jump over the file
+      vim-easymotion
+      # highlight color code
+      nvim-colorizer-lua
+      # useful lua functions
+      plenary-nvim
+      # analyze file structure
+      nvim-treesitter.withAllGrammars
+      # easily create textobjects
+      vim-textobj-user
+      # Sudo write
+      suda-vim
+      # Load .envrc on cwd change
+      direnv-vim
+
+      # --------------------------------------------------------------------------------
+      # Interface
+      # --------------------------------------------------------------------------------
+
+      # start screen
+      vim-startify
+      # status line
+      lualine-nvim
+      # open file with ranger window
+      rnvimr
+      # fuzzy finder over lists
+      telescope-nvim
+      # better renaming input
+      renamer-nvim
+      # better signature help
+      lsp_signature-nvim
+      # Magit for neovim
+      neogit
+      # diff tab
+      diffview-nvim
+      # shows signs for added, modified, and removed lines.
+      # and other git stuff inside buffer
+      gitsigns-nvim
+      # opens a popup with suggestions to complete a key binding
+      which-key-nvim
+      # Show treesetter oputput, make queries 
+      playground
+      # Pretty icons
+      nvim-web-devicons
+      # Pretty telescope select menu
+      telescope-ui-select-nvim
+      # Show code context at window top
+      nvim-treesitter-context
+
+      # --------------------------------------------------------------------------------
+      # Editing
+      # --------------------------------------------------------------------------------
+   
+      # automaticaly close #, (, {, etc.
+      nvim-autopairs
+      # easily change the sorrounding
+      vim-surround
+      # gc to comment line
+      comment-nvim
+      # context aware commenting
+      nvim-ts-context-commentstring
+      # autocomplition using multiple sources
+      nvim-cmp
+      cmp-path
+      # snippets (required by `nvim-cmp`)
+      vim-vsnip
+      # v text object to select bar in foo_ba|r_bax
+      vim-textobj-variable-segment
+      # Highlights parentheses in rainbo
+      nvim-ts-rainbow
+   
+      # --------------------------------------------------------------------------------
+      # Lsp
+      # --------------------------------------------------------------------------------
+   
+      # the bridge between lua and configuration of LS
+      nvim-lspconfig
+      # source for complitions using LSP
+      cmp-nvim-lsp
+      # bridge between language tools that don't speak LSP and the LSP ecosystem
+      null-ls-nvim
+      # enable inlay hints (inlay type hints for Rust)
+      lsp-inlayhints-nvim
+      # get progress state and messages from LSP
+      lsp-status-nvim
+      # For pretty kind icons on completion
+      lspkind-nvim
+   
+      # --------------------------------------------------------------------------------
+      # Colorschemes
+      # --------------------------------------------------------------------------------
+   
+      tokyonight-nvim
+      kanagawa-nvim
+      nightfox-nvim
+      gruvbox-nvim
+    ];
+  };
+
   home.packages = with pkgs; [
     nerdfonts
 
@@ -78,13 +188,12 @@ in {
     postgresql_14
     syncplay-nogui
     aerc
+    loc
     parallel
 
     comma
 
     helix
-    neovim
-    sqls
     rust-analyzer
     nil
     sumneko-lua-language-server
@@ -101,7 +210,7 @@ in {
 
   home.file = util.recursiveMerge [
     (packageHomeFiles ../packages/helix)
-    # overrides config from `programs.zsh`
+    (packageHomeFiles ../packages/nvim)
     (packageHomeFiles ../packages/zsh)
   ];
 

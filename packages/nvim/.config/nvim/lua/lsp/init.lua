@@ -9,12 +9,11 @@ local cmp = require("cmp_nvim_lsp")
 local status = require("lsp-status")
 local signature = require("lsp_signature")
 local null_ls = require("null-ls")
-local inlay_hints = require("inlay-hints")
+local inlay_hints = require("lsp-inlayhints")
 
 local servers = {
 	"rust_analyzer", --rust
 	"lua_ls", --lua
-	"sqlls", -- sql
 	"nil_ls", -- nix
 }
 local options = lsp_utils.load_options(servers)
