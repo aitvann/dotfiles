@@ -21,7 +21,9 @@
     in
     target: package:
       let
-        paths = map (p: { name = p; value = package + "/${p}"; }) (readDir package);
+        paths =
+          map (p: { name = p; value = package + "/${p}"; })
+            (filter (p: p != ".stow-local-ignore") (readDir package));
       in
       builtins.listToAttrs paths;
 

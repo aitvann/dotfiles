@@ -28,6 +28,9 @@ alias vi="nvim"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/hosts/$HOST switch"
 alias nix-repl="nix repl nixpkgs"
 
+# XDG specification aliases
+alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
+
 # scripts
 source "$CONFIG_HOME/put.sh"
 source "$CONFIG_HOME/backup-keys.sh"
