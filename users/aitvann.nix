@@ -137,8 +137,10 @@ in {
       lsp-inlayhints-nvim
       # get progress state and messages from LSP
       lsp-status-nvim
-      # For pretty kind icons on completion
+      # for pretty kind icons on completion
       lspkind-nvim
+      # changes current working directory to project root from LSP
+      lsp-rooter-nvim
    
       # --------------------------------------------------------------------------------
       # Colorschemes
