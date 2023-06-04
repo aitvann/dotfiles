@@ -38,9 +38,12 @@ local on_attach = function(client, buffer)
 end
 
 -- construct capabilities object
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_extend("keep", capabilities, cmp.default_capabilities()) -- update capabilities from 'cmp_nvim_lsp` plugin
-capabilities = vim.tbl_extend("keep", capabilities, status.capabilities) -- update capabilities from `lsp-status` plugin
+local capabilities = vim.tbl_deep_extend(
+	"force",
+	vim.lsp.protocol.make_client_capabilities(),
+	cmp.default_capabilities(), -- update capabilities from 'cmp_nvim_lsp` plugin
+	status.capabilities -- update capabilities from `lsp-status` plugin
+)
 
 for server_name, server_options in pairs(options) do
 	lsp[server_name].setup({

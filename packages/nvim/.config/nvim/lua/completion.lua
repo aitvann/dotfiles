@@ -11,6 +11,8 @@ cmp.setup({
 	mapping = {
 		["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 		["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+		["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 		["<S-Up>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 		["<S-Down>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -23,6 +25,7 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" }, -- group index 0
+		{ name = "vsnip" },
 	}, {
 		{ name = "path" }, -- group index 1
 	}),

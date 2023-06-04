@@ -76,12 +76,12 @@ in {
     grpcurl
     clickhouse
     postgresql_14
-    helix
     syncplay-nogui
-
-    comma
     aerc
 
+    comma
+
+    helix
     neovim
     sqls
     rust-analyzer
@@ -89,6 +89,7 @@ in {
     sumneko-lua-language-server
     stylua
     nodePackages_latest.prettier
+    nodePackages_latest.markdownlint-cli
 
     cargo
     cargo-sweep
