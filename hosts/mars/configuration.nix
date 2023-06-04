@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   imports =
     [
       # Include the results of the hardware scan.
@@ -79,6 +79,12 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     initialPassword = "nopassword";
     shell = pkgs.zsh;
+  };
+
+  # required
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false;
   };
 
   # Enable the OpenSSH daemon.

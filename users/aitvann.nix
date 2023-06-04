@@ -41,14 +41,6 @@ in {
     browsers = [ "chromium" ];
   };
 
-  # required
-  programs.zsh = {
-    enable = true;
-    dotDir = ".config/zsh";
-    # enableCompletion = false;
-    # initExtra = lib.readFile ../packages/zsh/.config/zsh/.zshrc;
-  };
-
   home.packages = with pkgs; [
     nerdfonts
 

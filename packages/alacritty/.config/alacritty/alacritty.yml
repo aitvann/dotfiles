@@ -164,5 +164,22 @@ schemes:
 colors: *tokyo-night-storm
 # colors: *gruvbox-dark
 
+font:
+  normal:
+    family: Hack Nerd Font Mono
+    style: Regular
+
+  bold:
+    family: Hack Nerd Font Mono
+    style: Bold
+
+  italic:
+    family: Hack Nerd Font Mono
+    style: Italic
+
+  bold_italic:
+    family: Hack Nerd Font Mono
+    style: Bold Italic
+
 key_bindings:
   - { key: N, mods: Control|Shift, action: SpawnNewInstance }

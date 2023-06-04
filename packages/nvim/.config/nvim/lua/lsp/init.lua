@@ -13,8 +13,8 @@ local inlay_hints = require("inlay-hints")
 
 local servers = {
 	"rust_analyzer", --rust
-	"sumneko_lua", --lua
-	"sqls", -- sql
+	"lua_ls", --lua
+	"sqlls", -- sql
 	"nil_ls", -- nix
 }
 local options = lsp_utils.load_options(servers)
