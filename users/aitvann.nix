@@ -167,6 +167,7 @@ in {
 
     stow
     ranger
+    nnn
     xclip
     zplug
     pass
@@ -190,6 +191,8 @@ in {
     aerc
     loc
     parallel
+    ueberzug
+    trash-cli
 
     comma
 
