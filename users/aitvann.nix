@@ -173,6 +173,7 @@ in {
     pass
     docker-compose
     git
+    git-crypt
     difftastic
     direnv
     nix-direnv
