@@ -2,6 +2,8 @@
     util = import ../lib/util.nix args;
     packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
+  imports = [ ../lib/syncthing.nix ];
+
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "discord"
     "obsidian"
@@ -39,6 +41,11 @@ in {
   programs.browserpass = {
     enable = true;
     browsers = [ "chromium" ];
+  };
+
+  services.syncthing = {
+    enable = true;
+    config = ../packages/syncthing/.config/syncthing/config.xml;
   };
 
   programs.neovim = {
@@ -217,7 +224,6 @@ in {
     (packageHomeFiles ../packages/helix)
     (packageHomeFiles ../packages/nvim)
     (packageHomeFiles ../packages/zsh)
-    (packageHomeFiles ../packages/syncthing)
   ];
 
   home.stateVersion = "22.05";
