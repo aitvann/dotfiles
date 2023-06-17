@@ -164,6 +164,7 @@ in {
     prismlauncher
     openjdk8-bootstrap
     obsidian
+    syncthing
 
     stow
     ranger
@@ -216,6 +217,7 @@ in {
     (packageHomeFiles ../packages/helix)
     (packageHomeFiles ../packages/nvim)
     (packageHomeFiles ../packages/zsh)
+    (packageHomeFiles ../packages/syncthing)
   ];
 
   home.stateVersion = "22.05";

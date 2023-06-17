@@ -1,2 +1,2 @@
 known_hosts filter=git-crypt diff=git-crypt
-
+packages/syncthing/.config/syncthing/config.xml filter=git-crypt diff=git-crypt
