@@ -19,6 +19,10 @@ backup-keys() {(
     mkdir keys/password-store
     cp -r $PASSWORD_STORE_DIR keys/password-store
 
+    echo "exporting syncthing keys..."
+    mkdir keys/syncthing
+    cp $XDG_CONFIG_HOME/syncthing/{https-cert.pem,https-key.pem,cert.pem,key.pem} keys/syncthing
+
     echo "encrypting keys..."
     tar -cf keys.tar -C keys/ .
     gpg --batch --output ${filename}.tar.gpg --symmetric keys.tar

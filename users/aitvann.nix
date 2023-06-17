@@ -41,6 +41,8 @@ in {
     browsers = [ "chromium" ];
   };
 
+  services.syncthing.enable = true;
+
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
@@ -216,6 +218,7 @@ in {
     (packageHomeFiles ../packages/helix)
     (packageHomeFiles ../packages/nvim)
     (packageHomeFiles ../packages/zsh)
+    (packageHomeFiles ../packages/syncthing)
   ];
 
   home.stateVersion = "22.05";
