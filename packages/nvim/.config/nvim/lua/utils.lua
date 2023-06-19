@@ -1,4 +1,4 @@
-local bufdelete = require 'bufdelete'
+local bufdelete = require("bufdelete")
 
 local M = {}
 
@@ -16,18 +16,18 @@ M.close_buffer_by_name = function(name)
 	local regex = '(%d+)......"' .. name
 	local bufnr = vim.b.cmd_buffers_output:match(regex)
 	if bufnr then
-        bufdelete.bufdelete(bufnr, true)
+		bufdelete.bufdelete(bufnr, true)
 	end
 end
 
 M.close_current_buffer = function()
 	local bufname = vim.api.nvim_exec("echo @%", true)
 	local is_term = vim.startswith(bufname, "term")
-	local is_shell = vim.endswith(bufname, "zsh") or vim.endswith(bufname, "bash")
+	local is_shell = vim.endswith(bufname, "nu") or vim.endswith(bufname, "bash")
 	if is_term and is_shell then
-        bufdelete.bufdelete(0, true)
+		bufdelete.bufdelete(0, true)
 	else
-        bufdelete.bufdelete(0, false)
+		bufdelete.bufdelete(0, false)
 	end
 end
 

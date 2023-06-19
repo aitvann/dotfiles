@@ -183,3 +183,6 @@ font:
 
 key_bindings:
   - { key: N, mods: Control|Shift, action: SpawnNewInstance }
+
+shell:
+  program: /run/current-system/sw/bin/nu

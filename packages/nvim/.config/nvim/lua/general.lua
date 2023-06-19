@@ -17,6 +17,7 @@ vim.o.termguicolors = true
 vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
+vim.o.shell = "/run/current-system/sw/bin/nu"
 
 vim.o.cursorline = true
 vim.cmd("highlight CursorLine guibg=#3a405e")

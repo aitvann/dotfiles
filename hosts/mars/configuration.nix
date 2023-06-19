@@ -78,14 +78,10 @@
     description = "Ivan";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     initialPassword = "nopassword";
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
   };
 
-  # required
-  programs.zsh = {
-    enable = true;
-    enableCompletion = false;
-  };
+  environment.shells = with pkgs; [ nushell ];
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -137,8 +133,6 @@
     # Ledger Stax
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="6011", TAG+="uaccess", TAG+="udev-acl"
   '';
-
-  environment.pathsToLink = [ "/share/zsh" ];
 
   networking.extraHosts =
     ''

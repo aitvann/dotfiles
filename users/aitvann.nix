@@ -42,6 +42,7 @@ in {
   };
 
   services.syncthing.enable = true;
+  programs.nushell.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -184,7 +185,6 @@ in {
     jq
     exa
     alacritty
-    zsh
     starship
     grpcui
     grpcurl
@@ -217,7 +217,6 @@ in {
   home.file = util.recursiveMerge [
     (packageHomeFiles ../packages/helix)
     (packageHomeFiles ../packages/nvim)
-    (packageHomeFiles ../packages/zsh)
     (packageHomeFiles ../packages/syncthing)
   ];
 
