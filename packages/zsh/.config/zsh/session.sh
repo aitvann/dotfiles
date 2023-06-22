@@ -32,9 +32,13 @@ alias nix-repl="nix repl nixpkgs"
 alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
 
 # scripts
-source "$CONFIG_HOME/put.sh"
-source "$CONFIG_HOME/backup-keys.sh"
-source "$CONFIG_HOME/init-env/init-env.sh"
-source "$CONFIG_HOME/deep-clean.sh"
-source "$CONFIG_HOME/backup.sh"
-source "$CONFIG_HOME/syncthing-apply-config.sh"
+SCRIPTS_HOME=/home/$USER/dotfiles/scripts
+
+alias put=$SCRIPTS_HOME/put
+alias backup-keys=$SCRIPTS_HOME/backup-keys
+alias init-env=$SCRIPTS_HOME/init-env/init-env
+alias deep-clean=$SCRIPTS_HOME/deep-clean
+alias backup=$SCRIPTS_HOME/backup
+alias syncthing-apply-config=$SCRIPTS_HOME/syncthing-apply-config
+alias up-pg=$SCRIPTS_HOME/up-postgres/up-pg
+alias up-ch=$SCRIPTS_HOME/up-ch

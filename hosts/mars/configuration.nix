@@ -139,6 +139,8 @@
   '';
 
   environment.pathsToLink = [ "/share/zsh" ];
+  # some local scripts are not fully POSIX-compatible yet
+  # environment.binsh = "${pkgs.dash}/bin/dash";
 
   networking.extraHosts =
     ''

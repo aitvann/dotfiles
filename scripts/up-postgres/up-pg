@@ -1,0 +1,25 @@
+#! /bin/sh
+
+set -e
+
+parrent_path=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
+
+[ -z "$1" ] && echo "path to migrations must be set, aborting" && exit
+
+migrations=$1
+port=${2:-5432}
+name_prefix=${3:-test}
+
+up_only=$(mktemp -d /tmp/up-only-XXXXXX)
+ls -d $migrations/* | grep '\.up.sql' | xargs cp -t $up_only
+rm -fr $parrent_path/up-only-local 2> /dev/null
+cp -r $up_only $parrent_path/up-only-local
+
+container_name=${name_prefix}-pg-db
+image_name=permissioned-postgres
+postgres_version=$(cat $migrations/version)
+docker build $parrent_path -t $image_name --build-arg postgres_version=$postgres_version
+docker run --rm -dit -p "${port}:5432" --name $container_name $image_name
+
+set +e
+
