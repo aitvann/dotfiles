@@ -166,6 +166,7 @@ in {
     prismlauncher
     openjdk8-bootstrap
     obsidian
+    mpv
 
     stow
     ranger
@@ -190,7 +191,7 @@ in {
     grpcurl
     clickhouse
     postgresql_14
-    syncplay-nogui
+    syncplay
     aerc
     loc
     parallel
