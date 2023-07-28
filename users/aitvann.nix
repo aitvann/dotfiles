@@ -141,6 +141,12 @@ in {
       lsp-status-nvim
       # For pretty kind icons on completion
       lspkind-nvim
+
+      # --------------------------------------------------------------------------------
+      # Languages
+      # --------------------------------------------------------------------------------
+
+      vim-nix
    
       # --------------------------------------------------------------------------------
       # Colorschemes
@@ -204,6 +210,7 @@ in {
     rust-analyzer
     nil
     sumneko-lua-language-server
+    alejandra
     stylua
     nodePackages_latest.prettier
     nodePackages_latest.markdownlint-cli

@@ -56,6 +56,7 @@ end
 null_ls.setup({
 	on_attach = on_attach,
 	sources = {
+		null_ls.builtins.formatting.alejandra,
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.markdownlint,
 		null_ls.builtins.diagnostics.markdownlint,
