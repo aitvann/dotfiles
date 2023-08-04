@@ -2,25 +2,25 @@
 
 set -e
 
-__deep-clean-docker() {(
+deep_clean_docker() {(
     docker container prune -f
     docker volume prune -f
     docker image prune -af
 )}
 
-__deep-clean-cargo() {(
+deep_clean_cargo() {(
     find . -type f -name 'Cargo.toml' | parallel cargo clean --manifest-path {}
     cargo cache -a
 )}
 
-# __deep-clean-nix() {(
+# deep_clean_nix() {(
 #     nix-collect-garbage -d
 #     nix profile wipe-history
 #     nix store gc
 #     nix store optimise
 # )}
 
-__sudo-deep-clean-nix() {(
+sudo_deep_clean_nix() {(
     sudo nix-collect-garbage -d
     nix profile wipe-history
     nix store gc
@@ -28,8 +28,8 @@ __sudo-deep-clean-nix() {(
 )}
 
 
-__deep-clean-docker &
-__deep-clean-cargo &
-__sudo-deep-clean-nix
+deep_clean_docker &
+deep_clean_cargo &
+sudo_deep_clean_nix
 
 set +e
