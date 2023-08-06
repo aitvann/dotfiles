@@ -1,11 +1,17 @@
-{ config, pkgs, lib, ... } @ args: let
-    util = import ../lib/util.nix args;
-    packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+} @ args: let
+  util = import ../lib/util.nix args;
+  packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "discord"
-    "obsidian"
-  ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "discord"
+      "obsidian"
+    ];
 
   home.username = "aitvann";
   home.homeDirectory = "/home/aitvann";
@@ -13,32 +19,32 @@ in {
   programs.chromium = {
     enable = true;
     extensions = [
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
-      { id = "annfbnbieaamhaimclajlajpijgkdblo"; } # dark theme
-      { id = "ibplnjkanclpjokhdolnendpplpjiace"; } # simple translate
-      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
-      { id = "jghecgabfgfdldnmbfkhmffcabddioke"; } # volume master
-      { id = "naepdomgkenhinolocfifgehidddafch"; } # browserpass
+      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock origin
+      {id = "annfbnbieaamhaimclajlajpijgkdblo";} # dark theme
+      {id = "ibplnjkanclpjokhdolnendpplpjiace";} # simple translate
+      {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # vimium
+      {id = "jghecgabfgfdldnmbfkhmffcabddioke";} # volume master
+      {id = "naepdomgkenhinolocfifgehidddafch";} # browserpass
       # { id = "..."; } # https://github.com/FastForwardTeam/FastForward
-      { id = "ennpfpdlaclocpomkiablnmbppdnlhoh"; } # rust search extension
-      { id = "lckanjgmijmafbedllaakclkaicjfmnk"; } # clear urls
-      { id = "lanfdkkpgfjfdikkncbnojekcppdebfp"; } # canvas fingerprint defender
-      { id = "pcbjiidheaempljdefbdplebgdgpjcbe"; } # audio context fingerprint defender
-      { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # sponsor block for youtube
-      { id = "gebbhagfogifgggkldgodflihgfeippi"; } # return dislikes to youtube
-      { id = "hkligngkgcpcolhcnkgccglchdafcnao"; } # web archives
-      { id = "bfnaelmomeimhlpmgjnjophhpkkoljpa"; } # phantom
-      { id = "nkbihfbeogaeaoehlefnkodbefgpgknn"; } # meta mask
-      { id = "pncfbmialoiaghdehhbnbhkkgmjanfhe"; } # ublacklist
-      { id = "plhaalebpkihaccllnkdaokdoeaokmle"; } # draw.io for notion
+      {id = "ennpfpdlaclocpomkiablnmbppdnlhoh";} # rust search extension
+      {id = "lckanjgmijmafbedllaakclkaicjfmnk";} # clear urls
+      {id = "lanfdkkpgfjfdikkncbnojekcppdebfp";} # canvas fingerprint defender
+      {id = "pcbjiidheaempljdefbdplebgdgpjcbe";} # audio context fingerprint defender
+      {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block for youtube
+      {id = "gebbhagfogifgggkldgodflihgfeippi";} # return dislikes to youtube
+      {id = "hkligngkgcpcolhcnkgccglchdafcnao";} # web archives
+      {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # phantom
+      {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # meta mask
+      {id = "pncfbmialoiaghdehhbnbhkkgmjanfhe";} # ublacklist
+      {id = "plhaalebpkihaccllnkdaokdoeaokmle";} # draw.io for notion
       # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
-      { id = "mdjildafknihdffpkfmmpnpoiajfjnjd"; } # consent-o-matic
+      {id = "mdjildafknihdffpkfmmpnpoiajfjnjd";} # consent-o-matic
     ];
   };
 
   programs.browserpass = {
     enable = true;
-    browsers = [ "chromium" ];
+    browsers = ["chromium"];
   };
 
   services.syncthing.enable = true;
@@ -94,7 +100,7 @@ in {
       gitsigns-nvim
       # opens a popup with suggestions to complete a key binding
       which-key-nvim
-      # Show treesetter oputput, make queries 
+      # Show treesetter oputput, make queries
       playground
       # Pretty icons
       nvim-web-devicons
@@ -106,7 +112,7 @@ in {
       # --------------------------------------------------------------------------------
       # Editing
       # --------------------------------------------------------------------------------
-   
+
       # automaticaly close #, (, {, etc.
       nvim-autopairs
       # easily change the sorrounding
@@ -124,11 +130,11 @@ in {
       vim-textobj-variable-segment
       # Highlights parentheses in rainbo
       nvim-ts-rainbow
-   
+
       # --------------------------------------------------------------------------------
       # Lsp
       # --------------------------------------------------------------------------------
-   
+
       # the bridge between lua and configuration of LS
       nvim-lspconfig
       # source for complitions using LSP
@@ -147,11 +153,11 @@ in {
       # --------------------------------------------------------------------------------
 
       vim-nix
-   
+
       # --------------------------------------------------------------------------------
       # Colorschemes
       # --------------------------------------------------------------------------------
-   
+
       tokyonight-nvim
       kanagawa-nvim
       nightfox-nvim
@@ -208,6 +214,7 @@ in {
 
     helix
     rust-analyzer
+    marksman
     nil
     sumneko-lua-language-server
     alejandra
@@ -220,6 +227,7 @@ in {
     cargo-cache
     cargo-expand
     cargo-nextest
+    cargo-all-features
   ];
 
   home.file = util.recursiveMerge [
