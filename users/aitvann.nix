@@ -35,6 +35,7 @@ in {
       {id = "hkligngkgcpcolhcnkgccglchdafcnao";} # web archives
       {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # phantom
       {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # meta mask
+      {id = "kglcipoddmbniebnibibkghfijekllbl";} # fire
       {id = "pncfbmialoiaghdehhbnbhkkgmjanfhe";} # ublacklist
       {id = "plhaalebpkihaccllnkdaokdoeaokmle";} # draw.io for notion
       # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
@@ -175,6 +176,7 @@ in {
     tor-browser-bundle-bin
     ledger-live-desktop
     monero-gui
+    wasabiwallet
     prismlauncher
     openjdk8-bootstrap
     obsidian
