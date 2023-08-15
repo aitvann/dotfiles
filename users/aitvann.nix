@@ -211,6 +211,7 @@ in {
     parallel
     ueberzug
     trash-cli
+    unzip
 
     comma
 

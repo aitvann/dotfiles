@@ -27,6 +27,7 @@ alias l="ls -la --color=auto"
 alias vi="nvim"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/hosts/$HOST switch"
 alias nix-repl="nix repl nixpkgs"
+alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
 
 # XDG specification aliases
 alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
