@@ -181,6 +181,7 @@ in {
     openjdk8-bootstrap
     obsidian
     mpv
+    dbeaver
 
     stow
     ranger
@@ -212,6 +213,7 @@ in {
     ueberzug
     trash-cli
     unzip
+    ffmpeg
 
     comma
 

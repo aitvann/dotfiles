@@ -27,7 +27,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  time.timeZone = "Europe/Moscow";
+  time.timeZone = "Asia/Tokyo";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -44,6 +44,9 @@
 
     desktopManager.gnome.enable = true;
   };
+
+  # nautilus thumbnails
+  programs.evince.enable = false;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -119,6 +122,7 @@
 
   networking.extraHosts = ''
     127.0.0.1 local_kafka
+    127.0.0.1 postgres-test
   '';
 
   # Copy the NixOS configuration file and link it from the resulting system
