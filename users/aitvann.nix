@@ -7,6 +7,10 @@
   util = import ../lib/util.nix args;
   packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
+  nixpkgs.overlays = [
+    (import ../nix-packages)
+  ];
+
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "discord"
@@ -182,6 +186,8 @@ in {
     obsidian
     mpv
     dbeaver
+    nuclear
+    mcaselector
 
     stow
     ranger

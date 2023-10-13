@@ -123,6 +123,7 @@
   networking.extraHosts = ''
     127.0.0.1 local_kafka
     127.0.0.1 postgres-test
+    127.0.0.1 clickhouse-test
   '';
 
   # Copy the NixOS configuration file and link it from the resulting system
