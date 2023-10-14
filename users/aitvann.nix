@@ -206,6 +206,7 @@ in {
     jq
     exa
     alacritty
+    wl-copy
     zsh
     starship
     grpcui
