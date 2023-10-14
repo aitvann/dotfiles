@@ -35,21 +35,12 @@
   # environment.pathsToLink = [ "/libexec" ];
   services.xserver = {
     enable = true;
-
-    displayManager = {
-      gdm.enable = true;
-      gdm.wayland = false;
-    };
-
+    displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
 
   # nautilus thumbnails
   programs.evince.enable = false;
-
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -63,9 +54,6 @@
     alsa.enable = true;
     pulse.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aitvann = {
@@ -118,6 +106,31 @@
   environment.pathsToLink = ["/share/zsh"];
   # some local scripts are not fully POSIX-compatible yet
   # environment.binsh = "${pkgs.dash}/bin/dash";
+
+  environment.sessionVariables = {
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+    # Not officially in the specification
+    XDG_BIN_HOME = "$HOME/.local/bin";
+
+    ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
+    PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+    RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/.ripgreprc";
+    CARGO_HOME = "$XDG_DATA_HOME/cargo";
+    CARGO_TARGET_DIR = "$CARGO_HOME/shared-target";
+    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
+    PARALLEL_HOME = "$XDG_CONFIG_HOME/parallel";
+    PSQLRC = "$XDG_CONFIG_HOME/pg/psqlrc";
+    PSQL_HISTORY = "$XDG_STATE_HOME/psql_history";
+    PGPASSFILE = "$XDG_CONFIG_HOME/pg/pgpass";
+    PGSERVICEFILE = "$XDG_CONFIG_HOME/pg/pg_service.conf";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
+    DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+    XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
+    XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
+  };
 
   networking.extraHosts = ''
     127.0.0.1 local_kafka

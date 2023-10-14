@@ -205,8 +205,8 @@ in {
     htop
     jq
     exa
-    alacritty
-    wl-copy
+    wl-clipboard
+    foot
     zsh
     starship
     grpcui
@@ -243,15 +243,14 @@ in {
   ];
 
   home.file = util.recursiveMerge [
-    (packageHomeFiles ../stow-configs/alacritty)
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
+    (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-aitvann)
     (packageHomeFiles ../stow-configs/gnupg)
     (packageHomeFiles ../stow-configs/helix)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
-    (packageHomeFiles ../stow-configs/profile)
     (packageHomeFiles ../stow-configs/ranger)
     (packageHomeFiles ../stow-configs/ripgrep)
     (packageHomeFiles ../stow-configs/ssh-aitvann)
