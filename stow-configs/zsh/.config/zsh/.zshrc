@@ -10,7 +10,7 @@ fi
 
 source $ZPLUG_SRC/init.zsh
 
-fpath+=(/etc/profiles/per-user/aitvann/share/zsh/site-functions/)
+fpath+=(/etc/profiles/per-user/$USER/share/zsh/site-functions/)
 fpath+=(/run/current-system/sw/share/zsh/site-functions/)
 
 zplug "spwhitt/nix-zsh-completions"

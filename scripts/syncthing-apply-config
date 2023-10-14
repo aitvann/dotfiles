@@ -3,7 +3,7 @@
 set -e
 
 src=$XDG_CONFIG_HOME/syncthing/config.xml
-dst=/home/$USER/dotfiles/packages/syncthing/.config/syncthing/config.xml
+dst=/home/$USER/dotfiles/stow-configs/syncthing-$USER/.config/syncthing/config.xml
 
 test -L $src && echo "config is already up to date" && exit
 
