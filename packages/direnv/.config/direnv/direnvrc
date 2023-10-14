@@ -1,2 +1,0 @@
-source /etc/profiles/per-user/aitvann/share/nix-direnv/direnvrc
-export DIRENV_WARN_TIMEOUT=5m

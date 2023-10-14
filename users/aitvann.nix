@@ -8,7 +8,7 @@
   packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
-    (import ../nix-packages)
+    (import ../packages)
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -242,10 +242,20 @@ in {
   ];
 
   home.file = util.recursiveMerge [
-    (packageHomeFiles ../packages/helix)
-    (packageHomeFiles ../packages/nvim)
-    (packageHomeFiles ../packages/zsh)
-    (packageHomeFiles ../packages/syncthing)
+    (packageHomeFiles ../stow-configs/alacritty)
+    (packageHomeFiles ../stow-configs/cargo)
+    (packageHomeFiles ../stow-configs/direnv)
+    (packageHomeFiles ../stow-configs/git-aitvann)
+    (packageHomeFiles ../stow-configs/gnupg)
+    (packageHomeFiles ../stow-configs/helix)
+    # (packageHomeFiles ../stow-configs/nix)
+    (packageHomeFiles ../stow-configs/nvim)
+    (packageHomeFiles ../stow-configs/profile)
+    (packageHomeFiles ../stow-configs/ranger)
+    (packageHomeFiles ../stow-configs/ripgrep)
+    (packageHomeFiles ../stow-configs/ssh-aitvann)
+    (packageHomeFiles ../stow-configs/syncthing-aitvann)
+    (packageHomeFiles ../stow-configs/zsh)
   ];
 
   home.stateVersion = "22.05";
