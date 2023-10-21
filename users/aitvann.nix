@@ -221,6 +221,7 @@ in {
     trash-cli
     unzip
     ffmpeg
+    yt-dlp
 
     comma
 

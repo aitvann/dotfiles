@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -26,7 +28,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  time.timeZone = "Asia/Tokyo";
+  time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -131,6 +133,11 @@
     XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
     XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
   };
+
+  # fixes https://github.com/nix-community/home-manager/issues/1011 but not for Gnome
+  environment.extraInit = "
+    [[ -f ${homeManagerSessionVars} ]] && source ${homeManagerSessionVars}
+  ";
 
   networking.extraHosts = ''
     127.0.0.1 local_kafka
