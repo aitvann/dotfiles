@@ -28,6 +28,8 @@ alias vi="nvim"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/hosts/$HOST switch"
 alias nix-repl="nix repl nixpkgs"
 alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
+alias nnn="n"
+alias N='sudo -E nnn -dH'
 
 # XDG specification aliases
 alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
@@ -44,3 +46,6 @@ alias syncthing-apply-config=$SCRIPTS_HOME/syncthing-apply-config
 alias up-pg=$SCRIPTS_HOME/up-postgres/up-pg
 alias up-ch=$SCRIPTS_HOME/up-ch
 alias download-music=$SCRIPTS_HOME/download-music
+
+# modules
+source $CONFIG_HOME/nnnrc.sh

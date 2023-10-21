@@ -11,6 +11,9 @@ in {
     (import ../packages)
   ];
 
+  disabledModules = ["programs/nnn.nix"];
+  imports = [../modules/nnn.nix];
+
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "discord"
@@ -53,6 +56,21 @@ in {
   };
 
   services.syncthing.enable = true;
+
+  programs.nnn = {
+    enable = true;
+    package = with pkgs;
+      (nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
+        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
+      });
+    plugins = with pkgs.nnn-plugins; [
+      nnn-plugin-helper
+      preview-tui
+      dragdrop
+      fzcd
+      gitroot
+    ];
+  };
 
   programs.neovim = {
     enable = true;
@@ -191,7 +209,6 @@ in {
 
     stow
     ranger
-    nnn
     xclip
     zplug
     pass
@@ -217,11 +234,23 @@ in {
     aerc
     loc
     parallel
-    ueberzug
     trash-cli
     unzip
     ffmpeg
     yt-dlp
+
+    ueberzugpp
+    tree
+    file
+    atool
+    bat
+    imagemagick
+    ffmpegthumbnailer
+    poppler_utils
+    fontpreview
+    glow
+    xdragon # supports Wayland too
+    fzf
 
     comma
 
@@ -256,6 +285,7 @@ in {
     (packageHomeFiles ../stow-configs/ripgrep)
     (packageHomeFiles ../stow-configs/ssh-aitvann)
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
+    (packageHomeFiles ../stow-configs/ueberzugpp)
     (packageHomeFiles ../stow-configs/zsh)
   ];
 
