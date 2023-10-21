@@ -221,7 +221,7 @@ in {
     ripgrep
     htop
     jq
-    exa
+    eza
     wl-clipboard
     foot
     zsh
