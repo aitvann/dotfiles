@@ -1,0 +1,11 @@
+#! /bin/sh
+
+set -e
+
+yt-dlp \
+    -P $HOME/data/knowledge-base/media/music \
+    -o "%(creator,uploader)#s--%(track,title)#s_%(release_date>%Y-%m-%d,upload_date>%Y-%m-%d)#s.%(ext)s" \
+    --download-archive $HOME/data/knowledge-base/media/music-archive.txt \
+    "https://www.youtube.com/playlist?list=PL3IFklmt6R9CVSzOPwWqovvz2gHEFaIEZ"
+
+set +e

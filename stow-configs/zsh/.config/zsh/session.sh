@@ -43,3 +43,4 @@ alias backup=$SCRIPTS_HOME/backup
 alias syncthing-apply-config=$SCRIPTS_HOME/syncthing-apply-config
 alias up-pg=$SCRIPTS_HOME/up-postgres/up-pg
 alias up-ch=$SCRIPTS_HOME/up-ch
+alias download-music=$SCRIPTS_HOME/download-music
