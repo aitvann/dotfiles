@@ -8,8 +8,9 @@ export DIRENV_LOG_FORMAT=''
 # NOTE: install rust packages with nix
 # export PATH="$HOME/.local/share/cargo/bin:$PATH"
 
-# NOTE: install everything uisng only nix
-# export PATH="$HOME/.local/bin:$PATH"
+# NOTE: only for custom scripts
+# install any external software uisng Nix only
+export PATH="$HOME/.local/bin:$PATH"
 
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -36,16 +37,19 @@ alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
 
 # scripts
 SCRIPTS_HOME=/home/$USER/dotfiles/scripts
+mkdir -p ~/.local/bin
 
-alias put=$SCRIPTS_HOME/put
-alias backup-keys=$SCRIPTS_HOME/backup-keys
-alias init-env=$SCRIPTS_HOME/init-env/init-env
-alias deep-clean=$SCRIPTS_HOME/deep-clean
-alias backup=$SCRIPTS_HOME/backup
-alias syncthing-apply-config=$SCRIPTS_HOME/syncthing-apply-config
-alias up-pg=$SCRIPTS_HOME/up-postgres/up-pg
-alias up-ch=$SCRIPTS_HOME/up-ch
-alias download-music=$SCRIPTS_HOME/download-music
+ln -sf $SCRIPTS_HOME/rreadlink ~/.local/bin/rreadlink
+ln -sf $SCRIPTS_HOME/put ~/.local/bin/put
+ln -sf $SCRIPTS_HOME/backup-keys ~/.local/bin/backup-keys
+ln -sf $SCRIPTS_HOME/init-env/init-env ~/.local/bin/init-env
+ln -sf $SCRIPTS_HOME/deep-clean ~/.local/bin/deep-clean
+ln -sf $SCRIPTS_HOME/backup ~/.local/bin/backup
+ln -sf $SCRIPTS_HOME/syncthing-apply-config ~/.local/bin/syncthing-apply-config
+ln -sf $SCRIPTS_HOME/up-postgres/up-pg ~/.local/bin/up-pg
+ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
+ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
+ln -sf $SCRIPTS_HOME/stardew-valley-open-ports ~/.local/bin/stardew-valley-open-ports
 
 # modules
 source $CONFIG_HOME/nnnrc.sh

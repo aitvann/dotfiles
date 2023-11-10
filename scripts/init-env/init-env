@@ -1,8 +1,10 @@
 #! /bin/sh
 
-set -e
+PARENT_DIR=$(dirname -- "$(rreadlink "$0")")
 
-PARENT_DIR=`dirname "$0"`; PARENT_DIR=`eval "cd \"$PARENT_DIR\" && pwd"`
+echo $PARENT_DIR
+
+set -e
 
 flake_target=flake.nix
 shell_target=shell.nix
