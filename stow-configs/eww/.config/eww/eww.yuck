@@ -1,0 +1,15 @@
+(include "./variables.yuck")
+(include "./components/osd/osd.yuck")
+(include "./components/bar/bar.yuck")
+
+(defwindow bar
+           :monitor 0
+           :geometry (geometry :width "99.2%"
+                               ;; :height "38px"
+                               :anchor "top center")
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :stacking "fg"
+           :exclusive true
+           :focusable false
+(bar_widget))

@@ -33,16 +33,15 @@ in {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 
-  # Enable the X11 windowing system.
-  # environment.pathsToLink = [ "/libexec" ];
+  # required for Home Manager to configure system settings
+  programs.hyprland.enable = true;
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    displayManager = {
+      gdm.enable = true;
+    };
+    excludePackages = with pkgs; [xterm];
   };
-
-  # nautilus thumbnails
-  programs.evince.enable = false;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -95,6 +94,8 @@ in {
   };
 
   hardware.ledger.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   networking.networkmanager.enableStrongSwan = true;
   services.xl2tpd.enable = true;
@@ -132,12 +133,13 @@ in {
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
     XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
+    GTK_RC_FILES = "$XDG_CONFIG_HOME/gtk-1.0/gtkrc";
+    GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
   };
 
-  # fixes https://github.com/nix-community/home-manager/issues/1011 but not for Gnome
-  environment.extraInit = "
-    [[ -f ${homeManagerSessionVars} ]] && source ${homeManagerSessionVars}
-  ";
+  # fixes home-manager.sessionVariables
+  # https://github.com/nix-community/home-manager/issues/1011
+  environment.extraInit = "[[ -f ${homeManagerSessionVars} ]] && source ${homeManagerSessionVars}";
 
   networking.extraHosts = ''
     127.0.0.1 local_kafka

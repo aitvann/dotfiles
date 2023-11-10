@@ -1,0 +1,26 @@
+(defvar osd_time 0)
+(defvar osd "{ \"icon\": \"󰕾\", \"value\": 0 }")
+
+(defwidget osd_widget []
+    (pad_section :name "osd-widget"
+        (pad_element
+            (label :class "osd-widget__icon"
+                   :text {osd.icon}
+                   :valign "center" 
+                   :halign "start")
+            (progress :class "osd-widget__scale"
+                      :value {osd.value}
+                      :valign "center"
+                      :halign "end"
+                      :orientation "h"
+                      :flipped false))))
+
+(defwindow osd
+    :monitor 0
+    :stacking "fg"
+    :namespace "eww_osd"
+    :focusable false
+    :geometry
+        (geometry :y "16%"
+                  :anchor "bottom center")
+        (osd_widget))

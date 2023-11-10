@@ -1,0 +1,23 @@
+.osd-widget{
+    &__icon{
+        min-height: 2rem;
+        font-size: 2rem;
+        color: $onSurface;
+        padding-right: 1rem;
+    }
+    &__scale{
+        trough, progress {
+            border-radius: 11px;
+            min-height: .5rem;
+        }
+        trough {
+            background-color: $secondaryContainer;
+            min-width: 8rem;
+        }
+        progress {
+            background-color: $primary;
+        }
+    }
+}
+
+

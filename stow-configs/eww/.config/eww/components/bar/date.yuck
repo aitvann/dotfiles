@@ -1,0 +1,8 @@
+(defvar date_widget_alt_view false)
+
+(defwidget date_widget []
+    (eventbox :onhover "eww update date_widget_alt_view=true"
+              :onhoverlost "eww update date_widget_alt_view=false"
+        (pad_section
+            (pad_element :hover false
+                (label :text {formattime(EWW_TIME, "%Y ${date_widget_alt_view ? "%m %a" : "%b %d"}")})))))
