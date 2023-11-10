@@ -269,6 +269,8 @@ in {
     fzf
 
     comma
+    nix-index
+    nix-alien
 
     socat
     helix
