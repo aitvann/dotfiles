@@ -1,7 +1,9 @@
 {
+  self,
   config,
   pkgs,
   lib,
+  system,
   ...
 } @ args: let
   util = import ../lib/util.nix args;
@@ -13,6 +15,10 @@ in {
 
   disabledModules = ["programs/nnn.nix"];
   imports = [../modules/nnn.nix];
+
+  home.sessionVariables = {
+    TERM = "foot";
+  };
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -188,9 +194,18 @@ in {
     ];
   };
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs;
+  with self.inputs.nix-alien.packages.${system}; [
+    eww-wayland
+    rofi-wayland
     nerdfonts
+    wl-clipboard
+    foot
+    slurp
+    grim
+    palenight-theme
 
+    libadwaita
     tdesktop
     discord
     element-desktop
@@ -206,6 +221,7 @@ in {
     dbeaver
     nuclear
     mcaselector
+    gimp
 
     stow
     ranger
@@ -221,9 +237,8 @@ in {
     ripgrep
     htop
     jq
+    gojq
     eza
-    wl-clipboard
-    foot
     zsh
     starship
     grpcui
@@ -242,6 +257,7 @@ in {
     ueberzugpp
     tree
     file
+    bc
     atool
     bat
     imagemagick
@@ -254,6 +270,7 @@ in {
 
     comma
 
+    socat
     helix
     rust-analyzer
     marksman
@@ -275,10 +292,14 @@ in {
   home.file = util.recursiveMerge [
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
+    # (packageHomeFiles ../stow-configs/eww)
     (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-aitvann)
     (packageHomeFiles ../stow-configs/gnupg)
+    (packageHomeFiles ../stow-configs/gtk-3.0)
+    (packageHomeFiles ../stow-configs/gtk-4.0)
     (packageHomeFiles ../stow-configs/helix)
+    # (packageHomeFiles ../stow-configs/hypr)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
     (packageHomeFiles ../stow-configs/ranger)

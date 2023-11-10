@@ -1,0 +1,5 @@
+(defwidget time_widget []
+    (pad_section
+        (pad_element
+            (label :text {formattime(EWW_TIME, "%H:%M:%S")}))))
+

@@ -1,0 +1,43 @@
+
+; ******** Lib ********
+
+(defwidget pad_container [align]
+    (box :class "pad-container" :space-evenly false :halign align
+        (children)))
+
+(defwidget pad_section [?name]
+    (box :class "pad-section ${name}" :space-evenly false
+        (children)))
+
+(defwidget pad_element [?hover ?onscroll ?onhover ?onhoverlost ?timeout]
+    (eventbox :class "pad-element ${hover == "true" ? "pad-element_hover" : ""}"
+              :onscroll onscroll
+              :onhover onhover
+              :onhoverlost onhoverlost
+              :timeout 10000
+        (box :class "pad-element__inner"
+             :space-evenly false
+            (children))))
+
+; ******** Bar Components ********
+
+(include "components/bar/workspaces/workspaces.yuck")
+(include "components/bar/date.yuck")
+(include "components/bar/time.yuck")
+(include "components/bar/system/system.yuck")
+
+; ******** Bar ********
+
+(defwidget bar_left_widget [] (pad_container :align "start" (workspaces_widget)))
+(defwidget bar_center_widget1 [] (pad_container :align "end" (date_widget)))
+(defwidget bar_center_widget2 [] (pad_container :align "start" (time_widget)))
+(defwidget bar_right_widget [] (pad_container :align "end" (system_widget)))
+
+
+(defwidget bar_widget []
+    (box :class "bar-widget"
+         :space-evenly true
+        (bar_left_widget)
+        (bar_center_widget1)
+        (bar_center_widget2)
+        (bar_right_widget)))
