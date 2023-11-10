@@ -46,6 +46,13 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.openvpn.servers = {
+    general = {
+      config = "config /home/root/configs/general.ovpn";
+      autoStart = false;
+    };
+  };
+
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
