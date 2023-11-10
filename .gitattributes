@@ -1,1 +1,2 @@
 stow-configs/syncthing-aitvann/.config/syncthing/config.xml filter=git-crypt diff=git-crypt
+configs/searx-preferences.url filter=git-crypt diff=git-crypt
