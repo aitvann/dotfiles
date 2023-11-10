@@ -14,21 +14,22 @@ with lib; rec {
       else path;
     readRec = path: dir: builtins.mapAttrs (file: readF (path + "/${file}")) dir;
     read = path: readRec path (builtins.readDir path);
-    flatten = prev: builtins.concatMap ({
-      name,
-      value,
-    }: let
-      prevPath =
-        (
-          if prev == ""
-          then prev
-          else prev + "/"
-        )
-        + name;
-    in
-      if builtins.isAttrs value
-      then flatten prevPath (toList value)
-      else [prevPath]);
+    flatten = prev:
+      builtins.concatMap ({
+        name,
+        value,
+      }: let
+        prevPath =
+          (
+            if prev == ""
+            then prev
+            else prev + "/"
+          )
+          + name;
+      in
+        if builtins.isAttrs value
+        then flatten prevPath (toList value)
+        else [prevPath]);
     readDir = path: flatten "" (toList (read path));
   in
     target: package: let
