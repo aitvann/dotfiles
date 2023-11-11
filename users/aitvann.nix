@@ -75,6 +75,7 @@ in {
       dragdrop
       fzcd
       gitroot
+      wallpaper
     ];
   };
 
@@ -204,6 +205,7 @@ in {
     slurp
     grim
     palenight-theme
+    swww
 
     libadwaita
     tdesktop
@@ -224,6 +226,7 @@ in {
     gimp
 
     stow
+    fastfetch
     ranger
     xclip
     zplug
