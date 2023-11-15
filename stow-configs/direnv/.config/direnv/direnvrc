@@ -1,2 +1,2 @@
-source /etc/profiles/per-user/$USER/share/nix-direnv/direnvrc
+source ~/.local/share/nix-direnv/direnvrc
 export DIRENV_WARN_TIMEOUT=5m
