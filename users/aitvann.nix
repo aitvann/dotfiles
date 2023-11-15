@@ -13,8 +13,8 @@ in {
     (import ../packages)
   ];
 
-  disabledModules = ["programs/nnn.nix"];
-  imports = [../modules/nnn.nix];
+  disabledModules = ["programs/nnn.nix" "programs/nix-direnv.nix"];
+  imports = [../modules/nnn.nix ../modules/nix-direnv.nix];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -78,6 +78,8 @@ in {
       wallpaper
     ];
   };
+
+  programs.nix-direnv.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -236,7 +238,6 @@ in {
     git-crypt
     difftastic
     direnv
-    nix-direnv
     ripgrep
     htop
     jq
