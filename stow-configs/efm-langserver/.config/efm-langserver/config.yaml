@@ -1,0 +1,114 @@
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 1s
+
+tools:
+  # https://github.com/lukas-reineke/dotfiles/issues/3
+
+  html-prettier: &html-prettier
+    format-command: 'prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --stdin-filepath ${INPUT} --parser html'
+    format-stdin: true
+
+  css-prettier: &css-prettier
+    format-command: 'prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --stdin-filepath ${INPUT} --parser css'
+    format-stdin: true
+
+  scss-prettier: &scss-prettier
+    format-command: 'prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --stdin-filepath ${INPUT} --parser scss'
+    format-stdin: true
+
+  json-prettier: &json-prettier
+    format-command: 'prettier ${--tab-width:tabWidth} --parser json'
+    format-stdin: true
+
+  json-fixjson: &json-fixjson
+    format-command: 'fixjson'
+
+  markdown-prettier: &markdown-prettier
+    format-command: 'prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser markdown'
+    format-stdin: true
+
+  markdown-markdownlint-fix: &markdown-markdownlint-fix
+    format-command: 'markdownlint-cli2 --fix ${INPUT} >> /dev/null || exit 0'
+
+  markdown-markdownlint: &markdown-markdownlint
+    lint-command: 'markdownlint -s'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l %m'
+      - '%f:%l:%c %m'
+      - '%f: %l: %m'
+
+  dockerfile-hadolint: &dockerfile-hadolint
+    lint-command: 'hadolint'
+    lint-formats:
+      - '%f:%l %m'
+
+  gitcommit-gitlint: &gitcommit-gitlint
+    lint-command: 'gitlint'
+    lint-stdin: true
+    lint-formats:
+      - '%l: %m: "%r"'
+      - '%l: %m'
+
+  python-black: &python-black
+    format-command: 'black --quiet -'
+    format-stdin: true
+
+  python-isort: &python-isort
+    format-command: 'isort --quiet -'
+    format-stdin: true
+
+  python-mypy: &python-mypy
+    lint-command: 'mypy --show-column-numbers'
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+  sh-shellcheck: &sh-shellcheck
+    lint-command: 'shellcheck -f gcc -x'
+    lint-source: 'shellcheck'
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+  sh-shfmt: &sh-shfmt
+    format-command: 'shfmt -ci -s -bn'
+    format-stdin: true
+
+languages:
+  css:
+    - <<: *css-prettier
+
+  scss:
+    - <<: *scss-prettier
+
+  # dockerfile:
+  #   - <<: *dockerfile-hadolint
+
+  # gitcommit:
+  #   - <<: *gitcommit-gitlint
+
+  html:
+    - <<: *html-prettier
+
+  json:
+    # - <<: *json-fixjson
+    - <<: *json-prettier
+
+  markdown:
+    # - <<: *markdown-markdownlint
+    # - <<: *markdown-markdownlint-fix # https://github.com/mattn/efm-langserver/issues/258#issuecomment-1699416409
+    - <<: *markdown-prettier
+
+  # python:
+  #   - <<: *python-black
+  #   - <<: *python-isort
+  #   - <<: *python-mypy
+
+  # sh:
+  #   - <<: *sh-shellcheck
+  #   - <<: *sh-shfmt

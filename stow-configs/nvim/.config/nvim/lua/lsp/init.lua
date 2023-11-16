@@ -8,14 +8,14 @@ local lsp = require("lspconfig")
 local cmp = require("cmp_nvim_lsp")
 local status = require("lsp-status")
 local signature = require("lsp_signature")
-local null_ls = require("null-ls")
 local inlay_hints = require("lsp-inlayhints")
 
 local servers = {
     "rust_analyzer", --rust
-    "lua_ls",     --lua
-    "nil_ls",     -- nix
-    "marksman",   -- markdown
+    "lua_ls",        --lua
+    "nil_ls",        -- nix
+    "marksman",      -- markdown
+    "efm"
 }
 local options = lsp_utils.load_options(servers)
 
@@ -42,30 +42,19 @@ local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),
     cmp.default_capabilities(), -- update capabilities from 'cmp_nvim_lsp` plugin
-    status.capabilities      -- update capabilities from `lsp-status` plugin
+    status.capabilities         -- update capabilities from `lsp-status` plugin
 )
 
 for server_name, server_options in pairs(options) do
     lsp[server_name].setup({
+        init_options = server_options.init_options,
+        cmd = server_options.cmd,
         on_attach = on_attach,
         capabilities = capabilities,
         settings = server_options.settings,
+        filetypes = server_options.filetypes,
     })
 end
-
--- null-ls
-null_ls.setup({
-    on_attach = on_attach,
-    sources = {
-        null_ls.builtins.formatting.alejandra,
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.formatting.prettier.with({
-            filetypes = { "html", "json", "yaml" },
-        }),
-    },
-})
 
 -- inlay_hints
 inlay_hints.setup({
