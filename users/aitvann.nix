@@ -92,27 +92,29 @@ in {
       bufdelete-nvim
       # smooth scrolling
       neoscroll-nvim
-      # jump over the file
-      vim-easymotion
       # highlight color code
       nvim-colorizer-lua
       # useful lua functions
       plenary-nvim
       # analyze file structure
       nvim-treesitter.withAllGrammars
+      # repeat motions
+      nvim-next
       # easily create textobjects
       vim-textobj-user
       # Sudo write
       suda-vim
       # Load .envrc on cwd change
       direnv-vim
+      # cd to project root using LSP root or fallback to pattern matching
+      project-nvim
 
       # --------------------------------------------------------------------------------
       # Interface
       # --------------------------------------------------------------------------------
 
-      # start screen
-      vim-startify
+      # choose project using Telescope
+      telescope-project-nvim
       # status line
       lualine-nvim
       # open file with ranger window
@@ -132,14 +134,10 @@ in {
       gitsigns-nvim
       # opens a popup with suggestions to complete a key binding
       which-key-nvim
-      # Show treesetter oputput, make queries
-      playground
       # Pretty icons
       nvim-web-devicons
       # Pretty telescope select menu
       telescope-ui-select-nvim
-      # Show code context at window top
-      nvim-treesitter-context
 
       # --------------------------------------------------------------------------------
       # Editing
@@ -162,6 +160,8 @@ in {
       vim-textobj-variable-segment
       # Highlights parentheses in rainbo
       nvim-ts-rainbow
+      # tree-sitter text objects
+      nvim-treesitter-textobjects
 
       # --------------------------------------------------------------------------------
       # Lsp
@@ -171,8 +171,6 @@ in {
       nvim-lspconfig
       # source for complitions using LSP
       cmp-nvim-lsp
-      # bridge between language tools that don't speak LSP and the LSP ecosystem
-      null-ls-nvim
       # enable inlay hints (inlay type hints for Rust)
       lsp-inlayhints-nvim
       # get progress state and messages from LSP
@@ -279,13 +277,14 @@ in {
     socat
     helix
     rust-analyzer
+    efm-langserver
     marksman
     nil
     sumneko-lua-language-server
     alejandra
     stylua
     nodePackages_latest.prettier
-    nodePackages_latest.markdownlint-cli
+    nodePackages_latest.markdownlint-cli2
 
     cargo
     cargo-sweep
@@ -298,6 +297,7 @@ in {
   home.file = util.recursiveMerge [
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
+    (packageHomeFiles ../stow-configs/efm-langserver)
     # (packageHomeFiles ../stow-configs/eww)
     (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-aitvann)

@@ -1,6 +1,5 @@
 -- mapping rules
 -- ' - leader
--- 's - Session
 -- 'g - Git
 -- 't - Toggle
 --   'tf - Toggle Formatting
@@ -30,10 +29,8 @@ require("file-explorer")
 require("commenting")
 vim.cmd("source ~/.config/nvim/lua/resize.vim")
 require("auto-pairs")
-require("quick-jump")
 require("status-line")
-require("start-screen")
-require("session")
+vim.o.showtabline = 1
 require("toggling")
 require("plugin-neoscroll")
 require("colorscheme")
@@ -41,4 +38,6 @@ require("plugin-whichkey")
 require("plugin-nvim-colorizer")
 require("dump-mappings")
 require("plugin-code-action-menu")
+require("plugin-project-nvim")
 require("plugin-telescope")
+require("plugin-nvim-next")
