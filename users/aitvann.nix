@@ -237,7 +237,7 @@ in {
     difftastic
     direnv
     ripgrep
-    htop
+    bottom
     jq
     gojq
     eza

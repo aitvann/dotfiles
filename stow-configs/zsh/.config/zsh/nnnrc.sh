@@ -11,6 +11,7 @@ export NNN_TRASH=1
 export NNN_BMS="\
 c:$HOME/.config;\
 l:$HOME/.local;\
+t:$HOME/.local/share/Trash;\
 h:$HOME;\
 M:$HOME/mercury;\
 m:$HOME/data/knowledge-base/media;\
