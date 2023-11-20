@@ -51,11 +51,13 @@ comment.setup({
 vim.keymap.set("n", "<leader>tc", function()
     toggling.toggle("auto_comment")
 end, { silent = true, desc = "Toggle auto-Comment" })
-toggling.register_initial("auto_comment", false)
-toggling.register_description("auto_comment", "Auto-comment")
-toggling.register_on_enable("auto_comment", function()
-    vim.cmd([[set formatoptions+=cro]])
-end)
-toggling.register_on_disable("auto_comment", function()
-    vim.cmd([[set formatoptions-=cro]])
-end)
+toggling.register({
+    name = "auto_comment",
+    description = "Auto-comment",
+    on_enable_hook = function()
+        vim.cmd([[set formatoptions+=cro]])
+    end,
+    on_disable_hook = function()
+        vim.cmd([[set formatoptions-=cro]])
+    end
+})
