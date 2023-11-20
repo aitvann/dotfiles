@@ -36,7 +36,7 @@ vim.keymap.set("n", "G", "Gzz", { silent = true })
 
 -- leader
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, desc = "Quite from current editor" })
 vim.keymap.set("n", "<leader>Q", ":qa<CR>", { silent = true, desc = "Quite from editor" })

@@ -108,6 +108,8 @@ in {
       direnv-vim
       # cd to project root using LSP root or fallback to pattern matching
       project-nvim
+      # interactive environment for evaluating code within a running program
+      conjure
 
       # --------------------------------------------------------------------------------
       # Interface
@@ -276,6 +278,7 @@ in {
 
     socat
     helix
+    clojure-lsp
     rust-analyzer
     efm-langserver
     marksman
@@ -285,6 +288,9 @@ in {
     stylua
     nodePackages_latest.prettier
     nodePackages_latest.markdownlint-cli2
+
+    leiningen
+    babashka
 
     cargo
     cargo-sweep

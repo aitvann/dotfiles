@@ -11,10 +11,11 @@ local signature = require("lsp_signature")
 local inlay_hints = require("lsp-inlayhints")
 
 local servers = {
-    "rust_analyzer", --rust
-    "lua_ls",        --lua
+    "rust_analyzer", -- rust
+    "lua_ls",        -- lua
     "nil_ls",        -- nix
     "marksman",      -- markdown
+    "clojure_lsp",   -- clojure
     "efm"
 }
 local options = lsp_utils.load_options(servers)

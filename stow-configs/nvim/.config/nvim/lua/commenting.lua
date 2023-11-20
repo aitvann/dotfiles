@@ -8,7 +8,7 @@ comment.setup({
     ---Whether the cursor should stay at its position
     sticky = true,
     ---Lines to be ignored while (un)comment
-    ignore = nil,
+    ignore = nil, --
     ---LHS of toggle mappings in NORMAL mode
     toggler = {
         ---Line-comment toggle keymap
@@ -41,7 +41,7 @@ comment.setup({
         extra = true,
     },
     ---Function to call before (un)comment
-  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
     ---Function to call after (un)comment
     post_hook = nil,
 })
@@ -49,13 +49,13 @@ comment.setup({
 -- gc = Comment
 
 vim.keymap.set("n", "<leader>tc", function()
-	toggling.toggle("auto_comment")
+    toggling.toggle("auto_comment")
 end, { silent = true, desc = "Toggle auto-Comment" })
 toggling.register_initial("auto_comment", false)
 toggling.register_description("auto_comment", "Auto-comment")
 toggling.register_on_enable("auto_comment", function()
-	vim.cmd([[set formatoptions+=cro]])
+    vim.cmd([[set formatoptions+=cro]])
 end)
 toggling.register_on_disable("auto_comment", function()
-	vim.cmd([[set formatoptions-=cro]])
+    vim.cmd([[set formatoptions-=cro]])
 end)

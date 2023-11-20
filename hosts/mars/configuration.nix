@@ -142,6 +142,7 @@ in {
     XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
     GTK_RC_FILES = "$XDG_CONFIG_HOME/gtk-1.0/gtkrc";
     GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
+    LEIN_HOME = "$XDG_DATA_HOME/lein";
   };
 
   # fixes home-manager.sessionVariables
