@@ -72,5 +72,8 @@ inlay_hints.setup({
 status.register_progress()
 
 -- formatting
-toggling.register_initial("fmt_on_save", true)
-toggling.register_description("fmt_on_save", "Formatting on save")
+toggling.register({
+    name = "fmt_on_save",
+    initial = true,
+    description = "Formatting on save",
+})
