@@ -1,5 +1,6 @@
 local utils = require("utils")
 
+local whichkey = require("which-key")
 local builtin = require("telescope.builtin")
 
 vim.o.hidden = true
@@ -25,7 +26,6 @@ vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("i", "kk", "<Esc>:w<CR>", { silent = true })
 vim.keymap.set("n", "Y", "y$", { silent = true })
 vim.keymap.set("n", "U", "<cmd>redo<CR>", { silent = true })
-vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true })
 vim.keymap.set("n", "<C-R>", "<C-W>L", { silent = true })
 vim.keymap.set("n", "vv", "V", { silent = true })
 vim.keymap.set("n", "gi", "gi<Esc>zzi", { silent = true })
@@ -33,6 +33,7 @@ vim.keymap.set("x", ">", ">gv", { silent = true })
 vim.keymap.set("x", "<", "<gv", { silent = true })
 vim.keymap.set("i", "<C-z>", "<Esc>zza", { silent = true })
 vim.keymap.set("n", "G", "Gzz", { silent = true })
+vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window" })
 
 -- leader
 vim.g.mapleader = " "
@@ -71,61 +72,29 @@ vim.keymap.set("n", "H", ":tabp<CR>", { silent = true, desc = "cycle tabs to the
 vim.keymap.set("n", "<S-Del>", ":tabclose<CR>", { silent = true, desc = "CLOSE tab" })
 
 -- moving over the windows
--- g = Go to
-vim.keymap.set("n", "gh", function()
-    vim.fn.WinMove("h")
-end, { silent = true, desc = "GO to the LEFT window" })
-vim.keymap.set("n", "gl", function()
-    vim.fn.WinMove("l")
-end, { silent = true, desc = "GO to the RIGHT window" })
-vim.keymap.set("n", "gk", function()
-    vim.fn.WinMove("k")
-end, { silent = true, desc = "GO to the ABOVE window" })
-vim.keymap.set("n", "gj", function()
-    vim.fn.WinMove("j")
-end, { silent = true, desc = "GO to the BELOW window" })
+whichkey.register({ ["g"] = { name = "Go to" } })
+vim.keymap.set("n", "gh", function() vim.fn.WinMove("h") end, { silent = true, desc = "GO to the LEFT window" })
+vim.keymap.set("n", "gl", function() vim.fn.WinMove("l") end, { silent = true, desc = "GO to the RIGHT window" })
+vim.keymap.set("n", "gk", function() vim.fn.WinMove("k") end, { silent = true, desc = "GO to the ABOVE window" })
+vim.keymap.set("n", "gj", function() vim.fn.WinMove("j") end, { silent = true, desc = "GO to the BELOW window" })
 
 -- mirroring current window
--- gm = Go Mirror window
-vim.keymap.set(
-    "n",
-    "gmh",
-    "gh<Del>gh",
-    { silent = true, remap = true, desc = "GO to the LEFT window mirroring the current window" }
-)
-vim.keymap.set(
-    "n",
-    "gml",
-    "gl<Del>gl",
-    { silent = true, remap = true, desc = "GO to the RIGHT window mirroring the current window" }
-)
-vim.keymap.set(
-    "n",
-    "gmk",
-    "gk<Del>gk",
-    { silent = true, remap = true, desc = "GO to the ABOVE window mirroring the current window" }
-)
-vim.keymap.set(
-    "n",
-    "gmj",
-    "gj<Del>gj",
-    { silent = true, remap = true, desc = "GO to the BELOW window mirroring the current window" }
-)
+whichkey.register({ ["m"] = { name = "Go Mirror window" } }, { prefix = "g" })
+vim.keymap.set("n", "gmh", "gh<Del>gh",
+    { silent = true, remap = true, desc = "GO to the LEFT window mirroring the current window" })
+vim.keymap.set("n", "gml", "gl<Del>gl",
+    { silent = true, remap = true, desc = "GO to the RIGHT window mirroring the current window" })
+vim.keymap.set("n", "gmk", "gk<Del>gk",
+    { silent = true, remap = true, desc = "GO to the ABOVE window mirroring the current window" })
+vim.keymap.set("n", "gmj", "gj<Del>gj",
+    { silent = true, remap = true, desc = "GO to the BELOW window mirroring the current window" })
 
 -- moving(pulling) current window
--- gp = Go Pull window
-vim.keymap.set(
-    "n",
-    "gph",
-    "<C-W>h <C-W>x",
-    { silent = true, desc = "Go to the LEFT, Pulling the current window with you" }
-)
-vim.keymap.set(
-    "n",
-    "gpl",
-    "<C-W>l <C-W>x",
-    { silent = true, desc = "Go to the RIFHT, Pulling the current window with you" }
-)
+whichkey.register({ ["p"] = { name = "Go Pull window" } }, { prefix = "g" })
+vim.keymap.set("n", "gph", "<C-W>h <C-W>x",
+    { silent = true, desc = "Go to the LEFT, Pulling the current window with you" })
+vim.keymap.set("n", "gpl", "<C-W>l <C-W>x",
+    { silent = true, desc = "Go to the RIFHT, Pulling the current window with you" })
 vim.keymap.set("n", "gpk", "<C-W>k <C-W>x", { silent = true, desc = "Go UP, Pulling the current window with you" })
 vim.keymap.set("n", "gpj", "<C-W>j <C-W>x", { silent = true, desc = "Go DOWN, Pulling the current window with you" })
 
@@ -145,28 +114,19 @@ vim.cmd([[
 ]])
 
 -- resizing
--- stylua: ignore start
 vim.keymap.set("n", '<S-Left>', function() vim.fn.ResizeLeft(4) end, { silent = true, desc = 'move window divider LEFT' })
 vim.keymap.set("n", '<S-Right>', function() vim.fn.ResizeRight(4) end,
     { silent = true, desc = 'move window divider RIGHT' })
 vim.keymap.set("n", '<S-Up>', function() vim.fn.ResizeUp(4) end, { silent = true, desc = 'move window divider UP' })
 vim.keymap.set("n", '<S-Down>', function() vim.fn.ResizeDown(4) end, { silent = true, desc = 'move window divider DOWN' })
--- stylua: ignore end
 
 -- scrolling
 vim.keymap.set("n", "<Left>", "zh", { silent = true, desc = "scroll horizontally to the LEFT" })
 vim.keymap.set("n", "<Right>", "zl", { silent = true, desc = "scroll horizontally to the RIGHT" })
 
 -- navigation
-vim.keymap.set("n", "gf", function()
-    builtin.find_files({ hidden = true })
-end, { silent = true, desc = "Go to a File" })
-vim.keymap.set(
-    "n",
-    "gw",
-    builtin.current_buffer_fuzzy_find,
-    { silent = true, desc = "Go to Word in the CURRENT buffer" }
-)
+vim.keymap.set("n", "gf", function() builtin.find_files({ hidden = true }) end, { silent = true, desc = "Go to a File" })
+vim.keymap.set("n", "gw", builtin.current_buffer_fuzzy_find, { silent = true, desc = "Go to Word in the CURRENT buffer" })
 vim.keymap.set("n", "gW", builtin.live_grep, { silent = true, desc = "Go to Word in the PROJECT" })
 vim.keymap.set("n", "gb", builtin.buffers, { silent = true, desc = "Go to a buffer" })
 vim.keymap.set("n", "gJ", builtin.jumplist, { silent = true, desc = "Go to Jump point" })
