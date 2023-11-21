@@ -1,4 +1,4 @@
-local which_key = require 'which-key.keys'
+local whichkey = require 'which-key.keys'
 
 local M = {}
 
@@ -16,11 +16,23 @@ local function get_indent(n)
     return repeat_char(repeat_char(' ', tab_size), n)
 end
 
+-- determines if the mapping is user defined or not
+local function user_defined(map)
+    local desc = map.desc or ''
+    local label = map.label or ''
+
+    local no_preset = not map.preset
+    local no_nvim_desc = not string.find(desc, "nvim") and not string.find(desc, "Nvim")
+    local no_nvim_label = not string.find(label, "nvim") and not string.find(label, "Nvim")
+    return no_preset and no_nvim_desc and no_nvim_label
+end
+
 local function format_mapping(n, map)
-    local label = map.label and ' - ' .. map.label or ''
+    local msg = map.desc or map.label
+    local desc = msg and ' - ' .. msg or ''
     -- local keys = map.keys.nvim
     -- return get_indent(n) .. '* ' .. keys[#keys] .. label
-    return get_indent(n) .. '* `' .. table.concat(map.keys.nvim) .. '`' .. label
+    return get_indent(n) .. '- `' .. table.concat(map.keys.notation) .. '`' .. desc
 end
 
 -- @param mod char: mapping mode (n, v, i, ..)
@@ -29,13 +41,13 @@ end
 -- @param result string: result
 M.dump_key = function(mod, key, buffer, result)
     local res = result or ''
-    local source = which_key.get_mappings(mod, key, buffer)
+    local source = whichkey.get_mappings(mod, key, buffer)
     res = res .. format_mapping(#key - 1, source.mapping) .. '\n'
     for _, map in ipairs(source.mappings) do
-        if map.id then
-            res = res .. format_mapping(#key, map) .. '\n'
-        elseif map.group then
+        if map.group then
             res = res .. M.dump_key(mod, map.keys.keys, buffer)
+        elseif user_defined(map) then
+            res = res .. format_mapping(#key, map) .. '\n'
         end
     end
     return res
@@ -43,8 +55,12 @@ end
 
 -- @param mod char: mapping mode (n, v, i, ..)
 -- @param buffer num: buffer id
+-- usage:
+-- ```vim
+-- :lua require("dump-mappings").dump("n", 0)
+-- ````
 M.dump = function(mod, buffer)
-    return M.dump_key(mod, '', buffer)
+    vim.fn.setreg('"', M.dump_key(mod, '', buffer))
 end
 
 return M

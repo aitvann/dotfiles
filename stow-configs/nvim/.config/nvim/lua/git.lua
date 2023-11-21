@@ -2,7 +2,7 @@ local neogit = require("neogit")
 local diffview = require("diffview")
 local gitsigns = require("gitsigns")
 
-local which_key = require("which-key")
+local whichkey = require("which-key")
 local builtin = require("telescope.builtin")
 
 neogit.setup({
@@ -194,6 +194,7 @@ gitsigns.setup({
         end, { expr = true, desc = "GOTO PREVIOUS Hunk" })
 
         -- Actions
+        whichkey.register({ ["h"] = { name = "Hunk" } }, { prefix = "<leader>" })
         vim.keymap.set("n", "<leader>hs", gs.stage_hunk, { buffer = bufnr, desc = "Stage Hunk" })
         vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { buffer = bufnr, desc = "Unstage Hunk" })
         vim.keymap.set("n", "<leader>hx", gs.reset_hunk, { buffer = bufnr, desc = "Reset Hunk" })
@@ -209,12 +210,8 @@ gitsigns.setup({
         vim.keymap.set("n", "<leader>gB", function()
             gs.blame_line({ full = true })
         end, { buffer = bufnr, desc = "Git show current line Blame" })
-        vim.keymap.set(
-            "n",
-            "<leader>tg",
-            gs.toggle_current_line_blame,
-            { buffer = bufnr, desc = "Git show current line Blame" }
-        )
+        vim.keymap.set("n", "<leader>tg", gs.toggle_current_line_blame,
+            { buffer = bufnr, desc = "Git show current line Blame" })
         vim.keymap.set("n", "<leader>td", gs.toggle_deleted, { buffer = bufnr, desc = "Toggle Deleted lines" })
 
         -- Text object
@@ -252,7 +249,7 @@ gitsigns.setup({
     },
 })
 
--- <leader>g = Git
+whichkey.register({ ["g"] = { name = "Git" } }, { prefix = "<leader>" })
 vim.keymap.set("n", "<leader>gs", neogit.open, { silent = true, desc = "open Git Status" })
 vim.keymap.set("n", "<leader>gm", builtin.git_commits, { silent = true, desc = "open Git coMMits" })
 vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true, desc = "open Git Branches" })

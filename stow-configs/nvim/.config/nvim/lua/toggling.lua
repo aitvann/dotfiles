@@ -1,3 +1,5 @@
+local whichkey = require("which-key")
+
 local M = {}
 
 M.toggles = {}
@@ -66,6 +68,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
     desc = "telescope replacement for netrw",
 })
--- <leader>t = Toggling
+
+whichkey.register({ ["t"] = { name = "Toggling" } }, { prefix = "<leader>" })
 
 return M
