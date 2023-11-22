@@ -1,0 +1,38 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require '[babashka.cli :as cli]
+         '[clojure.java.shell :as shell :refer [sh]])
+
+; (def parent-dir (fs/parent (fs/real-path *file*)))
+
+(def known-apps {"stardew-valley" 24642
+                 "minecraft"      25565})
+
+(defn format-apps [apps]
+  (reduce
+   (fn [acc [key val]] (str acc "\n- " key ": " val))
+   "Known applications:"
+   apps))
+
+(defn open-ports [port]
+  (sh "sudo" "iptables" "-A" "INPUT" "-p" "tcp" "--dport" (str port)  "-j" "ACCEPT")
+  (sh "sudo" "iptables" "-A" "INPUT" "-p" "udp" "--dport" (str port)  "-j" "ACCEPT")
+  (sh "sudo" "systemctl" "reload" "firewall"))
+
+(defn list-cmd [_m]
+  (println (format-apps known-apps)))
+
+(defn open-ports-cmd [{[app] :args}]
+  (let [port (get known-apps app)]
+    (if port
+      (do
+        (open-ports port)
+        (println "Ports for " app " were opened"))
+      (println (str "Unknown app: " app)))))
+
+(def table
+  [{:cmds ["list"]   :fn list-cmd}
+   {:cmds []         :fn open-ports-cmd}])
+
+(cli/dispatch table *command-line-args*)
