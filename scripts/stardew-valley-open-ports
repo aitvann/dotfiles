@@ -1,3 +1,0 @@
-sudo iptables -A INPUT -p tcp --dport 24642 -j ACCEPT
-sudo iptables -A INPUT -p udp --dport 24642 -j ACCEPT
-sudo systemctl reload firewall

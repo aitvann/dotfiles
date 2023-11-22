@@ -49,7 +49,7 @@ ln -sf $SCRIPTS_HOME/syncthing-apply-config ~/.local/bin/syncthing-apply-config
 ln -sf $SCRIPTS_HOME/up-postgres/up-pg ~/.local/bin/up-pg
 ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
 ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
-ln -sf $SCRIPTS_HOME/stardew-valley-open-ports ~/.local/bin/stardew-valley-open-ports
+ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
 
 # modules
 source $CONFIG_HOME/nnnrc.sh

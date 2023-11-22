@@ -1,1 +1,4 @@
 **/up-only-local/**
+**/.lsp
+**/.clj-kondo
+**/.nrepl-port
