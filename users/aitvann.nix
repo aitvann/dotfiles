@@ -280,6 +280,7 @@ in {
     helix
     clojure-lsp
     rust-analyzer
+    taplo
     efm-langserver
     marksman
     nil

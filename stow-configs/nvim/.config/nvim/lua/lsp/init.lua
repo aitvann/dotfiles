@@ -16,6 +16,7 @@ local servers = {
     "nil_ls",        -- nix
     "marksman",      -- markdown
     "clojure_lsp",   -- clojure
+    "taplo",         -- toml
     "efm"
 }
 local options = lsp_utils.load_options(servers)

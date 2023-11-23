@@ -14,7 +14,7 @@ comment.setup({
         ---Line-comment toggle keymap
         line = 'gcc',
         ---Block-comment toggle keymap
-        block = 'gbc',
+        block = 'ъъ', -- disable
     },
     ---LHS of operator-pending mappings in NORMAL and VISUAL mode
     opleader = {
