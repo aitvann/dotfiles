@@ -1,13 +1,8 @@
 (defvar volume "{}")
-(defvar battery_low 10)
+(deflisten battery
+    :initial "{\"capacity\":100,\"icon\":\"¿\",\"is_critical\":false}"
+    "~/.config/eww/components/bar/system/battery.clj")
 (defvar system_widget_battery_alt_view false)
-; charging_status -> level
-(defvar battery "{
-        \"true\": [\"󰢜\", \"󰂆\", \"󰂇\", \"󰂈\", \"󰢝\", \"󰂉\", \"󰢞\", \"󰂊\", \"󰂋\", \"󰂅\"],
-        \"false\": [\"󰁺\", \"󰁻\", \"󰁼\", \"󰁽\", \"󰁾\", \"󰁿\", \"󰂀\", \"󰂁\", \"󰂂\", \"󰁹\"]
-    }")
-
-;; (deflisten batteryl :initial "{}" "~/.config/eww/components/bar/system/battery.clj")
 
 (defwidget system_widget []
     (pad_section :name "system-widget"
@@ -15,9 +10,9 @@
                      :onscroll "~/.config/eww/scripts/volume.sh {}"
                      :timeout 10000
             (label :text {volume.icon}))
-        (pad_element :onhover "eww update system_widget_battery_alt_view=true"
-                     :onhoverlost "eww update system_widget_battery_alt_view=false"
-            (label :class {(EWW_BATTERY["BAT0"].capacity < battery_low && EWW_BATTERY["BAT0"].status == "Discharging") ? "system-widget__battery_low-capacity" : ""}
-                   :text {system_widget_battery_alt_view || (EWW_BATTERY["BAT0"].capacity < battery_low && EWW_BATTERY["BAT0"].status == "Discharging")
-                        ? "${EWW_BATTERY["BAT0"].capacity}%"
-                        : battery[EWW_BATTERY["BAT0"].status == "Charging"][replace((EWW_BATTERY["BAT0"].capacity - 1) / 10, "\\.[0-9]", "")]}))))
+        (pad_element :onhover "${EWW_CMD} update system_widget_battery_alt_view=true"
+                     :onhoverlost "${EWW_CMD} update system_widget_battery_alt_view=false"
+            (label :class {battery.is_critical ? "system-widget__battery_low-capacity" : ""}
+                   :text {system_widget_battery_alt_view || battery.is_critical
+                        ? "${battery.capacity}%"
+                        : battery.icon}))))

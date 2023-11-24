@@ -20,8 +20,8 @@
     [:discharging 0] discharging-empty
     (get (status icons) (quot capacity 10))))
 
-(defn critical? [capacity]
-  (<= capacity critical-level))
+(defn critical? [{:keys [status capacity]}]
+  (and (<= capacity critical-level) (= status :discharging)))
 
 (defn get-main-battery []
   (-> (sh "eww" "get" "EWW_BATTERY")
@@ -37,7 +37,7 @@
   (let [{:keys [capacity] :as battery} (get-main-battery)]
     (json/generate-string {:capacity capacity
                            :icon (format-icon battery)
-                           :is-critical (critical? capacity)})))
+                           :is_critical (critical? battery)})))
 
 (while true
   (println (get-info))
