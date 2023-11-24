@@ -14,7 +14,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
@@ -41,7 +41,7 @@
   # fix dns problems
   # networking.enableIPv6 = false;
   # networking.nameservers = ["8.8.8.8" "8.8.4.4"];
-  networking.nameservers = ["1.1.1.1"];
+  # networking.nameservers = ["1.1.1.1"];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
