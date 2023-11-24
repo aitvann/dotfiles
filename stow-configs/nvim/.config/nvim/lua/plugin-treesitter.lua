@@ -1,4 +1,5 @@
 local configs = require("nvim-treesitter.configs")
+local context_commentstring = require('ts_context_commentstring')
 local next_integrations = require("nvim-next.integrations")
 
 next_integrations.treesitter_textobjects()
@@ -15,10 +16,6 @@ configs.setup({
         additional_vim_regex_highlighting = false,
     },
     indent = { enable = true, disable = { "yaml" } },
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-    },
     rainbow = {
         enable = true,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
@@ -143,3 +140,9 @@ configs.setup({
 
     }
 })
+
+vim.g.skip_ts_context_commentstring_module = true
+context_commentstring.setup {
+    enable = true,
+    enable_autocmd = false,
+}
