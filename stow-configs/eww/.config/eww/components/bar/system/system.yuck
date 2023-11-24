@@ -7,6 +7,8 @@
         \"false\": [\"󰁺\", \"󰁻\", \"󰁼\", \"󰁽\", \"󰁾\", \"󰁿\", \"󰂀\", \"󰂁\", \"󰂂\", \"󰁹\"]
     }")
 
+;; (deflisten batteryl :initial "{}" "~/.config/eww/components/bar/system/battery.clj")
+
 (defwidget system_widget []
     (pad_section :name "system-widget"
         (pad_element :hover true
@@ -19,4 +21,3 @@
                    :text {system_widget_battery_alt_view || (EWW_BATTERY["BAT0"].capacity < battery_low && EWW_BATTERY["BAT0"].status == "Discharging")
                         ? "${EWW_BATTERY["BAT0"].capacity}%"
                         : battery[EWW_BATTERY["BAT0"].status == "Charging"][replace((EWW_BATTERY["BAT0"].capacity - 1) / 10, "\\.[0-9]", "")]}))))
-
