@@ -31,8 +31,11 @@ copying and pasting all the mappings manually
 - `<C-R>` - <C-W>L
 - `U` - redo
 - `Y` - y$
+- `]`
+  - `]d` - GOTO NEXT diagnostics
+  - `]h` - GOTO NEXT Hunk
 - `[`
-  - `[d` - GOTO NEXT diagnostics
+  - `[d` - GOTO PREVIOUS diagnostics
   - `[h` - GOTO PREVIOUS Hunk
 - `\`
   - `\E` - Evaluate motion
@@ -64,10 +67,6 @@ copying and pasting all the mappings manually
   - `\r`
     - `\ra` - Executes the ConjureLuaResetAllEnvs command
     - `\rr` - Executes the ConjureLuaResetEnv command
-- `]`
-  - `]d` - GOTO PREVIOUS diagnostics
-  - `]h` - GOTO NEXT Hunk
-- `<c-w>` - window
 - `<leader>`
   - `<leader>;` - open terminal
   - `<leader>a` - show code Actions
