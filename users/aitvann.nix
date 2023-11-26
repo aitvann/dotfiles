@@ -53,6 +53,9 @@ in {
       {id = "plhaalebpkihaccllnkdaokdoeaokmle";} # draw.io for notion
       # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
       {id = "mdjildafknihdffpkfmmpnpoiajfjnjd";} # consent-o-matic
+      {id = "caobgmmcpklomkcckaenhjlokpmfbdec";} # JSON Resume Exporter from LinkedIn
+      # {id = "gpkildejogofhhobidokcjpolaikgldj";} # convert page to PDF
+      # {id = "lajondecmobodlejlcjllhojikagldgd";} # any value zoom
     ];
   };
 
