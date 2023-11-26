@@ -16,12 +16,14 @@
 
 (defn format-icon [{:keys [status capacity]}]
   (case [status capacity]
-    [:charging  100] charging-full
-    [:discharging 0] discharging-empty
+    [:charging    100]  charging-full
+    [:discharging 100]  (last (:discharging icons))
+    [:discharging 0]    discharging-empty
     (get (status icons) (quot capacity 10))))
 
 (defn critical? [{:keys [status capacity]}]
-  (and (<= capacity critical-level) (= status :discharging)))
+  (and (<= capacity critical-level)
+       (= status :discharging)))
 
 (defn get-main-battery []
   (-> (sh "eww" "get" "EWW_BATTERY")
@@ -30,8 +32,9 @@
       (get main-battery-name)
       walk/keywordize-keys
       (update :status #(case %
-                         "Charging" :charging
-                         "Discharging" :discharging))))
+                         "Charging"     :charging
+                         "Not charging" :discharging
+                         "Discharging"  :discharging))))
 
 (defn get-info []
   (let [{:keys [capacity] :as battery} (get-main-battery)]

@@ -13,6 +13,6 @@
         (pad_element :onhover "${EWW_CMD} update system_widget_battery_alt_view=true"
                      :onhoverlost "${EWW_CMD} update system_widget_battery_alt_view=false"
             (label :class {battery.is_critical ? "system-widget__battery_low-capacity" : ""}
-                   :text {system_widget_battery_alt_view || battery.is_critical
+                   :text {(system_widget_battery_alt_view || battery.is_critical) && objectlength(EWW_BATTERY) > 0 ;; required to get updates
                         ? "${battery.capacity}%"
                         : battery.icon}))))
