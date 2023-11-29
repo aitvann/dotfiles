@@ -1,3 +1,4 @@
+(deflisten brightness "~/.config/eww/components/bar/system/brightness.clj listen")
 (defvar volume "{}")
 (deflisten battery
     :initial "{\"capacity\":100,\"icon\":\"¿\",\"is_critical\":false}"
@@ -6,6 +7,10 @@
 
 (defwidget system_widget []
     (pad_section :name "system-widget"
+        (pad_element :hover true
+                     :onscroll "~/.config/eww/components/bar/system/brightness.clj {}"
+                     :timeout 10000
+            (label :text {brightness.icon}))
         (pad_element :hover true
                      :onscroll "~/.config/eww/scripts/volume.sh {}"
                      :timeout 10000

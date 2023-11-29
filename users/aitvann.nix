@@ -211,6 +211,7 @@ in {
     grim
     palenight-theme
     swww
+    brightnessctl
 
     libadwaita
     tdesktop
