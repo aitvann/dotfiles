@@ -6,5 +6,4 @@ dir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 eww kill
 eww daemon
 
-$dir/../components/bar/init.sh
 eww open bar
