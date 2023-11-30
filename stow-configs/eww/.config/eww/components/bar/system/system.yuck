@@ -1,5 +1,6 @@
 (deflisten brightness "~/.config/eww/components/bar/system/brightness.clj listen")
-(defvar volume "{}")
+(deflisten volume "~/.config/eww/components/bar/system/volume.clj listen")
+(defvar system_widget_volume_alt_view false)
 (deflisten battery
     :initial "{\"capacity\":100,\"icon\":\"¿\",\"is_critical\":false}"
     "~/.config/eww/components/bar/system/battery.clj")
@@ -12,9 +13,12 @@
                      :timeout 10000
             (label :text {brightness.icon}))
         (pad_element :hover true
-                     :onscroll "~/.config/eww/scripts/volume.sh {}"
+                     :onhover "${EWW_CMD} update system_widget_volume_alt_view=true"
+                     :onhoverlost "${EWW_CMD} update system_widget_volume_alt_view=false"
+                     :onclick "~/.config/eww/components/bar/system/volume.clj mute"
+                     :onscroll "~/.config/eww/components/bar/system/volume.clj {}"
                      :timeout 10000
-            (label :text {volume.icon}))
+            (label :text {system_widget_volume_alt_view ? volume.type_icon : volume.icon}))
         (pad_element :onhover "${EWW_CMD} update system_widget_battery_alt_view=true"
                      :onhoverlost "${EWW_CMD} update system_widget_battery_alt_view=false"
             (label :class {battery.is_critical ? "system-widget__battery_low-capacity" : ""}
