@@ -1,9 +1,7 @@
 (deflisten brightness "~/.config/eww/components/bar/system/brightness.clj listen")
 (deflisten volume "~/.config/eww/components/bar/system/volume.clj listen")
 (defvar system_widget_volume_alt_view false)
-(deflisten battery
-    :initial "{\"capacity\":100,\"icon\":\"¿\",\"is_critical\":false}"
-    "~/.config/eww/components/bar/system/battery.clj")
+(deflisten battery "~/.config/eww/components/bar/system/battery.clj listen")
 (defvar system_widget_battery_alt_view false)
 
 (defwidget system_widget []
