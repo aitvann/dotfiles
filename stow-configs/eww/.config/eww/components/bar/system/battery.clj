@@ -1,9 +1,12 @@
 #! /usr/bin/env bb
 
-(require
- '[clojure.java.shell :as shell :refer [sh]]
- '[cheshire.core :as json]
- '[clojure.walk :as walk])
+(require '[babashka.cli :as cli]
+         '[clojure.java.shell :as shell :refer [sh]]
+         '[cheshire.core :as json]
+         '[clojure.walk :as walk])
+
+(defn shrink [val lower-bound upper-bound]
+  (-> val (min upper-bound) (max lower-bound)))
 
 (def interval-ms 1000) ; 1s
 (def main-battery-name "BAT0")
@@ -31,6 +34,7 @@
       json/parse-string
       (get main-battery-name)
       walk/keywordize-keys
+      (update :capacity #(shrink % 0 100)) ; EWW_BATTERY can sometimes return value above 100
       (update :status #(case %
                          "Charging"     :charging
                          "Not charging" :discharging
@@ -42,6 +46,13 @@
                            :icon (format-icon battery)
                            :is_critical (critical? battery)})))
 
-(while true
-  (println (get-info))
-  (Thread/sleep interval-ms))
+(defn get-cmd [_m] (println (get-info)))
+(defn listen-cmd [_m]
+  (while true
+    (println (get-info))
+    (Thread/sleep interval-ms)))
+
+(def table [{:cmds ["get"]    :fn get-cmd}
+            {:cmds ["listen"] :fn listen-cmd}])
+
+(cli/dispatch table *command-line-args*)
