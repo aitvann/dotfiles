@@ -227,13 +227,11 @@ in {
     swww
     brightnessctl
 
-    libadwaita
     tdesktop
     discord
     element-desktop
     qbittorrent
     tor-browser-bundle-bin
-    ledger-live-desktop
     monero-gui
     wasabiwallet
     prismlauncher
@@ -243,7 +241,6 @@ in {
     dbeaver
     nuclear
     mcaselector
-    gimp
 
     stow
     fastfetch
@@ -254,7 +251,6 @@ in {
     docker-compose
     git
     git-crypt
-    difftastic
     direnv
     ripgrep
     bottom
@@ -268,7 +264,6 @@ in {
     clickhouse
     postgresql_14
     syncplay
-    aerc
     loc
     parallel
     trash-cli
