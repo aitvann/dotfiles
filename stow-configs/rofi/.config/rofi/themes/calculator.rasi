@@ -1,0 +1,9 @@
+@import "color-pallet"
+@import "base"
+
+configuration {
+    modi: "calc";
+    show-match: false;
+    sort: false;
+    automatic-save-to-history: true;
+}

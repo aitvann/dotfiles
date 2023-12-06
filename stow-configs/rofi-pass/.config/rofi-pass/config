@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+
+_rofi () {
+    rofi -i -no-auto-select -theme "themes/pass" "$@"
+}
+
+_clip_in_primary() {
+  wl-copy -p
+}
+
+_clip_in_clipboard() {
+  wl-copy
+}
+
+_clip_out_primary() {
+  wl-paste -p
+}
+
+_clip_out_clipboard() {
+  wl-paste
+}
+
+clip=both
+
+fix_layout=true
+
+default_do='autotype'
+
+default_user=:filename

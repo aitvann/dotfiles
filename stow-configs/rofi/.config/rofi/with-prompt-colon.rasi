@@ -1,0 +1,13 @@
+prompt {
+    border-radius: 10px 0px 0px 10px;
+    padding: 10px 0px 10px 30px;
+}
+textbox-prompt-colon {
+    enabled: true;
+    expand: false;
+    str: ":";
+    border-radius: 0px 10px 10px 0px;
+
+    padding: 10px 30px 10px 0px;
+    margin: 0px;
+}

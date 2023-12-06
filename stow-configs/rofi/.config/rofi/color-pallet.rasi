@@ -1,0 +1,97 @@
+@import "color-pallets/catppuccin_macchiato_blue.rasi"
+
+/*****----- Main Window -----*****/
+window {
+    border-color:                @outline;
+    background-color:            @background;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    border-color:                @outline;
+    background-color:            transparent;
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    background-color:            transparent;
+    text-color:                  @onSurface;
+}
+
+num-filtered-rows, textbox-num-sep, num-rows {
+    background-color:            @surface;
+    color:                       @onSurfaceVariant;
+}
+
+case-indicator {
+    enabled: false;
+}
+
+prompt {
+    background-color:            @primaryContainer;
+    text-color:                  @onPrimaryContainer;
+    border-color:                @outline;
+}
+textbox-prompt-colon {
+    background-color:            @primaryContainer;
+    text-color:                  @onPrimaryContainer;
+    border-color:                @outline;
+}
+entry {
+    background-color:            @surface;
+    text-color:                  @onSurface;
+    placeholder-color:           @surfaceVariant;
+    border-color:                @outline;
+}
+
+/*****----- Listview -----*****/
+listview {
+    border-color:                @outline;
+    background-color:            @background;
+    text-color:                  @onBackground;
+}
+scrollbar {
+    border-color:                @outline;
+    handle-color:                @secondaryContainer;
+    background-color:            transparent;
+}
+
+/*****----- Elements -----*****/
+element {
+    border-color:                @outline;
+    background-color:            @surface;
+    text-color:                  @onSurface;
+}
+element normal.normal {
+    background-color:            @surface;
+    text-color:                  @onSurface;
+}
+element selected.normal {
+    background-color:            @primaryContainer;
+    text-color:                  @onPrimaryContainer;
+}
+element.alternate.normal {
+    background-color:            @surfaceVariant;
+    text-color:                  @onSurfaceVariant;
+}
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+}
+
+/*****----- Message -----*****/
+error-message {
+    border-color:                @outline;
+    background-color:            @errorContainer;
+    text-color:                  @onErrorContainer;
+}
+textbox {
+    background-color:            @background;
+    text-color:                  @onBackground;
+    highlight:                   @onError;
+}

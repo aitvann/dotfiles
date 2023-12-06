@@ -50,6 +50,7 @@ ln -sf $SCRIPTS_HOME/up-postgres/up-pg ~/.local/bin/up-pg
 ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
 ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
 ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
+ln -sf $SCRIPTS_HOME/parse-color-tokens ~/.local/bin/parse-color-tokens
 
 # modules
 source $CONFIG_HOME/nnnrc.sh

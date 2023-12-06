@@ -11,6 +11,9 @@
 in {
   nixpkgs.overlays = [
     (import ../packages)
+    (final: prev: {
+      rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
+    })
   ];
 
   disabledModules = ["programs/nnn.nix" "programs/nix-direnv.nix"];
@@ -203,7 +206,18 @@ in {
   home.packages = with pkgs;
   with self.inputs.nix-alien.packages.${system}; [
     eww-wayland
-    rofi-wayland
+    (
+      rofi-wayland.override
+      (old: {
+        plugins =
+          (old.pluginc or [])
+          ++ [
+            rofi-calc
+          ];
+      })
+    )
+    rofi-pass
+    rofimoji
     nerdfonts
     wl-clipboard
     foot
@@ -319,8 +333,11 @@ in {
     # (packageHomeFiles ../stow-configs/hypr)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
+    (packageHomeFiles ../stow-configs/qalculate)
     (packageHomeFiles ../stow-configs/ranger)
     (packageHomeFiles ../stow-configs/ripgrep)
+    # (packageHomeFiles ../stow-configs/rofi)
+    # (packageHomeFiles ../stow-configs/rofimoji)
     (packageHomeFiles ../stow-configs/ssh-aitvann)
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
     (packageHomeFiles ../stow-configs/ueberzugpp)

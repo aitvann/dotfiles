@@ -1,0 +1,68 @@
+configuration {
+    scroll-method: 1;
+}
+
+/*****----- Main Window -----*****/
+window {
+    border: none;
+    border-radius: 10px;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    padding: 8px;
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    children: [ prompt,textbox-prompt-colon,entry,num-filtered-rows,textbox-num-sep,num-rows ];
+    spacing: 0px;
+}
+
+num-filtered-rows, textbox-num-sep, num-rows {
+    enabled: false;
+}
+
+prompt {
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px 30px 10px 30px;
+}
+textbox-prompt-colon {
+    enabled: false;
+}
+entry {
+    placeholder: "Type to filter";
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px 30px 10px 10px;
+    margin: 0px 0px 0px 10px;
+}
+
+/*****----- Listview -----*****/
+listview {
+    border: none;
+    scrollbar: true;
+    margin: 20px 0px 0px 0px;
+}
+scrollbar {
+    enabled: false;
+}
+
+/*****----- Elements -----*****/
+element {
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+}
+element normal.normal {}
+element selected.normal {}
+element.alternate.normal {}
+element-icon {}
+element-text {}
+
+/*****----- Message -----*****/
+message {
+    border: none;
+}
+textbox {
+    border: none;
+}
+error-message {}

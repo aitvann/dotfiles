@@ -1,0 +1,16 @@
+num-filtered-rows, textbox-num-sep, num-rows {
+    enabled: true;
+    expand: false;
+    padding: 10px 0px 10px 0px;
+}
+textbox-num-sep {
+    str: "/";
+}
+num-rows {
+    border-radius: 0px 10px 10px 0px;
+
+    padding: 10px 10px 0px 0px;
+}
+entry {
+    border-radius: 10px 0px 0px 10px;
+}
