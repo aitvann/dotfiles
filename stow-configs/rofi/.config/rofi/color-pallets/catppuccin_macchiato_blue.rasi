@@ -1,0 +1,36 @@
+// generated with https://m3.material.io/theme-builder#/custom
+// using catpuccine-macchiato blue color as primary color.
+// surface color is color picked from preview
+
+* {
+    primary: #adc7ff;
+    onPrimary: #002e68;
+    primaryContainer: #0d448e;
+    onPrimaryContainer: #d8e2ff;
+    secondary: #bfc6dc;
+    onSecondary: #283041;
+    secondaryContainer: #3f4759;
+    onSecondaryContainer: #dbe2f9;
+    tertiary: #debcdf;
+    onTertiary: #402843;
+    tertiaryContainer: #583e5b;
+    onTertiaryContainer: #fbd7fc;
+    error: #ffb4ab;
+    errorContainer: #93000a;
+    onError: #690005;
+    onErrorContainer: #ffdad6;
+    background: #1b1b1f;
+    onBackground: #e3e2e6;
+    surface: #23242A;
+    onSurface: #E3E2E6;
+    surfaceVariant: #44474f;
+    onSurfaceVariant: #c4c6d0;
+    outline: #8e9099;
+    inverseOnSurface: #1b1b1f;
+    inverseSurface: #e3e2e6;
+    inversePrimary: #305da8;
+    shadow: #000000;
+    surfaceTint: #adc7ff;
+    outlineVariant: #44474f;
+    scrim: #000000;
+}

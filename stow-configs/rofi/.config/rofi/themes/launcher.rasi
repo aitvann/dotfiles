@@ -1,0 +1,13 @@
+@import "color-pallet"
+@import "base"
+@import "with-count"
+@import "with-grid"
+
+configuration {
+    display-drun: "Applications";
+	drun-display-format: "{name}";
+}
+
+prompt {
+    str: "Applications";
+}

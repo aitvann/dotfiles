@@ -1,0 +1,51 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+; parse color tokens exported from this color palette builder:
+; https://m3.material.io/theme-builder#/custom
+
+(require '[babashka.cli :as cli]
+         '[babashka.deps :as deps]
+         '[cheshire.core :as json]
+         '[clojure.walk :as walk]
+         '[clojure.string :as str])
+
+(deps/add-deps '{:deps {camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.3"}}})
+(require '[camel-snake-kebab.core :as csk])
+
+(defn parse [id]
+  (if-let [[_ name mode] (re-matches #"md\.sys\.color\.([a-z-]*)\.(light|dark)" id)]
+    {:kind mode :name (csk/->camelCase name)}
+    (when-let [[_ name] (re-matches #"md\.ref\.palette\.([a-z-0-9]*)" id)]
+      {:kind "palette" :name (csk/->camelCase name)})))
+
+(defn read-content [path]
+  (->>
+   path
+   slurp
+   json/parse-string
+   walk/keywordize-keys
+   :entities
+   (map #(select-keys % [:id :value]))
+   (map #(update % :id parse))))
+
+(defn format-content [kind content]
+  (->> content
+       (filter #(= kind (get-in % [:id :kind])))
+       (map (fn [{{name :name} :id val :value}] (str name ": " val)))
+       (str/join "\n")))
+
+(def spec {:kind {:ref "<kind>"
+                  :desc "The kind to parse. Possible values: dark, light, palette"
+                  :alias :k
+                  :default "dark"}})
+
+(defn process-cmd [{[path] :args {kind :kind} :opts}]
+  (->> path read-content (format-content kind) println))
+(defn help-cmd [_m]
+  (println (cli/format-opts {:spec spec})))
+
+(def table [{:cmds ["help"] :fn help-cmd}
+            {:cmds []       :fn process-cmd :spec spec}])
+
+(cli/dispatch table *command-line-args*)

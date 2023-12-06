@@ -1,0 +1,29 @@
+configuration {
+    show-icons: true;
+}
+
+listview {
+    fixed-height: true;
+    fixed-columns: true;
+    columns: 6;
+    lines: 5;
+    layout: vertical;
+}
+
+element {
+    orientation:                 vertical;
+}
+
+element-text {
+    horizontal-align:            0.5;
+}
+
+element.alternate.normal {
+    background-color:            @surface;
+    text-color:                  @onSurface;
+}
+
+element-icon {
+    size: 80px;
+}
+
