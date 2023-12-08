@@ -170,6 +170,10 @@ in {
       nvim-ts-rainbow
       # tree-sitter text objects
       nvim-treesitter-textobjects
+      # list integration
+      parpar-nvim
+      nvim-paredit
+      nvim-parinfer
 
       # --------------------------------------------------------------------------------
       # Lsp
