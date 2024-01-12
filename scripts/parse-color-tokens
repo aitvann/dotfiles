@@ -20,14 +20,13 @@
       {:kind "palette" :name (csk/->camelCase name)})))
 
 (defn read-content [path]
-  (->>
-   path
-   slurp
-   json/parse-string
-   walk/keywordize-keys
-   :entities
-   (map #(select-keys % [:id :value]))
-   (map #(update % :id parse))))
+  (->> path
+       slurp
+       json/parse-string
+       walk/keywordize-keys
+       :entities
+       (map #(select-keys % [:id :value]))
+       (map #(update % :id parse))))
 
 (defn format-content [kind content]
   (->> content
@@ -35,9 +34,9 @@
        (map (fn [{{name :name} :id val :value}] (str name ": " val)))
        (str/join "\n")))
 
-(def spec {:kind {:ref "<kind>"
-                  :desc "The kind to parse. Possible values: dark, light, palette"
-                  :alias :k
+(def spec {:kind {:ref     "<kind>"
+                  :desc    "The kind to parse. Possible values: dark, light, palette"
+                  :alias   :k
                   :default "dark"}})
 
 (defn process-cmd [{[path] :args {kind :kind} :opts}]

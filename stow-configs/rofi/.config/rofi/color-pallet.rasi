@@ -66,13 +66,25 @@ element normal.normal {
     background-color:            @surface;
     text-color:                  @onSurface;
 }
+element.alternate.normal {
+    background-color:            @surfaceVariant;
+    text-color:                  @onSurfaceVariant;
+}
 element selected.normal {
     background-color:            @primaryContainer;
     text-color:                  @onPrimaryContainer;
 }
-element.alternate.normal {
-    background-color:            @surfaceVariant;
-    text-color:                  @onSurfaceVariant;
+element selected.urgent, element selected.active {
+    background-color:            @primary;
+    text-color:                  @onPrimary;
+}
+element normal.urgent, element alternate.urgent {
+    background-color:            @primaryContainer;
+    text-color:                  @onPrimaryContainer;
+}
+element normal.active, element alternate.active {
+    background-color:            @primaryContainer;
+    text-color:                  @onPrimaryContainer;
 }
 element-icon {
     background-color:            transparent;
@@ -93,5 +105,5 @@ error-message {
 textbox {
     background-color:            @background;
     text-color:                  @onBackground;
-    highlight:                   @onError;
+    highlight:                   @onPrimary;
 }

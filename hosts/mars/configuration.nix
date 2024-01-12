@@ -42,6 +42,18 @@ in {
     };
     excludePackages = with pkgs; [xterm];
   };
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+    ];
+  };
+
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
+  services.upower.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -62,6 +74,12 @@ in {
     alsa.enable = true;
     pulse.enable = true;
   };
+  # Don't automatically switch to HFP/HSP when something starts recording.
+  environment.etc."wireplumber/policy.lua.d/51-bluetooth-policy.lua".text = ''
+    bluetooth_policy.policy = {
+      ["media-role.use-headset-profile"] = false,
+    }
+  '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.aitvann = {

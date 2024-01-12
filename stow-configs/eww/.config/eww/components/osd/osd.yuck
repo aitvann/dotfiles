@@ -1,5 +1,5 @@
 (defvar osd_time 0)
-(defvar osd "{ \"icon\": \"󰕾\", \"value\": 0 }")
+(defvar osd "{}")
 
 (defwidget osd_widget []
     (pad_section :name "osd-widget"
@@ -8,13 +8,15 @@
                    :text {osd.icon}
                    :valign "center" 
                    :halign "start")
-            (progress :class "osd-widget__scale"
-                      :value {osd.value}
-                      :valign "center"
-                      :halign "end"
-                      :orientation "h"
-                      :flipped false))))
-
+            (box ; hack, bc `revealer` preserves size
+             (for value in {(osd.value != {}.x) ? [osd.value] : []}
+               (progress :class "osd-widget__scale"
+                         :value value
+                         :valign "center"
+                         :halign "end"
+                         :orientation "h"
+                         :flipped false))))))
+                
 (defwindow osd
     :monitor 0
     :stacking "fg"

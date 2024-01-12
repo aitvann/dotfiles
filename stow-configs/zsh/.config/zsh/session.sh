@@ -41,6 +41,7 @@ mkdir -p ~/.local/bin
 
 ln -sf $SCRIPTS_HOME/rreadlink ~/.local/bin/rreadlink
 ln -sf $SCRIPTS_HOME/put ~/.local/bin/put
+ln -sf $SCRIPTS_HOME/pw-util ~/.local/bin/pw-util
 ln -sf $SCRIPTS_HOME/backup-keys ~/.local/bin/backup-keys
 ln -sf $SCRIPTS_HOME/init-env/init-env ~/.local/bin/init-env
 ln -sf $SCRIPTS_HOME/deep-clean ~/.local/bin/deep-clean

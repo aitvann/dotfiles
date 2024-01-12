@@ -38,6 +38,7 @@
       (update :status #(case %
                          "Charging"     :charging
                          "Not charging" :discharging
+                         "Full"         :discharging
                          "Discharging"  :discharging))))
 
 (defn get-info []

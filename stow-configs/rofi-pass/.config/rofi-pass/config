@@ -20,6 +20,8 @@ _clip_out_clipboard() {
   wl-paste
 }
 
+clibpoard_backend=wl-clipboard
+
 clip=both
 
 fix_layout=true

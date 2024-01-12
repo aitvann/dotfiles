@@ -15,8 +15,9 @@ t:$HOME/.local/share/Trash;\
 h:$HOME;\
 M:$HOME/mercury;\
 m:$HOME/data/knowledge-base/media;\
-w:$HOME/data/knowledge-base/media/images/wallpapers;\
+w:$HOME/data/knowledge-base/media/wallpapers;\
 p:$HOME/playground;\
+e:/run/media/$USER;\
 P:$HOME/.local/share/PrismLauncher/instances"
 
 source $CONFIG_HOME/nnn-quitcd.sh
