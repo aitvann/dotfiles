@@ -1,5 +1,6 @@
 configuration {
     scroll-method: 1;
+    case-sensitive: false;
 }
 
 /*****----- Main Window -----*****/

@@ -1,9 +1,26 @@
-(deflisten brightness "~/.config/eww/components/bar/system/brightness.clj listen")
-(deflisten volume "~/.config/eww/components/bar/system/volume.clj listen")
-(defvar system_widget_volume_alt_view false)
-(deflisten battery "~/.config/eww/components/bar/system/battery.clj listen")
+(deflisten brightness
+    :initial "{\"icon\": \"!\"}"
+    "~/.config/eww/components/bar/system/brightness.clj listen")
+(deflisten audio_sink
+    :initial "{\"icon\": \"!\", \"type_icon\": \"!\"}"
+    "~/.config/eww/components/bar/system/audio.clj listen sink")
+(defvar system_widget_audio_sink_alt_view false)
+(deflisten audio_source
+    :initial "{\"icon\": \"!\", \"type_icon\": \"!\"}"
+    "~/.config/eww/components/bar/system/audio.clj listen source")
+(defvar system_widget_audio_source_alt_view false)
+(deflisten battery
+    :initial "{\"capacity\": 0, \"icon\": \"!\", \"is_critical\": false}"
+    "~/.config/eww/components/bar/system/battery.clj listen")
 (defvar system_widget_battery_alt_view false)
-
+(deflisten network
+    :initial "{\"icon\": \"!\", \"name\": \"!\"}"
+    "~/.config/eww/components/bar/system/network.clj listen")
+(defvar system_widget_network_alt_view false)
+(deflisten keyboard
+    :initial "!"
+    "~/.config/eww/components/bar/system/keyboard.clj listen")
+ 
 (defwidget system_widget []
     (pad_section :name "system-widget"
         (pad_element :hover true
@@ -11,15 +28,35 @@
                      :timeout 10000
             (label :text {brightness.icon}))
         (pad_element :hover true
-                     :onhover "${EWW_CMD} update system_widget_volume_alt_view=true"
-                     :onhoverlost "${EWW_CMD} update system_widget_volume_alt_view=false"
-                     :onclick "~/.config/eww/components/bar/system/volume.clj mute"
-                     :onscroll "~/.config/eww/components/bar/system/volume.clj {}"
+                     :onclick "~/.config/eww/components/bar/system/keyboard.clj switch"
                      :timeout 10000
-            (label :text {system_widget_volume_alt_view ? volume.type_icon : volume.icon}))
+            (label :text {keyboard}))
+        (pad_element :hover true
+                     :onhover "${EWW_CMD} update system_widget_audio_source_alt_view=true"
+                     :onhoverlost "${EWW_CMD} update system_widget_audio_source_alt_view=false"
+                     :onclick "~/.config/eww/components/bar/system/audio.clj mute source"
+                     :onrightclick "~/.config/eww/components/bar/system/audio.clj select-source"
+                     :onmiddleclick "~/.config/eww/components/bar/system/audio.clj select-source-profile"
+                     :onscroll "~/.config/eww/components/bar/system/audio.clj {} source"
+                     :timeout 10000
+            (label :text {system_widget_audio_source_alt_view ? audio_source.type_icon : audio_source.icon}))
+        (pad_element :hover true
+                     :onhover "${EWW_CMD} update system_widget_audio_sink_alt_view=true"
+                     :onhoverlost "${EWW_CMD} update system_widget_audio_sink_alt_view=false"
+                     :onclick "~/.config/eww/components/bar/system/audio.clj mute sink"
+                     :onrightclick "~/.config/eww/components/bar/system/audio.clj select-sink"
+                     :onmiddleclick "~/.config/eww/components/bar/system/audio.clj select-sink-profile"
+                     :onscroll "~/.config/eww/components/bar/system/audio.clj {} sink"
+                     :timeout 10000
+            (label :text {system_widget_audio_sink_alt_view ? audio_sink.type_icon : audio_sink.icon}))
+        (pad_element :onhover "${EWW_CMD} update system_widget_network_alt_view=true"
+                     :onhoverlost "${EWW_CMD} update system_widget_network_alt_view=false"
+                     :onclick "networkmanager_dmenu"
+                     :timeout 10000
+            (label :text {system_widget_network_alt_view ? network.name : network.icon}))
         (pad_element :onhover "${EWW_CMD} update system_widget_battery_alt_view=true"
                      :onhoverlost "${EWW_CMD} update system_widget_battery_alt_view=false"
             (label :class {battery.is_critical ? "system-widget__battery_low-capacity" : ""}
                    :text {(system_widget_battery_alt_view || battery.is_critical) && objectlength(EWW_BATTERY) > 0 ;; required to get updates
-                        ? "${battery.capacity}%"
-                        : battery.icon}))))
+                          ? "${battery.capacity}%"
+                          : battery.icon}))))

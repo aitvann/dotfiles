@@ -17,7 +17,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "programs/nix-direnv.nix"];
-  imports = [../modules/nnn.nix ../modules/nix-direnv.nix];
+  imports = [../modules/nnn.nix ../modules/nix-direnv.nix ../modules/rnnoise-plugin.nix];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -41,7 +41,7 @@ in {
       {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # vimium
       {id = "jghecgabfgfdldnmbfkhmffcabddioke";} # volume master
       {id = "naepdomgkenhinolocfifgehidddafch";} # browserpass
-      # { id = "..."; } # https://github.com/FastForwardTeam/FastForward
+      {id = "icallnadddjmdinamnolclfjanhfoafe";} # FastForward
       {id = "ennpfpdlaclocpomkiablnmbppdnlhoh";} # rust search extension
       {id = "lckanjgmijmafbedllaakclkaicjfmnk";} # clear urls
       {id = "lanfdkkpgfjfdikkncbnojekcppdebfp";} # canvas fingerprint defender
@@ -68,6 +68,8 @@ in {
   };
 
   services.syncthing.enable = true;
+  services.dunst.enable = true;
+  xdg.configFile."dunst/dunstrc".enable = false;
 
   programs.nnn = {
     enable = true;
@@ -86,6 +88,7 @@ in {
   };
 
   programs.nix-direnv.enable = true;
+  programs.rnnoise-plugin.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -214,7 +217,7 @@ in {
       rofi-wayland.override
       (old: {
         plugins =
-          (old.pluginc or [])
+          (old.plugins or [])
           ++ [
             rofi-calc
           ];
@@ -230,10 +233,16 @@ in {
     palenight-theme
     swww
     brightnessctl
+    networkmanagerapplet
+    networkmanager_dmenu
+    qpwgraph
+    libnotify
 
+    obs-studio
     tdesktop
     discord
     element-desktop
+    fluffychat
     qbittorrent
     tor-browser-bundle-bin
     monero-gui
@@ -245,6 +254,10 @@ in {
     dbeaver
     nuclear
     mcaselector
+    # intalls the whole
+    # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
+    libreoffice-qt
+    librewolf
 
     stow
     fastfetch
@@ -274,6 +287,7 @@ in {
     unzip
     ffmpeg
     yt-dlp
+    sshfs
 
     ueberzugpp
     tree
@@ -287,6 +301,7 @@ in {
     fontpreview
     glow
     xdragon # supports Wayland too
+    archivemount
     fzf
 
     comma
@@ -321,6 +336,7 @@ in {
   home.file = util.recursiveMerge [
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
+    # (packageHomeFiles ../stow-configs/dunst)
     (packageHomeFiles ../stow-configs/efm-langserver)
     # (packageHomeFiles ../stow-configs/eww)
     (packageHomeFiles ../stow-configs/foot)
@@ -330,8 +346,10 @@ in {
     (packageHomeFiles ../stow-configs/gtk-4.0)
     (packageHomeFiles ../stow-configs/helix)
     # (packageHomeFiles ../stow-configs/hypr)
+    (packageHomeFiles ../stow-configs/networkmanager-dmenu)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
+    (packageHomeFiles ../stow-configs/pipewire-aitvann)
     (packageHomeFiles ../stow-configs/qalculate)
     (packageHomeFiles ../stow-configs/ranger)
     (packageHomeFiles ../stow-configs/ripgrep)

@@ -9,7 +9,7 @@
 
 (defn parse-output [{:keys [out]}]
   (Integer/parseInt (last (re-matches #"(?is).*Current brightness: \d+ \((\d+)%\).*" out))))
-(defn show-osd [level icon] (sh "xargs" "sh" "-c" "~/.config/eww/components/osd/osd.sh $0 $1" :in (str icon " " level)))
+(defn show-osd [level icon] (sh "xargs" "sh" "-c" "~/.config/eww/components/osd/osd.clj $0 $1" :in (str icon " " level)))
 
 (def icons ["󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"])
 (defn format-icon [level]

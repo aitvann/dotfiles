@@ -1,0 +1,99 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require '[babashka.cli :as cli]
+         '[clojure.java.shell :as shell :refer [sh]]
+         '[clojure.string :as str]
+         '[cheshire.core :as json]
+         '[clojure.walk :as walk])
+
+(def device-keys {:source {:metadata-key "default.audio.source"
+                           :dump-class "Audio/Source"}
+                  :sink {:metadata-key "default.audio.sink"
+                         :dump-class "Audio/Sink"}})
+
+(defn get-metadata [] (:out (sh "pw-metadata")))
+(defn parse-metadata [metadata-str]
+  (->> (str/split-lines metadata-str)
+       rest
+       (map (fn [x] (let [[_ key value] (re-matches #"update: id:\d+ key:'(.+)' value:'(.+)' type:'(.+)'" x)]
+                      {key (get (json/parse-string value) "name")})))
+       (apply merge)))
+
+(defn get-dump [] (walk/keywordize-keys (json/parse-string (:out (sh "pw-dump")))))
+(defn parse-profiles [dump device-id]
+  (let [params (->> dump
+                    (filter (fn [{:keys [id]}] (= id device-id)))
+                    first
+                    :info :params)
+        {[{current :index}] :Profile} params
+        profiles (->> params
+                      :EnumProfile
+                      rest
+                      (map (fn [{:keys [index description]}]
+                             {:index index :desc description})))]
+    {:current current :profiles profiles}))
+(defn parse-dump [dump kind metadata]
+  (let [device-keys (kind device-keys)
+        default-node (get metadata (:metadata-key device-keys))
+        dump-class (:dump-class device-keys)]
+    (->> dump
+         (filter (fn [{{{:keys [media.class]} :props} :info}] (= dump-class media.class)))
+         (map (fn [{:keys [id]
+                    {{:keys [node.description device.id node.name priority.session]} :props} :info}]
+                (let [{:keys [profiles] current-profile :current} (parse-profiles dump device.id)]
+                  {:id id
+                   :device-id device.id
+                   :desc node.description
+                   :priority priority.session
+                   :current-profile current-profile
+                   :profiles profiles
+                   :default (= default-node node.name)}))))))
+
+(defn list-sinks [] (parse-dump (get-dump) :sink (parse-metadata (get-metadata))))
+(defn list-sources [] (parse-dump (get-dump) :source (parse-metadata (get-metadata))))
+
+(defn run-rofi [list active prompt]
+  (let [{:keys [exit out]} (sh "rofi"
+                               "-dmenu"
+                               "-i"
+                               "-p" prompt
+                               "-a" (str active)
+                               :in (str/join "\n" list))]
+    (if (not= exit 0)
+      (println "User have cancelled the selection")
+      (rest (re-matches #"(\d+)\t(.*)\n" out)))))
+
+(defn select-device [list]
+  (let [[active] (keep-indexed (fn [i {:keys [default]}] (when default i)) list)
+        in (map (fn [{:keys [id desc]}] (str id "\t" desc)) list)
+        [id _desc] (run-rofi in active "Audio Devices")]
+    (some->> id
+             (sh "wpctl" "set-default"))))
+
+(defn select-profile [{:keys [device-id current-profile profiles]}]
+  (let [[active] (keep-indexed (fn [i {:keys [index]}] (when (= index current-profile) i)) profiles)
+        in (map (fn [{:keys [index desc]}] (str index "\t" desc)) profiles)
+        [index _desc] (run-rofi in active "Audio Profiles")]
+    (some->> index
+             (sh "wpctl" "set-profile" (str device-id)))))
+
+(defn pprint-json-list [list]
+  (run! (fn [x] (println (json/generate-string x {:pretty true})))
+        list))
+
+(defn list-sinks-cmd [_m] (pprint-json-list (list-sinks)))
+(defn list-sources-cmd [_m] (pprint-json-list (list-sources)))
+(defn select-sink-cmd [_m] (select-device (list-sinks)))
+(defn select-source-cmd [_m] (select-device (list-sources)))
+(defn select-sink-profile-cmd [_m] (select-profile (first (filter :default (list-sinks)))))
+(defn select-source-profile-cmd [_m] (select-profile (first (filter :default (list-sources)))))
+
+(def table [{:cmds ["list-sinks"]            :fn list-sinks-cmd}
+            {:cmds ["list-sources"]          :fn list-sources-cmd}
+            {:cmds ["select-sink"]           :fn select-sink-cmd}
+            {:cmds ["select-source"]         :fn select-source-cmd}
+            {:cmds ["select-sink-profile"]   :fn select-sink-profile-cmd}
+            {:cmds ["select-source-profile"] :fn select-source-profile-cmd}])
+
+(cli/dispatch table *command-line-args*)

@@ -9,9 +9,11 @@
     (box :class "pad-section ${name}" :space-evenly false
         (children)))
 
-(defwidget pad_element [?hover ?onclick ?onscroll ?onhover ?onhoverlost ?timeout]
+(defwidget pad_element [?hover ?onclick ?onrightclick ?onmiddleclick ?onscroll ?onhover ?onhoverlost ?timeout]
     (eventbox :class "pad-element ${hover == "true" ? "pad-element_hover" : ""}"
               :onclick onclick
+              :onrightclick onrightclick
+              :onmiddleclick onmiddleclick
               :onscroll onscroll
               :onhover onhover
               :onhoverlost onhoverlost

@@ -1,0 +1,78 @@
+[global]
+    follow = mouse
+    monitor = 0
+    height = 600
+    width = (400, 600)
+    origin = top-right
+    offset = 9x9 # same as in Hyprland config but -1
+    notification_limit = 10
+    progress_bar = true
+    progress_bar_height = 10
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    progress_bar_corner_radius = 5
+    corner_radius = 8
+    icon_corner_radius = 4
+    indicate_hidden = yes
+    separator_height = 1 # the half of frame width
+    padding = 12
+    horizontal_padding = 12
+    text_icon_padding = 8
+    frame_width = 2 # same as in Hyprland config
+    gap_size = 0
+    separator_color = auto
+    sort = yes
+    idle_threshold = 120
+    font = Mono Nerd Font Mono 12
+    line_height = 0
+    markup = full
+    format = "<b>%s</b>\n%b\n"
+    alignment = left
+    vertical_alignment = top
+    show_age_threshold = 60
+    word_wrap = yes
+    ellipsize = end
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+    enable_recursive_icon_lookup = true
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 128
+    sticky_history = yes
+    history_length = 50
+    dmenu = /usr/bin/env rofi -dmenu -p Dunst
+    browser = xdg-open
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    ignore_dbusclose = false
+    force_xwayland = false
+    force_xinerama = false
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = close_current
+    mouse_right_click = context, close_current
+
+[experimental]
+    per_monitor_dpi = true
+
+[urgency_low]
+    background = "#1b1b1f" # background
+    foreground = "#e3e2e6" # onBackground
+    frame_color = "#23242A" # surface
+    timeout = 1
+
+[urgency_normal]
+    background = "#23242A" # surface
+    foreground = "#E3E2E6" # onSurface
+    frame_color = "#44474f" # outline
+    highlight = "#c4c6d0" # onSurfaceVariant
+    timeout = 10
+
+[urgency_critical]
+    background = "#93000a"
+    foreground = "#ffdad6"
+    frame_color = "#ffb4ab"
+    timeout = 0
