@@ -244,7 +244,7 @@ in {
     tdesktop
     discord
     element-desktop
-    fluffychat
+    cinny-desktop
     qbittorrent
     tor-browser-bundle-bin
     monero-gui
