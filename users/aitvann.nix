@@ -169,8 +169,10 @@ in {
       vim-vsnip
       # v text object to select bar in foo_ba|r_bax
       vim-textobj-variable-segment
-      # Highlights parentheses in rainbo
-      nvim-ts-rainbow
+      # Highlights parentheses in rainbow
+      rainbow-delimiters-nvim
+      # indentetion
+      indent-blankline-nvim
       # tree-sitter text objects
       nvim-treesitter-textobjects
       # list integration
@@ -249,7 +251,7 @@ in {
     wasabiwallet
     prismlauncher
     openjdk8-bootstrap
-    obsidian
+    # obsidian
     mpv
     dbeaver
     nuclear
@@ -288,7 +290,6 @@ in {
     ffmpeg
     yt-dlp
     sshfs
-
     ueberzugpp
     tree
     file
