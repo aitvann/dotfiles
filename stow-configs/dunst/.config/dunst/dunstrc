@@ -1,4 +1,8 @@
 [global]
+    enable_recursive_icon_lookup = true
+    icon_path="/run/current-system/sw/share/icons:/etc/profiles/per-user/aitvann/share/icons/hicolor/32x32/actions"
+    default_icon="/run/current-system/sw/share/icons/hicolor/64x64/apps/nix-snowflake.png"
+
     follow = mouse
     monitor = 0
     height = 600
@@ -37,7 +41,6 @@
     stack_duplicates = true
     hide_duplicate_count = false
     show_indicators = yes
-    enable_recursive_icon_lookup = true
     icon_position = left
     min_icon_size = 48
     max_icon_size = 128

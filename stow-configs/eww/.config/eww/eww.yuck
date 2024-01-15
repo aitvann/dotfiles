@@ -12,4 +12,4 @@
            :stacking "fg"
            :exclusive true
            :focusable false
-(bar_widget))
+ (bar_widget))

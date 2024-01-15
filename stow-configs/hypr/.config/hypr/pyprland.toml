@@ -1,0 +1,21 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.messenger]
+command = "cinny"
+unfocus = "hide"
+animation = "fromTop"
+size = "70% 80%"
+
+[scratchpads.telegram]
+command = "telegram-desktop"
+unfocus = "hide"
+animation = "fromTop"
+size = "70% 80%"
+
+[scratchpads.terminal]
+command = "foot --title terminal-popup"
+class = "terminal-popup"
+unfocus = "hide"
+animation = "fromTop"
+size = "70% 80%"
