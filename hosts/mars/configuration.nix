@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   ...
@@ -34,7 +35,11 @@ in {
   i18n.defaultLocale = "en_GB.UTF-8";
 
   # required for Home Manager to configure system settings
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    xwayland.enable = true;
+  };
   services.xserver = {
     enable = true;
     displayManager = {
@@ -45,9 +50,10 @@ in {
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
+      # xdg-desktop-portal-hyprland set by default
     ];
   };
+  security.polkit.enable = true;
 
   services.devmon.enable = true;
   services.gvfs.enable = true;

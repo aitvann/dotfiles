@@ -3,8 +3,9 @@
   lib,
   pkgs,
   ...
-}:
+} @ args:
 with lib; let
+  util = import ../lib/util.nix args;
   cfg = config.programs.nnn;
 in {
   options.programs.nnn = {
@@ -14,7 +15,7 @@ in {
       type = with types; listOf package;
       default = [];
       example = literalExpression ''
-        with pkgs.nnn-plugins; [
+        with pkgs.nnnPlugins; [
           nuke
           boom
         ]
@@ -25,15 +26,9 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [cfg.package];
-
-    xdg.configFile = listToAttrs (map (p: let
-        markerLen = stringLength "nnn-plugin-";
-        pluginName = substring markerLen ((stringLength p.pname) - markerLen) p.pname;
-        filename = replaceStrings ["dot-"] ["."] pluginName;
-      in {
-        name = "nnn/plugins/${filename}";
-        value = {source = "${p}/share/nnn/plugins/${filename}";};
-      })
-      cfg.plugins);
+    xdg.configFile = let
+      files = map (util.linkFiles "bin/" "nnn/plugins/") cfg.plugins;
+    in
+      util.recursiveMerge files;
   };
 }

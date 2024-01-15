@@ -5,11 +5,9 @@
   fetchFromGitHub,
 }: let
   version = nnn.version;
-  makePlugin = name: let
-    filename = lib.replaceStrings ["dot-"] ["."] name;
-  in
+  makePluginWithPath = name: path:
     stdenv.mkDerivation {
-      pname = "nnn-plugin-${name}";
+      pname = "${name}";
       inherit version;
       src = fetchFromGitHub {
         owner = "jarun";
@@ -23,7 +21,7 @@
       phases = ["installPhase" "fixupPhase"];
 
       installPhase = ''
-        install -Dm755 $src/plugins/${filename} -t $out/share/nnn/plugins
+        install -Dm755 $src/plugins/${path} -t $out/bin
       '';
 
       meta = with lib; {
@@ -33,8 +31,9 @@
         platforms = platforms.all;
       };
     };
+  makePlugin = name: makePluginWithPath name name;
 in {
-  nnn-plugin-helper = makePlugin "dot-nnn-plugin-helper";
+  helper = makePluginWithPath "helper" ".nnn-plugin-helper";
   boom = makePlugin "boom";
   bulknew = makePlugin "bulknew";
   cbcopy-mac = makePlugin "cbcopy-mac";

@@ -18,6 +18,8 @@ m:$HOME/data/knowledge-base/media;\
 w:$HOME/data/knowledge-base/media/wallpapers;\
 p:$HOME/playground;\
 e:/run/media/$USER;\
+s:/run/current-system/sw;\
+u:/etc/profiles/per-user/$USER;\
 P:$HOME/.local/share/PrismLauncher/instances"
 
 source $CONFIG_HOME/nnn-quitcd.sh

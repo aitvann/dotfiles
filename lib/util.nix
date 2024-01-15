@@ -45,6 +45,27 @@ with lib; rec {
   packageHomeFiles = target: package:
     builtins.mapAttrs (n: v: {source = v;}) (stowConfig target package);
 
+  endsWith = str: suffix: let
+    lenStr = stringLength str;
+    lenSuffix = stringLength suffix;
+    endOfStr = builtins.substring (lenStr - lenSuffix) lenSuffix str;
+  in
+    endOfStr == suffix;
+
+  linkFiles = source: target: pkg: let
+    fullSource = "${pkg}/${source}";
+    paths =
+      if endsWith source "/"
+      then
+        assert endsWith target "/"; let
+          files = builtins.attrNames (builtins.readDir fullSource);
+          fullSourceFiles = map (file: {"${target}${file}" = "${fullSource}${file}";}) files;
+        in
+          builtins.foldl' (l: r: l // r) {} fullSourceFiles # merge a list of maps
+      else {"${target}" = fullSource;};
+  in
+    builtins.mapAttrs (t: s: {source = s;}) paths;
+
   recursiveMerge = attrList: let
     f = attrPath:
       zipAttrsWith (

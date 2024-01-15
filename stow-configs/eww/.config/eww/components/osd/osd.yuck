@@ -25,4 +25,5 @@
     :geometry
         (geometry :y "16%"
                   :anchor "bottom center")
+    :stacking "overlay"
         (osd_widget))

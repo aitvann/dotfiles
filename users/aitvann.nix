@@ -1,9 +1,8 @@
 {
-  self,
+  inputs,
   config,
   pkgs,
   lib,
-  system,
   ...
 } @ args: let
   util = import ../lib/util.nix args;
@@ -12,12 +11,24 @@ in {
   nixpkgs.overlays = [
     (import ../packages)
     (final: prev: {
+      nix-alien = inputs.nix-alien.packages.${prev.system}.default;
+      hyprland = inputs.hyprland.packages.${pkgs.system}.default;
+      hyprlandPlugins = {
+        hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
+      };
+      vimPlugins =
+        prev.vimPlugins
+        // {
+          tree-sitter-hyprlang = inputs.tree-sitter-hyprlang.packages.${pkgs.system}.default;
+        };
+    })
+    (final: prev: {
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
     })
   ];
 
-  disabledModules = ["programs/nnn.nix" "programs/nix-direnv.nix"];
-  imports = [../modules/nnn.nix ../modules/nix-direnv.nix ../modules/rnnoise-plugin.nix];
+  disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix"];
+  imports = [../modules/nnn.nix ../modules/hyprland.nix];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -30,7 +41,9 @@ in {
     ];
 
   home.username = "aitvann";
-  home.homeDirectory = "/home/aitvann";
+  home.homeDirectory = "/home/${config.home.username}";
+
+  services.syncthing.enable = true;
 
   programs.chromium = {
     enable = true;
@@ -67,18 +80,20 @@ in {
     browsers = ["chromium"];
   };
 
-  services.syncthing.enable = true;
-  services.dunst.enable = true;
-  xdg.configFile."dunst/dunstrc".enable = false;
+  programs.hyprland = {
+    enable = true;
+    plugins = with pkgs.hyprlandPlugins; [
+      hyprfocus
+    ];
+  };
 
   programs.nnn = {
     enable = true;
-    package = with pkgs;
-      (nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
-        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
-      });
-    plugins = with pkgs.nnn-plugins; [
-      nnn-plugin-helper
+    package = (pkgs.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
+      makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
+    });
+    plugins = with pkgs.nnnPlugins; [
+      helper
       preview-tui
       dragdrop
       fzcd
@@ -86,9 +101,6 @@ in {
       wallpaper
     ];
   };
-
-  programs.nix-direnv.enable = true;
-  programs.rnnoise-plugin.enable = true;
 
   programs.neovim = {
     enable = true;
@@ -107,6 +119,8 @@ in {
       plenary-nvim
       # analyze file structure
       nvim-treesitter.withAllGrammars
+      # Hyprland treeesitter grammar
+      tree-sitter-hyprlang
       # repeat motions
       nvim-next
       # easily create textobjects
@@ -212,8 +226,7 @@ in {
     ];
   };
 
-  home.packages = with pkgs;
-  with self.inputs.nix-alien.packages.${system}; [
+  home.packages = with pkgs; [
     eww-wayland
     (
       rofi-wayland.override
@@ -239,6 +252,9 @@ in {
     networkmanager_dmenu
     qpwgraph
     libnotify
+    satty
+    dunst
+    pyprland
 
     obs-studio
     tdesktop
@@ -361,6 +377,12 @@ in {
     (packageHomeFiles ../stow-configs/ueberzugpp)
     (packageHomeFiles ../stow-configs/zsh)
   ];
+
+  xdg.dataFile = with pkgs;
+    util.recursiveMerge [
+      (util.linkFiles "share/" "./" nix-direnv)
+      (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
+    ];
 
   home.stateVersion = "22.05";
 }
