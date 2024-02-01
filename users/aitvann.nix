@@ -27,8 +27,8 @@ in {
     })
   ];
 
-  disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix"];
-  imports = [../modules/nnn.nix ../modules/hyprland.nix];
+  disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
+  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -44,6 +44,7 @@ in {
   home.homeDirectory = "/home/${config.home.username}";
 
   services.syncthing.enable = true;
+  services.mpd.enable = true;
 
   programs.chromium = {
     enable = true;
@@ -276,6 +277,7 @@ in {
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
     libreoffice-qt
     librewolf
+    tagger
 
     stow
     fastfetch
@@ -320,6 +322,9 @@ in {
     xdragon # supports Wayland too
     archivemount
     fzf
+    beets-unstable
+    mpd
+    ncmpcpp
 
     comma
     nix-index
@@ -351,6 +356,7 @@ in {
   ];
 
   home.file = util.recursiveMerge [
+    (packageHomeFiles ../stow-configs/beets)
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
     # (packageHomeFiles ../stow-configs/dunst)
@@ -363,6 +369,8 @@ in {
     (packageHomeFiles ../stow-configs/gtk-4.0)
     (packageHomeFiles ../stow-configs/helix)
     # (packageHomeFiles ../stow-configs/hypr)
+    (packageHomeFiles ../stow-configs/mpd)
+    (packageHomeFiles ../stow-configs/ncmpcpp)
     (packageHomeFiles ../stow-configs/networkmanager-dmenu)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
