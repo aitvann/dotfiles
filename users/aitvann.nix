@@ -284,7 +284,7 @@ in {
     ranger
     xclip
     zplug
-    pass
+    (pass.withExtensions (exts: with exts; [pass-otp]))
     docker-compose
     git
     git-crypt
@@ -359,7 +359,7 @@ in {
     (packageHomeFiles ../stow-configs/beets)
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
-    # (packageHomeFiles ../stow-configs/dunst)
+    (packageHomeFiles ../stow-configs/dunst)
     (packageHomeFiles ../stow-configs/efm-langserver)
     # (packageHomeFiles ../stow-configs/eww)
     (packageHomeFiles ../stow-configs/foot)
@@ -378,8 +378,9 @@ in {
     (packageHomeFiles ../stow-configs/qalculate)
     (packageHomeFiles ../stow-configs/ranger)
     (packageHomeFiles ../stow-configs/ripgrep)
-    # (packageHomeFiles ../stow-configs/rofi)
-    # (packageHomeFiles ../stow-configs/rofimoji)
+    (packageHomeFiles ../stow-configs/rofi)
+    (packageHomeFiles ../stow-configs/rofi-pass)
+    (packageHomeFiles ../stow-configs/rofimoji)
     (packageHomeFiles ../stow-configs/ssh-aitvann)
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
     (packageHomeFiles ../stow-configs/ueberzugpp)
