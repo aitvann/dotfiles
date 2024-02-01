@@ -16,6 +16,7 @@ h:$HOME;\
 M:$HOME/mercury;\
 m:$HOME/data/knowledge-base/media;\
 w:$HOME/data/knowledge-base/media/wallpapers;\
+z:$HOME/data/knowledge-base/media/music;\
 p:$HOME/playground;\
 e:/run/media/$USER;\
 s:/run/current-system/sw;\

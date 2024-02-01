@@ -1,0 +1,95 @@
+plugins:
+  - chroma
+  - fromfilename
+  - fetchart
+  - embedart
+  - lastgenre
+  - lyrics
+  - spotify
+  - edit
+  - mbsync
+  - playlist
+  - mpdupdate
+  - types
+  - replaygain
+
+directory: ~/data/knowledge-base/media/music/library
+library: ~/data/knowledge-base/media/music/beets.db
+
+# pefering Spotify because we want to fetch album info for singletons (beets 1.6.1 required)
+# still requires to use -t during import: https://github.com/beetbox/beets/issues/4605
+musicbrainz:
+  enabled: no
+  source_weight: 0.9
+
+spotify:
+  enabled: yes
+  source_weight: 0.0
+
+import:
+  move: yes
+  languages: en ru
+
+# asciifying manually because we
+# want: original -> asciify -> lower
+# and not: original -> lower -> asciify, which result in upper case laters in some cases
+paths:
+  default: "%lower{%asciify{$albumartist}} - %lower{%asciify{$album}}%aunique{} -- $track %lower{%asciify{$title}}"
+  singleton: "%lower{%asciify{$artist}} - %lower{%asciify{$title}}"
+  comp: "compilations/%lower{%asciify{$album}}%aunique{} -- $track %lower{%asciify{$title}}"
+
+types:
+  instrumental: bool
+  mashup: bool
+  cover: bool
+  # part: string
+  looped: bool
+  # speed: string
+  reverb: bool
+  pitched: bool
+  distorted: bool
+  saturated: bool
+  muffled: bool
+  bassboosted: bool
+
+edit:
+  itemfields:
+    # default
+    - album
+    - artist
+    - id
+    - title
+    - track
+    - genre
+    # modifications
+    - instrumental
+    - mashup
+    - cover
+    - part
+    - looped
+    - speed
+    - reverb
+    - pitched
+    - distorted
+    - saturated
+    - muffled
+    - bassboosted
+
+lastgenre:
+  source: track
+  count: 3
+
+fetchart:
+  sources: filesystem coverart itunes amazon albumart wikipedia google fanarttv lastfm
+
+embedart:
+  remove_art_file: yes
+
+playlist:
+  auto: yes
+  playlist_dir: ~/data/knowledge-base/media/music/library
+  relative_to: playlist
+
+replaygain:
+  backend: ffmpeg
+  overwrite: yes

@@ -2,10 +2,39 @@
 
 set -e
 
+#     -o "%(album_artist&{} - |)s%(album|singletones)s/%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
+
 yt-dlp \
-    -P $HOME/data/knowledge-base/media/music \
-    -o "%(creator,uploader)#s--%(track,title)#s_%(release_date>%Y-%m-%d,upload_date>%Y-%m-%d)#s.%(ext)s" \
-    --download-archive $HOME/data/knowledge-base/media/music-archive.txt \
+    -P $HOME/data/knowledge-base/media/music/import-source/ \
+    -o "%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
+    --download-archive $HOME/data/knowledge-base/media/music/dlp-index.txt \
+    -f bestaudio \
+    --extract-audio \
+    --audio-format flac \
+    --embed-thumbnail \
+    --embed-metadata \
+    --cookies-from-browser chromium \
     "https://www.youtube.com/playlist?list=PL3IFklmt6R9CVSzOPwWqovvz2gHEFaIEZ"
+
+yt-dlp \
+    -P $HOME/data/knowledge-base/media/music/import-source/ \
+    -o "%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
+    --download-archive $HOME/data/knowledge-base/media/music/dlp-index.txt \
+    -f bestaudio \
+    --extract-audio \
+    --audio-format flac \
+    --embed-thumbnail \
+    --embed-metadata \
+    --cookies-from-browser chromium \
+    "https://www.youtube.com/playlist?list=LM"
+
+# yt-dlp \
+#     -P $HOME/data/knowledge-base/media/music/import-source/ \
+#     -o "%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
+#     -f bestaudio \
+#     --extract-audio \
+#     --audio-format flac \
+#     --embed-metadata \
+#     "https://www.youtube.com/playlist?list=PL3IFklmt6R9DHmsaCHYD4REmLYIII4rn2"
 
 set +e
