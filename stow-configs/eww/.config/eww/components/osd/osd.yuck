@@ -8,7 +8,7 @@
                    :text {osd.icon}
                    :valign "center" 
                    :halign "start")
-            (box ; hack, bc `revealer` preserves size
+            (box ; HACK: `revealer` preserves size
              (for value in {(osd.value != {}.x) ? [osd.value] : []}
                (progress :class "osd-widget__scale"
                          :value value

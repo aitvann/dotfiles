@@ -7,6 +7,7 @@
 ; (def parent-dir (fs/parent (fs/real-path *file*)))
 
 (def known-apps {"stardew-valley" 24642
+                 "c-chat"         1488
                  "minecraft"      25565})
 
 (defn format-apps [apps]

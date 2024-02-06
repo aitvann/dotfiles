@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # a really hacky way to enable SystemD Unit for user
+    # HACK: a really hacky way to enable SystemD Unit for user
     xdg.configFile."systemd/user/mpd.service".source = "${pkgs.mpd}/share/systemd/user/mpd.service";
     xdg.configFile."systemd/user/default.target.wants/mpd.service".source = "${pkgs.mpd}/share/systemd/user/mpd.service";
 
