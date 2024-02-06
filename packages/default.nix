@@ -9,5 +9,6 @@ final: prev: {
       parpar-nvim = final.callPackage ./nvim-parpar.nix {};
       nvim-paredit = final.callPackage ./nvim-paredit.nix {};
       nvim-parinfer = final.callPackage ./nvim-parinfer.nix {};
+      autolist-nvim = final.callPackage ./autolist-nvim.nix {};
     };
 }
