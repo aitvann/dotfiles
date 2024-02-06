@@ -229,6 +229,7 @@ in {
       # --------------------------------------------------------------------------------
 
       tokyonight-nvim
+      catppuccin-nvim
       kanagawa-nvim
       nightfox-nvim
       gruvbox-nvim

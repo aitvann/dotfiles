@@ -25,13 +25,26 @@ vim.o.cursorcolumn = true
 vim.cmd("highlight CursorLine guibg=#3a405e")
 
 -- folds
-vim.opt.foldlevelstart = 3
 vim.opt.foldmethod = "expr"
+-- WARN: causes significant sturtup slowdown
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- deprecated
 -- requires NeoVim-nightly
 vim.o.foldtext = ''
 vim.o.fillchars = 'fold: '
+
+-- HACK:
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
+    group = vim.api.nvim_create_augroup("unfold-on-enter", { clear = true }),
+    pattern = "*",
+    callback = function()
+        vim.schedule(function()
+            vim.cmd [[ normal zR ]]
+        end)
+    end,
+})
 
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("i", "kk", "<Esc>:w<CR>", { silent = true })

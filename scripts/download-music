@@ -1,7 +1,5 @@
 #! /bin/sh
 
-set -e
-
 #     -o "%(album_artist&{} - |)s%(album|singletones)s/%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
 
 yt-dlp \
@@ -36,5 +34,3 @@ yt-dlp \
 #     --audio-format flac \
 #     --embed-metadata \
 #     "https://www.youtube.com/playlist?list=PL3IFklmt6R9DHmsaCHYD4REmLYIII4rn2"
-
-set +e
