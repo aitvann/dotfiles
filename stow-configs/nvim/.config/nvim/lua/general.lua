@@ -18,9 +18,20 @@ vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
 vim.o.laststatus = 3
+vim.o.conceallevel = 1
 
 vim.o.cursorline = true
+vim.o.cursorcolumn = true
 vim.cmd("highlight CursorLine guibg=#3a405e")
+
+-- folds
+vim.opt.foldlevelstart = 3
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- deprecated
+-- requires NeoVim-nightly
+vim.o.foldtext = ''
+vim.o.fillchars = 'fold: '
 
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("i", "kk", "<Esc>:w<CR>", { silent = true })
@@ -37,7 +48,7 @@ vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window
 
 -- leader
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = "\r"
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, desc = "Quite from current editor" })
 vim.keymap.set("n", "<leader>Q", ":qa<CR>", { silent = true, desc = "Quite from editor" })

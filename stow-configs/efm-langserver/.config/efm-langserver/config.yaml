@@ -25,8 +25,10 @@ tools:
   json-fixjson: &json-fixjson
     format-command: 'fixjson'
 
-  markdown-prettier: &markdown-prettier
-    format-command: 'prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser markdown'
+  # adding --tab-stop=2 would make lists use single space character but would brake wide tables, idk why
+  # using gfm insteam of markdown fixes tables and lists but brakes embeded links https://github.com/jgm/pandoc/issues/553
+  markdown-pandoc: &markdown-pandoc
+    format-command: 'pandoc --columns=80 --from=markdown+wikilinks_title_after_pipe+yaml_metadata_block --to=markdown+wikilinks_title_after_pipe+yaml_metadata_block-simple_tables-multiline_tables-grid_tables -s'
     format-stdin: true
 
   markdown-markdownlint-fix: &markdown-markdownlint-fix
@@ -102,7 +104,7 @@ languages:
   markdown:
     # - <<: *markdown-markdownlint
     # - <<: *markdown-markdownlint-fix # https://github.com/mattn/efm-langserver/issues/258#issuecomment-1699416409
-    - <<: *markdown-prettier
+    - <<: *markdown-pandoc
 
   # python:
   #   - <<: *python-black

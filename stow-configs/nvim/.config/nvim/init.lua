@@ -19,6 +19,7 @@
 -- <Tab> in insert - inline toggle
 -- <Enter> - go to file
 
+require("colorscheme")
 require("utils")
 require("general")
 require("lsp")
@@ -30,10 +31,8 @@ require("commenting")
 vim.cmd("source ~/.config/nvim/lua/resize.vim")
 require("auto-pairs")
 require("status-line")
-vim.o.showtabline = 1
 require("toggling")
 require("plugin-neoscroll")
-require("colorscheme")
 require("plugin-whichkey")
 require("plugin-nvim-colorizer")
 require("dump-mappings")
@@ -43,3 +42,9 @@ require("plugin-telescope")
 require("plugin-nvim-next")
 require("plugin-conjure")
 require("s-expressions")
+require("markdown")
+require("plugin-autolist")
+
+vim.schedule(function()
+    vim.o.showtabline = 1
+end)

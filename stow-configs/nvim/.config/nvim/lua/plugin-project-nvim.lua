@@ -19,7 +19,8 @@ project.setup {
     -- Table of lsp clients to ignore by name
     -- eg: { "efm", ... }
     ignore_lsp = {
-        "lua_ls" -- TODO: works as far my only Lua project is my NeoVim config
+        "lua_ls", -- TODO: works as far my only Lua project is my NeoVim config
+        "efm"
     },
 
     -- Don't calculate root dir on specific directories

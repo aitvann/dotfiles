@@ -10,6 +10,7 @@
 in {
   nixpkgs.overlays = [
     (import ../packages)
+    inputs.neovim-nightly-overlay.overlay
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.system}.default;
       hyprland = inputs.hyprland.packages.${pkgs.system}.default;
@@ -190,10 +191,8 @@ in {
       indent-blankline-nvim
       # tree-sitter text objects
       nvim-treesitter-textobjects
-      # list integration
-      parpar-nvim
-      nvim-paredit
-      nvim-parinfer
+      # auto bullets
+      autolist-nvim
 
       # --------------------------------------------------------------------------------
       # Lsp
@@ -214,7 +213,16 @@ in {
       # Languages
       # --------------------------------------------------------------------------------
 
+      # Nix
       vim-nix
+
+      # Lisp
+      parpar-nvim
+      nvim-paredit
+      nvim-parinfer
+
+      # Obsidian markdown
+      obsidian-nvim
 
       # --------------------------------------------------------------------------------
       # Colorschemes
@@ -343,6 +351,7 @@ in {
     stylua
     nodePackages_latest.prettier
     nodePackages_latest.markdownlint-cli2
+    pandoc
 
     leiningen
     babashka
