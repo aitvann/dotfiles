@@ -33,6 +33,8 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
           ./mars/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -44,24 +46,33 @@
         ];
       };
 
-      venus = nixpkgs.lib.nixosSystem {
+      jupiter = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./venus/configuration.nix
+          ./jupiter/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.users.aitvann = import "${self}/../users/aitvann@jupiter.nix";
+          }
         ];
       };
-
-      deploy.nodes.venus = {
-        hostname = "45.11.181.163";
-        sshUser = "nixos";
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
-        };
-      };
-
-      # This is highly advised, and will prevent many possible mistakes
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
+
+    deploy.nodes.jupiter = {
+      hostname = "192.168.1.24";
+      sshUser = "aitvann";
+      profiles.system = {
+        user = "root";
+        # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
+        sshOpts = ["-A"];
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.jupiter;
+      };
+    };
+
+    # This is highly advised, and will prevent many possible mistakes
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
