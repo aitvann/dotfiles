@@ -338,6 +338,7 @@ in {
     comma
     nix-index
     nix-alien
+    deploy-rs
 
     socat
     helix
