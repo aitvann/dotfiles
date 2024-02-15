@@ -334,6 +334,7 @@ in {
     beets-unstable
     mpd
     ncmpcpp
+    restic
 
     comma
     nix-index
