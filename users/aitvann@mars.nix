@@ -266,7 +266,7 @@ in {
     dunst
     pyprland
 
-    obs-studio
+    # obs-studio
     tdesktop
     discord
     element-desktop
@@ -275,17 +275,17 @@ in {
     tor-browser-bundle-bin
     monero-gui
     wasabiwallet
-    prismlauncher
+    # prismlauncher
     openjdk8-bootstrap
     # obsidian
     mpv
-    dbeaver
-    nuclear
-    mcaselector
+    # dbeaver
+    # nuclear
+    # mcaselector
     # intalls the whole
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
-    libreoffice-qt
-    librewolf
+    # libreoffice-qt
+    # librewolf
     tagger
 
     stow
@@ -307,8 +307,8 @@ in {
     starship
     grpcui
     grpcurl
-    clickhouse
-    postgresql_14
+    # clickhouse
+    # postgresql_14
     syncplay
     loc
     parallel
@@ -335,10 +335,12 @@ in {
     mpd
     ncmpcpp
     restic
+    graphviz
 
     comma
     nix-index
     nix-alien
+    nix-du
     deploy-rs
 
     socat
