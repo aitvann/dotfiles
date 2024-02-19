@@ -17,8 +17,6 @@
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprfocus.url = "github:VortexCoyote/hyprfocus";
     hyprfocus.inputs.hyprland.follows = "hyprland";
-    tree-sitter-hyprlang.url = "github:luckasRanarison/tree-sitter-hyprlang";
-    tree-sitter-hyprlang.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {

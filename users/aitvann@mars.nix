@@ -17,11 +17,6 @@ in {
       hyprlandPlugins = {
         hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
       };
-      vimPlugins =
-        prev.vimPlugins
-        // {
-          tree-sitter-hyprlang = inputs.tree-sitter-hyprlang.packages.${pkgs.system}.default;
-        };
     })
     (final: prev: {
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
@@ -121,8 +116,6 @@ in {
       plenary-nvim
       # analyze file structure
       nvim-treesitter.withAllGrammars
-      # Hyprland treeesitter grammar
-      tree-sitter-hyprlang
       # repeat motions
       nvim-next
       # easily create textobjects
