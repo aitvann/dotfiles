@@ -27,8 +27,11 @@ tools:
 
   # adding --tab-stop=2 would make lists use single space character but would brake wide tables, idk why
   # using gfm insteam of markdown fixes tables and lists but brakes embeded links https://github.com/jgm/pandoc/issues/553
+  #
+  # preserving reference links is hard
+  # https://stackoverflow.com/questions/55174796/how-can-i-get-pandoc-to-preserve-my-reference-links
   markdown-pandoc: &markdown-pandoc
-    format-command: 'pandoc --columns=80 --from=markdown+wikilinks_title_after_pipe+yaml_metadata_block --to=markdown+wikilinks_title_after_pipe+yaml_metadata_block-simple_tables-multiline_tables-grid_tables -s'
+    format-command: 'pandoc --columns=80 --from=markdown+wikilinks_title_after_pipe+yaml_metadata_block+lists_without_preceding_blankline --to=markdown+wikilinks_title_after_pipe+yaml_metadata_block-simple_tables-multiline_tables-grid_tables+lists_without_preceding_blankline -s'
     format-stdin: true
 
   markdown-markdownlint-fix: &markdown-markdownlint-fix

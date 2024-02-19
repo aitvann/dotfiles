@@ -47,7 +47,8 @@ require("obsidian").setup({
     disable_frontmatter = true,
 
     ui = {
-        enable = true,         -- set to false to disable all additionak syntax features
+        -- FIXME: nice feature but require conceallevel to be <> 0 by default
+        enable = false,        -- set to false to disable all additionak syntax features
         update_debounce = 200, -- update delay after a text change (in milliseconds)
         -- Define how various check-boxes are displayed
         checkboxes = {
