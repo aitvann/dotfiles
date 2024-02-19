@@ -43,6 +43,9 @@
     fsType = "btrfs";
     # uid, gid, etc is only avaliable for FAT, https://superuser.com/a/637171
     # MANUAL: chown the storage device
+    # ``` sh
+    # sudo chown aitvann: /mnt/backup-storage
+    # ```
     # options = ["uid=1000" "gid=1000" "dmask=007" "fmask=117"];
   };
 

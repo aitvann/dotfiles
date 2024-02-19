@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 whichkey.register({ ["t"] = { name = "Toggling" } }, { prefix = "<leader>" })
 
-local defaultConcealLevel = vim.o.conceallevel
+local defaultConcealLevel = 1
 function toggle_conceal_level()
     if vim.o.conceallevel ~= defaultConcealLevel then
         vim.o.conceallevel = defaultConcealLevel

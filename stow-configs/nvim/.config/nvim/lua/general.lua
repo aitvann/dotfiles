@@ -18,7 +18,6 @@ vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
 vim.o.laststatus = 3
-vim.o.conceallevel = 1
 
 vim.o.cursorline = true
 vim.o.cursorcolumn = true
