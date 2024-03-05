@@ -34,6 +34,7 @@ in {
     builtins.elem (lib.getName pkg) [
       "discord"
       "obsidian"
+      "unrar"
     ];
 
   home.username = "aitvann";
@@ -258,6 +259,7 @@ in {
     satty
     dunst
     pyprland
+    oculante
 
     # obs-studio
     tdesktop
@@ -307,6 +309,7 @@ in {
     parallel
     trash-cli
     unzip
+    unrar
     ffmpeg
     yt-dlp
     sshfs

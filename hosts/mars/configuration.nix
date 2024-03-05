@@ -151,6 +151,8 @@ in {
 
     ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
     PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+    # does not work
+    # GNUPGHOME="$XDG_DATA_HOME/gnupg";
     RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/.ripgreprc";
     CARGO_HOME = "$XDG_DATA_HOME/cargo";
     CARGO_TARGET_DIR = "$CARGO_HOME/shared-target";
@@ -164,6 +166,7 @@ in {
     DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
     XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
     XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
+    XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
     GTK_RC_FILES = "$XDG_CONFIG_HOME/gtk-1.0/gtkrc";
     GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
     LEIN_HOME = "$XDG_DATA_HOME/lein";

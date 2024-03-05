@@ -32,6 +32,10 @@ alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
 alias nnn="n"
 alias N='sudo -E nnn -dH'
 
+# XDG
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias monerod=monerod --data-dir "$XDG_DATA_HOME"/bitmonero
+
 # XDG specification aliases
 alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
 
