@@ -394,6 +394,7 @@ in {
     (packageHomeFiles ../stow-configs/ssh-aitvann)
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
     (packageHomeFiles ../stow-configs/ueberzugpp)
+    (packageHomeFiles ../stow-configs/xdg)
     (packageHomeFiles ../stow-configs/zsh)
   ];
 
