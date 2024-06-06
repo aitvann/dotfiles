@@ -53,6 +53,21 @@ bindkey '' backward-kill-word
 autoload -U select-word-style
 select-word-style bash
 
+# HACK: fix chpwd hooks not running on sturtup
+# https://gist.github.com/laggardkernel/b2cbc937aa1149530a4886c8bcc7cf7c
+function _self_destruct_hook {
+  local f
+  for f in ${chpwd_functions}; do
+    "$f"
+  done
+
+  # remove self from precmd
+  precmd_functions=(${(@)precmd_functions:#_self_destruct_hook})
+  builtin unfunction _self_destruct_hook
+}
+
+add-zsh-hook precmd _self_destruct_hook
+
 # OSC-7
 function osc7-pwd() {
     emulate -L zsh # also sets localoptions for us
@@ -69,5 +84,12 @@ add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 precmd() {
     print -Pn "\e]133;A\e\\"
 }
+
+# write current location
+function update_cwd_file() {
+  current_pid=$(echo $$)
+  echo $PWD > "/tmp/current-location/zsh-${current_pid}.txt"
+}
+add-zsh-hook -Uz chpwd update_cwd_file
 
 source $ZDOTDIR/session.sh

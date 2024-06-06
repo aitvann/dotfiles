@@ -5,19 +5,23 @@ plugins = ["scratchpads"]
 command = "cinny"
 animation = "fromTop"
 size = "70% 80%"
+excludes = "*"
 
 [scratchpads.telegram]
 command = "telegram-desktop"
 animation = "fromTop"
 size = "70% 80%"
+excludes = "*"
 
 [scratchpads.terminal]
 command = "foot --title terminal-popup"
 class = "terminal-popup"
 animation = "fromTop"
 size = "70% 80%"
+excludes = "*"
 
 [scratchpads.music-player]
 command = "foot --title music-player ncmpcpp"
 animation = "fromTop"
 size = "70% 80%"
+excludes = "*"

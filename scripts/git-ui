@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+
+location=$(bb ~/.local/bin/hypr-current-location get 2> /dev/null || echo ~)
+[[ -f $location ]] && location=$(dirname $location)
+$TERM --title='git-ui' zsh -ic "cd ${location}; lazygit" 

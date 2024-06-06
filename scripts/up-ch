@@ -12,7 +12,9 @@ port=${2:-8123}
 name_prefix=${3:-test}
 
 up_only=$(mktemp -d /tmp/up-only-XXXXXX)
-ls -d $migrations/* | grep '\.up.sql' | xargs cp -t $up_only
+cd $migrations
+command ls -Q | grep '\.up.sql' | xargs cp -t $up_only
+cd -
 
 docker_name=${name_prefix}-ch-db
 docker run --rm -dit -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name clickhouse/clickhouse-server:$(cat $migrations/version)

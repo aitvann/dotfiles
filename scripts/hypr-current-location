@@ -1,0 +1,52 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(import [java.io File])
+(require '[babashka.cli :as cli]
+         '[clojure.java.shell :as shell :refer [sh]]
+         '[clojure.string :as str]
+         '[cheshire.core :as json])
+
+(def known-procs #{"zsh" "nvim"})
+
+(defn current-pid []
+  (:pid (json/parse-string (:out (sh "hyprctl" "activewindow" "-j")) true)))
+
+(defn get-info [pid]
+  {:name (str/trim (:out (sh "ps" "-p" (str pid) "-o" "comm=")))
+   :children (let [out (:out (sh "pgrep" "-P" (str pid)))]
+               (if (empty? out)
+                 '()
+                 (map #(Integer/parseInt %) (str/split-lines out))))})
+
+; breath-first search for the last known process
+(defn search [& pids]
+  (when (seq pids)
+    (let [info (map get-info pids)
+          pids (zipmap pids info)]
+      (or (apply search (mapcat :children info))
+          (let [known (filter (fn [[_ {:keys [name]}]] (contains? known-procs name)) pids)]
+            (when (= 1 (count known))
+              (update (first known) 1 :name)))))))
+
+(defn get-current-location [name pid]
+  (str/trim (slurp (str "/tmp/current-location/" name "-" pid ".txt"))))
+
+(defn delete-files-in-dir [dir-path]
+  (let [dir (File. dir-path)
+        files (.listFiles dir)]
+    (doseq [file files]
+      (when (.isFile file)
+        (.delete file)))))
+
+(defn get-cmd [_m]
+  (let [pid (current-pid)
+        [pid name] (search pid)
+        location (get-current-location name pid)]
+    (println location)))
+(defn clear-cmd [_m] (delete-files-in-dir "/tmp/current-location"))
+ 
+(def table [{:cmds ["get"]            :fn get-cmd}
+            {:cmds ["clear"]          :fn clear-cmd}])
+
+(cli/dispatch table *command-line-args*)

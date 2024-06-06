@@ -7,6 +7,7 @@ x-scheme-handler/unknown=chromium-browser.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
 x-scheme-handler/chrome=chromium-browser.desktop
 x-scheme-handler/mailspring=Mailspring.desktop
+x-scheme-handler/monero=monero-wallet-gui.desktop
 video/3gpp2=mpv.desktop
 video/3gpp=mpv.desktop
 video/dv=mpv.desktop

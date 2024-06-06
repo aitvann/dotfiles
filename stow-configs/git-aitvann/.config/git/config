@@ -1,8 +1,17 @@
-[user]
-    name = Ivan Aytzhanov
-    email = aitvann@gmail.com
-    signingkey = D9C6344BD3E34E49879F6EDF7A59A32597F270D6
 [core]
     excludesfile = ~/.config/git/.gitignore_global
-[commit]
-    gpgsign = true
+
+[includeIf "gitdir:~/code/"]
+    path = "~/.config/git/config.personal"
+
+[includeIf "gitdir:~/dotfiles/"]
+    path = "~/.config/git/config.personal"
+
+[includeIf "gitdir:~/.local/share/password-store/"]
+    path = "~/.config/git/config.personal"
+
+[includeIf "gitdir:~/chi2/"]
+    path = "~/.config/git/config.chi2"
+
+[includeIf "gitdir:~/tradetech/"]
+    path = "~/.config/git/config.tradetech"

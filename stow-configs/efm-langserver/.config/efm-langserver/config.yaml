@@ -84,6 +84,83 @@ tools:
     format-command: 'shfmt -ci -s -bn'
     format-stdin: true
 
+  slither: &slither
+    # pip3 install slither-analyzer
+    # USAGE:
+    # * `solc` needs to be manually configured, see:
+    # https://github.com/foundry-rs/foundry/issues/5429
+    # https://github.com/crytic/slither/issues/2054
+    # * `remappings.txt` needs to generated, e.g. `forge remappings > remappings.txt`
+    lint-category-map:
+      I: N
+      O: N
+      H: E
+      M: W
+      L: I
+    # Parsing JSON without `jq`, backtracking, or lazy matching is cursed,
+    # but the following is fully POSIX compliant.
+    # (only POSIX shell syntax and POSIX features of `sed`/`awk`/`printf`)
+    # Explanation:
+    # 1. Add ASCII delimiters to mark keywords: https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
+    # 2. Search through delimiters to format subsections of text. Mark results with different delimiters.
+    # 3. Pick out the marked results. It'll be the even-numbered fields,
+    #    example: junk|results|junk|results|junk.
+    # 4. Turn the "lines" result (e.g. "1,2,3,4") into range (e.g. "1-4").
+    # 5. Change the newline formatting since Neovim doesn't support multi-line messages
+    lint-command: >
+      slither --json - "${INPUT}" --solc-remaps "$([ -f remappings.txt ] && tr '\n' ' ' < remappings.txt | xargs)"
+      | sed "s/filename_absolute/$(printf '%b' '\0036')filename_absolute/g"
+      | sed "s/lines/$(printf '%b' '\0036')lines/g"
+      | sed "s/description/$(printf '%b' '\0037')description/g"
+      | sed "s/impact/$(printf '%b' '\0036')impact/g"
+      | sed "s/\"elements\"[^$(printf '%b' '\0036')]*\"$(printf '%b' '\0036')filename_absolute\": \"\([^\"]*\)\"[^$(printf '%b' '\0036')]*\"$(printf '%b' '\0036')lines\": \[\([^]]*\)\][^0-9]*starting_column\": \([0-9]*\), \"ending_column\": \([0-9]*\)[^$(printf '%b' '\0037')]*$(printf '%b' '\0037')description\": \"\([^\"]*\)[^$(printf '%b' '\0036')]*\"$(printf '%b' '\0036')impact\": \"\([^\"]*\)\"/$(printf '%b' '\0035')\2| \3-\4 of \1 (\6): \5$(printf '%b' '\0035')/g"
+      | awk -F "$(printf '%b' '\0035')" '{for (i=2; i<=NF; i+=2) print $i}'
+      | awk -F "|" '{split($1, a, ", "); $1=a[1] "-" a[length(a)] ":"; print $0}'
+      | sed 's/\\t-/ |/g'
+      | sed 's/\\n//g'
+      | sed 's/\\t//g'
+    lint-ignore-exit-code: true
+    lint-formats:
+      - "%l-%e:  %c-%k of %f (%tow): %m"
+      - "%l-%e:  %c-%k of %f (%tedium): %m"
+      - "%l-%e:  %c-%k of %f (%tigh): %m"
+      - "%l-%e:  %c-%k of %f (%tptimization): %m"
+      - "%l-%e:  %c-%k of %f (%tnformational): %m"
+    lint-source: 'slither'
+    # Lint won't rerun unless you save, see:
+    # https://github.com/crytic/slither/issues/2057
+    lint-stdin: false
+    root-markers:
+      - hardhat.config.js
+      - hardhat.config.ts
+      - foundry.toml
+      - remappings.txt
+      - truffle.js
+      - truffle-config.js
+      - ape-config.yaml
+
+  solhint: &solhint
+    # npm install -g solhint
+    lint-command: >
+      PATH="./node_modules/.bin:$PATH"
+      solhint --formatter unix stdin | awk '{ $NF = "(" $NF ")" } 1'
+    lint-source: 'solhint'
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%l:%c%*[ ]%trror%*[ ]%m'
+      - '%l:%c%*[ ]%tarning%*[ ]%m'
+      - '%f:%l:%c: %m [%trror/%r]'
+      - '%f:%l:%c: %m [%tarning/%r]'
+    root-markers:
+      - .solhint.json
+
+  forge-fmt: &forge-fmt
+    format-command: 'forge fmt --raw -'
+    format-stdin: true
+    root-markers:
+      - foundry.toml
+
 languages:
   css:
     - <<: *css-prettier
@@ -117,3 +194,8 @@ languages:
   # sh:
   #   - <<: *sh-shellcheck
   #   - <<: *sh-shfmt
+
+  solidity:
+    - <<: *slither
+    - <<: *solhint
+    - <<: *forge-fmt

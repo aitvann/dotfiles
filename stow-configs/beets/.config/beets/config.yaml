@@ -51,6 +51,7 @@ types:
   saturated: bool
   muffled: bool
   bassboosted: bool
+  asmr: bool
 
 edit:
   itemfields:

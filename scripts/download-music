@@ -8,7 +8,6 @@ yt-dlp \
     --download-archive $HOME/data/knowledge-base/media/music/dlp-index.txt \
     -f bestaudio \
     --extract-audio \
-    --audio-format flac \
     --embed-thumbnail \
     --embed-metadata \
     --cookies-from-browser chromium \
@@ -20,7 +19,6 @@ yt-dlp \
     --download-archive $HOME/data/knowledge-base/media/music/dlp-index.txt \
     -f bestaudio \
     --extract-audio \
-    --audio-format flac \
     --embed-thumbnail \
     --embed-metadata \
     --cookies-from-browser chromium \

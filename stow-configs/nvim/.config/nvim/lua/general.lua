@@ -140,6 +140,21 @@ vim.cmd([[
     endfunction
 ]])
 
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = '*',
+    callback = function(args)
+        local filepath = args.file
+        if filepath ~= "" and vim.loop.fs_stat(filepath) then
+            local file = io.open("/tmp/current-location/nvim-" .. vim.loop.getpid() .. ".txt", 'w')
+            if file then
+                file:write(filepath .. '\n')
+                file:close()
+            end
+        end
+    end,
+})
+
 -- resizing
 vim.keymap.set("n", '<S-Left>', function() vim.fn.ResizeLeft(4) end, { silent = true, desc = 'move window divider LEFT' })
 vim.keymap.set("n", '<S-Right>', function() vim.fn.ResizeRight(4) end,

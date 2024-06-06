@@ -35,6 +35,10 @@ in {
       "discord"
       "obsidian"
       "unrar"
+      "steam"
+      "steam-run"
+      "steam-original"
+      "steam-runtime"
     ];
 
   home.username = "aitvann";
@@ -60,9 +64,6 @@ in {
       {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block for youtube
       {id = "gebbhagfogifgggkldgodflihgfeippi";} # return dislikes to youtube
       {id = "hkligngkgcpcolhcnkgccglchdafcnao";} # web archives
-      {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # phantom
-      {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # meta mask
-      {id = "kglcipoddmbniebnibibkghfijekllbl";} # fire
       {id = "pncfbmialoiaghdehhbnbhkkgmjanfhe";} # ublacklist
       {id = "plhaalebpkihaccllnkdaokdoeaokmle";} # draw.io for notion
       # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
@@ -70,6 +71,16 @@ in {
       {id = "caobgmmcpklomkcckaenhjlokpmfbdec";} # JSON Resume Exporter from LinkedIn
       # {id = "gpkildejogofhhobidokcjpolaikgldj";} # convert page to PDF
       # {id = "lajondecmobodlejlcjllhojikagldgd";} # any value zoom
+      {id = "pcmpcfapbekmbjjkdalcgopdkipoggdi";} # MarkDownload
+
+      # wallets
+      {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # phantom
+      {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # meta mask
+      {id = "kglcipoddmbniebnibibkghfijekllbl";} # fire
+      {id = "agoakfejjabomempkjlepdflaleeobhb";} # core wallet
+      {id = "omaabbefbmiijedngplfjmnooppbclkk";} # tonkeeper
+      {id = "ibnejdfjmmkpcnlpebklmnkoeoihofec";} # TronLink
+      {id = "jnlgamecbpmbajjfhmmmlhejkemejdma";} # Braavos
     ];
   };
 
@@ -261,8 +272,10 @@ in {
     pyprland
     oculante
 
-    # obs-studio
+    obs-studio
+    lutris
     tdesktop
+    protontricks
     discord
     element-desktop
     cinny-desktop
@@ -274,14 +287,17 @@ in {
     openjdk8-bootstrap
     # obsidian
     mpv
-    # dbeaver
+    dbeaver
     # nuclear
     # mcaselector
     # intalls the whole
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
-    # libreoffice-qt
-    # librewolf
+    libreoffice-qt
+    librewolf
     tagger
+    tcpdump
+    # NOTE: requires to enable `programs.wireshark` for system configuration
+    wireshark
 
     stow
     fastfetch
@@ -292,6 +308,7 @@ in {
     docker-compose
     git
     git-crypt
+    lazygit
     direnv
     ripgrep
     bottom
@@ -302,7 +319,7 @@ in {
     starship
     grpcui
     grpcurl
-    # clickhouse
+    clickhouse
     # postgresql_14
     syncplay
     loc
@@ -310,6 +327,7 @@ in {
     trash-cli
     unzip
     unrar
+    p7zip
     ffmpeg
     yt-dlp
     sshfs
@@ -363,6 +381,7 @@ in {
     cargo-expand
     cargo-nextest
     cargo-all-features
+    cargo-show-asm
   ];
 
   home.file = util.recursiveMerge [
@@ -379,6 +398,7 @@ in {
     (packageHomeFiles ../stow-configs/gtk-4.0)
     (packageHomeFiles ../stow-configs/helix)
     # (packageHomeFiles ../stow-configs/hypr)
+    (packageHomeFiles ../stow-configs/lazygit)
     (packageHomeFiles ../stow-configs/mpd)
     (packageHomeFiles ../stow-configs/ncmpcpp)
     (packageHomeFiles ../stow-configs/networkmanager-dmenu)

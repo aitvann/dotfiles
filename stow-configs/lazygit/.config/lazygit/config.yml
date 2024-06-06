@@ -1,0 +1,14 @@
+services:
+  'git.tt-int.net': 'gitlab:git.tt-int.net'
+
+# What to do when opening Lazygit outside of a git repo.
+# - 'prompt': (default) ask whether to initialize a new repo or open in the most recent repo
+# - 'create': initialize a new repo
+# - 'skip': open most recent repo
+# - 'quit': exit Lazygit
+notARepository: quit
+
+# If true, periodically fetch from remote
+# AND PROMT FOR SSH PASSWORD
+autoFetch: true
+

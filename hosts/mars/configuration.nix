@@ -63,6 +63,12 @@ in {
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  # Enable WIFI printing
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   services.openvpn.servers = {
     general = {
@@ -91,7 +97,7 @@ in {
   users.users.aitvann = {
     isNormalUser = true;
     description = "Ivan";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "wireshark"];
     initialPassword = "nopassword";
     shell = pkgs.zsh;
   };
@@ -112,6 +118,9 @@ in {
     enable = true;
     enableSSHSupport = true;
   };
+
+  # NOTE: requires user in wireshark group
+  programs.wireshark.enable = true;
 
   programs.steam = {
     enable = true;

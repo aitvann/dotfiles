@@ -12,6 +12,7 @@ local inlay_hints = require("lsp-inlayhints")
 
 local servers = {
     "rust_analyzer", -- rust
+    "solc",          -- solidity
     "lua_ls",        -- lua
     "nil_ls",        -- nix
     "marksman",      -- markdown

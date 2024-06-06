@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+location=$(bb ~/.local/bin/hypr-current-location get 2> /dev/null || echo ~)
+$TERM --title='nnn-file-manager' zsh -ic "NNN_TERMINAL='foot --title=nnn-file-manager-terminal' n -P p ${location}" 

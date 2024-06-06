@@ -51,9 +51,13 @@ ln -sf $SCRIPTS_HOME/init-env/init-env ~/.local/bin/init-env
 ln -sf $SCRIPTS_HOME/deep-clean ~/.local/bin/deep-clean
 ln -sf $SCRIPTS_HOME/backup ~/.local/bin/backup
 ln -sf $SCRIPTS_HOME/syncthing-apply-config ~/.local/bin/syncthing-apply-config
+ln -sf $SCRIPTS_HOME/terminal ~/.local/bin/terminal
 ln -sf $SCRIPTS_HOME/up-postgres/up-pg ~/.local/bin/up-pg
 ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
 ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
+ln -sf $SCRIPTS_HOME/file-manager ~/.local/bin/file-manager
+ln -sf $SCRIPTS_HOME/git-ui ~/.local/bin/git-ui
+ln -sf $SCRIPTS_HOME/hypr-current-location ~/.local/bin/hypr-current-location
 ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
 ln -sf $SCRIPTS_HOME/parse-color-tokens ~/.local/bin/parse-color-tokens
 
