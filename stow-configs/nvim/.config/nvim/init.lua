@@ -44,7 +44,3 @@ require("plugin-conjure")
 require("s-expressions")
 require("markdown")
 require("plugin-autolist")
-
-vim.schedule(function()
-    vim.o.showtabline = 1
-end)

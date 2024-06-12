@@ -27,6 +27,8 @@ alias ls="exa"
 alias l="ls -la --color=auto"
 alias vi="nvim"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/$USER/dotfiles/hosts#$HOST switch"
+# consider nix --extra-experimental-features repl-flake repl ".#nixosConfigurations.\"$NAME\""
+# https://discourse.nixos.org/t/use-repl-to-inspect-a-flake/28275
 alias nix-repl="nix repl nixpkgs"
 alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
 alias nnn="n"

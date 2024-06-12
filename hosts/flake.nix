@@ -13,7 +13,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprfocus.url = "github:VortexCoyote/hyprfocus";
     hyprfocus.inputs.hyprland.follows = "hyprland";
@@ -39,6 +39,7 @@
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs;};
+            # home-manager.backupFileExtension = "hm-backup";
             home-manager.users.aitvann = import "${self}/../users/aitvann@mars.nix";
           }
         ];

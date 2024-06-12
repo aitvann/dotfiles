@@ -10,7 +10,7 @@
 in {
   nixpkgs.overlays = [
     (import ../packages)
-    inputs.neovim-nightly-overlay.overlay
+    inputs.neovim-nightly-overlay.overlays.default
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.system}.default;
       hyprland = inputs.hyprland.packages.${pkgs.system}.default;
@@ -92,7 +92,9 @@ in {
   programs.hyprland = {
     enable = true;
     plugins = with pkgs.hyprlandPlugins; [
-      hyprfocus
+      # TODO: waiting for fix to land in nixpkgs
+      # https://github.com/VortexCoyote/hyprfocus/issues/22#issuecomment-2141875763
+      # hyprfocus
     ];
   };
 
@@ -133,7 +135,7 @@ in {
       # easily create textobjects
       vim-textobj-user
       # Sudo write
-      suda-vim
+      vim-suda
       # Load .envrc on cwd change
       direnv-vim
       # cd to project root using LSP root or fallback to pattern matching
@@ -242,7 +244,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    eww-wayland
+    eww
     (
       rofi-wayland.override
       (old: {
@@ -287,7 +289,7 @@ in {
     openjdk8-bootstrap
     # obsidian
     mpv
-    dbeaver
+    dbeaver-bin
     # nuclear
     # mcaselector
     # intalls the whole
@@ -414,6 +416,7 @@ in {
     (packageHomeFiles ../stow-configs/ssh-aitvann)
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
     (packageHomeFiles ../stow-configs/ueberzugpp)
+    (packageHomeFiles ../stow-configs/wireplumber)
     (packageHomeFiles ../stow-configs/xdg)
     (packageHomeFiles ../stow-configs/zsh)
   ];
