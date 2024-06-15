@@ -70,13 +70,6 @@ in {
     openFirewall = true;
   };
 
-  services.openvpn.servers = {
-    general = {
-      config = "config /home/root/configs/general.ovpn";
-      autoStart = false;
-    };
-  };
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
