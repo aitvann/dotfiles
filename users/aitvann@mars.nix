@@ -159,10 +159,6 @@ in {
       renamer-nvim
       # better signature help
       lsp_signature-nvim
-      # Magit for neovim
-      neogit
-      # diff tab
-      diffview-nvim
       # shows signs for added, modified, and removed lines.
       # and other git stuff inside buffer
       gitsigns-nvim
