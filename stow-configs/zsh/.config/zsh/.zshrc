@@ -29,7 +29,7 @@ zplug load
 # conflicts with marlonrichert/zsh-autocomplete
 # autoload -U compinit -d $ZSH_DATA/.zcompdump  && compinit -d $ZSH_DATA/.zcompdump
 
-export HISTSIZE="10000"
+export HISTSIZE="100000"
 export SAVEHIST=$HISTSIZE
 export HISTFILE=$ZSH_DATA/.zsh_history
 
