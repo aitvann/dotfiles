@@ -296,6 +296,8 @@ in {
     tcpdump
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
+    # should be installed as system package
+    # gparted
 
     stow
     fastfetch

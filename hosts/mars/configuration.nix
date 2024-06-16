@@ -53,7 +53,24 @@ in {
       # xdg-desktop-portal-hyprland set by default
     ];
   };
+
   security.polkit.enable = true;
+
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
 
   services.devmon.enable = true;
   services.gvfs.enable = true;
@@ -177,6 +194,10 @@ in {
     127.0.0.1 postgres-test
     127.0.0.1 clickhouse-test
   '';
+
+  environment.systemPackages = with pkgs; [
+    gparted
+  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
