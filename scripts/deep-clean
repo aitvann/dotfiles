@@ -9,8 +9,13 @@ deep_clean_docker() {(
 )}
 
 deep_clean_cargo() {(
-    find . -type f -name 'Cargo.toml' | parallel cargo clean --manifest-path {}
-    cargo cache -a
+    rm -rf \
+        ${CARGO_HOME}/shared-target \
+        ${CARGO_HOME}/git/db \
+        ${CARGO_HOME}/git/checkouts \
+        ${CARGO_HOME}/registry/index \
+        ${CARGO_HOME}/registry/cache \
+        ${CARGO_HOME}/registry/src
 )}
 
 # deep_clean_nix() {(
@@ -21,12 +26,15 @@ deep_clean_cargo() {(
 # )}
 
 sudo_deep_clean_nix() {(
+    home-manager expire-generations 0
     sudo nix-collect-garbage -d
     nix profile wipe-history
     nix store gc
     nix store optimise
 )}
 
+# a handy way to enter sudo password
+sudo echo "Cleaning everything !"
 
 deep_clean_docker &
 deep_clean_cargo &

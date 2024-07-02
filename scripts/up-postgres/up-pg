@@ -20,6 +20,7 @@ image_name=permissioned-postgres
 postgres_version=$(cat $migrations/version)
 docker build $parrent_path -t $image_name --build-arg postgres_version=$postgres_version
 docker run --rm -dit -p "${port}:5432" --name $container_name $image_name
+# docker run --rm -it -p "${port}:5432" --name $container_name $image_name
 
 set +e
 

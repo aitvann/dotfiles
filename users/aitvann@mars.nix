@@ -323,7 +323,6 @@ in {
     # postgresql_14
     syncplay
     loc
-    parallel
     trash-cli
     unzip
     unrar
@@ -351,6 +350,7 @@ in {
     restic
     graphviz
 
+    home-manager
     comma
     nix-index
     nix-alien

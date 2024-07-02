@@ -25,39 +25,52 @@
     home-manager,
     deploy-rs,
     ...
-  } @ inputs: {
-    nixosConfigurations = {
-      mars = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+  } @ inputs: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    nixosConfigurations.mars = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {inherit inputs;};
+      modules = [
+        # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-          ./mars/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = false;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs;};
-            # home-manager.backupFileExtension = "hm-backup";
-            home-manager.users.aitvann = import "${self}/../users/aitvann@mars.nix";
-          }
-        ];
-      };
+        ./mars/configuration.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = false;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {inherit inputs;};
+          home-manager.backupFileExtension = "hm-backup";
+          home-manager.users.aitvann = import "${self}/../users/aitvann@mars.nix";
+        }
+      ];
+    };
 
-      jupiter = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./jupiter/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = false;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs;};
-            home-manager.users.aitvann = import "${self}/../users/aitvann@jupiter.nix";
-          }
-        ];
-      };
+    homeConfigurations."mars-aitvann" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = ["${self}/../users/aitvann@mars.nix"];
+      extraSpecialArgs = {inherit inputs;};
+    };
+
+    nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules = [
+        ./jupiter/configuration.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = false;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {inherit inputs;};
+          home-manager.users.aitvann = import "${self}/../users/aitvann@jupiter.nix";
+        }
+      ];
+    };
+
+    homeConfigurations."jupiter-aitvann" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = ["${self}/../users/aitvann@jupiter.nix"];
+      extraSpecialArgs = {inherit inputs;};
     };
 
     deploy.nodes.jupiter = {
