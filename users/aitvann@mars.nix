@@ -320,7 +320,7 @@ in {
     grpcui
     grpcurl
     clickhouse
-    # postgresql_14
+    postgresql_14
     syncplay
     loc
     trash-cli
