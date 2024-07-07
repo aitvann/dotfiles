@@ -1,6 +1,6 @@
 {
   "grabBackFocus": true,
   "searchEngines": "w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia\np: https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=%s\no: https://search.nixos.org/options?query=%s\nh: https://home-manager-options.extranix.com/?query=%s&release=master\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\ng: https://www.google.com/search?q=%s Google\n# l: https://www.google.com/search?q=%s&btnI I'm feeling lucky...\ny: https://www.youtube.com/results?search_query=%s Youtube\n# gm: https://www.google.com/maps?q=%s Google maps\n# b: https://www.bing.com/search?q=%s Bing\nd: https://duckduckgo.com/?q=%s DuckDuckGo\n# az: https://www.amazon.com/s/?field-keywords=%s\n# qw: https://www.qwant.com/?q=%s Qwant",
-  "searchUrl": "https://searx.tuxcloud.net/search?q=%s",
+  "searchUrl": "https://searx.be/?q=%s",
   "settingsVersion": "2.1.2"
 }

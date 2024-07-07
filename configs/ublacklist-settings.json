@@ -1,0 +1,22 @@
+{
+  "blacklist": "*://www.libhunt.com/*\n*://www.g2.com/*\n*://www.slant.co/*\n*://papereditor.app/*\n*://slashdot.org/*\n*://sourceforge.net/*\n*://alternativeto.net/*\n*://www.saashub.com/*",
+  "blockColor": "default",
+  "blockWholeSite": false,
+  "dialogTheme": "default",
+  "enablePathDepth": false,
+  "hideBlockLinks": false,
+  "hideControl": false,
+  "highlightColors": [
+    "#ddeeff"
+  ],
+  "linkColor": "default",
+  "skipBlockDialog": false,
+  "subscriptions": [],
+  "syncAppearance": false,
+  "syncBlocklist": true,
+  "syncGeneral": false,
+  "syncInterval": 15,
+  "syncSubscriptions": false,
+  "updateInterval": 120,
+  "version": "8.8.2"
+}

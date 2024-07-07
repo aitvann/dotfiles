@@ -28,12 +28,17 @@ alias l="ls -la --color=auto"
 alias vi="nvim"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles/hosts#${HOST} switch"
 alias hm-rebuild-switch="home-manager switch --flake /home/${USER}/dotfiles/hosts#${HOST}-${USER}"
+alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
+alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --password-command 'pass jupiter-backup'"
+alias nnn="n"
+alias N='sudo -E nnn -dH'
+# `browser.places.importBookmarksHTML` setting overrides existing bookmarks
+# run it in case of closing Firefox without importing bookmarks
+# TODO: move to devshell
+alias preserve-ff-bookmarks="rm ~/.local/share/firefox/bookmarks.html"
 # consider nix --extra-experimental-features repl-flake repl ".#nixosConfigurations.\"$NAME\""
 # https://discourse.nixos.org/t/use-repl-to-inspect-a-flake/28275
 alias nix-repl="nix repl nixpkgs"
-alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
-alias nnn="n"
-alias N='sudo -E nnn -dH'
 
 # XDG
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"

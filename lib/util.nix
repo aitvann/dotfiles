@@ -80,4 +80,6 @@ with lib; rec {
       );
   in
     f [] attrList;
+
+  dbg = x: lib.trace (builtins.toJSON x) x;
 }

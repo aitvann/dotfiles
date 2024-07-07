@@ -1,4 +1,5 @@
 {
+  self,
   inputs,
   config,
   pkgs,
@@ -9,6 +10,7 @@
   packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
+    inputs.nur.overlay
     (import ../packages)
     inputs.neovim-nightly-overlay.overlays.default
     (final: prev: {
@@ -84,6 +86,104 @@ in {
     ];
   };
 
+  # MANUAL (UPDATE): go to Bookmarks Manager and import
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-wayland;
+    profiles = {
+      general = {
+        id = 0;
+        # TODO: make it non-nix
+        # https://github.com/eyedeekay/backup-extensions/blob/8bebe49550fdb144e624d266f321ec02f62a4dea/Makefile#L5
+        # https://github.com/nix-community/home-manager/blob/master/modules/programs/firefox.nix#L925
+        search = {
+          force = true;
+          default = "SearXNG Belgium";
+          # MANUAL: to restore preferences run:
+          # ``` sh
+          # xdg-open $(cat ~/dotfiles/configs/searx-preferences.url)
+          # ```
+          engines = {
+            "SearXNG Belgium" = {
+              urls = [{template = "https://searx.be/?q={searchTerms}";}];
+              iconUpdateURL = "https://wiki.nixos.org/favicon.png";
+              updateInterval = 24 * 60 * 60 * 1000; # every day
+              definedAliases = ["@sx"];
+            };
+          };
+        };
+        # TODO: build extensions missing in NUR
+        # https://github.com/search?q=repo%3Apetrkozorezov%2Fmynixos+addons&type=code
+        # https://github.com/petrkozorezov/mynixos/blob/9597b52ddc683bb07ab78e2c5a68632b30d30004/deps/overlay/generated-firefox-addons.nix
+        # https://github.com/petrkozorezov/mynixos/blob/9597b52ddc683bb07ab78e2c5a68632b30d30004/deps/overlay/firefox-addons.json
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          # filters: https://github.com/yokoffing/filterlists
+          #
+          # there are two way of confiugring uBlock Origin:
+          # - old: `adminSettings` was added a long time ago as a quick way to set any setting,
+          #   but its use is a bit complicated because it requires double-JSON encoding.
+          #   guide: https://www.reddit.com/r/uBlockOrigin/comments/o7q2ou/comment/h3cplhd/?utm_source=share&utm_content=share_button.
+          #   can be done automatically with Nix: https://discourse.nixos.org/t/generate-and-install-ublock-config-file-with-home-manager/19209
+          # - new: https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration
+          #
+          # MANUAL (UPDATE): go to UBlockOrigin settings:
+          # 1. backup Settings
+          # 2. backup My Filters (don't forget to eacape escapes)
+          # 3. update `managed-storage` file
+          ublock-origin
+
+          # MANUAL: go to extension settings and import options manually
+          vimium
+
+          # MANUAL: go to extension settings and import options manually
+          sponsorblock
+
+          # MANUAL: go to extension settings and import settings manually
+          ublacklist
+
+          search-by-image
+          simple-translate
+          fastforwardteam
+          rust-search-extension
+          return-youtube-dislikes
+          web-archives
+          # draw-io-for-nation # TODO
+          markdownload
+
+          # cookies blocker
+          # uBlock filter lists avaliable for that purpose but work less efficient
+          # https://www.reddit.com/r/uBlockOrigin/comments/11tpnuk/comment/jckr3e2/
+          istilldontcareaboutcookies
+          # consent-o-matic
+
+          # Wallets
+          metamask
+          # fire # todo
+          # phantom # todo
+          # tonkeeper # todo
+          # core-wallet # missing for FF
+          # tronlink # missing for FF
+
+          # TODO: Try It
+          # auto-tab-discard
+          # multi-account-containers
+          # bypass-paywalls-clean
+          # profile-switcher # requires additional software: https://github.com/null-dev/firefox-profile-switcher-connector/issues/10#issuecomment-1238034441
+
+          # Outdated
+          # clearurls # covered by ublock-origin.
+          # buster-captcha-solver # does not work
+          # browserpass # use rofi
+          # flagfox # unfree
+        ];
+      };
+      tradetech = {
+        id = 1;
+      };
+    };
+  };
+
+  # TODO: remove after switch to Firefox
   programs.browserpass = {
     enable = true;
     browsers = ["chromium"];
@@ -291,7 +391,6 @@ in {
     # intalls the whole
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
     libreoffice-qt
-    librewolf
     tagger
     tcpdump
     # NOTE: requires to enable `programs.wireshark` for system configuration
@@ -356,6 +455,7 @@ in {
     nix-alien
     nix-du
     deploy-rs
+    nur.repos.rycee.mozilla-addons-to-nix
 
     socat
     helix
@@ -391,6 +491,7 @@ in {
     (packageHomeFiles ../stow-configs/dunst)
     (packageHomeFiles ../stow-configs/efm-langserver)
     # (packageHomeFiles ../stow-configs/eww)
+    (packageHomeFiles ../stow-configs/firefox)
     (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-aitvann)
     (packageHomeFiles ../stow-configs/gnupg)
@@ -423,6 +524,7 @@ in {
     util.recursiveMerge [
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
+      (util.linkFiles "../configs/browser-bookmarks.html" "firefox/bookmarks.html" inputs.self)
     ];
 
   home.stateVersion = "22.05";
