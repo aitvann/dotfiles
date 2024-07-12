@@ -25,8 +25,8 @@ in {
     })
   ];
 
-  disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix];
+  disabledModules = ["programs/nnn.nix" "programs/librewolf.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
+  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/librewolf.nix];
 
   home.sessionVariables = {
     TERM = "foot";
