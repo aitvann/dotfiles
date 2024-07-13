@@ -22,11 +22,12 @@ in {
     })
     (final: prev: {
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
+      firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector];};
     })
   ];
 
-  disabledModules = ["programs/nnn.nix" "programs/librewolf.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/librewolf.nix];
+  disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
+  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -90,192 +91,108 @@ in {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland;
-    profiles = {
+    profiles = let
+      shared-extensions = with pkgs.firefox-addons; [
+        # filters: https://github.com/yokoffing/filterlists
+        #
+        # there are two way of confiugring uBlock Origin:
+        # - old: `adminSettings` was added a long time ago as a quick way to set any setting,
+        #   but its use is a bit complicated because it requires double-JSON encoding.
+        #   guide: https://www.reddit.com/r/uBlockOrigin/comments/o7q2ou/comment/h3cplhd/?utm_source=share&utm_content=share_button.
+        #   can be done automatically with Nix: https://discourse.nixos.org/t/generate-and-install-ublock-config-file-with-home-manager/19209
+        # - new: https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration
+        #
+        # MANUAL (UPDATE): go to UBlockOrigin settings:
+        # 1. backup Settings
+        # 2. backup My Filters (don't forget to eacape escapes)
+        # 3. update `managed-storage` file
+        ublock-origin
+
+        # MANUAL: go to extension settings and import options manually
+        vimium
+        ublacklist
+
+        simple-translate
+        fastforwardteam
+        rust-search-extension
+        web-archives
+        profile-switcher
+
+        # cookies blocker
+        # uBlock filter lists avaliable for that purpose but work less efficient
+        # https://www.reddit.com/r/uBlockOrigin/comments/11tpnuk/comment/jckr3e2/
+        istilldontcareaboutcookies
+        # consent-o-matic
+
+        # AdgyArc-fr
+        sidebery # MANUAL: go to extension settings and import options manually
+        userchrome-toggle
+        adaptive-tab-bar-colour
+
+        # TODO: Try It
+        # auto-tab-discard
+        # multi-account-containers
+        # bypass-paywalls-clean
+
+        # Tried
+        # clearurls # covered by ublock-origin.
+        # buster-captcha-solver # does not work
+        # browserpass # use rofi
+        # flagfox # unfree
+        # draw-io-for-nation # missing for FF
+      ];
+
+      # TODO: make it non-nix
+      # https://github.com/eyedeekay/backup-extensions/blob/8bebe49550fdb144e624d266f321ec02f62a4dea/Makefile#L5
+      # https://github.com/nix-community/home-manager/blob/master/modules/programs/firefox.nix#L925
+      shared-engines = {
+        # MANUAL: to restore preferences run:
+        # ``` sh
+        # xdg-open $(cat ~/dotfiles/configs/searx-preferences.url)
+        # ```
+        "SearXNG Belgium" = {
+          urls = [{template = "https://searx.be/?q={searchTerms}";}];
+          iconUpdateURL = "https://avatars.githubusercontent.com/u/80454229?s=200&v=4";
+          updateInterval = 24 * 60 * 60 * 1000; # every day
+          definedAliases = ["@sx"];
+        };
+      };
+    in {
       general = {
         id = 0;
-        # TODO: make it non-nix
-        # https://github.com/eyedeekay/backup-extensions/blob/8bebe49550fdb144e624d266f321ec02f62a4dea/Makefile#L5
-        # https://github.com/nix-community/home-manager/blob/master/modules/programs/firefox.nix#L925
         search = {
           force = true;
           default = "SearXNG Belgium";
-          # MANUAL: to restore preferences run:
-          # ``` sh
-          # xdg-open $(cat ~/dotfiles/configs/searx-preferences.url)
-          # ```
-          engines = {
-            "SearXNG Belgium" = {
-              urls = [{template = "https://searx.be/?q={searchTerms}";}];
-              iconUpdateURL = "https://wiki.nixos.org/favicon.png";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
-              definedAliases = ["@sx"];
-            };
-          };
+          engines = shared-engines;
         };
-        # TODO: build extensions missing in NUR
-        # https://github.com/search?q=repo%3Apetrkozorezov%2Fmynixos+addons&type=code
-        # https://github.com/petrkozorezov/mynixos/blob/9597b52ddc683bb07ab78e2c5a68632b30d30004/deps/overlay/generated-firefox-addons.nix
-        # https://github.com/petrkozorezov/mynixos/blob/9597b52ddc683bb07ab78e2c5a68632b30d30004/deps/overlay/firefox-addons.json
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          # filters: https://github.com/yokoffing/filterlists
-          #
-          # there are two way of confiugring uBlock Origin:
-          # - old: `adminSettings` was added a long time ago as a quick way to set any setting,
-          #   but its use is a bit complicated because it requires double-JSON encoding.
-          #   guide: https://www.reddit.com/r/uBlockOrigin/comments/o7q2ou/comment/h3cplhd/?utm_source=share&utm_content=share_button.
-          #   can be done automatically with Nix: https://discourse.nixos.org/t/generate-and-install-ublock-config-file-with-home-manager/19209
-          # - new: https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration
-          #
-          # MANUAL (UPDATE): go to UBlockOrigin settings:
-          # 1. backup Settings
-          # 2. backup My Filters (don't forget to eacape escapes)
-          # 3. update `managed-storage` file
-          ublock-origin
+        extensions = with pkgs.firefox-addons;
+          [
+            # MANUAL: go to extension settings and import options manually
+            sponsorblock
 
-          # MANUAL: go to extension settings and import options manually
-          vimium
+            search-by-image
+            return-youtube-dislikes
+            markdownload
 
-          # MANUAL: go to extension settings and import options manually
-          sponsorblock
-
-          # MANUAL: go to extension settings and import settings manually
-          ublacklist
-
-          search-by-image
-          simple-translate
-          fastforwardteam
-          rust-search-extension
-          return-youtube-dislikes
-          web-archives
-          # draw-io-for-nation # TODO
-          markdownload
-
-          # Wallets
-          metamask
-          # fire # todo
-          # phantom # todo
-          # tonkeeper # todo
-          # core-wallet # missing for FF
-          # tronlink # missing for FF
-
-          # cookies blocker
-          # uBlock filter lists avaliable for that purpose but work less efficient
-          # https://www.reddit.com/r/uBlockOrigin/comments/11tpnuk/comment/jckr3e2/
-          istilldontcareaboutcookies
-          # consent-o-matic
-
-          # TODO: Try It
-          # auto-tab-discard
-          # multi-account-containers
-          # bypass-paywalls-clean
-          # profile-switcher # requires additional software: https://github.com/null-dev/firefox-profile-switcher-connector/issues/10#issuecomment-1238034441
-
-          # Outdated
-          # clearurls # covered by ublock-origin.
-          # buster-captcha-solver # does not work
-          # browserpass # use rofi
-          # flagfox # unfree
-        ];
+            # Wallets
+            metamask
+            joinfire
+            phantom-app
+            tonkeeper
+            braavos-wallet
+            # core-wallet # missing for FF
+            # tronlink # missing for FF
+          ]
+          ++ shared-extensions;
       };
       tradetech = {
         id = 1;
-      };
-    };
-  };
-
-  # MANUAL (UPDATE): go to Bookmarks Manager and import
-  programs.librewolf = {
-    enable = true;
-    # package = pkgs.librewolf;
-    profiles = {
-      general = {
-        id = 0;
-        # TODO: make it non-nix
-        # https://github.com/eyedeekay/backup-extensions/blob/8bebe49550fdb144e624d266f321ec02f62a4dea/Makefile#L5
-        # https://github.com/nix-community/home-manager/blob/master/modules/programs/firefox.nix#L925
         search = {
           force = true;
           default = "SearXNG Belgium";
-          # MANUAL: to restore preferences run:
-          # ``` sh
-          # xdg-open $(cat ~/dotfiles/configs/searx-preferences.url)
-          # ```
-          engines = {
-            "SearXNG Belgium" = {
-              urls = [{template = "https://searx.be/?q={searchTerms}";}];
-              iconUpdateURL = "https://wiki.nixos.org/favicon.png";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
-              definedAliases = ["@sx"];
-            };
-          };
+          engines = shared-engines;
         };
-        # TODO: build extensions missing in NUR
-        # https://github.com/search?q=repo%3Apetrkozorezov%2Fmynixos+addons&type=code
-        # https://github.com/petrkozorezov/mynixos/blob/9597b52ddc683bb07ab78e2c5a68632b30d30004/deps/overlay/generated-firefox-addons.nix
-        # https://github.com/petrkozorezov/mynixos/blob/9597b52ddc683bb07ab78e2c5a68632b30d30004/deps/overlay/firefox-addons.json
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          # filters: https://github.com/yokoffing/filterlists
-          #
-          # there are two way of confiugring uBlock Origin:
-          # - old: `adminSettings` was added a long time ago as a quick way to set any setting,
-          #   but its use is a bit complicated because it requires double-JSON encoding.
-          #   guide: https://www.reddit.com/r/uBlockOrigin/comments/o7q2ou/comment/h3cplhd/?utm_source=share&utm_content=share_button.
-          #   can be done automatically with Nix: https://discourse.nixos.org/t/generate-and-install-ublock-config-file-with-home-manager/19209
-          # - new: https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration
-          #
-          # MANUAL (UPDATE): go to UBlockOrigin settings:
-          # 1. backup Settings
-          # 2. backup My Filters (don't forget to eacape escapes)
-          # 3. update `managed-storage` file
-          ublock-origin
-
-          # MANUAL: go to extension settings and import options manually
-          vimium
-
-          # MANUAL: go to extension settings and import options manually
-          sponsorblock
-
-          # MANUAL: go to extension settings and import settings manually
-          ublacklist
-
-          search-by-image
-          simple-translate
-          fastforwardteam
-          rust-search-extension
-          return-youtube-dislikes
-          web-archives
-          # draw-io-for-nation # TODO
-          markdownload
-
-          # Wallets
-          metamask
-          # fire # todo
-          # phantom # todo
-          # tonkeeper # todo
-          # core-wallet # missing for FF
-          # tronlink # missing for FF
-
-          # cookies blocker
-          # uBlock filter lists avaliable for that purpose but work less efficient
-          # https://www.reddit.com/r/uBlockOrigin/comments/11tpnuk/comment/jckr3e2/
-          istilldontcareaboutcookies
-          # consent-o-matic
-
-          # TODO: Try It
-          # auto-tab-discard
-          # multi-account-containers
-          # bypass-paywalls-clean
-          # profile-switcher # requires additional software: https://github.com/null-dev/firefox-profile-switcher-connector/issues/10#issuecomment-1238034441
-
-          # Outdated
-          # clearurls # covered by ublock-origin.
-          # buster-captcha-solver # does not work
-          # browserpass # use rofi
-          # flagfox # unfree
-        ];
-      };
-      tradetech = {
-        id = 1;
+        extensions = shared-extensions;
       };
     };
   };
@@ -467,7 +384,6 @@ in {
     pyprland
     oculante
 
-    librewolf
     obs-studio
     lutris
     tdesktop
@@ -588,7 +504,12 @@ in {
     (packageHomeFiles ../stow-configs/dunst)
     (packageHomeFiles ../stow-configs/efm-langserver)
     # (packageHomeFiles ../stow-configs/eww)
-    (packageHomeFiles ../stow-configs/firefox)
+    ((packageHomeFiles ../stow-configs/firefox)
+      // {
+        ".mozilla/firefox/general/chrome/".source = "${inputs.edgyarc-fr}/chrome/";
+        ".mozilla/firefox/tradetech/chrome/".source = "${inputs.edgyarc-fr}/chrome/";
+      })
+    (packageHomeFiles ../stow-configs/firefoxprofileswitcher)
     (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-aitvann)
     (packageHomeFiles ../stow-configs/gnupg)
@@ -597,7 +518,6 @@ in {
     (packageHomeFiles ../stow-configs/helix)
     # (packageHomeFiles ../stow-configs/hypr)
     (packageHomeFiles ../stow-configs/lazygit)
-    (packageHomeFiles ../stow-configs/librewolf)
     (packageHomeFiles ../stow-configs/mpd)
     (packageHomeFiles ../stow-configs/ncmpcpp)
     (packageHomeFiles ../stow-configs/networkmanager-dmenu)
@@ -622,8 +542,8 @@ in {
     util.recursiveMerge [
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
-      (util.linkFiles "../configs/browser-bookmarks.html" "firefox/bookmarks.html" inputs.self)
-      (util.linkFiles "../configs/browser-bookmarks.html" "librewolf/bookmarks.html" inputs.self)
+      (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
+      (util.linkFiles "../configs/browser-bookmarks.tradetech.html" "firefox/bookmarks.tradetech.html" inputs.self)
     ];
 
   home.stateVersion = "22.05";

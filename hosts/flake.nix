@@ -18,6 +18,11 @@
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprfocus.url = "github:VortexCoyote/hyprfocus";
     hyprfocus.inputs.hyprland.follows = "hyprland";
+
+    edgyarc-fr = {
+      url = "github:artsyfriedchicken/EdgyArc-fr/main";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -87,5 +92,11 @@
 
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
+    devShell.${system} = pkgs.mkShell {
+      shellHook = ''
+        alias grad-edgyarc-sidebery-settings = "cp ${inputs.edgyarc-fr}/Sidebery/sidebery-settings.json ~/playground/"
+      '';
+    };
   };
 }

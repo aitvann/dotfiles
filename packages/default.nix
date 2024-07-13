@@ -2,6 +2,10 @@ final: prev: {
   nuclear = final.callPackage ./nuclear.nix {};
   mcaselector = final.callPackage ./mcaselector.nix {};
   nnnPlugins = final.callPackage ./nnn-plugins.nix {};
+  firefox-profile-switcher-connector = final.callPackage ./firefox-profile-switcher-connector.nix {};
+  firefox-addons =
+    final.nur.repos.rycee.firefox-addons
+    // (final.callPackage ./firefox-addons.nix {});
   vimPlugins =
     prev.vimPlugins
     // {

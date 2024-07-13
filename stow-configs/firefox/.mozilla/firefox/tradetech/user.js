@@ -48,7 +48,7 @@ user_pref("dom.security.https_only_mode_ever_enabled", true);
 
 // Bookmarks.
 // CAUTION: overrides existing bookmarks
-user_pref("browser.bookmarks.file", "~/.local/share/firefox/bookmarks.general.html");
+user_pref("browser.bookmarks.file", "~/.local/share/firefox/bookmarks.tradetech.html");
 user_pref("browser.places.importBookmarksHTML", true);
 
 // UI

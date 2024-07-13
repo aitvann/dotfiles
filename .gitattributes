@@ -1,7 +1,8 @@
 known_hosts filter=git-crypt diff=git-crypt
 stow-configs/syncthing-aitvann/.config/syncthing/config.xml filter=git-crypt diff=git-crypt
 configs/searx-preferences.url filter=git-crypt diff=git-crypt
-configs/browser-bookmarks.html filter=git-crypt diff=git-crypt
+configs/browser-bookmarks.general.html filter=git-crypt diff=git-crypt
+configs/browser-bookmarks.tradetech.html filter=git-crypt diff=git-crypt
 configs/onion-browser-bookmarks.html filter=git-crypt diff=git-crypt
 configs/organic-maps.kmz filter=git-crypt diff=git-crypt
 stow-configs/git-aitvann/.config/git/config.chi2 filter=git-crypt diff=git-crypt
