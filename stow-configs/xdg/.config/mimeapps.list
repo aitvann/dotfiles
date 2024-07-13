@@ -1,11 +1,12 @@
 
 [Default Applications]
-x-scheme-handler/http=chromium-browser.desktop
-x-scheme-handler/https=chromium-browser.desktop
-x-scheme-handler/about=chromium-browser.desktop
-x-scheme-handler/unknown=chromium-browser.desktop
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/unknown=firefox.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
-x-scheme-handler/chrome=chromium-browser.desktop
+x-scheme-handler/chrome=firefox.desktop
 x-scheme-handler/mailspring=Mailspring.desktop
 x-scheme-handler/monero=monero-wallet-gui.desktop
 video/3gpp2=mpv.desktop
@@ -71,7 +72,7 @@ image/bmp=oculante.desktop
 image/avif=oculante.desktop
 application/x-qpwgraph-patchbay=org.rncbc.qpwgraph.desktop
 application/x-bittorrent=org.qbittorrent.qBittorrent.desktop
-application/pdf=chromium-browser.desktop
+application/pdf=firefox-desktop.desktop
 inode/directory=nnn.desktop
 x-directory/normal=nnn.desktop
 application/x-gnome-saved-search=nnn.desktop
