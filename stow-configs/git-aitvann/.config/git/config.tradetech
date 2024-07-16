@@ -1,3 +1,5 @@
 [user]
 	name = Ivan Aitzhanov
 	email = i.aitzhanov@bestarch.ae
+[pull]
+    rebase = true 
