@@ -22,7 +22,7 @@ in {
     })
     (final: prev: {
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
-      firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector];};
+      firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
     })
   ];
 
@@ -117,6 +117,8 @@ in {
         rust-search-extension
         web-archives
         profile-switcher
+        canvasblocker
+        ff2mpv
 
         # cookies blocker
         # uBlock filter lists avaliable for that purpose but work less efficient
