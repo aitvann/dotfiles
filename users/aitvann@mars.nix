@@ -463,6 +463,7 @@ in {
     ncmpcpp
     restic
     graphviz
+    spl-token-cli
 
     home-manager
     comma

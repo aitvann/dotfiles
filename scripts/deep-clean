@@ -26,6 +26,10 @@ deep_clean_cargo() {(
 # )}
 
 sudo_deep_clean_nix() {(
+    find ~/code -type d -name '.direnv' -print -execdir rm -fr .direnv \;
+    find ~/tradetech -type d -name '.direnv' -print -execdir rm -fr .direnv \;
+    find ~/tradetech-2021 -type d -name '.direnv' -print -execdir rm -fr .direnv \;
+
     home-manager expire-generations 0
     sudo nix-collect-garbage -d
     nix profile wipe-history
@@ -39,5 +43,13 @@ sudo echo "Cleaning everything !"
 deep_clean_docker &
 deep_clean_cargo &
 sudo_deep_clean_nix
+
+# extra mesures
+
+# for zsh
+# setopt localoptions rmstarsilent
+# trash-empty -f
+# yes | rm -fr ~/.cache
+# yes | rm -fr ~/playground/*
 
 set +e

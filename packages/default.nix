@@ -2,6 +2,7 @@ final: prev: {
   nuclear = final.callPackage ./nuclear.nix {};
   mcaselector = final.callPackage ./mcaselector.nix {};
   nnnPlugins = final.callPackage ./nnn-plugins.nix {};
+  spl-token-cli = final.callPackage ./spl-token-cli.nix {};
   firefox-profile-switcher-connector = final.callPackage ./firefox-profile-switcher-connector.nix {};
   firefox-addons =
     final.nur.repos.rycee.firefox-addons
