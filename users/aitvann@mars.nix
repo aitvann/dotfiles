@@ -176,12 +176,13 @@ in {
             return-youtube-dislikes
             markdownload
 
-            # Wallets
+            # Crypto
             metamask
             joinfire
             phantom-app
             tonkeeper
             braavos-wallet
+            revoke-cash
             # core-wallet # missing for FF
             # tronlink # missing for FF
           ]
