@@ -57,33 +57,17 @@ in {
       {id = "annfbnbieaamhaimclajlajpijgkdblo";} # dark theme
       {id = "ibplnjkanclpjokhdolnendpplpjiace";} # simple translate
       {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # vimium
-      {id = "jghecgabfgfdldnmbfkhmffcabddioke";} # volume master
-      {id = "naepdomgkenhinolocfifgehidddafch";} # browserpass
       {id = "icallnadddjmdinamnolclfjanhfoafe";} # FastForward
-      {id = "ennpfpdlaclocpomkiablnmbppdnlhoh";} # rust search extension
       {id = "lckanjgmijmafbedllaakclkaicjfmnk";} # clear urls
       {id = "lanfdkkpgfjfdikkncbnojekcppdebfp";} # canvas fingerprint defender
       {id = "pcbjiidheaempljdefbdplebgdgpjcbe";} # audio context fingerprint defender
-      {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block for youtube
-      {id = "gebbhagfogifgggkldgodflihgfeippi";} # return dislikes to youtube
-      {id = "hkligngkgcpcolhcnkgccglchdafcnao";} # web archives
-      {id = "pncfbmialoiaghdehhbnbhkkgmjanfhe";} # ublacklist
-      {id = "plhaalebpkihaccllnkdaokdoeaokmle";} # draw.io for notion
       # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
       {id = "mdjildafknihdffpkfmmpnpoiajfjnjd";} # consent-o-matic
       {id = "caobgmmcpklomkcckaenhjlokpmfbdec";} # JSON Resume Exporter from LinkedIn
-      # {id = "gpkildejogofhhobidokcjpolaikgldj";} # convert page to PDF
-      # {id = "lajondecmobodlejlcjllhojikagldgd";} # any value zoom
-      {id = "pcmpcfapbekmbjjkdalcgopdkipoggdi";} # MarkDownload
 
-      # wallets
-      {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # phantom
-      {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # meta mask
-      {id = "kglcipoddmbniebnibibkghfijekllbl";} # fire
+      # crypto
       {id = "agoakfejjabomempkjlepdflaleeobhb";} # core wallet
-      {id = "omaabbefbmiijedngplfjmnooppbclkk";} # tonkeeper
       {id = "ibnejdfjmmkpcnlpebklmnkoeoihofec";} # TronLink
-      {id = "jnlgamecbpmbajjfhmmmlhejkemejdma";} # Braavos
     ];
   };
 
@@ -111,8 +95,8 @@ in {
         # MANUAL: go to extension settings and import options manually
         vimium
         ublacklist
-
         simple-translate
+
         fastforwardteam
         rust-search-extension
         web-archives
@@ -180,7 +164,7 @@ in {
             metamask
             joinfire
             phantom-app
-            tonkeeper
+            tonkeeper # MANUAL: https://github.com/ton-connect/sdk/issues/136#issue-2151201616
             braavos-wallet
             revoke-cash
             # core-wallet # missing for FF
@@ -397,7 +381,7 @@ in {
     tor-browser-bundle-bin
     monero-gui
     wasabiwallet
-    # prismlauncher
+    prismlauncher
     openjdk8-bootstrap
     # obsidian
     mpv
@@ -408,6 +392,7 @@ in {
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
     libreoffice-qt
     tagger
+    tigervnc
     tcpdump
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
@@ -465,6 +450,7 @@ in {
     restic
     graphviz
     spl-token-cli
+    wireguard-tools
 
     home-manager
     comma

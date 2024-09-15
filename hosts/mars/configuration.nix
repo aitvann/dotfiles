@@ -28,6 +28,21 @@ in {
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+  # allow wireguard
+  networking.firewall = {
+    # if packets are still dropped, they will show up in dmesg
+    logReversePathDrops = true;
+    # wireguard trips rpfilter up
+    extraCommands = ''
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+    '';
+    extraStopCommands = ''
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+    '';
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
@@ -192,6 +207,7 @@ in {
   networking.extraHosts = ''
     127.0.0.1 local_kafka
     127.0.0.1 postgres-test
+    127.0.0.1 users-postgres-test
     127.0.0.1 clickhouse-test
   '';
 
