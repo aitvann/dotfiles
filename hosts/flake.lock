@@ -22,6 +22,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1726396892,
+        "narHash": "sha256-KRGuT5nGRAOT3heigRWg41tbYpTpapGhsWc+XjnIx0w=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "51e3a7e51279fedfb6669a00d21dc5936c78a6ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "edgyarc-fr": {
       "flake": false,
       "locked": {
@@ -570,6 +590,7 @@
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
+        "disko": "disko",
         "edgyarc-fr": "edgyarc-fr",
         "home-manager": "home-manager",
         "hyprfocus": "hyprfocus",

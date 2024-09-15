@@ -8,13 +8,23 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
 
-  networking.hostName = "jupiter";
-  # Pick only one of the below networking options.
+  networking.hostName = "venus";
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+
+  networking.interfaces.eth0.ipv4.addresses = [
+    {
+      address = "82.153.138.53";
+      prefixLength = 24;
+    }
+  ];
+  networking.defaultGateway = "82.153.138.1";
+  networking.nameservers = ["8.8.8.8"];
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
@@ -25,7 +35,7 @@
   users.users.aitvann = {
     isNormalUser = true;
     description = "Ivan";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["wheel" "docker"];
     initialPassword = "nopassword";
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCrdvYCqDinFcc6ut8ALACZZcd+PBpAZ0CuB7dpmMneFvsvknftu/uGmZP1wNlTm3AGpYr6TWpD2TFvzkMs3H9cHqECL8o6gxbMWmpKMAwh2vah3QFcHSiGzqRbqOUVafjK4HI3rDO4tX4YmZrnjypZZ9UevJ8SQpz76iub3ON97mKBRBlaP4haHEF8Ft8ZJDgEEds0g81T6rlODvFnxcGCsoKhjnszpRbRfpv2WKZa7H0Xj3Ryl8evmtKxOMeotjm4I3qlbGNS2RmH6bOU0nTS+dUaYHbJwHxzijjTnKqhCUnupXiO0rJaE5Jd7g9qoqhbMtGS1gSqGjzYpg30npQoqXXzH7OYPaveRcQP7V/z8knnzBeOQcMp7gcUnp9fE8b3SayP8Le8aE1kVBLSPLEUVofJtLh2YydbunmnimNrv5h2UdDWna+ocoTDJzmBG1Ao+4Pu7SKcpxLVdSNwcQaF9edT4ja4+hrNKd6MY0leFWFu3GeR2RGznZXXGY/YRYZakj49Nf9Z/p8NUkeS9ZG64MI0I45GXbXWWr+aXxwlffohaZ9by0ql60/fZXv0Rv+HUTxe5VFp15HD9BgUx9RR+qtiq+yS4XfNF21s9Jw7045QvWCzogDprn6BSA7EKEUEoaq4Bz881FTFVg5Bz1AbEc47simG193FEd0+x2UIEw== (none)"
@@ -35,19 +45,6 @@
   # https://github.com/NixOS/nix/issues/2127#issuecomment-1465191608
   # https://github.com/serokell/deploy-rs/issues/25
   nix.settings.trusted-users = ["@wheel"];
-
-  # https://discourse.nixos.org/t/mount-sshf-as-a-user-using-home-manager/32583/3
-  # > user mounts cannot be automounted
-  fileSystems."/mnt/backup-storage" = {
-    device = "/dev/disk/by-label/BACKUP-STORAGE";
-    fsType = "btrfs";
-    # uid, gid, etc is only avaliable for FAT, https://superuser.com/a/637171
-    # MANUAL: chown the storage device
-    # ``` sh
-    # sudo chown aitvann: /mnt/backup-storage
-    # ```
-    # options = ["uid=1000" "gid=1000" "dmask=007" "fmask=117"];
-  };
 
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -61,9 +58,15 @@
   # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
   security.pam.sshAgentAuth.enable = true;
 
-  # disable suspend on close laptop lid
-  # https://unix.stackexchange.com/questions/257587/how-to-disable-suspend-on-close-laptop-lid-on-nixos
-  services.logind.lidSwitch = "ignore";
+  services.xray = {
+    enable = true;
+    settingsFile = ./xray.json;
+  };
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [443];
+  };
 
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
