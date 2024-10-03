@@ -27,7 +27,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix];
+  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -197,6 +197,13 @@ in {
       # https://github.com/VortexCoyote/hyprfocus/issues/22#issuecomment-2141875763
       # hyprfocus
     ];
+  };
+  programs.hyprcursor-phinger.enable = true;
+  home.pointerCursor = {
+    name = "phinger-cursors-dark";
+    package = pkgs.phinger-cursors;
+    size = 32;
+    gtk.enable = true;
   };
 
   programs.nnn = {
@@ -385,6 +392,7 @@ in {
     openjdk8-bootstrap
     # obsidian
     mpv
+    vlc
     dbeaver-bin
     # nuclear
     # mcaselector
@@ -394,6 +402,7 @@ in {
     tagger
     tigervnc
     tcpdump
+    nekoray
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
     # should be installed as system package
@@ -486,6 +495,65 @@ in {
     cargo-all-features
     cargo-show-asm
   ];
+
+  # systemd.services.zapret = {
+  #   after = ["network-online.target"];
+  #   wants = ["network-online.target"];
+  #   wantedBy = ["multi-user.target"];
+  #   path = with pkgs; [
+  #     iptables
+  #     nftables
+  #     ipset
+  #     curl
+  #     (zapret.overrideAttrs (prev: {
+  #       installPhase = ''
+  #         ${prev.installPhase}
+  #         touch $out/usr/share/zapret/config
+  #       '';
+  #     }))
+  #     gawk
+  #   ];
+  #   serviceConfig = {
+  #     Type = "forking";
+  #     Restart = "no";
+  #     TimeoutSec = "30sec";
+  #     IgnoreSIGPIPE = "no";
+  #     KillMode = "none";
+  #     GuessMainPID = "no";
+  #     ExecStart = "${pkgs.bash}/bin/bash -c 'zapret start'";
+  #     ExecStop = "${pkgs.bash}/bin/bash -c 'zapret stop'";
+  #     EnvironmentFile = pkgs.writeText "zapret-environment" ''
+  #       MODE="nfqws"
+  #         FWTYPE="nftables"
+  #         MODE_HTTP=1
+  #         MODE_HTTP_KEEPALIVE=1
+  #         MODE_HTTPS=1
+  #         MODE_QUIC=0
+  #         MODE_FILTER=none
+  #         DISABLE_IPV6=1
+  #         INIT_APPLY_FW=1
+  #       TPWS_OPT="--hostspell=HOST --split-http-req=method --split-pos=3 --hostcase --oob"
+  #         NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-fooling=datanoack"
+  #         #NFQWS_OPT_DESYNC="--dpi-desync=split2"
+  #         #NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=9 --dpi-desync-fooling=md5sig"
+  #         TMPDIR=/tmp
+  #         SET_MAXELEM=522288
+  #         IPSET_OPT="hashsize 262144 maxelem $SEX_MAXELEM"
+  #         IP2NET_OPT4="--prefix-length=22-30 --v4-threshold=3/4"
+  #         IP2NET_OPT6="--prefix-length=56-64 --v6-threshold=5"
+  #         AUTOHOSTLIST_RETRANS_THRESHOLD=3
+  #         AUTOHOSTLIST_FAIL_THRESHOLD=3
+  #         AUTOHOSTLIST_FAIL_TIME=60
+  #         AUTOHOSTLIST_DEBUGLOG=0
+  #         MDIG_THREADS=30
+  #         GZIP_LISTS=1
+  #         DESYNC_MARK=0x40000000
+  #         DESYNC_MARK_POSTNAT=0x20000000
+  #         FLOWOFFLOAD=donttouch
+  #         GETLIST=get_antifilter_ipsmart.sh
+  #     '';
+  #   };
+  # };
 
   home.file = util.recursiveMerge [
     (packageHomeFiles ../stow-configs/beets)

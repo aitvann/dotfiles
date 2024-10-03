@@ -103,7 +103,6 @@ in {
   };
 
   # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -197,6 +196,7 @@ in {
     XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
     GTK_RC_FILES = "$XDG_CONFIG_HOME/gtk-1.0/gtkrc";
     GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
+    XCURSOR_PATH = lib.mkForce "$XDG_DATA_HOME/icons";
     LEIN_HOME = "$XDG_DATA_HOME/lein";
   };
 

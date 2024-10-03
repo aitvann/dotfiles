@@ -99,14 +99,14 @@ vim.keymap.set("n", "H", ":tabp<CR>", { silent = true, desc = "cycle tabs to the
 vim.keymap.set("n", "<S-Del>", ":tabclose<CR>", { silent = true, desc = "CLOSE tab" })
 
 -- moving over the windows
-whichkey.register({ ["g"] = { name = "Go to" } })
+whichkey.add({ { "g", group = "Go to" } })
 vim.keymap.set("n", "gh", function() vim.fn.WinMove("h") end, { silent = true, desc = "GO to the LEFT window" })
 vim.keymap.set("n", "gl", function() vim.fn.WinMove("l") end, { silent = true, desc = "GO to the RIGHT window" })
 vim.keymap.set("n", "gk", function() vim.fn.WinMove("k") end, { silent = true, desc = "GO to the ABOVE window" })
 vim.keymap.set("n", "gj", function() vim.fn.WinMove("j") end, { silent = true, desc = "GO to the BELOW window" })
 
 -- mirroring current window
-whichkey.register({ ["m"] = { name = "Go Mirror window" } }, { prefix = "g" })
+whichkey.add({ { "gm", group = "Go Mirror window" } })
 vim.keymap.set("n", "gmh", "gh<Del>gh",
     { silent = true, remap = true, desc = "GO to the LEFT window mirroring the current window" })
 vim.keymap.set("n", "gml", "gl<Del>gl",
@@ -117,7 +117,7 @@ vim.keymap.set("n", "gmj", "gj<Del>gj",
     { silent = true, remap = true, desc = "GO to the BELOW window mirroring the current window" })
 
 -- moving(pulling) current window
-whichkey.register({ ["p"] = { name = "Go Pull window" } }, { prefix = "g" })
+whichkey.add({ { "gp", group = "Go Pull window" } })
 vim.keymap.set("n", "gph", "<C-W>h <C-W>x",
     { silent = true, desc = "Go to the LEFT, Pulling the current window with you" })
 vim.keymap.set("n", "gpl", "<C-W>l <C-W>x",

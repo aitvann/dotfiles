@@ -20,6 +20,8 @@
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
     hyprfocus.url = "github:VortexCoyote/hyprfocus";
     hyprfocus.inputs.hyprland.follows = "hyprland";
+    hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
+    hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
 
     edgyarc-fr = {
       url = "github:artsyfriedchicken/EdgyArc-fr/main";

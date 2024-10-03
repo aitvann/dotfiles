@@ -14,14 +14,17 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "spl-token-cli";
-  version = "3.4.0";
+  # version = "3.4.1";
+  version = "4.1.1";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "sha256-Ojm/zWTz7WIJ+HKXkYox5FP3vkYTR5jL5UvXrIicONQ=";
+    # sha256 = "sha256-picpXKNFAMyhm1NxVRb/kVBgyr/opWyFDIomk8qhma8="; # 3.4.1
+    sha256 = "sha256-y2Ni99boQ8lcVFg7IzTCip1/FZYDQiStNiCG5lETRC0="; # 3.4.1
   };
 
-  cargoSha256 = "sha256-GILGgcf2xo2cxKAP2gDakBwmNlhPgz/AcmbdighluSU=";
+  # cargoHash = "sha256-/hUxDUI1M044Xi3WqqPbiMNWzuNZz6Gz/dN3lm+FLNM="; # 3.4.1
+  cargoHash = "sha256-uYZ5RJ5MD+lXNc7H2RupvQTi35+L3bfld5S5NU6CFWI="; # 3.4.1
   verifyCargoDeps = true;
 
   nativeBuildInputs = [clang llvm pkg-config protobuf];

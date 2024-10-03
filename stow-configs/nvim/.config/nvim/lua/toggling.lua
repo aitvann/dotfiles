@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     desc = "telescope replacement for netrw",
 })
 
-whichkey.register({ ["t"] = { name = "Toggling" } }, { prefix = "<leader>" })
+whichkey.add({ { "<leader>t", group = "Toggling" } })
 
 local defaultConcealLevel = 1
 function toggle_conceal_level()

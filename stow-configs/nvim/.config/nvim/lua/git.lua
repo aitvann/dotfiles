@@ -6,16 +6,11 @@ local builtin = require("telescope.builtin")
 local next_integrations = require("nvim-next.integrations")
 gitsigns.setup({
     signs = {
-        add = { hl = "GitSignsAdd", text = "▍", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-        change = { hl = "GitSignsChange", text = "▍", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-        delete = { hl = "GitSignsDelete", text = "▸", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-        topdelete = { hl = "GitSignsDelete", text = "▾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-        changedelete = {
-            hl = "GitSignsChange",
-            text = "▍",
-            numhl = "GitSignsChangeNr",
-            linehl = "GitSignsChangeLn",
-        },
+        add = { text = "▍" },
+        change = { text = "▍" },
+        delete = { text = "▸" },
+        topdelete = { text = "▾" },
+        changedelete = { text = "▍" },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
@@ -43,7 +38,7 @@ gitsigns.setup({
         end, { expr = true, desc = "GOTO PREVIOUS Hunk" })
 
         -- Actions
-        whichkey.register({ ["h"] = { name = "Hunk" } }, { prefix = "<leader>" })
+        whichkey.add({ { "<leader>h", group = "Hunk" } })
         vim.keymap.set("n", "<leader>hs", gs.stage_hunk, { buffer = bufnr, desc = "Stage Hunk" })
         vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { buffer = bufnr, desc = "Unstage Hunk" })
         vim.keymap.set("n", "<leader>hx", gs.reset_hunk, { buffer = bufnr, desc = "Reset Hunk" })
@@ -78,9 +73,6 @@ gitsigns.setup({
         delay = 1000,
         ignore_whitespace = false,
     },
-    current_line_blame_formatter_opts = {
-        relative_time = false,
-    },
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil, -- Use default
@@ -93,11 +85,25 @@ gitsigns.setup({
         row = 0,
         col = 1,
     },
-    yadm = {
-        enable = false,
-    },
 })
 
-whichkey.register({ ["g"] = { name = "Git" } }, { prefix = "<leader>" })
+-- vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'GitSignsAdd' })
+-- vim.api.nvim_set_hl(0, 'GitSignsAddLn', { link = 'GitSignsAddLn' })
+-- vim.api.nvim_set_hl(0, 'GitSignsAddNr', { link = 'GitSignsAddNr' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'GitSignsChange' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChangeLn', { link = 'GitSignsChangeLn' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { link = 'GitSignsChangeNr' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'GitSignsChange' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChangedeleteLn', { link = 'GitSignsChangeLn' })
+-- vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { link = 'GitSignsChangeNr' })
+-- vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'GitSignsDelete' })
+-- vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', { link = 'GitSignsDeleteLn' })
+-- vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { link = 'GitSignsDeleteNr' })
+-- vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'GitSignsDelete' })
+-- vim.api.nvim_set_hl(0, 'GitSignsTopdeleteLn', { link = 'GitSignsDeleteLn' })
+-- vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { link = 'GitSignsDeleteNr' })
+
+
+whichkey.add({ { "<leader>g", group = "Git" } })
 vim.keymap.set("n", "<leader>gm", builtin.git_commits, { silent = true, desc = "open Git coMMits" })
 vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true, desc = "open Git Branches" })

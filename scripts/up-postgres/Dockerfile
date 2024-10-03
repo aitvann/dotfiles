@@ -1,8 +1,8 @@
-ARG postgres_version
+ARG postgres_version=14
 
 FROM library/postgres:${postgres_version}
-ENV POSTGRES_PASSWORD 01
-ENV POSTGRES_HOST_AUTH_METHOD trust
+ENV POSTGRES_PASSWORD=01
+ENV POSTGRES_HOST_AUTH_METHOD=trust
 
 COPY /* /docker-entrypoint-initdb.d/
 RUN chown -R postgres:postgres /docker-entrypoint-initdb.d/
