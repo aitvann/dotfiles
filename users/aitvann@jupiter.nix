@@ -11,7 +11,8 @@
   home.packages = with pkgs; [
     git
     stow
-
+    bottom
+    neovim
     fastfetch
   ];
 

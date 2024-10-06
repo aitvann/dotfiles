@@ -28,8 +28,12 @@ in {
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  # allow wireguard
   networking.firewall = {
+    # from https://jellyfin.org/docs/general/networking/index.html
+    allowedTCPPorts = [8096 8920];
+    allowedUDPPorts = [1900 7359];
+
+    # allow wireguard
     # if packets are still dropped, they will show up in dmesg
     logReversePathDrops = true;
     # wireguard trips rpfilter up

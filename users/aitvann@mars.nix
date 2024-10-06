@@ -27,7 +27,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
+  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
 
   home.sessionVariables = {
     TERM = "foot";
@@ -205,6 +205,7 @@ in {
     size = 32;
     gtk.enable = true;
   };
+  services.wl-clip-persist.enable = true;
 
   programs.nnn = {
     enable = true;
@@ -359,7 +360,7 @@ in {
           ];
       })
     )
-    rofi-pass
+    rofi-pass-wayland
     rofimoji
     nerdfonts
     wl-clipboard
@@ -377,6 +378,7 @@ in {
     dunst
     pyprland
     oculante
+    jellyfin
 
     obs-studio
     lutris
