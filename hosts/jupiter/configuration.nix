@@ -49,6 +49,35 @@
     # options = ["uid=1000" "gid=1000" "dmask=007" "fmask=117"];
   };
 
+  users.groups.homelab = {};
+
+  services.deluge = {
+    enable = true;
+    openFirewall = true;
+    declarative = true;
+    # must be inside `services.deluge.dataDir` which is `/var/lib/deluge` by default
+    authFile = "/var/lib/deluge/.config/deluge/deluge-auth";
+    config = {
+      download_location = "/srv/torrents/";
+      # max_upload_speed = "1000.0";
+      # share_ratio_limit = "2.0";
+      allow_remote = true;
+      daemon_port = 58846;
+      listen_ports = [6881 6889];
+    };
+    web = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
+  users.users.deluge.extraGroups = ["homelab"];
+
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
+  users.users.jellyfin.extraGroups = ["homelab"];
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
