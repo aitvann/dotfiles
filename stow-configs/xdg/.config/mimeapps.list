@@ -1,4 +1,3 @@
-
 [Default Applications]
 text/html=firefox.desktop
 x-scheme-handler/http=firefox.desktop
@@ -96,3 +95,7 @@ application/xml=nvim.desktop
 application/x-shellscript=nvim.desktop
 application/sdp=nvim.desktop
 application/x-cue=nvim.desktop
+x-scheme-handler/tonsite=org.telegram.desktop.desktop
+
+[Added Associations]
+x-scheme-handler/tonsite=org.telegram.desktop.desktop;

@@ -47,7 +47,6 @@ in {
     '';
   };
 
-
   # systemd.services.zapret = {
   #   after = ["network-online.target"];
   #   wants = ["network-online.target"];
@@ -154,6 +153,7 @@ in {
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  services.earlyoom.enable = true;
   services.upower.enable = true;
 
   # Enable CUPS to print documents.

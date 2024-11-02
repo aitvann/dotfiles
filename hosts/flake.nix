@@ -133,14 +133,8 @@
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-    # TODO: add apply-known-hosts
-    # ``` sh
-    # cp ~/.ssh/known_hosts ~/dotfiles/stow-configs/ssh-aitvann/.ssh/known_hosts
-    # ```
     devShell.${system} = pkgs.mkShell {
-      shellHook = ''
-        alias grad-edgyarc-sidebery-settings = "cp ${inputs.edgyarc-fr}/Sidebery/sidebery-settings.json ~/playground/"
-      '';
+      EDGYARC_NIXSTORE = "${inputs.edgyarc-fr}";
     };
   };
 }

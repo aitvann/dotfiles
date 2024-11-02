@@ -78,6 +78,8 @@
   };
   users.users.jellyfin.extraGroups = ["homelab"];
 
+  services.earlyoom.enable = true;
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;

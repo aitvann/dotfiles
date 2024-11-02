@@ -23,6 +23,7 @@ in {
     (final: prev: {
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
+      btop = prev.btop.override {rocmSupport = true;};
     })
   ];
 
@@ -182,12 +183,6 @@ in {
         extensions = shared-extensions;
       };
     };
-  };
-
-  # TODO: remove after switch to Firefox
-  programs.browserpass = {
-    enable = true;
-    browsers = ["chromium"];
   };
 
   programs.hyprland = {
@@ -422,7 +417,7 @@ in {
     lazygit
     direnv
     ripgrep
-    bottom
+    btop
     jq
     gojq
     eza
@@ -500,6 +495,7 @@ in {
 
   home.file = util.recursiveMerge [
     (packageHomeFiles ../stow-configs/beets)
+    (packageHomeFiles ../stow-configs/btop)
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
     (packageHomeFiles ../stow-configs/dunst)

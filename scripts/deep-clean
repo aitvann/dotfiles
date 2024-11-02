@@ -1,7 +1,5 @@
 #! /bin/sh
 
-set -e
-
 deep_clean_docker() {(
     docker container prune -f
     docker volume prune -f
@@ -51,5 +49,3 @@ sudo_deep_clean_nix
 # trash-empty -f
 # yes | rm -fr ~/.cache
 # yes | rm -fr ~/playground/*
-
-set +e

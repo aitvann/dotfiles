@@ -1,0 +1,13 @@
+{:tasks
+ {grab-edgyarc-sidebery-settings (let [home (System/getProperty "user.home")]
+                                   (shell (str "cp ${EDGYARC_NIXSTORE}/Sidebery/sidebery-settings.json " home "/playground/")))
+    ; TODO: apply-syncthing-config
+    ; TODO: check if no changes before apply
+  apply-known-hosts (let [home (System/getProperty "user.home")]
+                      (shell (str "cp -f " home "/.ssh/known_hosts " home "/dotfiles/stow-configs/ssh-aitvann/.ssh/known_hosts")))
+  apply-mimeapps (let [home (System/getProperty "user.home")]
+                   (shell (str "cp -f " home "/.config/mimeapps.list " home "/dotfiles/stow-configs/xdg/.config/mimeapps.list")))
+    ; `browser.places.importBookmarksHTML` setting overrides existing bookmarks
+    ; run it in case of closing Firefox without importing bookmarks
+  preserve-ff-bookmarks (let [home (System/getProperty "user.home")]
+                          (shell (str "rm " home "/.local/share/firefox/bookmarks.html")))}}
