@@ -18,8 +18,10 @@
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
-    hyprfocus.url = "github:VortexCoyote/hyprfocus";
+
+    hyprfocus.url = "github:pyt0xic/hyprfocus";
     hyprfocus.inputs.hyprland.follows = "hyprland";
+
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
 

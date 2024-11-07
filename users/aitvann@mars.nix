@@ -15,15 +15,15 @@ in {
     inputs.neovim-nightly-overlay.overlays.default
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.system}.default;
-      hyprland = inputs.hyprland.packages.${pkgs.system}.default;
-      hyprlandPlugins = {
-        hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
-      };
-    })
-    (final: prev: {
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
+      hyprland = inputs.hyprland.packages.${pkgs.system}.default;
+      hyprlandPlugins =
+        prev.hyprlandPlugins
+        // {
+          hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
+        };
     })
   ];
 
@@ -43,6 +43,7 @@ in {
       "steam-run"
       "steam-original"
       "steam-runtime"
+      "steam-unwrapped"
     ];
 
   home.username = "aitvann";
@@ -188,9 +189,7 @@ in {
   programs.hyprland = {
     enable = true;
     plugins = with pkgs.hyprlandPlugins; [
-      # TODO: waiting for fix to land in nixpkgs
-      # https://github.com/VortexCoyote/hyprfocus/issues/22#issuecomment-2141875763
-      # hyprfocus
+      hyprfocus
     ];
   };
   programs.hyprcursor-phinger.enable = true;
@@ -485,7 +484,6 @@ in {
     babashka
 
     cargo
-    cargo-sweep
     cargo-cache
     cargo-expand
     cargo-nextest
