@@ -12,3 +12,12 @@ notARepository: quit
 # AND PROMT FOR SSH PASSWORD
 autoFetch: true
 
+# both diff alternatives are lame af
+git:
+  paging:
+    # byte limit x100 the default
+    # graph limit x100 the default
+    # externalDiffCommand: difft --color=always --syntax-highlight on --display inline --byte-limit 100000000 --graph-limit 300000000
+
+    # colorArg: always
+    # pager: delta --dark --paging=never

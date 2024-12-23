@@ -375,7 +375,6 @@ in {
     jellyfin
 
     obs-studio
-    lutris
     tdesktop
     protontricks
     discord
@@ -414,6 +413,8 @@ in {
     git
     git-crypt
     lazygit
+    # difftastic
+    # delta
     direnv
     ripgrep
     btop
@@ -456,6 +457,7 @@ in {
     graphviz
     spl-token-cli
     wireguard-tools
+    bluetui
 
     home-manager
     comma

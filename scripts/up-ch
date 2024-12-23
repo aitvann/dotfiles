@@ -17,8 +17,8 @@ command ls -Q | grep '\.up.sql' | xargs cp -t $up_only
 cd -
 
 docker_name=${name_prefix}-ch-db
-docker run --rm -dit -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name clickhouse/clickhouse-server:$(cat $migrations/version)
-# docker run --rm -dit -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name yandex/clickhouse-server:$(cat $migrations/version)
+# docker run --rm -dit -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name clickhouse/clickhouse-server:$(cat $migrations/version)
+docker run --rm -dit -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name yandex/clickhouse-server:$(cat $migrations/version)
 
 # docker run --rm -it -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name clickhouse/clickhouse-server:$(cat $migrations/version)
 # docker run --rm -it -p "${port}:8123" -v $up_only:/docker-entrypoint-initdb.d:ro --name $docker_name yandex/clickhouse-server:$(cat $migrations/version)

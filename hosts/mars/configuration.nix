@@ -50,6 +50,7 @@ in {
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
+  time.timeZone = "Europe/Moscow";
 
   # required for Home Manager to configure system settings
   programs.hyprland = {
