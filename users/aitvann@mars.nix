@@ -10,7 +10,7 @@
   packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
-    inputs.nur.overlay
+    inputs.nur.overlays.default
     (import ../packages)
     inputs.neovim-nightly-overlay.overlays.default
     (final: prev: {
@@ -112,10 +112,9 @@ in {
         istilldontcareaboutcookies
         # consent-o-matic
 
-        # AdgyArc-fr
+        # ShyFox
         sidebery # MANUAL: go to extension settings and import options manually
-        userchrome-toggle
-        adaptive-tab-bar-colour
+        userchrome-toggle-extended # MANUAL: go to extension settings and toggle options manually like in the doc: https://github.com/Naezr/ShyFox?tab=readme-ov-file#step-2---configure-extensions
 
         # TODO: Try It
         # auto-tab-discard
@@ -189,7 +188,7 @@ in {
   programs.hyprland = {
     enable = true;
     plugins = with pkgs.hyprlandPlugins; [
-      hyprfocus
+      # hyprfocus
     ];
   };
   programs.hyprcursor-phinger.enable = true;
@@ -356,7 +355,7 @@ in {
     )
     rofi-pass-wayland
     rofimoji
-    nerdfonts
+    nerd-fonts.jetbrains-mono
     wl-clipboard
     foot
     slurp
@@ -503,8 +502,8 @@ in {
     # (packageHomeFiles ../stow-configs/eww)
     ((packageHomeFiles ../stow-configs/firefox)
       // {
-        ".mozilla/firefox/general/chrome/".source = "${inputs.edgyarc-fr}/chrome/";
-        ".mozilla/firefox/tradetech/chrome/".source = "${inputs.edgyarc-fr}/chrome/";
+        ".mozilla/firefox/general/chrome/".source = "${inputs.shyfox}/chrome/";
+        ".mozilla/firefox/tradetech/chrome/".source = "${inputs.shyfox}/chrome/";
       })
     (packageHomeFiles ../stow-configs/firefoxprofileswitcher)
     (packageHomeFiles ../stow-configs/foot)

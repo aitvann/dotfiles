@@ -25,8 +25,8 @@
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
 
-    edgyarc-fr = {
-      url = "github:artsyfriedchicken/EdgyArc-fr/main";
+    shyfox = {
+      url = "github:Naezr/ShyFox/main";
       flake = false;
     };
   };
@@ -136,7 +136,7 @@
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
     devShell.${system} = pkgs.mkShell {
-      EDGYARC_NIXSTORE = "${inputs.edgyarc-fr}";
+      SHYFOX_NIXSTORE = "${inputs.shyfox}";
     };
   };
 }
