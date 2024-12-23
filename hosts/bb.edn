@@ -1,6 +1,7 @@
 {:tasks
- {grab-edgyarc-sidebery-settings (let [home (System/getProperty "user.home")]
-                                   (shell (str "cp ${EDGYARC_NIXSTORE}/Sidebery/sidebery-settings.json " home "/playground/")))
+ {grab-shyfox-sidebery-settings (let [home (System/getProperty "user.home")
+                                      store-path (System/getenv "SHYFOX_NIXSTORE")]
+                                  (shell (str "cp " store-path "/sidebery-settings.json " home "/playground/")))
     ; TODO: apply-syncthing-config
     ; TODO: check if no changes before apply
   apply-known-hosts (let [home (System/getProperty "user.home")]
