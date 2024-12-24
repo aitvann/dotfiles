@@ -10,6 +10,12 @@ return {
                 typeHints = false,
                 parameterHints = false,
             },
+            semanticHighlighting = {
+                strings = {
+                    -- disable because it overrides TreeSitter injections
+                    enable = false,
+                }
+            }
         },
     },
     on_attach = function(_client, _buffer)
