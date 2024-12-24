@@ -28,16 +28,16 @@ lsp_utils.apply_handlers()
 -- compose `to_attach` functions
 local on_attach = function(client, buffer)
     local server_options = options[client.name] or lsp_utils.load_options_for(client.name)
-    server_options.on_attach(client)
+    server_options.on_attach(client, buffer)
 
     signature.on_attach({
         hint_enable = false,
-    })
+    }, buffer)
     status.on_attach(client)
-    diagnostics.on_attach(client)
+    diagnostics.on_attach(client, buffer)
     inlay_hints.on_attach(client, buffer)
 
-    lsp_utils.resolve_capabilities(client.server_capabilities)
+    lsp_utils.resolve_capabilities(client, buffer)
 end
 
 -- construct capabilities object
@@ -52,12 +52,21 @@ for server_name, server_options in pairs(options) do
     lsp[server_name].setup({
         init_options = server_options.init_options,
         cmd = server_options.cmd,
-        on_attach = on_attach,
+        -- deprecated: LspAttach autocommand is used
+        -- on_attach = on_attach,
         capabilities = capabilities,
         settings = server_options.settings,
         filetypes = server_options.filetypes,
     })
 end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local buffer = args.buf
+        on_attach(client, buffer)
+    end,
+})
 
 -- inlay_hints
 inlay_hints.setup({

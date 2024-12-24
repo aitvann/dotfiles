@@ -1,7 +1,10 @@
-return function()
+return function(_, _, buffer)
     -- stylua: ignore start
-    vim.keymap.set("x", "<leader>f", vim.lsp.buf.format,
-        { silent = true, buffer = true, desc = "Format selected range" }
+    vim.keymap.set("x", "<leader>f", function()
+            -- specifying client breaks formatting
+            vim.lsp.buf.format({ bufnr = buffer })
+        end,
+        { silent = true, buffer = buffer, desc = "Format selected range" }
     )
-	-- stylua: ignore end
+    -- stylua: ignore end
 end

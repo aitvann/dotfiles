@@ -1,5 +1,4 @@
-return function(_)
-    local buffer = vim.api.nvim_get_current_buf()
+return function(_, _, buffer)
     local lsp_document_highlight = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
     vim.api.nvim_create_autocmd('CursorHold', {
         callback = vim.lsp.buf.document_highlight,
