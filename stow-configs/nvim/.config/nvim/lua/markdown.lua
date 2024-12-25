@@ -28,18 +28,11 @@ require("obsidian").setup({
     -- disable backlinks tips
     log_level = vim.log.levels.WARN,
 
-    mappings = {
-        -- Toggle check-boxes.
-        ["<localleader>c"] = {
-            action = function()
-                return require("obsidian").util.toggle_checkbox()
-            end,
-            opts = { buffer = true },
-        },
-    },
+    -- disable all mappings
+    mappings = {},
 
     finder_mappings = {
-        -- FIXME: does not work
+        -- TODO: integrate with normal Telescope workflow
         -- Create a new note from your query with `:ObsidianSearch` and `:ObsidianQuickSwitch`.
         new = "<C-i>",
     },
@@ -101,10 +94,34 @@ vim.api.nvim_create_autocmd("FileType", {
             local newName = vim.fn.input("New note name: ")
             vim.api.nvim_cmd({ cmd = 'ObsidianRename', args = { newName .. '--dry-run' } }, {})
         end, { silent = true, desc = "Rename current note but just pretend" })
-        vim.keymap.set("n", "<localleader>r", function()
+        vim.keymap.set("n", "<localleader>R", function()
             local newName = vim.fn.input("New note name: ")
             vim.api.nvim_cmd({ cmd = 'ObsidianRename', args = { newName } }, {})
         end, { silent = true, desc = "really RENAME current note" })
+
+        require("autolist").setup()
+
+        vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>")
+        vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>")
+        vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>")
+        vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>")
+        vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>")
+
+        vim.keymap.set("n", "<localleader>c", "<cmd>AutolistToggleCheckbox<cr>")
+        vim.keymap.set("n", "<C-A>", "<cmd>AutolistCycleNext<cr><C-A>", { noremap = true })
+        vim.keymap.set("n", "<C-X>", "<cmd>AutolistCyclePrev<cr><C-X>", { noremap = true })
+
+        -- want dot-repeat
+        -- vim.keymap.set("n", "<leader>ln", require("autolist").cycle_next_dr, { expr = true })
+        -- vim.keymap.set("n", "<leader>lp", require("autolist").cycle_prev_dr, { expr = true })
+
+        vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>")
+
+        -- functions to recalculate list on edit
+        vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>")
+        vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
+        vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>")
+        vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
     end,
     desc = "markdown",
 })
