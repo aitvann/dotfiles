@@ -384,12 +384,9 @@ in {
     wasabiwallet
     prismlauncher
     openjdk8-bootstrap
-    # obsidian
     mpv
     vlc
     dbeaver-bin
-    # nuclear
-    # mcaselector
     # intalls the whole
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
     libreoffice-qt
@@ -412,8 +409,6 @@ in {
     git
     git-crypt
     lazygit
-    # difftastic
-    # delta
     direnv
     ripgrep
     btop
@@ -464,7 +459,6 @@ in {
     nix-alien
     nix-du
     deploy-rs
-    nur.repos.rycee.mozilla-addons-to-nix
 
     socat
     helix

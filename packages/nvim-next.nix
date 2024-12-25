@@ -1,6 +1,7 @@
 {
   vimUtils,
   fetchFromGitHub,
+  lib,
 }:
 vimUtils.buildVimPlugin {
   pname = "nvim-next";
@@ -8,8 +9,8 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "ghostbuster91";
     repo = "nvim-next";
-    rev = "21171249be2c70b0ccd4c6f8c3eb2a6534e9f10f";
-    sha256 = "sha256-dcyg1kjmaHmWyjks485+2KuFcFXjWq8q5GYNu+gMaSc=";
+    rev = "9c71ab7dd934ed82376cb4a26d3a8baa0048f0e1";
+    sha256 = "sha256-ACDsnUqTYok+uea9O/vW4qu/GJgV9d6WTdUCRjSALvo=";
   };
   meta.homepage = "https://github.com/ghostbuster91/nvim-next";
 }

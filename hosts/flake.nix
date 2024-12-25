@@ -34,6 +34,7 @@
   outputs = {
     self,
     nixpkgs,
+    nur,
     home-manager,
     deploy-rs,
     disko,
@@ -135,8 +136,16 @@
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-    devShell.${system} = pkgs.mkShell {
-      SHYFOX_NIXSTORE = "${inputs.shyfox}";
-    };
+    devShell.${system} = let
+      overlays = [nur.overlays.default];
+      pkgs = import nixpkgs {inherit system overlays;};
+    in
+      pkgs.mkShell {
+        SHYFOX_NIXSTORE = "${inputs.shyfox}";
+
+        buildInputs = [
+          pkgs.nur.repos.rycee.mozilla-addons-to-nix
+        ];
+      };
   };
 }

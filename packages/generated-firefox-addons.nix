@@ -2,19 +2,21 @@
   {
     "braavos-wallet" = buildFirefoxXpiAddon {
       pname = "braavos-wallet";
-      version = "3.65.1";
+      version = "3.77.2";
       addonId = "{a0c6ccfd-26a3-4df4-9729-aa036070ad29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324886/braavos_wallet-3.65.1.xpi";
-      sha256 = "dac897387cb19bb488e7b1d4c0b36a923a2de8c83f4deca8255aede118dd4500";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377733/braavos_wallet-3.77.2.xpi";
+      sha256 = "16f5fecc96a1db01b90224874538e907a28977898c914f1c5fb235cf3832b308";
       meta = with lib;
       {
         homepage = "https://www.braavos.app";
-        description = "The Secure and User-Friendly Smart Wallet for Starknet.";
+        description = "Most advanced and user-friendly Starknet wallet, featuring 2FA / 3FA security and enhanced DeFi capabilities.";
         mozPermissions = [
           "storage"
           "alarms"
           "notifications"
           "http://localhost/*"
+          "http://127.0.0.1/*"
+          "http://0.0.0.0/*"
           "https://*/*"
         ];
         platforms = platforms.all;
@@ -42,33 +44,32 @@
     };
     "phantom-app" = buildFirefoxXpiAddon {
       pname = "phantom-app";
-      version = "24.11.0";
+      version = "24.26.0";
       addonId = "{7c42eea1-b3e4-4be4-a56f-82a5852b12dc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309595/phantom_app-24.11.0.xpi";
-      sha256 = "7ce3fefc25cc9a10c6cadf495eeb2f9729d6511d51431f464ee38ee6e28b351f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392574/phantom_app-24.26.0.xpi";
+      sha256 = "004595e69c711f07835afeadc47bd5d6ee026dcf2913cb8546634aecb84792ef";
       meta = with lib;
       {
-        description = "A crypto wallet reimagined for DeFi &amp; NFTs";
+        description = "A crypto wallet reimagined for DeFi & NFTs";
         license = licenses.mit;
         mozPermissions = [
-          "storage"
-          "unlimitedStorage"
           "activeTab"
           "alarms"
+          "identity"
+          "storage"
+          "scripting"
           "tabs"
-          "http://*/*"
-          "https://*/*"
-          "file://*/*"
+          "unlimitedStorage"
         ];
         platforms = platforms.all;
       };
     };
     "revoke-cash" = buildFirefoxXpiAddon {
       pname = "revoke-cash";
-      version = "0.6.1";
+      version = "0.6.2";
       addonId = "webextension@revoke.cash";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4319456/revoke_cash-0.6.1.xpi";
-      sha256 = "217e3f08da030e57c05d10c72cec4909c0e43d8bd60f12c08c0fac8cf9c66541";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379967/revoke_cash-0.6.2.xpi";
+      sha256 = "5db39d0854ef5108666e69eeae7256d0e173626e5eca01d88cc8455f0bb2ebb4";
       meta = with lib;
       {
         homepage = "https://revoke.cash";
@@ -80,10 +81,10 @@
     };
     "tonkeeper" = buildFirefoxXpiAddon {
       pname = "tonkeeper";
-      version = "3.17.0";
+      version = "3.26.1";
       addonId = "wallet@tonkeeper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4323531/tonkeeper-3.17.0.xpi";
-      sha256 = "086a7c78a4c608e88033c903dc07e511f60f58bb05c0970145ee403d83746000";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396187/tonkeeper-3.26.1.xpi";
+      sha256 = "9c961e4cac41b923af58b65dd872c3f6858a807c2f29318df6e1fdc6012a2e86";
       meta = with lib;
       {
         homepage = "https://tonkeeper.com/";
