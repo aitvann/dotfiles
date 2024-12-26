@@ -3,7 +3,7 @@ local toggling = require("toggling")
 return function(_, _, buffer)
     vim.keymap.set("n", "<leader>f", function()
         -- specifying client breaks formatting
-        vim.lsp.buf.format({ bufnr = buffer })
+        vim.lsp.buf.format({ bufnr = buffer, timeout_ms = 10000 })
         vim.api.nvim_command 'w'
     end, { silent = true, buffer = buffer, desc = "Format current buffer" })
 

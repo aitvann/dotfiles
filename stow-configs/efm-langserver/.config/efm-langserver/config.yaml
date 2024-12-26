@@ -2,6 +2,7 @@ version: 2
 root-markers:
   - .git/
 lint-debounce: 1s
+# log-level: 1
 
 tools:
   # https://github.com/lukas-reineke/dotfiles/issues/3
@@ -44,6 +45,23 @@ tools:
       - '%f:%l %m'
       - '%f:%l:%c %m'
       - '%f: %l: %m'
+
+  sql-sqlfluff: &sql-sqlfluff
+   # lint-command: >
+   #  sqlfluff lint \
+   #    --annotation-level warning \
+   #    --nocolor \
+   #    --disable-progress-bar \
+   #    --format github-annotation-native \
+   #     ${INPUT}
+   # lint-formats:
+   #   - "::%totice title=SQLFluff,file=%f,line=%l,col=%c::%m"
+   #   - "::%tarning title=SQLFluff,file=%f,line=%l,col=%c::%m"
+   #   - "::%trror title=SQLFluff,file=%f,line=%l,col=%c::%m"
+   format-command: "sqlfluff fix --nocolor --disable-progress-bar - || exit 0"
+   format-stdin: true
+   root-markers:
+     - .sqlfluff
 
   dockerfile-hadolint: &dockerfile-hadolint
     lint-command: 'hadolint'
@@ -185,6 +203,9 @@ languages:
     # - <<: *markdown-markdownlint
     # - <<: *markdown-markdownlint-fix # https://github.com/mattn/efm-langserver/issues/258#issuecomment-1699416409
     - <<: *markdown-pandoc
+
+  sql:
+    - <<: *sql-sqlfluff
 
   # python:
   #   - <<: *python-black

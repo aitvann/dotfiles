@@ -474,6 +474,7 @@ in {
     stylua
     nodePackages_latest.prettier
     nodePackages_latest.markdownlint-cli2
+    sqlfluff
     pandoc
 
     leiningen
