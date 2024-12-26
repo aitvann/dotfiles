@@ -10,20 +10,32 @@
   packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
-    inputs.nur.overlays.default
     (import ../packages)
+    inputs.nur.overlays.default
     inputs.neovim-nightly-overlay.overlays.default
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.system}.default;
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
-      firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
-      btop = prev.btop.override {rocmSupport = true;};
       hyprland = inputs.hyprland.packages.${pkgs.system}.default;
       hyprlandPlugins =
         prev.hyprlandPlugins
         // {
           hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
         };
+      firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
+      btop = prev.btop.override {rocmSupport = true;};
+      nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
+        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
+      });
+      rofi-wayland =
+        prev.rofi-wayland.override
+        (old: {
+          plugins =
+            (old.plugins or [])
+            ++ [
+              prev.rofi-calc
+            ];
+        });
     })
   ];
 
@@ -202,9 +214,6 @@ in {
 
   programs.nnn = {
     enable = true;
-    package = (pkgs.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
-      makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
-    });
     plugins = with pkgs.nnnPlugins; [
       helper
       preview-tui
@@ -343,16 +352,7 @@ in {
 
   home.packages = with pkgs; [
     eww
-    (
-      rofi-wayland.override
-      (old: {
-        plugins =
-          (old.plugins or [])
-          ++ [
-            rofi-calc
-          ];
-      })
-    )
+    rofi-wayland
     rofi-pass-wayland
     rofimoji
     nerd-fonts.jetbrains-mono
@@ -404,6 +404,7 @@ in {
     ranger
     xclip
     zplug
+    # infinite recursion in overlay
     (pass.withExtensions (exts: with exts; [pass-otp]))
     docker-compose
     git
