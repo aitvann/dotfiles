@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type = Application
+Name = Element Hidden
+Comment=A feature-rich client for Matrix.org
+Icon = element
+Exec = element-desktop %u --hidden
+Terminal = false
+GenericName = Matrix Client Hidden
+Categories=Network;InstantMessaging;Chat
