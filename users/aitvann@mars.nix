@@ -538,6 +538,7 @@ in {
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
       (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
       (util.linkFiles "../configs/browser-bookmarks.tradetech.html" "firefox/bookmarks.tradetech.html" inputs.self)
+      (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
     ];
 
   home.stateVersion = "22.05";

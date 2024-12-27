@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type = Application
+Name = Poweroff
+Icon = ~/.local/share/icons/Tela/scalable/apps/system-shutdown.svg
+Exec = poweroff
+Terminal = false
+GenericName = System Control
+Categories = System
