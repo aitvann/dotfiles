@@ -266,6 +266,7 @@ in {
       rnvimr
       # fuzzy finder over lists
       telescope-nvim
+      telescope-fzf-native-nvim
       # better renaming input
       renamer-nvim
       # better signature help
@@ -412,6 +413,7 @@ in {
     lazygit
     direnv
     ripgrep
+    fd
     btop
     jq
     gojq
