@@ -2,9 +2,11 @@ local toggling = require("toggling")
 
 return function(_, _, buffer)
     vim.keymap.set("n", "<leader>f", function()
+        -- sync by default
         -- specifying client breaks formatting
         vim.lsp.buf.format({ bufnr = buffer, timeout_ms = 10000 })
-        vim.api.nvim_command 'w'
+        -- not needed when using sync format
+        -- vim.api.nvim_command 'w'
     end, { silent = true, buffer = buffer, desc = "Format current buffer" })
 
     vim.keymap.set("n", "<leader>tf", function()
@@ -18,6 +20,8 @@ return function(_, _, buffer)
                 -- sync by default
                 -- specifying client breaks formatting
                 vim.lsp.buf.format({ bufnr = buffer })
+                -- this message is crutial: format-on-save does not work without it
+                vim.api.nvim_echo({ { 'Formated on save', 'None' } }, false, {})
             end
         end,
         group = lsp_document_formatting,
