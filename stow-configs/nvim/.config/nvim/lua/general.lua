@@ -172,3 +172,6 @@ vim.keymap.set("n", "gw", builtin.current_buffer_fuzzy_find, { silent = true, de
 vim.keymap.set("n", "gW", builtin.live_grep, { silent = true, desc = "Go to Word in the PROJECT" })
 vim.keymap.set("n", "gb", builtin.buffers, { silent = true, desc = "Go to a buffer" })
 vim.keymap.set("n", "gJ", builtin.jumplist, { silent = true, desc = "Go to Jump point" })
+
+-- notifications
+require('desktop-notify').override_vim_notify()

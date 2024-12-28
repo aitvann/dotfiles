@@ -280,6 +280,8 @@ in {
       nvim-web-devicons
       # Pretty telescope select menu
       telescope-ui-select-nvim
+      # show notifications as system notifications
+      desktop-notify-nvim
 
       # --------------------------------------------------------------------------------
       # Editing

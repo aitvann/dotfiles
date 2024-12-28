@@ -1,7 +1,6 @@
 {
   vimUtils,
-  fetchFromGitHub,
-  lib,
+  fetchFromGitHub
 }:
 vimUtils.buildVimPlugin {
   pname = "nvim-next";
