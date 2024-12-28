@@ -15,6 +15,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
+# make NeoVim a man pager
+export MANPAGER='nvim +Man!'
+
 # keystrokes
 # xmodmap -e "keycode 64 = Mode_switch" # set Alt_l as the "Mode_switch"
 # xmodmap -e "keycode 43 = h H Left H" # h

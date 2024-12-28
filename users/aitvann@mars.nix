@@ -298,6 +298,7 @@ in {
       # autocomplition using multiple sources
       nvim-cmp
       cmp-path
+      cmp-cmdline
       # snippets (required by `nvim-cmp`)
       vim-vsnip
       # v text object to select bar in foo_ba|r_bax
