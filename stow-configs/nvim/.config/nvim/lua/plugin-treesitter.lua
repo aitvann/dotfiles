@@ -57,10 +57,10 @@ configs.setup({
         swap = {
             enable = true,
             swap_next = {
-                ["<leader>p"] = { query = "@parameter.inner", desc = "swap with next Parameter" },
+                [">a"] = { query = "@parameter.inner", desc = "swap with next Parameter" },
             },
             swap_previous = {
-                ["<leader>P"] = { query = "@parameter.inner", desc = "swap with previous Parameter" },
+                ["<a"] = { query = "@parameter.inner", desc = "swap with previous Parameter" },
             },
         },
     },
