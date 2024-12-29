@@ -3,7 +3,7 @@ CONFIG_HOME=$XDG_CONFIG_HOME/zsh
 export NNN_FIFO=/tmp/nnn.fifo
 
 export NNN_TERMINAL=foot
-export NNN_PLUG="p:preview-tui;d:dragdrop;j:fzcd;r:gitroot;w:wallpaper"
+export NNN_PLUG="p:preview-tui;d:dragdrop;j:fzcd;r:gitroot;w:wallpaper;s:xdgdefault;o:fzopen"
 
 # use trash-cli
 export NNN_TRASH=1

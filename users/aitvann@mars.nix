@@ -43,10 +43,6 @@ in {
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
   imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
 
-  home.sessionVariables = {
-    TERM = "foot";
-  };
-
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "discord"
@@ -222,6 +218,8 @@ in {
       fzcd
       gitroot
       wallpaper
+      xdgdefault
+      fzopen
     ];
   };
 
@@ -374,8 +372,9 @@ in {
     dunst
     pyprland
     oculante
-    jellyfin
+    xdg-terminal-exec
 
+    jellyfin
     obs-studio
     tdesktop
     protontricks
@@ -528,7 +527,7 @@ in {
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
     (packageHomeFiles ../stow-configs/ueberzugpp)
     (packageHomeFiles ../stow-configs/wireplumber)
-    (packageHomeFiles ../stow-configs/xdg)
+    (packageHomeFiles ../stow-configs/xdg) # prevents nnn:xdgdefault from working
     (packageHomeFiles ../stow-configs/zsh)
   ];
 
