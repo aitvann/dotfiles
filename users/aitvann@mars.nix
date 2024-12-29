@@ -263,8 +263,6 @@ in {
       telescope-project-nvim
       # status line
       lualine-nvim
-      # open file with ranger window
-      rnvimr
       # fuzzy finder over lists
       telescope-nvim
       telescope-fzf-native-nvim
@@ -406,7 +404,6 @@ in {
 
     stow
     fastfetch
-    ranger
     xclip
     zplug
     # infinite recursion in overlay
@@ -523,7 +520,6 @@ in {
     (packageHomeFiles ../stow-configs/nvim)
     (packageHomeFiles ../stow-configs/pipewire-aitvann)
     (packageHomeFiles ../stow-configs/qalculate)
-    (packageHomeFiles ../stow-configs/ranger)
     (packageHomeFiles ../stow-configs/ripgrep)
     (packageHomeFiles ../stow-configs/rofi)
     (packageHomeFiles ../stow-configs/rofi-pass)
