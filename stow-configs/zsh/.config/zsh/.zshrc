@@ -85,11 +85,13 @@ precmd() {
     print -Pn "\e]133;A\e\\"
 }
 
+source $ZDOTDIR/session.sh
+
+# code belove require BABASHKA_CLASSPATH to be set and scripts to be in-place
+
 # write current location
 function update_cwd_file() {
   current_pid=$(echo $$)
-  echo $PWD > "/tmp/current-location/zsh-${current_pid}.txt"
+  bb -m hypr-current-location write zsh $current_pid $PWD
 }
 add-zsh-hook -Uz chpwd update_cwd_file
-
-source $ZDOTDIR/session.sh

@@ -1,4 +1,11 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bb
+; vim: set ft=clojure:
 
-location=$(bb ~/.local/bin/hypr-current-location get 2> /dev/null || echo ~)
-$TERM --title='nnn-file-manager' zsh -ic "NNN_TERMINAL='foot --title=nnn-file-manager-terminal' n -P p '${location}'" 
+(load-file (str (System/getenv "HOME") "/.local/bin/hypr_current_location.bb"))
+
+(require
+ '[hypr-current-location :refer [get-data]]
+ '[clojure.java.shell :as shell :refer [sh]])
+
+(let [{:keys [location nvim_pipe]} (get-data)]
+  (sh "foot" "--log-level=error" "--title=nnn-file-manager" "zsh" "-ic" (str "NNN_TERMINAL='foot --log-level=error --title=nnn-file-manager-terminal' VISUAL='nvim --server " nvim_pipe " --remote ' n -E -P p " location)))

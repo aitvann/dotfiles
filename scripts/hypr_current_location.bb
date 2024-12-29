@@ -1,5 +1,6 @@
-#! /usr/bin/env bb
 ; vim: set ft=clojure:
+
+(ns hypr-current-location)
 
 (import [java.io File])
 (require '[babashka.cli :as cli]
@@ -29,8 +30,24 @@
             (when (= 1 (count known))
               (update (first known) 1 :name)))))))
 
-(defn get-current-location [name pid]
-  (str/trim (slurp (str "/tmp/current-location/" name "-" pid ".txt"))))
+(defn write-current-location [name pid location nvim_pipe]
+  (let [path (str "/tmp/current-location/" name "-" pid ".txt")
+        data (json/generate-string {:location location :nvim_pipe nvim_pipe})]
+    (spit path data)))
+
+(defn read-data [name pid]
+  (try
+    (-> (str "/tmp/current-location/" name "-" pid ".txt")
+        slurp
+        str/trim
+        (json/parse-string true))
+    (catch Exception _
+      {:location (System/getenv "HOME") :nvim_pipe nil})))
+
+(defn get-data []
+  (let [pid (current-pid)
+        [pid name] (search pid)]
+    (read-data name pid)))
 
 (defn delete-files-in-dir [dir-path]
   (let [dir (File. dir-path)
@@ -40,13 +57,16 @@
         (.delete file)))))
 
 (defn get-cmd [_m]
-  (let [pid (current-pid)
-        [pid name] (search pid)
-        location (get-current-location name pid)]
-    (println location)))
+  (println (json/generate-string (get-data))))
+(defn write-cmd [{:keys [args]}]
+  (let [[name pid location nvim_pipe] args]
+    (write-current-location name pid location nvim_pipe)))
 (defn clear-cmd [_m] (delete-files-in-dir "/tmp/current-location"))
- 
+
 (def table [{:cmds ["get"]            :fn get-cmd}
+            {:cmds ["write"]          :fn write-cmd}
             {:cmds ["clear"]          :fn clear-cmd}])
 
-(cli/dispatch table *command-line-args*)
+; (cli/dispatch table *command-line-args*)
+(defn -main [& args]
+  (cli/dispatch table args))

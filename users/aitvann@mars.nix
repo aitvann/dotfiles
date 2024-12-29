@@ -25,7 +25,8 @@ in {
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
-        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
+        # `O_RESTOREPREVIEW=1` does not play nice with hypr-current-location
+        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1"];
       });
       rofi-wayland =
         prev.rofi-wayland.override

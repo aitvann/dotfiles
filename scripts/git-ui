@@ -1,5 +1,21 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bb
+; vim: set ft=clojure:
 
-location=$(bb ~/.local/bin/hypr-current-location get 2> /dev/null || echo ~)
-[[ -f $location ]] && location=$(dirname $location)
-$TERM --title='git-ui' zsh -ic "cd '${location}'; lazygit" 
+(load-file (str (System/getenv "HOME") "/.local/bin/hypr_current_location.bb"))
+
+(require
+ '[clojure.java.io :as io]
+ '[hypr-current-location :refer [get-data]]
+ '[clojure.java.shell :as shell :refer [sh]])
+
+(defn dirname [path]
+  (let [file (io/file path)]
+    (if (.exists file)
+      (if (.isFile file)
+        (.getParent file)
+        path)
+      path)))
+
+(let [{:keys [location nvim_pipe]} (get-data)
+      location (dirname location)]
+  (sh "foot" "--log-level=error" "--title=git-ui" "zsh" "-ic" (str "cd " location "; NVIM_PIPE=" nvim_pipe " lazygit")))

@@ -12,6 +12,8 @@ export DIRENV_LOG_FORMAT=''
 # install any external software uisng Nix only
 export PATH="$HOME/.local/bin:$PATH"
 
+export BABASHKA_CLASSPATH="$HOME/.local/bin"
+
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
@@ -69,7 +71,7 @@ ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
 ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
 ln -sf $SCRIPTS_HOME/file-manager ~/.local/bin/file-manager
 ln -sf $SCRIPTS_HOME/git-ui ~/.local/bin/git-ui
-ln -sf $SCRIPTS_HOME/hypr-current-location ~/.local/bin/hypr-current-location
+ln -sf $SCRIPTS_HOME/hypr_current_location.bb ~/.local/bin/hypr_current_location.bb
 ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
 ln -sf $SCRIPTS_HOME/parse-color-tokens ~/.local/bin/parse-color-tokens
 

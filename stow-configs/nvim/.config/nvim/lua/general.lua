@@ -148,7 +148,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
         if filepath ~= "" and vim.loop.fs_stat(filepath) then
             local file = io.open("/tmp/current-location/nvim-" .. vim.loop.getpid() .. ".txt", 'w')
             if file then
-                file:write(filepath .. '\n')
+                local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
+                file:write(data)
                 file:close()
             end
         end
