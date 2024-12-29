@@ -526,6 +526,7 @@ in {
     (packageHomeFiles ../stow-configs/ssh-aitvann)
     (packageHomeFiles ../stow-configs/syncthing-aitvann)
     (packageHomeFiles ../stow-configs/ueberzugpp)
+    (packageHomeFiles ../stow-configs/uwsm)
     (packageHomeFiles ../stow-configs/wireplumber)
     (packageHomeFiles ../stow-configs/xdg) # prevents nnn:xdgdefault from working
     (packageHomeFiles ../stow-configs/zsh)
