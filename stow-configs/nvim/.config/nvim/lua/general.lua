@@ -156,6 +156,15 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end,
 })
 
+vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup('highlight_yank', {}),
+    desc = 'Hightlight selection on yank',
+    pattern = '*',
+    callback = function()
+        vim.highlight.on_yank { higroup = 'HighlightedyankRegion', timeout = 300 }
+    end,
+})
+
 -- resizing
 vim.keymap.set("n", '<S-Left>', function() vim.fn.ResizeLeft(4) end, { silent = true, desc = 'move window divider LEFT' })
 vim.keymap.set("n", '<S-Right>', function() vim.fn.ResizeRight(4) end,
