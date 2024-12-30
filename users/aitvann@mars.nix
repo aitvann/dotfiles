@@ -208,6 +208,26 @@ in {
     gtk.enable = true;
   };
   services.wl-clip-persist.enable = true;
+  systemd.user = {
+    services = {
+      polkit-hyprpolkitagent = {
+        Unit = {
+          Description = "Hyprland Polkit authentication agent";
+          Documentation = "https://wiki.hyprland.org/Hypr-Ecosystem/hyprpolkitagent/";
+          After = ["graphical-session.target"];
+        };
+
+        Service = {
+          ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+          Restart = "on-failure";
+          RestartSec = 2;
+          TimeoutStopSec = 10;
+        };
+
+        Install.WantedBy = ["graphical-session.target"];
+      };
+    };
+  };
 
   programs.nnn = {
     enable = true;
