@@ -392,6 +392,7 @@ in {
     dunst
     pyprland
     oculante
+    pinentry-gnome3
     xdg-terminal-exec
     # fix screen sharing
     libsForQt5.xwaylandvideobridge
