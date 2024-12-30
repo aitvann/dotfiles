@@ -393,6 +393,8 @@ in {
     pyprland
     oculante
     xdg-terminal-exec
+    # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
+    libsForQt5.qt5.qtwayland
 
     jellyfin
     obs-studio
