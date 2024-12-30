@@ -33,19 +33,6 @@ in {
     # from https://jellyfin.org/docs/general/networking/index.html
     allowedTCPPorts = [8096 8920];
     allowedUDPPorts = [1900 7359];
-
-    # allow wireguard
-    # if packets are still dropped, they will show up in dmesg
-    logReversePathDrops = true;
-    # wireguard trips rpfilter up
-    extraCommands = ''
-      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
-      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
-    '';
-    extraStopCommands = ''
-      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
-      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
-    '';
   };
 
   # Select internationalisation properties.
@@ -164,7 +151,6 @@ in {
     storageDriver = "overlay2";
   };
 
-  hardware.ledger.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
