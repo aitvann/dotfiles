@@ -45,14 +45,6 @@ in {
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
   };
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors.hyprland = {
-      binPath = "/run/current-system/sw/bin/Hyprland";
-      prettyName = "Hyprland";
-      comment = "Hyprland managed by UWSM";
-    };
-  };
   services.xserver = {
     enable = true;
     displayManager = {
@@ -60,7 +52,6 @@ in {
     };
     excludePackages = with pkgs; [xterm];
   };
-  services.displayManager.defaultSession = "hyprland-uwsm";
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -148,6 +139,38 @@ in {
   environment.pathsToLink = ["/share/zsh"];
   # some local scripts are not fully POSIX-compatible yet
   # environment.binsh = "${pkgs.dash}/bin/dash";
+
+  environment.sessionVariables = {
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+    # Not officially in the specification
+    XDG_BIN_HOME = "$HOME/.local/bin";
+
+    ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
+    PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+    # does not work
+    # GNUPGHOME="$XDG_DATA_HOME/gnupg";
+    RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/.ripgreprc";
+    CARGO_HOME = "$XDG_DATA_HOME/cargo";
+    CARGO_TARGET_DIR = "$CARGO_HOME/shared-target";
+    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
+    PARALLEL_HOME = "$XDG_CONFIG_HOME/parallel";
+    PSQLRC = "$XDG_CONFIG_HOME/pg/psqlrc";
+    PSQL_HISTORY = "$XDG_STATE_HOME/psql_history";
+    PGPASSFILE = "$XDG_CONFIG_HOME/pg/pgpass";
+    PGSERVICEFILE = "$XDG_CONFIG_HOME/pg/pg_service.conf";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
+    DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+    XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
+    XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
+    XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+    GTK_RC_FILES = "$XDG_CONFIG_HOME/gtk-1.0/gtkrc";
+    GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
+    XCURSOR_PATH = lib.mkForce "$XDG_DATA_HOME/icons";
+    LEIN_HOME = "$XDG_DATA_HOME/lein";
+  };
 
   # fixes home-manager.sessionVariables
   # https://github.com/nix-community/home-manager/issues/1011
