@@ -8,7 +8,6 @@ local lsp = require("lspconfig")
 local cmp = require("cmp_nvim_lsp")
 local status = require("lsp-status")
 local signature = require("lsp_signature")
-local inlay_hints = require("lsp-inlayhints")
 
 local servers = {
     "rust_analyzer", -- rust
@@ -35,7 +34,6 @@ local on_attach = function(client, buffer)
     }, buffer)
     status.on_attach(client)
     diagnostics.on_attach(client, buffer)
-    inlay_hints.on_attach(client, buffer)
 
     lsp_utils.resolve_capabilities(client, buffer)
 end
@@ -68,17 +66,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- inlay_hints
-inlay_hints.setup({
-    eol = {
-        type = {
-            format = function(hints)
-                return string.format("%s", hints)
-            end,
-        },
-    },
-})
-
 -- status
 status.register_progress()
 
@@ -87,4 +74,10 @@ toggling.register({
     name = "fmt_on_save",
     initial = true,
     description = "Formatting on save",
+})
+
+toggling.register({
+    name = "inlay_hints",
+    initial = false,
+    description = "Display inlay hints",
 })

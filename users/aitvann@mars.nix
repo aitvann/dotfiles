@@ -337,8 +337,6 @@ in {
       nvim-lspconfig
       # source for complitions using LSP
       cmp-nvim-lsp
-      # enable inlay hints (inlay type hints for Rust)
-      lsp-inlayhints-nvim
       # get progress state and messages from LSP
       lsp-status-nvim
       # For pretty kind icons on completion
