@@ -29,9 +29,6 @@ cmp.setup({
     }, {
         { name = "path" }, -- group index 1
     }),
-})
-
-cmp.setup({
     formatting = {
         format = function(entry, vim_item)
             if vim.tbl_contains({ "path" }, entry.source.name) then

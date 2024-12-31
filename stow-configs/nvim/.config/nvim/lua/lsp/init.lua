@@ -46,6 +46,17 @@ local capabilities = vim.tbl_deep_extend(
     status.capabilities         -- update capabilities from `lsp-status` plugin
 )
 
+-- ignore the error
+for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+    local default_diagnostic_handler = vim.lsp.handlers[method]
+    vim.lsp.handlers[method] = function(err, result, context, config)
+        if err ~= nil and err.code == -32802 then
+            return
+        end
+        return default_diagnostic_handler(err, result, context, config)
+    end
+end
+
 for server_name, server_options in pairs(options) do
     lsp[server_name].setup({
         init_options = server_options.init_options,
