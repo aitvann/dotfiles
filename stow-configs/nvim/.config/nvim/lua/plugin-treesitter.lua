@@ -32,17 +32,25 @@ configs.setup({
                 ["aa"] = { query = "@parameter.outer", desc = "select OUTER part of a Argument region" },
                 ["ia"] = { query = "@parameter.inner", desc = "select INNER part of a Argument region" },
                 ["am"] = { query = "@comment.outer", desc = "select OUTER part of a coMMent region" },
-                -- ["im"] = { query = "@comment.inner", desc = "select INNER part of a coMMent region" },
+                ["im"] = { query = "@comment.outer", desc = "select OUTER part of a coMMent region" }, -- fake inner
+                -- ["im"] = { query = "@comment.inner", desc = "select INNER part of a coMMent region" }, -- no such object
                 ["ao"] = { query = "@loop.outer", desc = "select OUTER part of a lOOp region" },
                 ["io"] = { query = "@loop.inner", desc = "select INNER part of a lOOp region" },
                 ["an"] = { query = "@conditional.outer", desc = "select OUTER part of a coNditional region" },
                 ["in"] = { query = "@conditional.inner", desc = "select INNER part of a coNditional region" },
                 ["ag"] = { query = "@assignment.outer", desc = "select OUTER part of a assiGnment region" },
-                ["al"] = { query = "@assignment.lhs", desc = "select INNER part of a assignment Lhs region" },
-                ["ar"] = { query = "@assignment.rhs", desc = "select INNER part of a assignment Rhs region" },
+                ["ig"] = { query = "@assignment.outer", desc = "select OUTER part of a assiGnment region" }, -- fake inner
+                -- ["ig"] = { query = "@assignment.inner", desc = "select OUTER part of a assiGnment region" }, -- no such object
+                ["al"] = { query = "@assignment.lhs", desc = "select OUTER part of a assignment Lhs region" },
+                ["il"] = { query = "@assignment.lhs", desc = "select OUTER part of a assignment Lhs region" }, -- nodiff inner
+                ["ar"] = { query = "@assignment.rhs", desc = "select OUTER part of a assignment Rhs region" },
+                ["ir"] = { query = "@assignment.rhs", desc = "select OUTER part of a assignment Rhs region" }, -- nodiff inner
                 -- You can also use captures from other query groups like `locals.scm`
                 ["as"] = { query = "@scope", query_group = "locals", desc = "select language Scope" },
+                ["is"] = { query = "@scope", query_group = "locals", desc = "select language Scope" }, -- nodiff inner
             },
+
+            -- TODO: make 'fake' and 'nodiff' textobjects actually do something
             -- If you set this to `true` (default is `false`) then any textobject is
             -- extended to include preceding or succeeding whitespace. Succeeding
             -- whitespace has priority in order to act similarly to eg the built-in
