@@ -1,0 +1,6 @@
+#! /bin/sh
+
+nvim --server $1 --remote $2
+if [ ! -z $1 ]; then
+    kill -TERM $(ps -o ppid= -p $$)
+fi

@@ -28,13 +28,19 @@ os:
   edit: |
     if [[ ${EDITOR:0:4} == "nvim" ]]; then
       nvim --server "$NVIM_PIPE" --remote {{filename}}
+      if [ ! -z $NVIM_PIPE ]; then
+          kill -TERM $(ps -o ppid= -p $$)
+      fi
     else
       $EDITOR
     fi
   editAtLine: |
     if [[ ${EDITOR:0:4} == "nvim" ]]; then
       nvim --server "$NVIM_PIPE" --remote {{filename}}
-      nvim --server "$NVIM_PIPE" --remote-send ":{{line}}<CR>"
+      nvim --server "$NVIM_PIPE" --remote-send "<Esc>:{{line}}<CR>"
+      if [ ! -z $NVIM_PIPE ]; then
+          kill -TERM $(ps -o ppid= -p $$)
+      fi
     else
       $EDITOR
     fi

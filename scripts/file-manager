@@ -8,4 +8,4 @@
  '[clojure.java.shell :as shell :refer [sh]])
 
 (let [{:keys [location nvim_pipe]} (get-data)]
-  (sh "foot" "--log-level=error" "--title=nnn-file-manager" "zsh" "-ic" (str "NNN_TERMINAL='foot --log-level=error --title=nnn-file-manager-terminal' VISUAL='nvim --server " nvim_pipe " --remote ' n -E -P p " location)))
+  (sh "foot" "--log-level=error" "--title=nnn-file-manager" "zsh" "-ic" (str "NNN_TERMINAL='foot --log-level=error --title=nnn-file-manager-terminal' VISUAL='file-manager-edit-file " nvim_pipe " ' n -E -P p " location)))

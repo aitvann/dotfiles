@@ -70,6 +70,7 @@ ln -sf $SCRIPTS_HOME/up-postgres/up-pg ~/.local/bin/up-pg
 ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
 ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
 ln -sf $SCRIPTS_HOME/file-manager ~/.local/bin/file-manager
+ln -sf $SCRIPTS_HOME/file-manager-edit-file ~/.local/bin/file-manager-edit-file
 ln -sf $SCRIPTS_HOME/git-ui ~/.local/bin/git-ui
 ln -sf $SCRIPTS_HOME/hypr_current_location.bb ~/.local/bin/hypr_current_location.bb
 ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
