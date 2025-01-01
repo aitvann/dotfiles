@@ -13,15 +13,13 @@ return function(_, _, buffer)
         toggling.toggle("fmt_on_save")
     end, { silent = true, buffer = buffer, desc = "Toggle Formatting on save" })
 
-    local lsp_document_formatting = vim.api.nvim_create_augroup("lsp_document_formatting", { clear = true })
+    local lsp_document_formatting = vim.api.nvim_create_augroup("lsp_document_formatting", { clear = false })
     vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
             if toggling.is_enabled("fmt_on_save") then
                 -- sync by default
                 -- specifying client breaks formatting
                 vim.lsp.buf.format({ bufnr = buffer })
-                -- this message is crutial: format-on-save does not work without it
-                vim.api.nvim_echo({ { 'Formated on save', 'None' } }, false, {})
             end
         end,
         group = lsp_document_formatting,
