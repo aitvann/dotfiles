@@ -29,8 +29,8 @@ vim.filetype.add({
 
 -- folds
 vim.opt.foldmethod = "expr"
--- WARN: causes significant sturtup slowdown
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- WARN: causes significant slowdowns: cmdline cmp, lsp symbols, scrolling
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- deprecated
 -- requires NeoVim-nightly
 vim.o.foldtext = ''
@@ -145,12 +145,19 @@ vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*',
     callback = function(args)
         local filepath = args.file
-        if filepath ~= "" and vim.loop.fs_stat(filepath) then
-            local file = io.open("/tmp/current-location/nvim-" .. vim.loop.getpid() .. ".txt", 'w')
-            if file then
+        if filepath ~= "" then
+            local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. vim.loop.getpid() .. ".txt", "w", 438) -- 438 is octal for 0666 permissions
+            if not file then
+                vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
+            else
                 local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
-                file:write(data)
-                file:close()
+                vim.loop.fs_write(file, data, -1,
+                    function(write_err)
+                        if write_err then
+                            vim.notify("Error writing file: " .. write_err, vim.log.levels.ERROR)
+                        end
+                        vim.loop.fs_close(file)
+                    end)
             end
         end
     end,
@@ -185,3 +192,11 @@ vim.keymap.set("n", "gJ", builtin.jumplist, { silent = true, desc = "Go to Jump 
 
 -- notifications
 require('desktop-notify').override_vim_notify()
+
+-- profiles
+local snacks = require("snacks")
+-- Toggle the profiler
+snacks.toggle.profiler():map("<leader>pp")
+-- Toggle the profiler highlights
+snacks.toggle.profiler_highlights():map("<leader>ph")
+vim.keymap.set("n", "<leader>ps", snacks.profiler.scratch, { silent = true, desc = "Profiler Scratch Bufer" })
