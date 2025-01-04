@@ -66,6 +66,8 @@ with lib; rec {
   in
     builtins.mapAttrs (t: s: {source = s;}) paths;
 
+  zsh-plugin-w-path = package: path: {inherit package path;};
+
   recursiveMerge = attrList: let
     f = attrPath:
       zipAttrsWith (

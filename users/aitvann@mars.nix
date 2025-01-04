@@ -41,7 +41,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -243,6 +243,17 @@ in {
     ];
   };
 
+  programs.my-zsh = {
+    enable = true;
+    plugins = with pkgs; [
+      zsh-defer
+      zsh-fast-syntax-highlighting
+      (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
+      zsh-fzf-tab
+      zsh-autosuggestions
+    ];
+  };
+
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
@@ -441,7 +452,11 @@ in {
     jq
     gojq
     eza
-    zsh
+    # zsh
+    carapace
+    atuin
+    z-lua
+    zinit
     starship
     grpcui
     grpcurl
@@ -514,6 +529,7 @@ in {
   ];
 
   home.file = util.recursiveMerge [
+    (packageHomeFiles ../stow-configs/atuin)
     (packageHomeFiles ../stow-configs/beets)
     (packageHomeFiles ../stow-configs/btop)
     (packageHomeFiles ../stow-configs/cargo)
