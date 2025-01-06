@@ -75,6 +75,8 @@ ln -sf $SCRIPTS_HOME/git-ui ~/.local/bin/git-ui
 ln -sf $SCRIPTS_HOME/hypr_current_location.bb ~/.local/bin/hypr_current_location.bb
 ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
 ln -sf $SCRIPTS_HOME/parse-color-tokens ~/.local/bin/parse-color-tokens
+ln -sf $SCRIPTS_HOME/wayland-copy-file ~/.local/bin/wayland-copy-file
+ln -sf $SCRIPTS_HOME/wayland-paste-file ~/.local/bin/wayland-paste-file
 
 # modules
 source $CONFIG_HOME/nnnrc.sh

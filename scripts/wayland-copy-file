@@ -1,0 +1,23 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require
+ '[clojure.string :as str]
+ '[babashka.process :refer [shell process]])
+
+(def name (first *command-line-args*))
+
+(def filetype
+  (-> (shell {:out :string} "file" "--mime-type" "-b" name)
+      :out
+      str/trim))
+
+(def group (second (re-matches #"(.+)/(.+)" filetype)))
+
+(let [[filetype data-stream]
+      (if (= group "image")
+        ["image/png" (process "magick" name "png:-")]
+        [filetype    (process "cat"    name)])]
+  (-> data-stream
+      (process "wl-copy" (str "--type=" filetype))
+      deref))

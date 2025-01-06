@@ -1,0 +1,59 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+; - [x] FireFox: text/html as the first option
+; - [ ] Element: image/png is empty, PNG image is inside text/x-moz-url
+
+(require
+ '[clojure.string :as str]
+ '[babashka.process :refer [shell]])
+
+(import [java.time LocalDateTime]
+        [java.time.format DateTimeFormatter])
+
+(defn formatted-timestamp []
+  (let [formatter (DateTimeFormatter/ofPattern "yyyy-MM-dd_HH-mm-ss")]
+    (.format (LocalDateTime/now) formatter)))
+
+(defn filename-with-timestamp [base-name extension]
+  (str base-name "_" (formatted-timestamp) "." extension))
+
+; higher priority of values coming first
+(def group-priorities ["image" "plain" "text"])
+
+(defn index-of [arr value default]
+  (or (first (keep-indexed (fn [i v] (when (= v value) i)) arr))
+      default))
+
+(let [[mime group filetype]
+      (->> (shell {:out :string} "wl-paste" "--list-types")
+           deref
+           :out
+           str/split-lines
+           (map #(re-matches #"(.+)/(.+)" %))
+           (filter (comp not nil?))
+           (sort-by (fn [[_ group]] (index-of group-priorities group Integer/MAX_VALUE)))
+           first)]
+  (def mime mime)
+  (def group group)
+  (def filetype filetype))
+
+(def translate-filetype
+  {"plain" "txt"})
+
+(def extension
+  (get translate-filetype filetype filetype))
+
+(def out-file (filename-with-timestamp "clipboard" extension))
+
+(deref
+ (shell {:out :write :out-file out-file}
+        "wl-paste" "--type" mime))
+
+(def pwd (-> (shell {:out :string} "pwd")
+             deref
+             :out
+             str/trim))
+
+(spit (System/getenv "NNN_PIPE")
+      (str "0c" pwd "/" out-file))
