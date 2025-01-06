@@ -19,6 +19,9 @@
 -- <Tab> in insert - inline toggle
 -- <Enter> - go to file
 
+-- must be the first line of config
+require("lang-layout")
+
 require("colorscheme")
 require("utils")
 require("general")
@@ -40,3 +43,7 @@ require("plugin-conjure")
 require("s-expressions")
 require("markdown")
 -- require("dump-mappings")
+
+-- must be the very last line of config
+-- remap Vim keybindings
+require('langmapper').automapping({ buffer = false })

@@ -283,6 +283,8 @@ in {
       project-nvim
       # interactive environment for evaluating code within a running program
       conjure
+      # allows to continue to use keybindings without switching to EN layout
+      langmapper-nvim
 
       # --------------------------------------------------------------------------------
       # Interface

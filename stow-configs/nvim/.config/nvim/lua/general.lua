@@ -63,8 +63,6 @@ vim.keymap.set("n", "G", "Gzz", { silent = true })
 vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window" })
 
 -- leader
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\r"
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, desc = "Quite from current editor" })
 vim.keymap.set("n", "<leader>Q", ":qa<CR>", { silent = true, desc = "Quite from editor" })
