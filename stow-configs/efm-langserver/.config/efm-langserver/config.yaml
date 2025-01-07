@@ -32,7 +32,7 @@ tools:
   # preserving reference links is hard
   # https://stackoverflow.com/questions/55174796/how-can-i-get-pandoc-to-preserve-my-reference-links
   markdown-pandoc: &markdown-pandoc
-    format-command: 'pandoc --columns=80 --from=markdown+wikilinks_title_after_pipe+yaml_metadata_block+lists_without_preceding_blankline --to=markdown+wikilinks_title_after_pipe+yaml_metadata_block-simple_tables-multiline_tables-grid_tables+lists_without_preceding_blankline -s'
+    format-command: 'pandoc --columns=98 --from=markdown+wikilinks_title_after_pipe+yaml_metadata_block+lists_without_preceding_blankline --to=markdown+wikilinks_title_after_pipe+yaml_metadata_block-simple_tables-multiline_tables-grid_tables+lists_without_preceding_blankline -s'
     format-stdin: true
 
   markdown-markdownlint-fix: &markdown-markdownlint-fix

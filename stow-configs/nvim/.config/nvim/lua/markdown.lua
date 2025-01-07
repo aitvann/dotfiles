@@ -65,11 +65,12 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function(args)
         local buffer = args.buf
-        vim.o.textwidth = 80
+        -- 98 because this is how mush fits on half of my screen
+        vim.o.textwidth = 98
         vim.o.linebreak = true
         -- https://github.com/neovim/neovim/issues/14626
-        -- vim.o.colorcolumn = 80
-        vim.cmd [[ setlocal colorcolumn=80 ]]
+        -- vim.o.colorcolumn = 98
+        vim.cmd [[ setlocal colorcolumn=98 ]]
 
         vim.cmd [[
             let b:surround_{char2nr('~')} = "~~\r~~"
