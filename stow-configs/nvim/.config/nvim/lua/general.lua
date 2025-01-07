@@ -24,7 +24,10 @@ vim.o.cursorcolumn = true
 vim.cmd("highlight CursorLine guibg=#3a405e")
 
 vim.filetype.add({
-    pattern = { [".*/hyprland%.conf"] = "hyprlang" },
+    pattern = {
+        [".*/hyprland%.conf"] = "hyprlang",
+        [".*/binds%.conf"] = "hyprlang",
+    },
 })
 
 -- folds

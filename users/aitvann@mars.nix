@@ -341,6 +341,8 @@ in {
       nvim-treesitter-textobjects
       # auto bullets
       autolist-nvim
+      # align helper
+      mini-align
 
       # --------------------------------------------------------------------------------
       # Lsp
