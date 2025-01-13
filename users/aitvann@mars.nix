@@ -326,11 +326,7 @@ in {
       # context aware commenting
       nvim-ts-context-commentstring
       # autocomplition using multiple sources
-      nvim-cmp
-      cmp-path
-      cmp-cmdline
-      # snippets (required by `nvim-cmp`)
-      vim-vsnip
+      blink-cmp
       # v text object to select bar in foo_ba|r_bax
       vim-textobj-variable-segment
       # Highlights parentheses in rainbow
@@ -350,8 +346,6 @@ in {
 
       # the bridge between lua and configuration of LS
       nvim-lspconfig
-      # source for complitions using LSP
-      cmp-nvim-lsp
       # get progress state and messages from LSP
       lsp-status-nvim
       # For pretty kind icons on completion

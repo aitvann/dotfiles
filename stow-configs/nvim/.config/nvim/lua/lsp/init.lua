@@ -5,7 +5,7 @@ local toggling = require("toggling")
 local diagnostics = require("lsp.diagnostics")
 
 local lsp = require("lspconfig")
-local cmp = require("cmp_nvim_lsp")
+local blink = require("blink.cmp")
 local status = require("lsp-status")
 local signature = require("lsp_signature")
 
@@ -42,7 +42,7 @@ end
 local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),
-    cmp.default_capabilities(), -- update capabilities from 'cmp_nvim_lsp` plugin
+    blink.get_lsp_capabilities(), -- update capabilities from 'cmp_nvim_lsp` plugin
     status.capabilities         -- update capabilities from `lsp-status` plugin
 )
 
