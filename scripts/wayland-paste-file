@@ -3,6 +3,7 @@
 
 ; - [x] FireFox: text/html as the first option
 ; - [ ] Element: image/png is empty, PNG image is inside text/x-moz-url
+; - [ ] strip out charset: `text/plain;charset=utf-8`
 
 (require
  '[clojure.string :as str]

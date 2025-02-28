@@ -5,6 +5,7 @@ dialect = "uk"
 ## the accepted values are identical to those of "search_mode"
 ## leave unspecified to use same mode set in "search_mode"
 search_mode_shell_up_key_binding = "prefix"
+filter_mode_shell_up_key_binding = "session"
 
 ## which style to use
 ## possible values: auto, full, compact

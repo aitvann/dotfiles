@@ -30,9 +30,22 @@ in {
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall = {
-    # from https://jellyfin.org/docs/general/networking/index.html
-    allowedTCPPorts = [8096 8920];
-    allowedUDPPorts = [1900 7359];
+    allowedTCPPorts = [
+      # from https://jellyfin.org/docs/general/networking/index.html
+      8096
+      8920
+
+      # SimpleX sync
+      41627
+    ];
+    allowedUDPPorts = [
+      # from https://jellyfin.org/docs/general/networking/index.html
+      1900
+      7359
+
+      # SimpleX sync
+      41627
+    ];
   };
 
   # Select internationalisation properties.

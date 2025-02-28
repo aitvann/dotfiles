@@ -27,11 +27,15 @@ blink.setup({
         nerd_font_variant = 'mono'
     },
 
-    -- try when more stable
-    -- Displays a preview of the selected item on the current line
     completion = {
+        -- try when more stable
+        -- Displays a preview of the selected item on the current line
         ghost_text = {
             enabled = false,
+        },
+
+        list = {
+            selection = "manual"
         }
     },
 

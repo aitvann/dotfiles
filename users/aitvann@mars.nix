@@ -79,6 +79,7 @@ in {
       # crypto
       {id = "agoakfejjabomempkjlepdflaleeobhb";} # core wallet
       {id = "ibnejdfjmmkpcnlpebklmnkoeoihofec";} # TronLink
+      {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # Phantom wallet since it does not for some daps in Firefox
     ];
   };
 
@@ -412,6 +413,7 @@ in {
     protontricks
     discord
     element-desktop
+    simplex-chat-desktop
     qbittorrent
     tor-browser-bundle-bin
     monero-gui
@@ -489,6 +491,7 @@ in {
     restic
     graphviz
     spl-token-cli
+    solores
     wireguard-tools
     bluetui
 

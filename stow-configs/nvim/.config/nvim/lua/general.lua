@@ -191,5 +191,58 @@ vim.keymap.set("n", "gW", builtin.live_grep, { silent = true, desc = "Go to Word
 vim.keymap.set("n", "gb", builtin.buffers, { silent = true, desc = "Go to a buffer" })
 vim.keymap.set("n", "gJ", builtin.jumplist, { silent = true, desc = "Go to Jump point" })
 
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "Automatically Split help Buffers to the right",
+    pattern = "help",
+    command = "wincmd L",
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    desc = "Autocreate a dir when saving a file",
+    group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
+    callback = function(event)
+        if event.match:match("^%w%w+:[\\/][\\/]") then
+            return
+        end
+        local file = vim.uv.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
+-- see https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/"
+vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
+    desc = "Corrects terminal background color according to colorscheme",
+    callback = function()
+        if vim.api.nvim_get_hl(0, { name = "Normal" }).bg then
+            io.write(string.format("\027]11;#%06x\027\\", vim.api.nvim_get_hl(0, { name = "Normal" }).bg))
+        end
+        vim.api.nvim_create_autocmd("UILeave", {
+            callback = function()
+                io.write("\027]111\027\\")
+            end,
+        })
+    end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+    desc = "Remove UI clutter in the terminal",
+    callback = function()
+        local is_terminal = vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "terminal"
+        vim.o.number = not is_terminal
+        vim.o.relativenumber = not is_terminal
+        vim.o.signcolumn = is_terminal and "no" or "yes"
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+    desc = "Auto jump to last position",
+    group = vim.api.nvim_create_augroup("auto-last-position", { clear = true }),
+    callback = function(args)
+        local position = vim.api.nvim_buf_get_mark(args.buf, [["]])
+        local winid = vim.fn.bufwinid(args.buf)
+        pcall(vim.api.nvim_win_set_cursor, winid, position)
+    end,
+})
+
 -- notifications
 require('desktop-notify').override_vim_notify()
