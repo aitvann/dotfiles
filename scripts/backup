@@ -1,5 +1,10 @@
 #! /bin/sh
 
+dest=$HOME/data/shell-history/
+mkdir -p $dest
+cp ~/.local/share/atuin/history.db $dest
+mv $dest/history.db $dest/atuin_$(date +%Y-%m-%d_%H-%M-%S).db
+
 restic \
     --repo sftp:jupiter:/mnt/backup-storage \
     --password-command "pass jupiter-backup" \
