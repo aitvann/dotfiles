@@ -51,6 +51,8 @@
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
         ./mars/configuration.nix
+        disko.nixosModules.disko
+        ./mars/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
@@ -146,6 +148,7 @@
 
         buildInputs = [
           pkgs.nur.repos.rycee.mozilla-addons-to-nix
+          pkgs.disko
         ];
       };
   };
