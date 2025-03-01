@@ -100,9 +100,9 @@ in {
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.aitvann = {
+  users.users.general = {
     isNormalUser = true;
-    description = "Ivan";
+    description = "General User";
     extraGroups = ["networkmanager" "wheel" "docker" "wireshark"];
     initialPassword = "nopassword";
     shell = pkgs.zsh;

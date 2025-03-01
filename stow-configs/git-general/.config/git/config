@@ -2,13 +2,13 @@
     excludesfile = ~/.config/git/.gitignore_global
 
 [includeIf "gitdir:~/code/"]
-    path = "~/.config/git/config.general"
+    path = "~/.config/git/config.public"
 
 [includeIf "gitdir:~/dotfiles/"]
-    path = "~/.config/git/config.general"
+    path = "~/.config/git/config.public"
 
 [includeIf "gitdir:~/.local/share/password-store/"]
-    path = "~/.config/git/config.general"
+    path = "~/.config/git/config.public"
 
 [includeIf "gitdir:~/chi2/"]
     path = "~/.config/git/config.chi2"

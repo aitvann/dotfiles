@@ -1,6 +1,6 @@
 [global]
     enable_recursive_icon_lookup = true
-    icon_path="/run/current-system/sw/share/icons:/etc/profiles/per-user/aitvann/share/icons/hicolor/32x32/actions"
+    icon_path="/run/current-system/sw/share/icons:/etc/profiles/per-user/general/share/icons/hicolor/32x32/actions"
     default_icon="/run/current-system/sw/share/icons/hicolor/64x64/apps/nix-snowflake.png"
 
     follow = mouse

@@ -137,5 +137,3 @@ copying and pasting all the mappings manually
     - `<leader>hx` - RESET selected Hunks
 - `g`
   - `gc` - Go Comment
-
-[format_key]: https://github.com/aitvann/dotfiles/blob/master/stow-configs/nvim/.config/nvim/lua/dump-mappings.lua#62

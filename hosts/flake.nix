@@ -57,14 +57,14 @@
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {inherit inputs;};
           # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.aitvann = import "${self}/../users/aitvann@mars.nix";
+          home-manager.users.general = import "${self}/../users/general@mars.nix";
         }
       ];
     };
 
-    homeConfigurations."mars-aitvann" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/aitvann@mars.nix"];
+      modules = ["${self}/../users/general@mars.nix"];
       extraSpecialArgs = {inherit inputs;};
     };
 

@@ -55,7 +55,7 @@ in {
       "steam-unwrapped"
     ];
 
-  home.username = "aitvann";
+  home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
 
   services.syncthing.enable = true;
@@ -554,26 +554,26 @@ in {
       })
     (packageHomeFiles ../stow-configs/firefoxprofileswitcher)
     (packageHomeFiles ../stow-configs/foot)
-    (packageHomeFiles ../stow-configs/git-aitvann)
+    (packageHomeFiles ../stow-configs/git-general)
     (packageHomeFiles ../stow-configs/gnupg)
     (packageHomeFiles ../stow-configs/gtk-3.0)
     (packageHomeFiles ../stow-configs/gtk-4.0)
     (packageHomeFiles ../stow-configs/helix)
-    # (packageHomeFiles ../stow-configs/hypr)
+    (packageHomeFiles ../stow-configs/hypr)
     (packageHomeFiles ../stow-configs/lazygit)
     (packageHomeFiles ../stow-configs/mpd)
     (packageHomeFiles ../stow-configs/ncmpcpp)
     (packageHomeFiles ../stow-configs/networkmanager-dmenu)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
-    (packageHomeFiles ../stow-configs/pipewire-aitvann)
+    (packageHomeFiles ../stow-configs/pipewire-general)
     (packageHomeFiles ../stow-configs/qalculate)
     (packageHomeFiles ../stow-configs/ripgrep)
     (packageHomeFiles ../stow-configs/rofi)
     (packageHomeFiles ../stow-configs/rofi-pass)
     (packageHomeFiles ../stow-configs/rofimoji)
-    (packageHomeFiles ../stow-configs/ssh-aitvann)
-    (packageHomeFiles ../stow-configs/syncthing-aitvann)
+    (packageHomeFiles ../stow-configs/ssh-general)
+    (packageHomeFiles ../stow-configs/syncthing-general)
     (packageHomeFiles ../stow-configs/ueberzugpp)
     (packageHomeFiles ../stow-configs/wireplumber)
     (packageHomeFiles ../stow-configs/xdg) # prevents nnn:xdgdefault from working
