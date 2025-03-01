@@ -18,4 +18,4 @@
 
 (let [{:keys [location nvim_pipe]} (get-data)
       location (dirname location)]
-  (sh "foot" "--log-level=error" "--title=git-ui" "zsh" "-ic" (str "cd " location "; NVIM_PIPE=" nvim_pipe " lazygit")))
+  (sh "foot" "--log-level=error" "--title=git-ui" "zsh" "-ic" (str "cd '" location "'; NVIM_PIPE=" nvim_pipe " lazygit")))
