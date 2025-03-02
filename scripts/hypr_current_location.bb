@@ -6,9 +6,14 @@
 (require '[babashka.cli :as cli]
          '[clojure.java.shell :as shell :refer [sh]]
          '[clojure.string :as str]
-         '[cheshire.core :as json])
+         '[cheshire.core :as json]
+         '[babashka.fs :as fs])
 
 (def known-procs #{"zsh" "nvim"})
+
+(def locations-path "/tmp/current-location/")
+(when-not (fs/exists? locations-path)
+  (fs/create-dir locations-path))
 
 (defn current-pid []
   (:pid (json/parse-string (:out (sh "hyprctl" "activewindow" "-j")) true)))
@@ -31,13 +36,13 @@
               (update (first known) 1 :name)))))))
 
 (defn write-current-location [name pid location nvim_pipe]
-  (let [path (str "/tmp/current-location/" name "-" pid ".txt")
+  (let [path (str locations-path name "-" pid ".txt")
         data (json/generate-string {:location location :nvim_pipe nvim_pipe})]
     (spit path data)))
 
 (defn read-data [name pid]
   (try
-    (-> (str "/tmp/current-location/" name "-" pid ".txt")
+    (-> (str locations-path name "-" pid ".txt")
         slurp
         str/trim
         (json/parse-string true))
@@ -61,7 +66,7 @@
 (defn write-cmd [{:keys [args]}]
   (let [[name pid location nvim_pipe] args]
     (write-current-location name pid location nvim_pipe)))
-(defn clear-cmd [_m] (delete-files-in-dir "/tmp/current-location"))
+(defn clear-cmd [_m] (delete-files-in-dir locations-path))
 
 (def table [{:cmds ["get"]            :fn get-cmd}
             {:cmds ["write"]          :fn write-cmd}
