@@ -537,6 +537,7 @@ in {
     (packageHomeFiles ../stow-configs/direnv)
     (packageHomeFiles ../stow-configs/dunst)
     (packageHomeFiles ../stow-configs/efm-langserver)
+    # breaks styling
     # (packageHomeFiles ../stow-configs/eww)
     ((packageHomeFiles ../stow-configs/firefox)
       // {
