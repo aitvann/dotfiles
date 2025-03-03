@@ -50,33 +50,11 @@ alias nix-repl="nix repl nixpkgs"
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias monerod=monerod --data-dir "$XDG_DATA_HOME"/bitmonero
 
-# XDG specification aliases
-alias monerod=monerod --data-dir $XDG_DATA_HOME/bitmonero
-
 # scripts
 SCRIPTS_HOME=/home/$USER/dotfiles/scripts
 mkdir -p ~/.local/bin
-
-ln -sf $SCRIPTS_HOME/rreadlink ~/.local/bin/rreadlink
-ln -sf $SCRIPTS_HOME/put ~/.local/bin/put
-ln -sf $SCRIPTS_HOME/pw-util ~/.local/bin/pw-util
-ln -sf $SCRIPTS_HOME/backup-keys ~/.local/bin/backup-keys
-ln -sf $SCRIPTS_HOME/init-env/init-env ~/.local/bin/init-env
-ln -sf $SCRIPTS_HOME/deep-clean ~/.local/bin/deep-clean
-ln -sf $SCRIPTS_HOME/backup ~/.local/bin/backup
-ln -sf $SCRIPTS_HOME/syncthing-apply-config ~/.local/bin/syncthing-apply-config
-ln -sf $SCRIPTS_HOME/terminal ~/.local/bin/terminal
-ln -sf $SCRIPTS_HOME/up-postgres/up-pg ~/.local/bin/up-pg
-ln -sf $SCRIPTS_HOME/up-ch ~/.local/bin/up-ch
-ln -sf $SCRIPTS_HOME/download-music ~/.local/bin/download-music
-ln -sf $SCRIPTS_HOME/file-manager ~/.local/bin/file-manager
-ln -sf $SCRIPTS_HOME/file-manager-edit-file ~/.local/bin/file-manager-edit-file
-ln -sf $SCRIPTS_HOME/git-ui ~/.local/bin/git-ui
-ln -sf $SCRIPTS_HOME/hypr_current_location.bb ~/.local/bin/hypr_current_location.bb
-ln -sf $SCRIPTS_HOME/open-ports ~/.local/bin/open-ports
-ln -sf $SCRIPTS_HOME/parse-color-tokens ~/.local/bin/parse-color-tokens
-ln -sf $SCRIPTS_HOME/wayland-copy-file ~/.local/bin/wayland-copy-file
-ln -sf $SCRIPTS_HOME/wayland-paste-file ~/.local/bin/wayland-paste-file
+# using `ln -T`so we dont get `up-postgres` inside `up-postgres` after multiple runs
+command ls $SCRIPTS_HOME | xargs -I {} ln -T -s $SCRIPTS_HOME/{} ~/.local/bin/{} 2> /dev/null
 
 # modules
 source $CONFIG_HOME/nnnrc.sh

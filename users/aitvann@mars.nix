@@ -530,6 +530,14 @@ in {
   ];
 
   home.file = util.recursiveMerge [
+    {
+      ".local/bin" = {
+        source = "${inputs.self}/../scripts";
+        recursive = true;
+      };
+    }
+
+    # stow packages
     (packageHomeFiles ../stow-configs/atuin)
     (packageHomeFiles ../stow-configs/beets)
     (packageHomeFiles ../stow-configs/btop)
