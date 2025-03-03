@@ -20,9 +20,11 @@ in {
       "steam-unwrapped"
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
+  boot.loader.grub.devices = ["nodev"];
 
   networking.hostName = "mars"; # Define your hostname.
   # Pick only one of the below networking options.
