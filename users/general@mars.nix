@@ -167,7 +167,7 @@ in {
             # MANUAL: go to extension settings and import options manually
             sponsorblock
 
-            search-by-image
+            # search-by-image # became not available at some point
             return-youtube-dislikes
             markdownload
 
