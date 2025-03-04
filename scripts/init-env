@@ -1,8 +1,7 @@
 #! /bin/sh
 
 PARENT_DIR=$(dirname -- "$(rreadlink "$0")")
-
-echo $PARENT_DIR
+LIB="${PARENT_DIR}/.init-env"
 
 set -e
 
@@ -24,7 +23,7 @@ if [ -f "$flake_target" ] || [ -f "$shell_target" ]; then
 fi
     
 if [ "$use_shell" = true ]; then
-    shell="${PARENT_DIR}/default-shells/${1}.nix"
+    shell="${LIB}/default-shells/${1}.nix"
     if [ ! -f "$shell" ]; then
         echo "no shell environment for ${1}"
         exit 1
@@ -43,7 +42,7 @@ else
         exit 1
     fi
     
-    flake="${PARENT_DIR}/default-flakes/${1}.nix"
+    flake="${LIB}/default-flakes/${1}.nix"
     if [ ! -f "$flake" ]; then
         echo "no flake environment for ${1}"
         exit 1

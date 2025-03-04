@@ -1,0 +1,29 @@
+#! /bin/sh
+
+set -e
+
+parrent_path=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
+lib="${parrent_path}/.up-pg"
+
+[ -z "$1" ] && echo "path to migrations must be set, aborting" && exit
+
+migrations=$1
+port=${2:-5432}
+name_prefix=${3:-test}
+
+scope=$(mktemp -d /tmp/up-pg-XXXXXX)
+cp "${lib}/Dockerfile" "${scope}"
+mkdir "${scope}/up-only-local"
+ls -d "${migrations}"/* | grep '\.up.sql' | xargs cp -t "${scope}/up-only-local"
+
+container_name=${name_prefix}-pg-db
+image_name=permissioned-postgres
+postgres_version=$(cat $migrations/version)
+docker build "${scope}" -t "${image_name}" --build-arg "postgres_version=${postgres_version}"
+docker run --rm -dit -p "${port}:5432" --name "${container_name}" "${image_name}"
+# docker run --rm -it -p "${port}:5432" --name "${container_name}" "${image_name}"
+
+rm -rf "${scope}"
+
+set +e
+
