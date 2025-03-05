@@ -1,0 +1,32 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require
+ '[babashka.fs :as fs]
+ '[babashka.process :refer [sh]])
+
+(import [java.time LocalDateTime]
+        [java.time.format DateTimeFormatter])
+
+(defn formatted-timestamp []
+  (let [formatter (DateTimeFormatter/ofPattern "yyyy-MM-dd_HH-mm-ss")]
+    (.format (LocalDateTime/now) formatter)))
+
+(def home (System/getProperty "user.home"))
+
+(println "importing Z history...")
+(def zlua-history-src (str home "/.local/share/zsh/.zlua"))
+(def z-history-dst (str home "/data/backups/z-history/zlua_" (formatted-timestamp)))
+(fs/copy zlua-history-src z-history-dst)
+
+(println "importing zsh history...")
+(def atuin-history-src (str home "/.local/share/atuin/history.db"))
+(def shell-history-dst (str home "/data/backups/shell-history/atuin_" (formatted-timestamp) ".db"))
+(sh {:out :inherit} "sqlite3" atuin-history-src (str ".backup '" shell-history-dst "'"))
+
+(println "importing data...")
+(sh {:out :inherit} "restic"
+    "--repo" "sftp:jupiter:/mnt/backup-storage"
+    "--password-command" "pass jupiter-backup"
+    "--verbose"
+    "backup" (str home "/data"))

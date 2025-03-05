@@ -460,6 +460,7 @@ in {
     starship
     grpcui
     grpcurl
+    sqlite
     clickhouse
     postgresql_14
     syncplay
