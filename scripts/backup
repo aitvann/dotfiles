@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# TODO: clone db using sqlite3 tools othewise it will be currepted
+# https://stackoverflow.com/a/5275022
 dest=$HOME/data/backups/shell-history/
 mkdir -p $dest
 cp ~/.local/share/atuin/history.db $dest
