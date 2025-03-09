@@ -48,7 +48,7 @@ alias nix-repl="nix repl nixpkgs"
 
 # XDG
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
-alias monerod=monerod --data-dir "$XDG_DATA_HOME"/bitmonero
+alias monerod=monerod --data-dir "${XDG_DATA_HOME}/monero/blockchain"
 
 # scripts
 SCRIPTS_HOME=/home/$USER/dotfiles/scripts

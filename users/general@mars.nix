@@ -417,6 +417,7 @@ in {
     qbittorrent
     tor-browser-bundle-bin
     monero-gui
+    monero-cli
     wasabiwallet
     prismlauncher
     openjdk8-bootstrap
