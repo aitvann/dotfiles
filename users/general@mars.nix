@@ -471,6 +471,7 @@ in {
     p7zip
     ffmpeg
     yt-dlp
+    srm
     sshfs
     ueberzugpp
     tree

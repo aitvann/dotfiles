@@ -9,7 +9,7 @@ with lib; let
 in {
   options = {
     services.mpd = {
-      enable = mkEnableOption "Whetever to enable n³";
+      enable = mkEnableOption "Whetever to enable mpd";
       package = mkPackageOption pkgs "mpd" {};
     };
   };
