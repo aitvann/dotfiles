@@ -496,6 +496,8 @@ in {
     solores
     wireguard-tools
     bluetui
+    btrfs-assistant
+    btrfs-list
 
     home-manager
     comma
