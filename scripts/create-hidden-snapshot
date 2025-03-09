@@ -1,0 +1,13 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require
+ '[babashka.process :refer [sh]])
+
+(def user (System/getProperty "user.name"))
+(def home-snapper-config (str "@home-" user))
+(sh {:out :inherit} "snapper"
+    "--config" home-snapper-config
+    "create"
+    "--description" "hidden-manual-snapshot"
+    "--cleanup-algorithm" "timeline")
