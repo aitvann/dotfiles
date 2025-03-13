@@ -244,5 +244,4 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- notifications
-require('desktop-notify').override_vim_notify()
+require('notifications').setup {}

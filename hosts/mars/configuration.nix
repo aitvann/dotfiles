@@ -91,7 +91,7 @@ in {
   };
 
   # Enable sound.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -163,18 +163,18 @@ in {
 
   networking.networkmanager.enableStrongSwan = true;
   services.xl2tpd.enable = true;
-  services.strongswan = {
-    enable = true;
-    secrets = [
-      "ipsec.d/ipsec.nm-l2tp.secrets"
-    ];
-  };
+  services.strongswan.enable = true;
+  # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
+  environment.etc."strongswan.conf".text = "";
 
   environment.pathsToLink = ["/share/zsh"];
   # some local scripts are not fully POSIX-compatible yet
   # environment.binsh = "${pkgs.dash}/bin/dash";
 
   environment.sessionVariables = {
+    # HACK: https://www.reddit.com/r/archlinux/comments/1gcxusc/comment/lv1kflm/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
