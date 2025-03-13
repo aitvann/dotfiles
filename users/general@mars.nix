@@ -162,7 +162,7 @@ in {
           default = "SearXNG Belgium";
           engines = shared-engines;
         };
-        extensions = with pkgs.firefox-addons;
+        extensions.packages = with pkgs.firefox-addons;
           [
             # MANUAL: go to extension settings and import options manually
             sponsorblock
@@ -190,7 +190,7 @@ in {
           default = "SearXNG Belgium";
           engines = shared-engines;
         };
-        extensions = shared-extensions;
+        extensions.packages = shared-extensions;
       };
     };
   };
@@ -257,6 +257,10 @@ in {
 
   programs.neovim = {
     enable = true;
+    extraPackages = with pkgs; [
+      # required by pkgs.vimPlugins.notification-nvim
+      glib
+    ];
     plugins = with pkgs.vimPlugins; [
       # --------------------------------------------------------------------------------
       # General
@@ -312,7 +316,7 @@ in {
       # Pretty telescope select menu
       telescope-ui-select-nvim
       # show notifications as system notifications
-      desktop-notify-nvim
+      notifications-nvim
 
       # --------------------------------------------------------------------------------
       # Editing
@@ -465,7 +469,6 @@ in {
     clickhouse
     postgresql_14
     syncplay
-    loc
     trash-cli
     unzip
     unrar

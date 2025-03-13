@@ -91,7 +91,7 @@ in {
   };
 
   # Enable sound.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -163,12 +163,9 @@ in {
 
   networking.networkmanager.enableStrongSwan = true;
   services.xl2tpd.enable = true;
-  services.strongswan = {
-    enable = true;
-    secrets = [
-      "ipsec.d/ipsec.nm-l2tp.secrets"
-    ];
-  };
+  services.strongswan.enable = true;
+  # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
+  environment.etc."strongswan.conf".text = "";
 
   environment.pathsToLink = ["/share/zsh"];
   # some local scripts are not fully POSIX-compatible yet

@@ -2,10 +2,10 @@
   {
     "braavos-wallet" = buildFirefoxXpiAddon {
       pname = "braavos-wallet";
-      version = "3.77.2";
+      version = "3.93.1";
       addonId = "{a0c6ccfd-26a3-4df4-9729-aa036070ad29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377733/braavos_wallet-3.77.2.xpi";
-      sha256 = "16f5fecc96a1db01b90224874538e907a28977898c914f1c5fb235cf3832b308";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4451004/braavos_wallet-3.93.1.xpi";
+      sha256 = "0090413905d86be748ad868fb93a34efba09c5d44319f2af42c8980dacf401e8";
       meta = with lib;
       {
         homepage = "https://www.braavos.app";
@@ -44,13 +44,13 @@
     };
     "phantom-app" = buildFirefoxXpiAddon {
       pname = "phantom-app";
-      version = "24.26.0";
+      version = "25.3.1";
       addonId = "{7c42eea1-b3e4-4be4-a56f-82a5852b12dc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392574/phantom_app-24.26.0.xpi";
-      sha256 = "004595e69c711f07835afeadc47bd5d6ee026dcf2913cb8546634aecb84792ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4428642/phantom_app-25.3.1.xpi";
+      sha256 = "cc4d97e9d90b8938882eef70f17c7ff6bf65988b84f51edd93e29f70adc58e16";
       meta = with lib;
       {
-        description = "A crypto wallet reimagined for DeFi & NFTs";
+        description = "A crypto wallet reimagined for DeFi &amp; NFTs";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -59,6 +59,7 @@
           "storage"
           "scripting"
           "tabs"
+          "webRequest"
           "unlimitedStorage"
         ];
         platforms = platforms.all;
@@ -66,10 +67,10 @@
     };
     "revoke-cash" = buildFirefoxXpiAddon {
       pname = "revoke-cash";
-      version = "0.6.2";
+      version = "0.6.6";
       addonId = "webextension@revoke.cash";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379967/revoke_cash-0.6.2.xpi";
-      sha256 = "5db39d0854ef5108666e69eeae7256d0e173626e5eca01d88cc8455f0bb2ebb4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4437589/revoke_cash-0.6.6.xpi";
+      sha256 = "8bad64d25a0f5bdb9addde2168694596c5b470a2156021757045d210afae2274";
       meta = with lib;
       {
         homepage = "https://revoke.cash";
