@@ -18,7 +18,11 @@ ls -d "${migrations}"/* | grep '\.up.sql' | xargs cp -t "${scope}/up-only-local"
 
 container_name=${name_prefix}-pg-db
 image_name=permissioned-postgres
-postgres_version=$(cat $migrations/version)
+if [[ -f $mimgrations/version ]]; then
+  postgres_version=$(cat $migrations/version)
+else
+  postgres_version="latest"
+fi
 docker build "${scope}" -t "${image_name}" --build-arg "postgres_version=${postgres_version}"
 docker run --rm -dit -p "${port}:5432" --name "${container_name}" "${image_name}"
 # docker run --rm -it -p "${port}:5432" --name "${container_name}" "${image_name}"
