@@ -86,6 +86,7 @@
     # require public key authentication for better security
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
+    ports = [9476];
   };
   # Enable SSH in the boot process.
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce ["multi-user.target"];
