@@ -1,1 +1,2 @@
 mpd_crossfade_time = 1
+lyrics_directory = ~/.local/share/ncmpcpp/lyrics
