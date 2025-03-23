@@ -1,5 +1,9 @@
 known_hosts filter=git-crypt diff=git-crypt
 stow-configs/syncthing-general/.config/syncthing/config.xml filter=git-crypt diff=git-crypt
+stow-configs/syncthing-general/.config/syncthing/cert.pem filter=git-crypt diff=git-crypt
+stow-configs/syncthing-general/.config/syncthing/https-cert.pem filter=git-crypt diff=git-crypt
+stow-configs/syncthing-general/.config/syncthing/https-key.pem filter=git-crypt diff=git-crypt
+stow-configs/syncthing-general/.config/syncthing/key.pem filter=git-crypt diff=git-crypt
 configs/searx-preferences.url filter=git-crypt diff=git-crypt
 hosts/venus/xray.json filter=git-crypt diff=git-crypt
 configs/browser-bookmarks.general.html filter=git-crypt diff=git-crypt
