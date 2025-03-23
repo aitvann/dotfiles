@@ -135,8 +135,13 @@
       sshUser = "aitvann";
       profiles.system = {
         user = "root";
-        # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
-        sshOpts = ["-A"];
+        sshOpts = [
+          "-p"
+          "7818"
+
+          # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
+          "-A"
+        ];
         path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
       };
     };
