@@ -3,13 +3,7 @@
   :init
   (do
     (def home (System/getProperty "user.home"))
-    (def name (System/getProperty "user.name"))
-    (defn stow-package [package]
-      (let [user-specific (str home "/dotfiles/stow-configs/" package "-" name)
-            user-shared (str home "/dotfiles/stow-configs/" package)]
-        (if (fs/exists? user-specific)
-          user-specific
-          user-shared))))
+    (def name (System/getProperty "user.name")))
   update-system
   (do
     (shell "nix flake update")
@@ -18,12 +12,6 @@
   grab-shyfox-sidebery-settings
   (let [store-path (System/getenv "SHYFOX_NIXSTORE")]
     (shell (str "cp " store-path "/sidebery-settings.json " home "/playground/")))
-  ; TODO: apply-syncthing-config
-  ; TODO: check if no changes before apply
-  apply-known-hosts
-  (shell (str "cp -f " home "/.ssh/known_hosts " (stow-package "ssh") "/.ssh/known_hosts"))
-  apply-mimeapps
-  (shell (str "cp -f " home "/.config/mimeapps.list " (stow-package "xdg") "/.config/mimeapps.list"))
   ; `browser.places.importBookmarksHTML` setting overrides existing bookmarks
   ; run it in case of closing Firefox without importing bookmarks
   preserve-ff-bookmarks

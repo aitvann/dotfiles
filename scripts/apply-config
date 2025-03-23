@@ -1,0 +1,44 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require
+ '[clojure.string :as str]
+ '[babashka.fs :as fs]
+ '[babashka.process :refer [sh]])
+
+(def home (System/getProperty "user.home"))
+(def user (System/getProperty "user.name"))
+(def repo (str home "/dotfiles"))
+(defn stow-package [package]
+  (let [user-specific (str repo "/stow-configs/" package "-" user)
+        user-shared (str repo "/stow-configs/" package)]
+    (if (fs/exists? user-specific)
+      user-specific
+      user-shared)))
+
+(def blocked-files
+  (->> (sh {:dir repo} "git status --porcelain=v1")
+       :out
+       str/split-lines
+       (map #(str/trim %))
+       (map #(str/split % #" "))
+       (map #(get % 1))
+       (map #(str repo "/" %))
+       set))
+
+(defn cp-stow [package & paths]
+  (let [srcs (map #(str home "/" %) paths)
+        dsts (map #(str (stow-package package) "/" %) paths)]
+    (if-let [blocked-file (first (filter #(contains? blocked-files %) dsts))]
+      (println (str "File " blocked-file " modified, commit changes first; aborting"))
+      (doall (for [[src dst] (map vector srcs dsts)]
+               (do
+                 (fs/copy src dst {:replace-existing true})
+                 (println (str "Copied " src))))))))
+
+(def package (first *command-line-args*))
+(case package
+  "ssh" (cp-stow "ssh" ".ssh/known_hosts")
+  "xdg" (cp-stow "xdg" ".config/mimeapps.list")
+  "syncthing-mars" (cp-stow "syncthing" ".config/syncthing/config.xml")
+  (println "Nothing to apply for this package"))
