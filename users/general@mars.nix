@@ -560,7 +560,7 @@ in {
         ".mozilla/firefox/general/chrome/".source = "${inputs.shyfox}/chrome/";
         ".mozilla/firefox/tradetech/chrome/".source = "${inputs.shyfox}/chrome/";
       })
-    (packageHomeFiles ../stow-configs/firefoxprofileswitcher)
+    (packageHomeFiles ../stow-configs/firefoxprofileswitcher-general)
     (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-general)
     (packageHomeFiles ../stow-configs/gnupg)
