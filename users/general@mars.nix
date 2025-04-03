@@ -551,6 +551,7 @@ in {
     (packageHomeFiles ../stow-configs/btop)
     (packageHomeFiles ../stow-configs/cargo)
     (packageHomeFiles ../stow-configs/direnv)
+    (packageHomeFiles ../stow-configs/discord)
     (packageHomeFiles ../stow-configs/dunst)
     (packageHomeFiles ../stow-configs/efm-langserver)
     # breaks styling
