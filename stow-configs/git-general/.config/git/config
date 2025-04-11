@@ -10,8 +10,5 @@
 [includeIf "gitdir:~/.local/share/password-store/"]
     path = "~/.config/git/config.public"
 
-[includeIf "gitdir:~/chi2/"]
-    path = "~/.config/git/config.chi2"
-
 [includeIf "gitdir:~/work/"]
     path = "~/.config/git/config.work"

@@ -10,4 +10,3 @@ configs/browser-bookmarks.general.html filter=git-crypt diff=git-crypt
 configs/browser-bookmarks.work.html filter=git-crypt diff=git-crypt
 configs/onion-browser-bookmarks.html filter=git-crypt diff=git-crypt
 configs/organic-maps.kmz filter=git-crypt diff=git-crypt
-stow-configs/git-general/.config/git/config.chi2 filter=git-crypt diff=git-crypt
