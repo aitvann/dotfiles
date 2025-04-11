@@ -183,7 +183,7 @@ in {
           ]
           ++ shared-extensions;
       };
-      tradetech = {
+      work = {
         id = 1;
         search = {
           force = true;
@@ -559,7 +559,7 @@ in {
     ((packageHomeFiles ../stow-configs/firefox)
       // {
         ".mozilla/firefox/general/chrome/".source = "${inputs.shyfox}/chrome/";
-        ".mozilla/firefox/tradetech/chrome/".source = "${inputs.shyfox}/chrome/";
+        ".mozilla/firefox/work/chrome/".source = "${inputs.shyfox}/chrome/";
       })
     (packageHomeFiles ../stow-configs/firefoxprofileswitcher-general)
     (packageHomeFiles ../stow-configs/foot)
@@ -594,7 +594,7 @@ in {
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
       (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
-      (util.linkFiles "../configs/browser-bookmarks.tradetech.html" "firefox/bookmarks.tradetech.html" inputs.self)
+      (util.linkFiles "../configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
     ];
 

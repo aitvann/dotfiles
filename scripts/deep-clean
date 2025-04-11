@@ -25,8 +25,7 @@ deep_clean_cargo() {(
 
 sudo_deep_clean_nix() {(
     find ~/code -type d -name '.direnv' -print -execdir rm -fr .direnv \;
-    find ~/tradetech -type d -name '.direnv' -print -execdir rm -fr .direnv \;
-    find ~/tradetech-2021 -type d -name '.direnv' -print -execdir rm -fr .direnv \;
+    find ~/work -type d -name '.direnv' -print -execdir rm -fr .direnv \;
 
     home-manager expire-generations 0
     sudo nix-collect-garbage -d

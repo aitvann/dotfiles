@@ -13,5 +13,5 @@
 [includeIf "gitdir:~/chi2/"]
     path = "~/.config/git/config.chi2"
 
-[includeIf "gitdir:~/tradetech/"]
-    path = "~/.config/git/config.tradetech"
+[includeIf "gitdir:~/work/"]
+    path = "~/.config/git/config.work"
