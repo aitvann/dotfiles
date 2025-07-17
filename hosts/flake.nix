@@ -44,6 +44,32 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
+    nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {inherit inputs;};
+      modules = [
+        # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
+        ./pluto/configuration.nix
+        disko.nixosModules.disko
+        ./pluto/disko.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = false;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {inherit inputs;};
+          # home-manager.backupFileExtension = "hm-backup";
+          home-manager.users.general = import "${self}/../users/general@pluto.nix";
+        }
+      ];
+    };
+
+    homeConfigurations."pluto-general" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = ["${self}/../users/general@pluto.nix"];
+      extraSpecialArgs = {inherit inputs;};
+    };
+
     nixosConfigurations.mars = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {inherit inputs;};

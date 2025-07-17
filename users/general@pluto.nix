@@ -59,7 +59,7 @@ in {
   home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
 
-  services.syncthing.enable = true;
+  services.syncthing.enable = false;
   services.mpd.enable = true;
 
   programs.chromium = {

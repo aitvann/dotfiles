@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   # cargoHash = "sha256-/hUxDUI1M044Xi3WqqPbiMNWzuNZz6Gz/dN3lm+FLNM="; # 3.4.1
-  cargoHash = "sha256-uYZ5RJ5MD+lXNc7H2RupvQTi35+L3bfld5S5NU6CFWI="; # 3.4.1
+  cargoHash = "sha256-l3PzPGsALKoF3BozJhFzmlFzkuXxArVQ1mWI+RLRzEc="; # 3.4.1
   verifyCargoDeps = true;
 
   nativeBuildInputs = [clang llvm pkg-config protobuf];
