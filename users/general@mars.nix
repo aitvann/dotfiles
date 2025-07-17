@@ -53,6 +53,7 @@ in {
       "steam-original"
       "steam-runtime"
       "steam-unwrapped"
+      "graalvm-oracle"
     ];
 
   home.username = "general";
@@ -170,6 +171,8 @@ in {
             # search-by-image # became not available at some point
             return-youtube-dislikes
             markdownload
+            # TODO: generate during system update
+            # new-minecraft-wiki-redirect
 
             # Crypto
             metamask
@@ -410,6 +413,8 @@ in {
     libsForQt5.xwaylandvideobridge
     # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
     libsForQt5.qt5.qtwayland
+    # open dialogs (Minecraft load book from file)
+    zenity
 
     jellyfin
     obs-studio
@@ -424,7 +429,8 @@ in {
     monero-cli
     wasabiwallet
     prismlauncher
-    openjdk8-bootstrap
+    # openjdk8-bootstrap
+    graalvmPackages.graalvm-oracle_17
     mpv
     vlc
     dbeaver-bin
@@ -473,6 +479,7 @@ in {
     unzip
     unrar
     p7zip
+    zip
     ffmpeg
     yt-dlp
     srm
@@ -538,12 +545,12 @@ in {
   ];
 
   home.file = util.recursiveMerge [
-    {
-      ".local/bin" = {
-        source = "${inputs.self}/../scripts";
-        recursive = true;
-      };
-    }
+    # {
+    #   ".local/bin" = {
+    #     source = "${inputs.self}/../scripts";
+    #     recursive = true;
+    #   };
+    # }
 
     # stow packages
     (packageHomeFiles ../stow-configs/atuin)
@@ -581,7 +588,7 @@ in {
     (packageHomeFiles ../stow-configs/rofi)
     (packageHomeFiles ../stow-configs/rofi-pass)
     (packageHomeFiles ../stow-configs/rofimoji)
-    (packageHomeFiles ../stow-configs/ssh-general)
+    # (packageHomeFiles ../stow-configs/ssh-general)
     (packageHomeFiles ../stow-configs/syncthing-general)
     (packageHomeFiles ../stow-configs/ueberzugpp)
     (packageHomeFiles ../stow-configs/wireplumber)
