@@ -8,7 +8,7 @@ plugins = ["scratchpads"]
 # excludes = "*"
 
 [scratchpads.telegram]
-command = "telegram-desktop"
+command = "Telegram"
 animation = "fromTop"
 size = "70% 80%"
 excludes = "*"

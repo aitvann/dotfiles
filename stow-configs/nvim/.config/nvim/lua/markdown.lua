@@ -28,12 +28,11 @@ require("obsidian").setup({
     -- disable backlinks tips
     log_level = vim.log.levels.WARN,
 
-    -- disable all mappings
-    mappings = {},
+    legacy_commands = false,
 
     finder_mappings = {
         -- TODO: integrate with normal Telescope workflow
-        -- Create a new note from your query with `:ObsidianSearch` and `:ObsidianQuickSwitch`.
+        -- Create a new note from your query
         new = "<C-i>",
     },
 

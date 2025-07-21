@@ -32,22 +32,10 @@ in {
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall = {
-    allowedTCPPorts = [
-      # from https://jellyfin.org/docs/general/networking/index.html
-      8096
-      8920
-
-      # SimpleX sync
-      41627
-    ];
-    allowedUDPPorts = [
-      # from https://jellyfin.org/docs/general/networking/index.html
-      1900
-      7359
-
-      # SimpleX sync
-      41627
-    ];
+    # from https://jellyfin.org/docs/general/networking/index.html
+    allowedTCPPorts = [8096 8920];
+    # from https://jellyfin.org/docs/general/networking/index.html
+    allowedUDPPorts = [1900 7359];
   };
 
   # Select internationalisation properties.
@@ -62,17 +50,17 @@ in {
   };
   services.xserver = {
     enable = true;
-    displayManager = {
-      gdm.enable = true;
-    };
     excludePackages = with pkgs; [xterm];
   };
+  services.displayManager.gdm.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
       # xdg-desktop-portal-hyprland set by default
     ];
   };
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
   services.devmon.enable = true;
   services.gvfs.enable = true;
@@ -133,6 +121,12 @@ in {
     enableCompletion = false;
   };
 
+  # required for Nekoray to work
+  programs.nekoray = {
+    enable = true;
+    tunMode.enable = true;
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
@@ -161,9 +155,9 @@ in {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  networking.networkmanager.enableStrongSwan = true;
   services.xl2tpd.enable = true;
   services.strongswan.enable = true;
+  networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
   # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
   environment.etc."strongswan.conf".text = "";
 

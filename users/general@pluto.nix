@@ -54,6 +54,7 @@ in {
       "steam-runtime"
       "steam-unwrapped"
       "graalvm-oracle"
+      "open-webui"
     ];
 
   home.username = "general";
@@ -150,7 +151,7 @@ in {
         # ```
         "SearXNG Belgium" = {
           urls = [{template = "https://searx.be/?q={searchTerms}";}];
-          iconUpdateURL = "https://avatars.githubusercontent.com/u/80454229?s=200&v=4";
+          icon = "https://avatars.githubusercontent.com/u/80454229?s=200&v=4";
           updateInterval = 24 * 60 * 60 * 1000; # every day
           definedAliases = ["@sx"];
         };
@@ -175,11 +176,10 @@ in {
             # new-minecraft-wiki-redirect
 
             # Crypto
-            # TODO: fix
-            # metamask
+            metamask
             joinfire
             phantom-app
-            tonkeeper # MANUAL: https://github.com/ton-connect/sdk/issues/136#issue-2151201616
+            tonkeeper
             braavos-wallet
             revoke-cash
             # core-wallet # missing for FF
@@ -419,11 +419,10 @@ in {
 
     jellyfin
     obs-studio
-    tdesktop
+    telegram-desktop
     protontricks
     discord
     element-desktop
-    simplex-chat-desktop
     qbittorrent
     tor-browser-bundle-bin
     monero-gui
@@ -441,7 +440,6 @@ in {
     tagger
     tigervnc
     tcpdump
-    nekoray
     open-webui
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
