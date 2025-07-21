@@ -61,6 +61,10 @@ in {
 
   services.syncthing.enable = false;
   services.mpd.enable = true;
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+  };
 
   programs.chromium = {
     enable = true;
@@ -442,6 +446,7 @@ in {
     tigervnc
     tcpdump
     nekoray
+    open-webui
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
     # should be installed as system package
