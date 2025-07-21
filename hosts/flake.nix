@@ -25,11 +25,6 @@
 
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
-
-    shyfox = {
-      url = "github:Naezr/ShyFox/main";
-      flake = false;
-    };
   };
 
   outputs = {
@@ -180,8 +175,6 @@
       pkgs = import nixpkgs {inherit system overlays;};
     in
       pkgs.mkShell {
-        SHYFOX_NIXSTORE = "${inputs.shyfox}";
-
         buildInputs = [
           pkgs.nur.repos.rycee.mozilla-addons-to-nix
           pkgs.disko

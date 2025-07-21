@@ -127,10 +127,6 @@ in {
         istilldontcareaboutcookies
         # consent-o-matic
 
-        # ShyFox
-        sidebery # MANUAL: go to extension settings and import options manually
-        userchrome-toggle-extended # MANUAL: go to extension settings and toggle options manually like in the doc: https://github.com/Naezr/ShyFox?tab=readme-ov-file#step-2---configure-extensions
-
         # TODO: Try It
         # auto-tab-discard
         # multi-account-containers
@@ -569,11 +565,7 @@ in {
     (packageHomeFiles ../stow-configs/efm-langserver)
     # breaks styling
     # (packageHomeFiles ../stow-configs/eww)
-    ((packageHomeFiles ../stow-configs/firefox)
-      // {
-        ".mozilla/firefox/general/chrome/".source = "${inputs.shyfox}/chrome/";
-        ".mozilla/firefox/work/chrome/".source = "${inputs.shyfox}/chrome/";
-      })
+    (packageHomeFiles ../stow-configs/firefox)
     (packageHomeFiles ../stow-configs/firefoxprofileswitcher-general)
     (packageHomeFiles ../stow-configs/foot)
     (packageHomeFiles ../stow-configs/git-general)

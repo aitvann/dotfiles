@@ -9,9 +9,6 @@
     (shell "nix flake update")
     (shell "mozilla-addons-to-nix ../packages/firefox-addons.json ../packages/generated-firefox-addons.nix")
     (shell "echo Now you gotta update every package in packages/ manually :)"))
-  grab-shyfox-sidebery-settings
-  (let [store-path (System/getenv "SHYFOX_NIXSTORE")]
-    (shell (str "cp " store-path "/sidebery-settings.json " home "/playground/")))
   ; `browser.places.importBookmarksHTML` setting overrides existing bookmarks
   ; run it in case of closing Firefox without importing bookmarks
   preserve-ff-bookmarks
