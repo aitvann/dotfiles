@@ -244,4 +244,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+vim.api.nvim_create_autocmd("VimResized", {
+    desc = "Auto resize window equaly",
+    group = vim.api.nvim_create_augroup("auto-equeal-window", { clear = true }),
+    command = "wincmd ="
+})
+
 require('notifications').setup {}
