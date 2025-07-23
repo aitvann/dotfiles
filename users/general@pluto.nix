@@ -585,7 +585,7 @@ in {
     (packageHomeFiles ../stow-configs/rofi-pass)
     (packageHomeFiles ../stow-configs/rofimoji)
     # (packageHomeFiles ../stow-configs/ssh-general)
-    (packageHomeFiles ../stow-configs/syncthing-general)
+    # (packageHomeFiles ../stow-configs/syncthing-pluto-general)
     (packageHomeFiles ../stow-configs/ueberzugpp)
     (packageHomeFiles ../stow-configs/wireplumber)
     (packageHomeFiles ../stow-configs/xdg) # prevents nnn:xdgdefault from working

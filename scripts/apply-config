@@ -40,5 +40,6 @@
 (case package
   "ssh" (cp-stow "ssh" ".ssh/known_hosts")
   "xdg" (cp-stow "xdg" ".config/mimeapps.list")
-  "syncthing-mars" (cp-stow "syncthing" ".config/syncthing/config.xml")
-  (println "Nothing to apply for this package"))
+  "syncthing-mars" (cp-stow "syncthing-mars" ".config/syncthing/config.xml")
+  "syncthing-pluto" (cp-stow "syncthing-pluto" ".config/syncthing/config.xml")
+  (println "Package is not recognized"))
