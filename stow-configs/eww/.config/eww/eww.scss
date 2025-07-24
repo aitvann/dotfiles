@@ -1,10 +1,9 @@
 * {
-    all: unset;
+  all: unset;
 }
- 
-@import 'style/material.scss';
-@import 'style/lib.scss';
+
+@import "style/material.scss";
 
 // components
-@import './components/bar/bar.scss'
-@import './components/osd/osd.scss'
+@import "./components/bar/bar.scss";
+@import "./components/osd/osd.scss";
