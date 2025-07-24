@@ -41,7 +41,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix ../modules/open-webui.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -65,6 +65,10 @@ in {
   services.ollama = {
     enable = true;
     acceleration = "rocm";
+  };
+  services.open-webui = {
+    enable = true;
+    stateDir = "${config.xdg.dataHome}/open-webui";
   };
 
   programs.chromium = {
@@ -440,7 +444,6 @@ in {
     tagger
     tigervnc
     tcpdump
-    open-webui
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
     # should be installed as system package
