@@ -1,4 +1,3 @@
-(include "./variables.yuck")
 (include "./components/osd/osd.yuck")
 (include "./components/bar/bar.yuck")
 
