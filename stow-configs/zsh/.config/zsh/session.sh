@@ -32,15 +32,18 @@ alias ls="exa"
 alias l="ls -la --color=auto"
 alias vi="nvim"
 alias top="btop"
-alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles/hosts#${HOST} switch"
-alias hm-rebuild-switch="home-manager switch --flake /home/${USER}/dotfiles/hosts#${HOST}-${USER}"
-alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
-alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --password-command 'pass jupiter-backup'"
 alias nnn="n"
 alias N='sudo -E nnn -dH'
-# consider nix --extra-experimental-features repl-flake repl ".#nixosConfigurations.\"$NAME\""
-# https://discourse.nixos.org/t/use-repl-to-inspect-a-flake/28275
-alias nix-repl="nix repl nixpkgs"
+alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
+alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --password-command 'pass jupiter-backup'"
+alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles/hosts#${HOST} switch"
+alias hm-rebuild-switch="home-manager switch --flake /home/${USER}/dotfiles/hosts#${HOST}-${USER}"
+alias user-repl='nix repl ~/dotfiles/hosts#homeConfigurations."$HOST-$USER"'
+# pkgs = pluto.config.home-manager.extraSpecialArgs.inputs.nixpkgs.legacyPackages.x86_64-linux
+alias host-repl='nix repl ~/dotfiles/hosts#nixosConfigurations."$NAME"'
+# :lf .#
+# pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux
+alias nix-repl='nix repl nixpkgs'
 
 # XDG
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"

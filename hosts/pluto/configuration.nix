@@ -25,6 +25,9 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
   boot.loader.grub.devices = ["nodev"];
+  boot.kernelParams = ["quite"];
+  boot.initrd.systemd.enable = true;
+  boot.plymouth.enable = true;
 
   networking.hostName = "pluto"; # Define your hostname.
   # Pick only one of the below networking options.

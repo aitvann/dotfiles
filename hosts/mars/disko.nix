@@ -82,7 +82,7 @@
               content = {
                 type = "swap";
                 randomEncryption = true;
-                resumeDevice = true; # resume from hibernation from this device
+                resumeDevice = true; # resume from hibernation from this device. won't actually work https://github.com/nix-community/disko/issues/604#issuecomment-2094123287
                 extraArgs = ["-L NIXSWAP"];
               };
             };
