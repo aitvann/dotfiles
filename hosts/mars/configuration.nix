@@ -105,19 +105,8 @@ in {
   services.snapper = {
     snapshotInterval = "hourly"; # doc: {manpage}`systemd.time(7)
     cleanupInterval = "1d";
-    configs = {
-      "@home-general" = {
-        SUBVOLUME = "/home/general/";
-        ALLOW_USERS = ["general"];
-        TIMELINE_CREATE = true;
-        TIMELINE_CLEANUP = true;
-        TIMELINE_LIMIT_HOURLY = "12";
-        TIMELINE_LIMIT_DAILY = "3";
-        TIMELINE_LIMIT_WEEKLY = "2";
-        TIMELINE_LIMIT_MONTHLY = "0";
-        TIMELINE_LIMIT_YEARLY = "0";
-      };
-    };
+    # dymmy config is required to start systemd services; will by overwritten my `packageSystemFiles`
+    configs.dymmy.SUBVOLUME = "/";
   };
 
   # required
@@ -172,6 +161,7 @@ in {
     }
 
     (packageSystemFiles ../../stow-system/regreet)
+    (packageSystemFiles ../../stow-system/snapper)
   ];
 
   environment.pathsToLink = ["/share/zsh"];
