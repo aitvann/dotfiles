@@ -3,8 +3,10 @@
   pkgs,
   lib,
   ...
-}: let
+} @ args: let
   homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
+  util = import ../../lib/util.nix args;
+  packageSystemFiles = util.packageHomeFiles "/etc";
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -55,7 +57,7 @@ in {
     enable = true;
     excludePackages = with pkgs; [xterm];
   };
-  services.displayManager.gdm.enable = true;
+  programs.regreet.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -161,8 +163,16 @@ in {
   services.xl2tpd.enable = true;
   services.strongswan.enable = true;
   networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
-  # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
-  environment.etc."strongswan.conf".text = "";
+
+  environment.etc = util.recursiveMerge [
+    #
+    {
+      # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
+      "strongswan.conf".text = "";
+    }
+
+    (packageSystemFiles ../../stow-system/regreet)
+  ];
 
   environment.pathsToLink = ["/share/zsh"];
   # some local scripts are not fully POSIX-compatible yet
