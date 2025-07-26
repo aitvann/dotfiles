@@ -1,0 +1,10 @@
+[default_session]
+command = "dbus-run-session cage -s -- regreet"
+user = "greeter"
+
+[initial_session]
+command = "Hyprland"
+user = "general"
+
+[terminal]
+vt = 1

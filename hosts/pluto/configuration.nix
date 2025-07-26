@@ -8,9 +8,12 @@
   util = import ../../lib/util.nix args;
   packageSystemFiles = util.packageHomeFiles "/etc";
 in {
+  disabledModules = ["services/display-managers/greetd.nix"];
+
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    # overriding module so it reads configuration from standard location, not from cli arg
+    ../../modules/greetd.nix
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -58,20 +61,24 @@ in {
     excludePackages = with pkgs; [xterm];
   };
   programs.regreet.enable = true;
+  # TODO: figure out smooth polymorth transition as it is not supported out of the box
+  # https://todo.sr.ht/~kennylevinsen/greetd/17
+  services.greetd.greeterManagesPlymouth = false;
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
       # xdg-desktop-portal-hyprland set by default
     ];
   };
-  # TODO: integrate pass:
+  # TODO: integrate `pass`:
   # - https://github.com/grimsteel/pass-secret-service -- not packaged for nix
-  # - https://github.com/mdellweg/pass_secret_service -- timesout
+  # - https://github.com/mdellweg/pass_secret_service -- times out
   services.gnome.gnome-keyring.enable = true;
-  # HACK: unlocks keyring upon login. login does not work with greetd using gnome alternative
+  # FIX: should unlocks keyring upon login. greetd does not subtask login
   # https://github.com/NixOS/nixpkgs/issues/357201
   # https://wiki.nixos.org/wiki/Secret_Service#Auto-decrypt_on_login
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  # doest not work
+  security.pam.services.login.enableGnomeKeyring = true;
 
   services.devmon.enable = true;
   services.gvfs.enable = true;
@@ -160,12 +167,12 @@ in {
   networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
 
   environment.etc = util.recursiveMerge [
-    #
     {
       # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
       "strongswan.conf".text = "";
     }
 
+    (packageSystemFiles ../../stow-system/greetd-general)
     (packageSystemFiles ../../stow-system/regreet)
     (packageSystemFiles ../../stow-system/snapper)
   ];
@@ -222,6 +229,9 @@ in {
 
   environment.systemPackages = with pkgs; [
     gparted
+
+    cage
+    greetd.regreet
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
