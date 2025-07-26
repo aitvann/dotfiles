@@ -64,7 +64,13 @@ in {
       # xdg-desktop-portal-hyprland set by default
     ];
   };
+  # TODO: integrate pass:
+  # - https://github.com/grimsteel/pass-secret-service -- not packaged for nix
+  # - https://github.com/mdellweg/pass_secret_service -- timesout
   services.gnome.gnome-keyring.enable = true;
+  # HACK: unlocks keyring upon login. login does not work with greetd using gnome alternative
+  # https://github.com/NixOS/nixpkgs/issues/357201
+  # https://wiki.nixos.org/wiki/Secret_Service#Auto-decrypt_on_login
   security.pam.services.greetd.enableGnomeKeyring = true;
 
   services.devmon.enable = true;

@@ -404,6 +404,7 @@ in {
     pyprland
     oculante
     pinentry-gnome3
+    seahorse
     xdg-terminal-exec
     # fix screen sharing
     libsForQt5.xwaylandvideobridge
