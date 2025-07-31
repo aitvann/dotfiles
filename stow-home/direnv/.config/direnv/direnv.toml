@@ -1,0 +1,3 @@
+[global]
+log_filter = "^$"
+warn_timeout = "5m"

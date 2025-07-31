@@ -1,2 +1,1 @@
 source ~/.local/share/nix-direnv/direnvrc
-export DIRENV_WARN_TIMEOUT=5m
