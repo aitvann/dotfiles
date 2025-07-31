@@ -61,7 +61,7 @@ in {
     excludePackages = with pkgs; [xterm];
   };
   programs.regreet.enable = true;
-  # TODO: figure out smooth polymorth transition as it is not supported out of the box
+  # TODO: figure out smooth plymouth transition as it is not supported out of the box
   # https://todo.sr.ht/~kennylevinsen/greetd/17
   services.greetd.greeterManagesPlymouth = false;
   xdg.portal = {
