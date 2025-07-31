@@ -20,7 +20,7 @@ in {
   ];
 
   home.file = util.recursiveMerge [
-    (packageHomeFiles ../stow-configs/btop)
+    (packageHomeFiles ../stow-home/btop)
   ];
 
   home.stateVersion = "22.05";

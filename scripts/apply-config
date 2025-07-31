@@ -10,8 +10,8 @@
 (def user (System/getProperty "user.name"))
 (def repo (str home "/dotfiles"))
 (defn stow-package [package]
-  (let [user-specific (str repo "/stow-configs/" package "-" user)
-        user-shared (str repo "/stow-configs/" package)]
+  (let [user-specific (str repo "/stow-home/" package "-" user)
+        user-shared (str repo "/stow-home/" package)]
     (if (fs/exists? user-specific)
       user-specific
       user-shared)))
