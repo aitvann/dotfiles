@@ -475,7 +475,7 @@ in {
     starship
     grpcui
     grpcurl
-    sqlite
+    sqlite-interactive
     clickhouse
     postgresql_14
     syncplay
