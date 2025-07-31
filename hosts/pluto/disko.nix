@@ -77,6 +77,40 @@
                 };
               };
             };
+
+            # luks-swap = {
+            #   size = "100%";
+            #   content = {
+            #     type = "luks";
+            #     name = "swap-crypted";
+            #     settings = {
+            #       keyFile = "/mnt-root/root/swap.key";
+            #     };
+            #     content = {
+            #       type = "swap";
+            #       randomEncryption = false; # using `keyFile` instead so hibernation works
+            #       resumeDevice = true;
+            #       extraArgs = ["-L NIXSWAP"];
+            #     };
+            #   };
+            # };
+            #
+            # add:
+            #
+            # MANUAL:
+            # dd count=1 bs=512 if=/dev/urandom of=/mnt/root/swap.key
+            #
+            # swapDevices = lib.mkForce [
+            #   {
+            #     device = "/dev/disk/by-partlabel/disk-main-swap";
+            #     encrypted = {
+            #       enable = true;
+            #       keyFile = "/mnt-root/root/swap.key";
+            #       blkDev = "/dev/disk/by-id/dm-name-swap-crypted";
+            #     };
+            #   }
+            # ];
+
             swap = {
               size = "100%";
               content = {
