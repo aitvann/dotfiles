@@ -1,0 +1,4 @@
+#! /bin/sh
+
+xhost +local:
+systemctl --user restart polkit-hyprpolkitagent.service

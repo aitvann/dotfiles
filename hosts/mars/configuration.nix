@@ -175,6 +175,9 @@ in {
     {
       # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
       "strongswan.conf".text = "";
+
+      "scripts/setup".source = "${inputs.self}/common/setup";
+      "scripts/hyprland".source = "${inputs.self}/common/hyprland";
     }
 
     (packageSystemFiles ../../stow-system/greetd-general)
@@ -190,35 +193,35 @@ in {
     # HACK: https://www.reddit.com/r/archlinux/comments/1gcxusc/comment/lv1kflm/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_STATE_HOME = "$HOME/.local/state";
+    XDG_CACHE_HOME = "$\{HOME\}/.cache";
+    XDG_CONFIG_HOME = "$\{HOME}/.config";
+    XDG_DATA_HOME = "$\{HOME\}/.local/share";
+    XDG_STATE_HOME = "$\{HOME\}/.local/state";
     # Not officially in the specification
-    XDG_BIN_HOME = "$HOME/.local/bin";
+    XDG_BIN_HOME = "$\{HOME\}/.local/bin";
 
-    ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
-    PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+    ZDOTDIR = "$\{XDG_CONFIG_HOME\}/zsh";
+    PASSWORD_STORE_DIR = "$\{XDG_DATA_HOME\}/password-store";
     # does not work
-    GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
-    RIPGREP_CONFIG_PATH = "$XDG_CONFIG_HOME/ripgrep/.ripgreprc";
-    CARGO_HOME = "$XDG_DATA_HOME/cargo";
-    CARGO_TARGET_DIR = "$CARGO_HOME/shared-target";
-    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
-    PARALLEL_HOME = "$XDG_CONFIG_HOME/parallel";
-    PSQLRC = "$XDG_CONFIG_HOME/pg/psqlrc";
-    PSQL_HISTORY = "$XDG_STATE_HOME/psql_history";
-    PGPASSFILE = "$XDG_CONFIG_HOME/pg/pgpass";
-    PGSERVICEFILE = "$XDG_CONFIG_HOME/pg/pg_service.conf";
-    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java";
-    DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
-    XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
-    XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
-    XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-    GTK_RC_FILES = "$XDG_CONFIG_HOME/gtk-1.0/gtkrc";
-    GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
-    XCURSOR_PATH = lib.mkForce "$XDG_DATA_HOME/icons";
-    LEIN_HOME = "$XDG_DATA_HOME/lein";
+    GNUPGHOME = "$\{XDG_CONFIG_HOME\}/gnupg";
+    RIPGREP_CONFIG_PATH = "$\{XDG_CONFIG_HOME\}/ripgrep/.ripgreprc";
+    CARGO_HOME = "$\{XDG_DATA_HOME\}/cargo";
+    CARGO_TARGET_DIR = "$\{CARGO_HOME\}/shared-target";
+    RUSTUP_HOME = "$\{XDG_DATA_HOME\}/rustup";
+    PARALLEL_HOME = "$\{XDG_CONFIG_HOME\}/parallel";
+    PSQLRC = "$\{XDG_CONFIG_HOME\}/pg/psqlrc";
+    PSQL_HISTORY = "$\{XDG_STATE_HOME\}/psql_history";
+    PGPASSFILE = "$\{XDG_CONFIG_HOME\}/pg/pgpass";
+    PGSERVICEFILE = "$\{XDG_CONFIG_HOME\}/pg/pg_service.conf";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$\{XDG_CONFIG_HOME\}/java";
+    DOCKER_CONFIG = "$\{XDG_CONFIG_HOME\}/docker";
+    XCOMPOSEFILE = "$\{XDG_CONFIG_HOME\}/X11/xcompose";
+    XCOMPOSECACHE = "$\{XDG_CACHE_HOME\}/X11/xcompose";
+    XAUTHORITY = "$\{XDG_RUNTIME_DIR\}/Xauthority";
+    GTK_RC_FILES = "$\{XDG_CONFIG_HOME\}/gtk-1.0/gtkrc";
+    GTK2_RC_FILES = "$\{XDG_CONFIG_HOME\}/gtk-2.0/gtkrc";
+    XCURSOR_PATH = lib.mkForce "$\{XDG_DATA_HOME\}/icons";
+    LEIN_HOME = "$\{XDG_DATA_HOME\}/lein";
   };
 
   # fixes home-manager.sessionVariables
@@ -237,6 +240,7 @@ in {
 
     cage
     greetd.regreet
+    xorg.xhost
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
