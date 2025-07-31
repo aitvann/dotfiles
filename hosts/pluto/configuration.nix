@@ -79,6 +79,11 @@ in {
   # https://wiki.nixos.org/wiki/Secret_Service#Auto-decrypt_on_login
   # doest not work
   security.pam.services.login.enableGnomeKeyring = true;
+  # FIX: figure out why doesn't work
+  security.pam.services.login.gnupg.enable = true;
+  security.pam.services.login.gnupg.storeOnly = true;
+  security.pam.services.greetd.gnupg.enable = true;
+  security.pam.services.greetd.gnupg.storeOnly = true;
 
   services.devmon.enable = true;
   services.gvfs.enable = true;

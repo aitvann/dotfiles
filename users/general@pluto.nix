@@ -582,6 +582,7 @@ in {
     (packageHomeFiles ../stow-configs/networkmanager-dmenu)
     # (packageHomeFiles ../stow-configs/nix)
     (packageHomeFiles ../stow-configs/nvim)
+    (packageHomeFiles ../stow-configs/pam-gnupg)
     (packageHomeFiles ../stow-configs/pipewire-general)
     (packageHomeFiles ../stow-configs/qalculate)
     (packageHomeFiles ../stow-configs/ripgrep)
