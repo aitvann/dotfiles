@@ -16,6 +16,22 @@ in {
     ../../modules/greetd.nix
   ];
 
+  # MANUAL:
+  # dd count=1 bs=512 if=/dev/urandom of=/mnt/root/swap.key
+  swapDevices = lib.mkForce [
+    {
+      # device = "/dev/disk/by-partlabel/disk-main-swap";
+      encrypted = {
+        enable = true;
+        # When `boot.initrd.systemd.enable` is enabled,
+        # file systems are mounted at `/sysroot` instead of `/mint-root`
+        keyFile = "/sysroot/root/swap.key";
+        label = "swap-crypted";
+        blkDev = "/dev/disk/by-partlabel/disk-main-luks-swap";
+      };
+    }
+  ];
+
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "steam"

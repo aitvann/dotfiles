@@ -1,9 +1,9 @@
-{disks ? ["/dev/nvme0n1" "/dev/nvme1n1"], ...}: {
+{disks ? ["/dev/nvme1n1"], ...}: {
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = builtins.elemAt disks 1;
+        device = builtins.elemAt disks 0;
         content = {
           type = "gpt";
           partitions = {
@@ -15,14 +15,16 @@
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = ["umask=0077"];
-                # disko will pass it as a single argument and we will get:
+                # disko will pass it as a single argument
                 # mkfs.vfat: Label can't start with a space character
                 # thus no space
                 extraArgs = ["-nNIXBOOT"];
               };
             };
+            # MANUAL:
+            # echo 'password' > /tmp/secret.key
             luks = {
-              end = "-16G";
+              end = "-64G";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -77,13 +79,24 @@
                 };
               };
             };
-            swap = {
+
+            # MANUAL:
+            # dd count=1 bs=512 if=/dev/urandom of=/tmp/swap.key
+            luks-swap = {
               size = "100%";
               content = {
-                type = "swap";
-                randomEncryption = true;
-                resumeDevice = true; # resume from hibernation from this device. won't actually work https://github.com/nix-community/disko/issues/604#issuecomment-2094123287
-                extraArgs = ["-L NIXSWAP"];
+                type = "luks";
+                name = "swap-crypted";
+                settings = {
+                  keyFile = "/swap.key";
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "swap";
+                  randomEncryption = false; # using `keyFile` instead so hibernation works
+                  resumeDevice = true;
+                  extraArgs = ["-L NIXSWAP"];
+                };
               };
             };
           };
