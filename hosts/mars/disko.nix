@@ -80,22 +80,20 @@
               };
             };
 
-            # MANUAL:
-            # dd count=1 bs=512 if=/dev/urandom of=/tmp/swap.key
             luks-swap = {
               size = "100%";
               content = {
                 type = "luks";
                 name = "swap-crypted";
+                passwordFile = "/tmp/secret.key"; # Interactive
                 settings = {
-                  keyFile = "/swap.key";
                   allowDiscards = true;
                 };
                 content = {
                   type = "swap";
-                  randomEncryption = false; # using `keyFile` instead so hibernation works
+                  randomEncryption = false; # using luks instead so hibernation works
                   resumeDevice = true;
-                  extraArgs = ["-L NIXSWAP"];
+                  extraArgs = ["-L" "NIXSWAP"];
                 };
               };
             };
