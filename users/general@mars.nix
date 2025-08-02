@@ -107,6 +107,7 @@ in {
 
         # MANUAL: go to extension settings and import options manually
         vimium
+        # MANUAL: go to extension settings and import options manually
         ublacklist
         simple-translate
 
