@@ -22,6 +22,7 @@
 (println "importing zsh history...")
 (def atuin-history-src (str home "/.local/share/atuin/history.db"))
 (def shell-history-dst (str home "/data/backups/shell-history/atuin_" (formatted-timestamp) ".db"))
+; use .restore with path to latest backup
 (sh {:out :inherit} "sqlite3" atuin-history-src (str ".backup '" shell-history-dst "'"))
 
 (println "importing data...")
