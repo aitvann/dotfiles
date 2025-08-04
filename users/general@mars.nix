@@ -197,6 +197,8 @@ in {
 
   programs.hyprland = {
     enable = true;
+    systemd.enable = true;
+    systemd.enableXdgAutostart = true;
     plugins = with pkgs.hyprlandPlugins; [
       # hyprfocus
     ];
