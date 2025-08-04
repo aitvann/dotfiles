@@ -607,6 +607,7 @@ in {
       (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
       (util.linkFiles "../configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
+      (util.linkFiles "share/icons/Pop" "icons/Pop" pop-icon-theme)
     ];
 
   home.stateVersion = "22.05";

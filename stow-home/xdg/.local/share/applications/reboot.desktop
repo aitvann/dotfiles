@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type = Application
 Name = Reboot
-Icon = ~/.local/share/icons/Tela/scalable/apps/system-reboot.svg
+Icon = ~/.local/share/icons/Pop/256x256/actions/system-reboot.svg
 Exec = reboot
 Terminal = false
 GenericName = System Control
