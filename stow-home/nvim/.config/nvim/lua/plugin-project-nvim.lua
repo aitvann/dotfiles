@@ -26,7 +26,8 @@ project.setup {
     -- Don't calculate root dir on specific directories
     -- Ex: { "~/.cargo/*", ... }
     exclude_dirs = {
-        vim.fn.expand('$HOME') .. '/dotfiles/hosts/*'
+        vim.fn.expand('$HOME') .. '/dotfiles/hosts/*',
+        vim.fn.expand('$HOME') .. '/dotfiles/users/*'
     },
 
     -- Show hidden files in telescope

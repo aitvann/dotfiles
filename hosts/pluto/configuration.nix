@@ -30,9 +30,18 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
   boot.loader.grub.devices = ["nodev"];
-  boot.kernelParams = ["quite"];
+  boot.kernelParams = ["quite" "mem_sleep_default=deep"];
   boot.initrd.systemd.enable = true;
   boot.plymouth.enable = true;
+
+  services.logind.powerKey = "hibernate";
+  services.logind.powerKeyLongPress = "poweroff";
+  services.logind.lidSwitch = "suspend-then-hibernate";
+  # hibernate after 30 min
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+    SuspendState=mem
+  '';
 
   networking.hostName = "pluto"; # Define your hostname.
   # Pick only one of the below networking options.

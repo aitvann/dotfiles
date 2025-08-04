@@ -210,6 +210,8 @@ in {
       # hyprfocus
     ];
   };
+  programs.hyprlock.enable = true;
+  services.hypridle.enable = true;
   programs.hyprcursor-phinger.enable = true;
   home.pointerCursor = {
     name = "phinger-cursors-dark";
