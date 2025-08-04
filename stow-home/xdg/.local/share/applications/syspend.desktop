@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type = Application
+Name = Suspend
+Icon = ~/.local/share/icons/Pop/256x256/actions/system-suspend-hibernate.svg
+Exec = systemctl suspend-then-hibernate
+Terminal = false
+GenericName = System Control
+Categories = System
