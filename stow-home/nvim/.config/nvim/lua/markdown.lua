@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "<localleader>f", "<cmd>ObsidianQuickSwitch<CR>",
             { silent = true, desc = "Go to File (Note)", buffer = buffer })
 
-        vim.keymap.set("n", "<localleader>d", "<cmd>ObsidianToday<CR>",
+        vim.keymap.set("n", "<localleader>d", "<cmd>Obsidian today<CR>",
             { silent = true, desc = "go to toDay's note", buffer = buffer })
         vim.keymap.set("n", "<localleader>b", "<cmd>ObsidianBacklinks<CR>",
             { silent = true, desc = "open backlinks (References) to current file", buffer = buffer })
