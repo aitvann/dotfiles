@@ -14,14 +14,10 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    hyprfocus.url = "github:pyt0xic/hyprfocus";
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprfocus.url = "github:pyt0xic/hyprfocus";
-    hyprfocus.inputs.hyprland.follows = "hyprland";
 
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
