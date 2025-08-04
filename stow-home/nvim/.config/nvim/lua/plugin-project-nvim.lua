@@ -20,15 +20,13 @@ project.setup {
     -- eg: { "efm", ... }
     ignore_lsp = {
         "lua_ls", -- TODO: works as far my only Lua project is my NeoVim config
+        "nil_ls", --  excluding `hosts` and `users` didn't help
         "efm"
     },
 
     -- Don't calculate root dir on specific directories
     -- Ex: { "~/.cargo/*", ... }
-    exclude_dirs = {
-        vim.fn.expand('$HOME') .. '/dotfiles/hosts/*',
-        vim.fn.expand('$HOME') .. '/dotfiles/users/*'
-    },
+    exclude_dirs = { },
 
     -- Show hidden files in telescope
     show_hidden = false,
