@@ -1,4 +1,5 @@
 #! /bin/sh
 
-xhost +local:
-systemctl --user restart polkit-hyprpolkitagent.service
+# redundant
+# xhost +local:
+# systemctl --user restart hyprpolkitagent.service
