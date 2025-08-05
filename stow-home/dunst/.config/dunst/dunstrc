@@ -5,10 +5,10 @@
 
     follow = mouse
     monitor = 0
-    height = 600
+    height = (0, 600)
     width = (400, 600)
     origin = top-right
-    offset = 9x9 # same as in Hyprland config but -1
+    offset = (9, 9) # same as in Hyprland config but -1
     notification_limit = 10
     progress_bar = true
     progress_bar_height = 10

@@ -216,6 +216,10 @@ in {
   services.hypridle.enable = true;
   services.hyprpolkitagent.enable = true;
   programs.hyprcursor-phinger.enable = true;
+  services.dunst.enable = true;
+  # use stow package instead
+  xdg.configFile."dunst/dunstrc".enable = false;
+  services.swww.enable = true;
   home.pointerCursor = {
     name = "phinger-cursors-dark";
     package = pkgs.phinger-cursors;
@@ -388,14 +392,12 @@ in {
     slurp
     grim
     palenight-theme
-    swww
     brightnessctl
     networkmanagerapplet
     networkmanager_dmenu
     qpwgraph
     libnotify
     satty
-    dunst
     pyprland
     oculante
     pinentry-gnome3
