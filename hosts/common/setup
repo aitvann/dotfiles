@@ -1,5 +1,0 @@
-#! /bin/sh
-
-# redundant
-# xhost +local:
-# systemctl --user restart hyprpolkitagent.service

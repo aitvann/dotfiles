@@ -183,9 +183,6 @@ in {
     {
       # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
       "strongswan.conf".text = "";
-
-      "scripts/setup".source = "${inputs.self}/common/setup";
-      "scripts/hyprland".source = "${inputs.self}/common/hyprland";
     }
 
     (packageSystemFiles ../../stow-system/greetd-general)

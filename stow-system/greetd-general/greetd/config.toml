@@ -3,7 +3,7 @@ command = "dbus-run-session cage -s -- regreet"
 user = "greeter"
 
 [initial_session]
-command = "/etc/scripts/hyprland"
+command = "Hyprland"
 user = "general"
 
 [terminal]
