@@ -205,7 +205,7 @@ in {
     gparted
 
     cage
-    greetd.regreet
+    regreet
     xorg.xhost
   ];
 

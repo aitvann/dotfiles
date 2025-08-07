@@ -1,7 +1,7 @@
 return {
     settings = {
         ["rust-analyzer"] = {
-            checkOnSave = {
+            check = {
                 command = "clippy",
             },
             inlayHints = {

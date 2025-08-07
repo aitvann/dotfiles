@@ -40,7 +40,7 @@ M.update_status = function(self)
         end
     end
 
-    if #vim.lsp.buf_get_clients() == 0 then
+    if #vim.lsp.get_clients() == 0 then
         return (colors['error'] or '') .. 'No Lsp'
     end
 

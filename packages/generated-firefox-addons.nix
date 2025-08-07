@@ -98,10 +98,10 @@
     };
     "tonkeeper" = buildFirefoxXpiAddon {
       pname = "tonkeeper";
-      version = "4.1.1";
+      version = "4.1.2";
       addonId = "wallet@tonkeeper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4528393/tonkeeper-4.1.1.xpi";
-      sha256 = "8bd7aed436a8f9a244c7a946f3b6ac6119f26d36940a54cd1224c223ae505383";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4545318/tonkeeper-4.1.2.xpi";
+      sha256 = "1018941ad2a2670085d8ba5c0779396ba7ed44b0ac595cc69d0befc8400a6885";
       meta = with lib;
       {
         homepage = "https://tonkeeper.com/";

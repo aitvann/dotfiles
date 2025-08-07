@@ -98,7 +98,7 @@ in {
       };
 
       serviceConfig = {
-        ExecStart = "${pkgs.greetd.greetd}/bin/greetd";
+        ExecStart = "${pkgs.greetd}/bin/greetd";
 
         Restart = lib.mkIf cfg.restart "on-success";
 
