@@ -1,24 +1,10 @@
 CONFIG_HOME=$XDG_CONFIG_HOME/zsh
 
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-
-export DIRENV_LOG_FORMAT=''
-
 # NOTE: install rust packages with nix
 # export PATH="$HOME/.local/share/cargo/bin:$PATH"
 
-# NOTE: only for custom scripts
-# install any external software uisng Nix only
-export PATH="$HOME/.local/bin:$PATH"
-
-export BABASHKA_CLASSPATH="$HOME/.local/bin"
-
 # telling SSH how to access the gpg-agent
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
-# make NeoVim a man pager
-export MANPAGER='nvim +Man!'
 
 # keystrokes
 # xmodmap -e "keycode 64 = Mode_switch" # set Alt_l as the "Mode_switch"
