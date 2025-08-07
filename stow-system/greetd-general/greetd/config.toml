@@ -3,7 +3,7 @@ command = "dbus-run-session cage -s -- regreet"
 user = "greeter"
 
 [initial_session]
-command = "Hyprland"
+command = "uwsm start -- hyprland-uwsm.desktop"
 user = "general"
 
 [terminal]

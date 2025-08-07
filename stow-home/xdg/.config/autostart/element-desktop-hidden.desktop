@@ -1,9 +1,9 @@
 [Desktop Entry]
-Type = Application
-Name = Element Hidden
+Type=Application
+Name=Element Hidden
 Comment=A feature-rich client for Matrix.org
-Icon = element
-Exec = element-desktop %u --hidden --password-store="gnome-libsecret"
-Terminal = false
-GenericName = Matrix Client Hidden
+Icon=element
+Exec=element-desktop %u --hidden --password-store="gnome-libsecret"
+Terminal=false
+GenericName=Matrix Client Hidden
 Categories=Network;InstantMessaging;Chat

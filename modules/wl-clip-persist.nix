@@ -46,8 +46,9 @@ in {
     systemd.user.services.wl-clip-persist = {
       Unit = {
         Description = "wl-clip-persist user service";
-        PartOf = ["graphical-session.target"];
-        BindsTo = ["graphical-session.target"];
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+        After = [config.wayland.systemd.target];
+        PartOf = [config.wayland.systemd.target];
       };
 
       Service = {
@@ -66,7 +67,9 @@ in {
         TimeoutStopSec = 15;
       };
 
-      Install.WantedBy = lib.mkDefault ["graphical-session.target"];
+      Install = {
+        WantedBy = [config.wayland.systemd.target];
+      };
     };
   };
 }

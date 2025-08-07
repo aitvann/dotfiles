@@ -41,7 +41,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/wl-clip-persist.nix ../modules/open-webui.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/wl-clip-persist.nix ../modules/open-webui.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -206,8 +206,7 @@ in {
 
   programs.hyprland = {
     enable = true;
-    systemd.enable = true;
-    systemd.enableXdgAutostart = true;
+    systemd.enable = false;
     plugins = with pkgs.hyprlandPlugins; [
       # hyprfocus
     ];
@@ -216,6 +215,8 @@ in {
   services.hypridle.enable = true;
   services.hyprpolkitagent.enable = true;
   programs.hyprcursor-phinger.enable = true;
+  programs.app2unit.enable = true;
+  programs.app2unit.overrideXdgOpen = true;
   services.dunst.enable = true;
   # use stow package instead
   xdg.configFile."dunst/dunstrc".enable = false;
@@ -580,6 +581,7 @@ in {
     # (packageHomeFiles ../stow-home/ssh-general)
     (packageHomeFiles ../stow-home/syncthing-pluto-general)
     (packageHomeFiles ../stow-home/ueberzugpp)
+    (packageHomeFiles ../stow-home/uwsm)
     (packageHomeFiles ../stow-home/wireplumber)
     (packageHomeFiles ../stow-home/xdg) # prevents nnn:xdgdefault from working
     (packageHomeFiles ../stow-home/zsh)

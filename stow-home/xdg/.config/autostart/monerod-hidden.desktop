@@ -1,11 +1,11 @@
 [Desktop Entry]
-Type = Application
-Name = Monerod Hidden
+Type=Application
+Name=Monerod Hidden
 Comment=Monero Blockchain Node
-Icon = monero
+Icon=monero
 # env vars don't get resolved even with `sh -c` for some reason
 # $HOME is a root here for some reason
 Exec=monerod --data-dir=.local/share/monero/blockchain --db-sync-mode=safe:sync --check-updates disabled --detach --non-interactive
-Terminal = false
-GenericName = Monero Node Hidden
+Terminal=false
+GenericName=Monero Node Hidden
 Categories=Network;Utility
