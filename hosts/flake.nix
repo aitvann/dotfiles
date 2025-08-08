@@ -16,9 +16,6 @@
 
     hyprfocus.url = "github:pyt0xic/hyprfocus";
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
-
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
   };

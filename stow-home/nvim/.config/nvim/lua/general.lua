@@ -35,7 +35,6 @@ vim.opt.foldmethod = "expr"
 -- WARN: causes significant slowdowns: cmdline cmp, lsp symbols, scrolling
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- deprecated
--- requires NeoVim-nightly
 vim.o.foldtext = ''
 vim.o.fillchars = 'fold: '
 

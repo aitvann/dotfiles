@@ -12,7 +12,6 @@ in {
   nixpkgs.overlays = [
     (import ../packages)
     inputs.nur.overlays.default
-    inputs.neovim-nightly-overlay.overlays.default
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.system}.default;
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
