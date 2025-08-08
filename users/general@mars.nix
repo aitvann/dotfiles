@@ -246,10 +246,6 @@ in {
 
   programs.neovim = {
     enable = true;
-    extraPackages = with pkgs; [
-      # required by pkgs.vimPlugins.notification-nvim
-      glib
-    ];
     plugins = with pkgs.vimPlugins; [
       # --------------------------------------------------------------------------------
       # General
@@ -304,8 +300,6 @@ in {
       nvim-web-devicons
       # Pretty telescope select menu
       telescope-ui-select-nvim
-      # show notifications as system notifications
-      notifications-nvim
 
       # --------------------------------------------------------------------------------
       # Editing

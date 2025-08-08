@@ -11,6 +11,5 @@ final: prev: {
     prev.vimPlugins
     // {
       nvim-next = final.callPackage ./nvim-next.nix {};
-      notifications-nvim = final.callPackage ./notifications-nvim.nix {};
     };
 }
