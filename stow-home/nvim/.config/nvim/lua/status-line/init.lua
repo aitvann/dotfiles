@@ -2,8 +2,6 @@ local components = require("status-line.components")
 
 local lualine = require("lualine")
 
-showtabline = vim.o.showtabline
-
 lualine.setup({
     options = {
         icons_enabled = true,
@@ -12,6 +10,7 @@ lualine.setup({
         section_separators = { left = "", right = "" },
         disabled_filetypes = {},
         always_divide_middle = true,
+        always_show_tabline = false,
     },
 
     -- +-------------------------------------------------+
@@ -39,19 +38,7 @@ lualine.setup({
         lualine_c = {},
         lualine_x = {},
         lualine_y = {},
-        lualine_z = {
-            { "tabs", mode = 1 },
-            {
-                function()
-                    vim.o.showtabline = showtabline
-                    return ''
-                    -- HACK: lualine will set &showtabline to 2 if you have configured
-                    -- lualine for displaying tabline. We want to restore the default
-                    -- behavior here.
-                    -- https://github.com/nvim-lualine/lualine.nvim/pull/1013#issuecomment-1558099544
-                end,
-            },
-        },
+        lualine_z = { { "tabs", mode = 1 } },
     },
     extensions = {},
 })
