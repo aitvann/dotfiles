@@ -350,8 +350,6 @@ in {
 
       # the bridge between lua and configuration of LS
       nvim-lspconfig
-      # get progress state and messages from LSP
-      lsp-status-nvim
       # For pretty kind icons on completion
       lspkind-nvim
 

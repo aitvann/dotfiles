@@ -1,32 +1,26 @@
-local lsp_status = require 'lsp-status'
+local utils = require("utils")
 
-local M = require('lualine.components.filename'):extend()
+local M = require('lualine.components.lsp_status'):extend()
 
-local function is_not_nill(obj)
-    return obj ~= nil
+M.filename_component = require('lualine.components.filename'):extend()
+function M.filename_component:init(options)
+    return M.filename_component.super.init(self, options)
 end
 
-M.init = function(self, options)
-    M.super.init(self, options)
+function M:init(options)
+    self.filename_component.super.init(self.filename_component, options)
+    return M.super.init(self, options)
 end
 
-local spinners = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-local function format_lsp_message(message)
-    local ms = vim.loop.hrtime() / 1000000
-    local frame = math.floor(ms / 120) % #spinners
-    local spinner = spinners[frame + 1]
-    local percentage = message.percentage and message.percentage .. '%%' or ''
-    local msg = { message.title, message.message }
-    vim.tbl_filter(is_not_nill, msg)
-    return string.format('%s %s %s', spinner, percentage, table.concat(msg, ': '))
-end
+function M:update_status()
+    local data = M.super.update_status(self)
+    local filename_data = M.filename_component.super.update_status(self.filename_component)
 
-M.update_status = function(self)
-    local messages = lsp_status.messages()
-    if #messages > 0 then
-        return format_lsp_message(messages[1])
+    -- spinning character is 3 bytes long
+    if utils.contains(self.options.symbols.spinner, data:sub(-3)) then
+        return data
     else
-        return M.super.update_status(self)
+        return filename_data
     end
 end
 

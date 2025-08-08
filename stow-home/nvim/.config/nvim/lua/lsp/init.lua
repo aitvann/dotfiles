@@ -6,7 +6,6 @@ local diagnostics = require("lsp.diagnostics")
 
 local lsp = require("lspconfig")
 local blink = require("blink.cmp")
-local status = require("lsp-status")
 local signature = require("lsp_signature")
 
 local servers = {
@@ -32,7 +31,6 @@ local on_attach = function(client, buffer)
     signature.on_attach({
         hint_enable = false,
     }, buffer)
-    status.on_attach(client)
     diagnostics.on_attach(client, buffer)
 
     lsp_utils.resolve_capabilities(client, buffer)
@@ -42,8 +40,7 @@ end
 local capabilities = vim.tbl_deep_extend(
     "force",
     vim.lsp.protocol.make_client_capabilities(),
-    blink.get_lsp_capabilities(), -- update capabilities from 'cmp_nvim_lsp` plugin
-    status.capabilities         -- update capabilities from `lsp-status` plugin
+    blink.get_lsp_capabilities() -- update capabilities from 'cmp_nvim_lsp` plugin
 )
 
 -- ignore the error
@@ -76,9 +73,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         on_attach(client, buffer)
     end,
 })
-
--- status
-status.register_progress()
 
 -- formatting
 toggling.register({

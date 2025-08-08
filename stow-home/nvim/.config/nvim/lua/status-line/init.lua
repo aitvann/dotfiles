@@ -20,7 +20,7 @@ lualine.setup({
     sections = {
         lualine_a = { "mode" },
         lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
-        lualine_c = { { components.progress_or_filename, path = 1, file_status = true } },
+        lualine_c = { { components.progress_or_filename, path = 1 } },
         lualine_x = {},
         lualine_y = { { components.diagnostics } },
         lualine_z = { "progress", "location" },
