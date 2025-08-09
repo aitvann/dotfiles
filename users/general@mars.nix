@@ -212,6 +212,7 @@ in {
   xdg.configFile."dunst/dunstrc".enable = false;
   services.swww.enable = true;
   services.wl-clip-persist.enable = true;
+  qt.enable = true;
 
   programs.nnn = {
     enable = true;
@@ -382,6 +383,7 @@ in {
     # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
     libsForQt5.qt5.qtwayland
     # open dialogs (Minecraft load book from file)
+    adwaita-qt6
     zenity
 
     nwg-look

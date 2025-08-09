@@ -65,3 +65,6 @@ export PATH="${XDG_BIN_HOME}:${PATH}"
 # NOTE: GTK's settings.ini file should be enought, it not uncomment lines below
 # export XCURSOR_SIZE=24
 # export CURSOR_THEME=phinger-cursors-dark
+
+export QT_QPA_PLATFORMTHEME="adwaita"
+export QT_STYLE_OVERRIDE="adwaita-dark"
