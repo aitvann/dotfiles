@@ -5,7 +5,6 @@ local toggling = require("toggling")
 local diagnostics = require("lsp.diagnostics")
 
 local blink = require("blink.cmp")
-local signature = require("lsp_signature")
 
 vim.lsp.enable {
     "rust_analyzer", -- rust
@@ -27,13 +26,12 @@ local capabilities = vim.tbl_deep_extend(
 
 vim.lsp.config('*', { capabilities = capabilities })
 
--- compose `to_attach` functions
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
 
-        signature.on_attach({ hint_enable = false }, buffer)
+        -- compose `to_attach` functions
         diagnostics.on_attach(client, buffer)
 
         lsp_utils.resolve_capabilities(client, buffer)

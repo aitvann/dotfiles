@@ -298,8 +298,6 @@ in {
       telescope-fzf-native-nvim
       # better renaming input
       renamer-nvim
-      # better signature help
-      lsp_signature-nvim
       # shows signs for added, modified, and removed lines.
       # and other git stuff inside buffer
       gitsigns-nvim

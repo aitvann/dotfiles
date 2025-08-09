@@ -1,5 +1,4 @@
 local blink = require("blink.cmp")
--- local lspkind = require("lspkind")
 
 blink.setup({
     keymap = {
@@ -31,7 +30,7 @@ blink.setup({
         -- try when more stable
         -- Displays a preview of the selected item on the current line
         ghost_text = {
-            enabled = false,
+            enabled = true,
         },
 
         list = {
@@ -41,7 +40,10 @@ blink.setup({
 
     -- try when more stable
     signature = {
-        enabled = false,
+        enabled = true,
+        window = {
+            border = "rounded",
+        }
     },
 
     -- Default list of enabled providers defined so that you can extend it
