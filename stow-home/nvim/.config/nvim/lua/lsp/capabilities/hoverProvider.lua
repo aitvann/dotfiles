@@ -1,5 +1,9 @@
 return function(_, _, buffer)
-    vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover,
+    local opts = {
+        border = "rounded"
+    }
+
+    vim.keymap.set("n", "<leader>i", function() vim.lsp.buf.hover(opts) end,
         { silent = true, buffer = buffer, desc = "Inspect node under cursor" }
     )
 end

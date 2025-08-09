@@ -18,7 +18,4 @@ return {
             }
         },
     },
-    on_attach = function(_client, _buffer)
-        -- language server specific `on_attach` function example here
-    end,
 }

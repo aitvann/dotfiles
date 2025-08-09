@@ -17,14 +17,6 @@ M.on_attach = function(_client, buffer)
     vim.keymap.set("n", '[d', nndiag.goto_prev(), { silent = true, desc = 'GOTO PREVIOUS diagnostics', buffer = buffer })
     vim.keymap.set("n", ']d', nndiag.goto_next(), { silent = true, desc = 'GOTO NEXT diagnostics', buffer = buffer })
     -- stylua: ignore end
-
-    -- diagnostics in line number
-    vim.cmd([[
-        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticError
-        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticWarn
-        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticInfo
-        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticHint
-    ]])
 end
 
 return M
