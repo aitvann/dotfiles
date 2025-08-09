@@ -1,0 +1,5 @@
+# vim: set ft=sh:
+
+# NOTE: no settings.ini for hyprcursor, using env vars instead
+export HYPRCURSOR_THEME=theme_phinger-cursors-dark
+export HYPRCURSOR_SIZE=24

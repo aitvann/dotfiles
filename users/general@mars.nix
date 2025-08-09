@@ -21,6 +21,7 @@ in {
         // {
           hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
         };
+      hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
@@ -40,7 +41,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/wl-clip-persist.nix inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/wl-clip-persist.nix];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -204,19 +205,12 @@ in {
   programs.hyprlock.enable = true;
   services.hypridle.enable = true;
   services.hyprpolkitagent.enable = true;
-  programs.hyprcursor-phinger.enable = true;
   programs.app2unit.enable = true;
   programs.app2unit.overrideXdgOpen = true;
   services.dunst.enable = true;
   # use stow package instead
   xdg.configFile."dunst/dunstrc".enable = false;
   services.swww.enable = true;
-  home.pointerCursor = {
-    name = "phinger-cursors-dark";
-    package = pkgs.phinger-cursors;
-    size = 32;
-    gtk.enable = true;
-  };
   services.wl-clip-persist.enable = true;
 
   programs.nnn = {
@@ -372,7 +366,6 @@ in {
     foot
     slurp
     grim
-    palenight-theme
     brightnessctl
     networkmanagerapplet
     networkmanager_dmenu
@@ -391,6 +384,7 @@ in {
     # open dialogs (Minecraft load book from file)
     zenity
 
+    nwg-look
     jellyfin
     obs-studio
     telegram-desktop
@@ -545,6 +539,7 @@ in {
     (packageHomeFiles ../stow-home/gtk-4.0)
     (packageHomeFiles ../stow-home/helix)
     (packageHomeFiles ../stow-home/hypr)
+    (packageHomeFiles ../stow-home/icons)
     (packageHomeFiles ../stow-home/lazygit)
     (packageHomeFiles ../stow-home/mpd)
     (packageHomeFiles ../stow-home/ncmpcpp)
@@ -571,10 +566,24 @@ in {
     util.recursiveMerge [
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
+
+      # bookmarks
       (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
       (util.linkFiles "../configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
+
+      # icon themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
       (util.linkFiles "share/icons/Pop" "icons/Pop" pop-icon-theme)
+
+      # xcursor
+      (util.linkFiles "share/icons/phinger-cursors-dark" "icons/phinger-cursors-dark" phinger-cursors)
+      (util.linkFiles "share/icons/phinger-cursors-dark-left" "icons/phinger-cursors-dark-left" phinger-cursors)
+      (util.linkFiles "share/icons/phinger-cursors-light" "icons/phinger-cursors-light" phinger-cursors)
+      (util.linkFiles "share/icons/phinger-cursors-light-left" "icons/phinger-cursors-light-left" phinger-cursors)
+
+      # hyprcursor
+      (util.linkFiles "share/icons/theme_phinger-cursors-dark" "icons/theme_phinger-cursors-dark" hyprcursor-phinger)
+      (util.linkFiles "share/icons/theme_phinger-cursors-light" "icons/theme_phinger-cursors-light" hyprcursor-phinger)
     ];
 
   home.stateVersion = "22.05";

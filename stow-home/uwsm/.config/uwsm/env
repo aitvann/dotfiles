@@ -1,3 +1,5 @@
+# vim: set ft=sh:
+
 # ==============================================================================
 # Configuration
 # ==============================================================================
@@ -58,3 +60,8 @@ export BABASHKA_CLASSPATH="${XDG_BIN_HOME}"
 export PATH="${XDG_BIN_HOME}:${PATH}"
 # NOTE: install rust packages with nix
 # export PATH="${CARGO_HOME}/bin:${PATH}"
+
+# NOTE: xcursor fallback cursor for apps that don't support serverside cursor (hyprcursor)
+# NOTE: GTK's settings.ini file should be enought, it not uncomment lines below
+# export XCURSOR_SIZE=24
+# export CURSOR_THEME=phinger-cursors-dark

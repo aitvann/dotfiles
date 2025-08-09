@@ -1,0 +1,33 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require
+ '[babashka.deps :as deps]
+ '[babashka.process :refer [sh]])
+
+(deps/add-deps '{:deps {clojure-ini/clojure-ini {:mvn/version "0.0.2"}}})
+(require '[clojure-ini.core :as clojure-ini])
+
+(def settings-file (clojure-ini/read-ini "/home/general/.config/gtk-4.0/settings.ini" :keywordize? true))
+(def settings (:Settings settings-file))
+
+(when-let [theme (:gtk-theme-name settings)]
+  (sh "dconf" "write" "/org/gnome/desktop/interface/gtk-theme" (str "'" theme "'")))
+
+(when-let [prefer-dark-theme (:gtk-application-prefer-dark-theme settings)]
+  (when prefer-dark-theme
+    (sh "dconf" "write" "/org/gnome/desktop/interface/color-scheme" "'prefer-dark'")))
+
+(when-let [icon-theme (:gtk-icon-theme-name settings)]
+  (sh "dconf" "write" "/org/gnome/desktop/interface/icon-theme" (str "'" icon-theme "'")))
+
+(when-let [cursor-theme (:gtk-cursor-theme-name settings)]
+  (sh "dconf" "write" "/org/gnome/desktop/interface/cursor-theme" (str "'" cursor-theme "'")))
+
+(when-let [cursor-size (:gtk-cursor-theme-size settings)]
+  (sh "dconf" "write" "/org/gnome/desktop/interface/cursor-size" (str "'" cursor-size "'")))
+
+; dconf write /org/gnome/desktop/interface/font-name "'Noto Sans Medium 11'"
+; dconf write /org/gnome/desktop/interface/monospace-font-name "'Noto Sans Mono Medium 11'"
+; dconf write /org/gnome/desktop/interface/document-font-name "'Noto Sans Medium 11'"
+
