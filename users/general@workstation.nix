@@ -396,6 +396,8 @@ in {
     zenity
 
     nwg-look
+    # libsForQt5.qt5ct
+    # kdePackages.qt6ct
     jellyfin
     obs-studio
     telegram-desktop

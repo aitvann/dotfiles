@@ -5,9 +5,8 @@
 # ==============================================================================
 
 export APP2UNIT_SLICES='a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice'
-
-# HACK: https://www.reddit.com/r/archlinux/comments/1gcxusc/comment/lv1kflm/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-export ELECTRON_OZONE_PLATFORM_HINT="auto"
+# force electron apps to use Wayland
+export NIXOS_OZONE_WL=1
 
 # ==============================================================================
 # Xdg
