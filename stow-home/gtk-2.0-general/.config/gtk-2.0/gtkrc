@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/general/.gtkrc-2.0.mine"
-gtk-theme-name="Adwaita"
+gtk-theme-name="Adwaita-dark"
 gtk-icon-theme-name="Tela"
 gtk-font-name="Adwaita Sans 11"
 gtk-cursor-theme-name="phinger-cursors-dark"
