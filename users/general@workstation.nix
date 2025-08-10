@@ -1,9 +1,9 @@
 {
-  self,
   inputs,
   config,
   pkgs,
   lib,
+  workstation,
   ...
 } @ args: let
   util = import ../lib/util.nix args;
@@ -41,7 +41,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/wl-clip-persist.nix];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/wl-clip-persist.nix ../modules/open-webui.nix];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -54,6 +54,7 @@ in {
       "steam-runtime"
       "steam-unwrapped"
       "graalvm-oracle"
+      "open-webui"
     ];
 
   home.username = "general";
@@ -61,6 +62,14 @@ in {
 
   services.syncthing.enable = true;
   services.mpd.enable = true;
+  services.ollama = {
+    enable = workstation.enable-llm;
+    acceleration = "rocm";
+  };
+  services.open-webui = {
+    enable = workstation.enable-llm;
+    stateDir = "${config.xdg.dataHome}/open-webui";
+  };
 
   programs.chromium = {
     enable = true;
@@ -513,56 +522,57 @@ in {
     cargo-show-asm
   ];
 
-  home.file = util.recursiveMerge [
-    # {
-    #   ".local/bin" = {
-    #     source = "${inputs.self}/../scripts";
-    #     recursive = true;
-    #   };
-    # }
+  home.file = util.recursiveMerge ([
+      # {
+      #   ".local/bin" = {
+      #     source = "${inputs.self}/../scripts";
+      #     recursive = true;
+      #   };
+      # }
 
-    # stow packages
-    (packageHomeFiles ../stow-home/atuin)
-    (packageHomeFiles ../stow-home/beets)
-    (packageHomeFiles ../stow-home/btop)
-    (packageHomeFiles ../stow-home/cargo)
-    (packageHomeFiles ../stow-home/direnv)
-    (packageHomeFiles ../stow-home/discord)
-    (packageHomeFiles ../stow-home/dunst)
-    (packageHomeFiles ../stow-home/efm-langserver)
-    # breaks styling
-    # (packageHomeFiles ../stow-home/eww)
-    (packageHomeFiles ../stow-home/firefox)
-    (packageHomeFiles ../stow-home/firefoxprofileswitcher-general)
-    (packageHomeFiles ../stow-home/foot)
-    (packageHomeFiles ../stow-home/git-general)
-    (packageHomeFiles ../stow-home/gnupg)
-    (packageHomeFiles ../stow-home/gtk-3.0)
-    (packageHomeFiles ../stow-home/gtk-4.0)
-    (packageHomeFiles ../stow-home/helix)
-    (packageHomeFiles ../stow-home/hypr)
-    (packageHomeFiles ../stow-home/icons)
-    (packageHomeFiles ../stow-home/lazygit)
-    (packageHomeFiles ../stow-home/mpd)
-    (packageHomeFiles ../stow-home/ncmpcpp)
-    (packageHomeFiles ../stow-home/networkmanager-dmenu)
-    # (packageHomeFiles ../stow-home/nix)
-    (packageHomeFiles ../stow-home/nvim)
-    (packageHomeFiles ../stow-home/pam-gnupg)
-    (packageHomeFiles ../stow-home/pipewire-general)
-    (packageHomeFiles ../stow-home/qalculate)
-    (packageHomeFiles ../stow-home/ripgrep)
-    (packageHomeFiles ../stow-home/rofi)
-    (packageHomeFiles ../stow-home/rofi-pass)
-    (packageHomeFiles ../stow-home/rofimoji)
-    # (packageHomeFiles ../stow-home/ssh-general)
-    (packageHomeFiles ../stow-home/syncthing-mars-general)
-    (packageHomeFiles ../stow-home/ueberzugpp)
-    (packageHomeFiles ../stow-home/uwsm)
-    (packageHomeFiles ../stow-home/wireplumber)
-    (packageHomeFiles ../stow-home/xdg) # prevents nnn:xdgdefault from working
-    (packageHomeFiles ../stow-home/zsh)
-  ];
+      # stow packages
+      (packageHomeFiles ../stow-home/atuin)
+      (packageHomeFiles ../stow-home/beets)
+      (packageHomeFiles ../stow-home/btop)
+      (packageHomeFiles ../stow-home/cargo)
+      (packageHomeFiles ../stow-home/direnv)
+      (packageHomeFiles ../stow-home/discord)
+      (packageHomeFiles ../stow-home/dunst)
+      (packageHomeFiles ../stow-home/efm-langserver)
+      # breaks styling
+      # (packageHomeFiles ../stow-home/eww)
+      (packageHomeFiles ../stow-home/firefox)
+      (packageHomeFiles ../stow-home/firefoxprofileswitcher-general)
+      (packageHomeFiles ../stow-home/foot)
+      (packageHomeFiles ../stow-home/git-general)
+      (packageHomeFiles ../stow-home/gnupg)
+      (packageHomeFiles ../stow-home/gtk-3.0)
+      (packageHomeFiles ../stow-home/gtk-4.0)
+      (packageHomeFiles ../stow-home/helix)
+      (packageHomeFiles ../stow-home/hypr)
+      (packageHomeFiles ../stow-home/icons)
+      (packageHomeFiles ../stow-home/lazygit)
+      (packageHomeFiles ../stow-home/mpd)
+      (packageHomeFiles ../stow-home/ncmpcpp)
+      (packageHomeFiles ../stow-home/networkmanager-dmenu)
+      # (packageHomeFiles ../stow-home/nix)
+      (packageHomeFiles ../stow-home/nvim)
+      (packageHomeFiles ../stow-home/pam-gnupg)
+      (packageHomeFiles ../stow-home/pipewire-general)
+      (packageHomeFiles ../stow-home/qalculate)
+      (packageHomeFiles ../stow-home/ripgrep)
+      (packageHomeFiles ../stow-home/rofi)
+      (packageHomeFiles ../stow-home/rofi-pass)
+      (packageHomeFiles ../stow-home/rofimoji)
+      # (packageHomeFiles ../stow-home/ssh-general)
+      (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
+      (packageHomeFiles ../stow-home/ueberzugpp)
+      (packageHomeFiles ../stow-home/uwsm)
+      (packageHomeFiles ../stow-home/wireplumber)
+      (packageHomeFiles ../stow-home/xdg) # prevents nnn:xdgdefault from working
+      (packageHomeFiles ../stow-home/zsh)
+    ]
+    ++ (lib.optionals workstation.enable-monerod [(packageHomeFiles ../stow-home/monerod)]));
 
   xdg.dataFile = with pkgs;
     util.recursiveMerge [
@@ -573,7 +583,7 @@ in {
       (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
       (util.linkFiles "../configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
 
-      # icon themes
+      # icone themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
       (util.linkFiles "share/icons/Pop" "icons/Pop" pop-icon-theme)
 

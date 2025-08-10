@@ -31,57 +31,85 @@
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    mars-workstation = {
+      host = "mars";
+      enable-llm = false;
+      enable-monerod = false;
+    };
+    pluto-workstation = {
+      host = "pluto";
+      enable-llm = true;
+      enable-monerod = true;
+    };
   in {
     nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        workstation = pluto-workstation;
+      };
       modules = [
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-        ./pluto/configuration.nix
+        ./workstation/configuration.nix
         disko.nixosModules.disko
         ./pluto/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit inputs;};
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            workstation = pluto-workstation;
+          };
           # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.general = import "${self}/../users/general@pluto.nix";
+          home-manager.users.general = import "${self}/../users/general@workstation.nix";
         }
       ];
     };
 
     homeConfigurations."pluto-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/general@pluto.nix"];
-      extraSpecialArgs = {inherit inputs;};
+      modules = ["${self}/../users/general@workstation.nix"];
+      extraSpecialArgs = {
+        inherit inputs;
+        workstation = pluto-workstation;
+      };
     };
 
     nixosConfigurations.mars = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        workstation = mars-workstation;
+      };
       modules = [
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-        ./mars/configuration.nix
+        ./workstation/configuration.nix
         disko.nixosModules.disko
         ./mars/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit inputs;};
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            workstation = mars-workstation;
+          };
           # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.general = import "${self}/../users/general@mars.nix";
+          home-manager.users.general = import "${self}/../users/general@workstation.nix";
         }
       ];
     };
 
     homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/general@mars.nix"];
-      extraSpecialArgs = {inherit inputs;};
+      modules = ["${self}/../users/general@workstation.nix"];
+      home-manager.extraSpecialArgs = {
+        inherit inputs;
+        workstation = mars-workstation;
+      };
     };
 
     nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {

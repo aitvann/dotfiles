@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   lib,
+  workstation,
   ...
 } @ args: let
   homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
@@ -11,7 +12,7 @@ in {
   disabledModules = ["services/display-managers/greetd.nix"];
 
   imports = [
-    ./hardware-configuration.nix
+    ../${workstation.host}/hardware-configuration.nix
     # overriding module so it reads configuration from standard location, not from cli arg
     ../../modules/greetd.nix
   ];
@@ -43,7 +44,7 @@ in {
     SuspendState=mem
   '';
 
-  networking.hostName = "pluto"; # Define your hostname.
+  networking.hostName = workstation.host; # Define your hostname.
   # Pick only one of the below networking options.
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
