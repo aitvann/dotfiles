@@ -221,6 +221,7 @@ in {
   xdg.configFile."dunst/dunstrc".enable = false;
   services.swww.enable = true;
   services.wl-clip-persist.enable = true;
+  services.xsettingsd.enable = true;
   qt.enable = true;
 
   programs.nnn = {
@@ -547,6 +548,7 @@ in {
       (packageHomeFiles ../stow-home/foot)
       (packageHomeFiles ../stow-home/git-general)
       (packageHomeFiles ../stow-home/gnupg)
+      (packageHomeFiles ../stow-home/gtk-2.0-general)
       (packageHomeFiles ../stow-home/gtk-3.0)
       (packageHomeFiles ../stow-home/gtk-4.0)
       (packageHomeFiles ../stow-home/helix)
@@ -571,6 +573,7 @@ in {
       (packageHomeFiles ../stow-home/uwsm)
       (packageHomeFiles ../stow-home/wireplumber)
       (packageHomeFiles ../stow-home/xdg) # prevents nnn:xdgdefault from working
+      (packageHomeFiles ../stow-home/xsettingsd)
       (packageHomeFiles ../stow-home/zsh)
     ]
     ++ (lib.optionals workstation.enable-monerod [(packageHomeFiles ../stow-home/monerod)]));

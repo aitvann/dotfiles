@@ -42,4 +42,10 @@
   "xdg" (cp-stow "xdg" ".config/mimeapps.list")
   "syncthing-mars" (cp-stow "syncthing-mars" ".config/syncthing/config.xml")
   "syncthing-pluto" (cp-stow "syncthing-pluto" ".config/syncthing/config.xml")
+  "gtk" (do
+          (cp-stow "icons" ".local/share/icons/default/index.theme")
+          (cp-stow "xsettingsd" ".config/xsettingsd/xsettingsd.conf")
+          (cp-stow "gtk-2.0" ".config/gtk-2.0/gtkrc")
+          (cp-stow "gtk-3.0" ".config/gtk-3.0/settings.ini")
+          (cp-stow "gtk-4.0" ".config/gtk-4.0/settings.ini"))
   (println "Package is not recognized"))
