@@ -5,9 +5,8 @@
   workstation,
   ...
 } @ args: let
-  homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
   util = import ../../lib/util.nix args;
-  packageSystemFiles = util.packageHomeFiles "/etc";
+  packageSystemFiles = util.packageStowFiles "/etc";
 in {
   disabledModules = ["services/display-managers/greetd.nix"];
 
@@ -44,19 +43,18 @@ in {
     SuspendState=mem
   '';
 
-  networking.hostName = workstation.host; # Define your hostname.
-  # Pick only one of the below networking options.
-  networking.wireless.enable = false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-
+  networking.hostName = workstation.host;
+  # pick only one of the below networking options
+  networking.networkmanager.enable = true;
+  # enables wireless support via wpa_supplicant
+  # turning off explicitely in order to be able to build an ISO
+  networking.wireless.enable = false;
   networking.firewall = {
     # from https://jellyfin.org/docs/general/networking/index.html
     allowedTCPPorts = [8096 8920];
-    # from https://jellyfin.org/docs/general/networking/index.html
     allowedUDPPorts = [1900 7359];
   };
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = "Europe/Moscow";
 
@@ -74,12 +72,7 @@ in {
   # TODO: figure out smooth plymouth transition as it is not supported out of the box
   # https://todo.sr.ht/~kennylevinsen/greetd/17
   services.greetd.greeterManagesPlymouth = false;
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      # xdg-desktop-portal-hyprland set by default
-    ];
-  };
+  xdg.portal.enable = true;
   # TODO: integrate `pass`:
   # - https://github.com/grimsteel/pass-secret-service -- not packaged for nix
   # - https://github.com/mdellweg/pass_secret_service -- times out
@@ -95,23 +88,18 @@ in {
   security.pam.services.greetd.gnupg.enable = true;
   security.pam.services.greetd.gnupg.storeOnly = true;
 
-  services.devmon.enable = true;
-  services.gvfs.enable = true;
   services.udisks2.enable = true;
-
   services.earlyoom.enable = true;
   services.upower.enable = true;
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
-  # Enable WIFI printing
+  # enable WIFI printing
   services.avahi = {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
   };
 
-  # Enable sound.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -120,7 +108,6 @@ in {
     pulse.enable = true;
   };
 
-  # Define a user account.
   users.users.general = {
     isNormalUser = true;
     description = "General User";
@@ -149,12 +136,9 @@ in {
     tunMode.enable = true;
   };
 
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # TODO: custom package
-  # upstream package only works as long as
-  # there is no need in config and it does not override sshcontrol file
+  # TODO: move to home config
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -196,10 +180,6 @@ in {
   # some local scripts are not fully POSIX-compatible yet
   # environment.binsh = "${pkgs.dash}/bin/dash";
 
-  # fixes home-manager.sessionVariables
-  # https://github.com/nix-community/home-manager/issues/1011
-  environment.extraInit = "[[ -f ${homeManagerSessionVars} ]] && source ${homeManagerSessionVars}";
-
   networking.extraHosts = ''
     127.0.0.1 local_kafka
     127.0.0.1 postgres-test
@@ -208,11 +188,11 @@ in {
   '';
 
   environment.systemPackages = with pkgs; [
+    # won't work unles system installed
     gparted
 
     cage
     regreet
-    xorg.xhost
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system

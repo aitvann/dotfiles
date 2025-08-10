@@ -6,7 +6,7 @@
   ...
 } @ args: let
   util = import ../lib/util.nix args;
-  packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
+  packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   home.username = "aitvann";
   home.homeDirectory = "/home/${config.home.username}";

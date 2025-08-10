@@ -46,7 +46,6 @@
   # https://github.com/serokell/deploy-rs/issues/25
   nix.settings.trusted-users = ["@wheel"];
 
-  # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     # require public key authentication for better security

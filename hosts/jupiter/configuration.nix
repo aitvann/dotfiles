@@ -16,11 +16,8 @@
   networking.wireless.enable = false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
-  time.timeZone = "Europe/Moscow";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
+  time.timeZone = "Europe/Moscow";
 
   users.users.aitvann = {
     isNormalUser = true;
@@ -80,7 +77,6 @@
 
   services.earlyoom.enable = true;
 
-  # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     # require public key authentication for better security

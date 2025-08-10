@@ -7,7 +7,7 @@
   ...
 } @ args: let
   util = import ../lib/util.nix args;
-  packageHomeFiles = util.packageHomeFiles config.home.homeDirectory;
+  packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
     (import ../packages)
@@ -367,18 +367,20 @@ in {
   };
 
   home.packages = with pkgs; [
+    # desktop environment
     eww
+    bluetui
     rofi-wayland
     rofi-pass-wayland
     rofimoji
+    networkmanager_dmenu
+    networkmanagerapplet
     nerd-fonts.jetbrains-mono
     wl-clipboard
     foot
     slurp
     grim
     brightnessctl
-    networkmanagerapplet
-    networkmanager_dmenu
     qpwgraph
     libnotify
     satty
@@ -395,10 +397,10 @@ in {
     adwaita-qt6
     zenity
 
+    # gui apps
     nwg-look
     # libsForQt5.qt5ct
     # kdePackages.qt6ct
-    jellyfin
     obs-studio
     telegram-desktop
     protontricks
@@ -408,7 +410,6 @@ in {
     tor-browser-bundle-bin
     monero-gui
     monero-cli
-    wasabiwallet
     prismlauncher
     # openjdk8-bootstrap
     graalvmPackages.graalvm-oracle_17
@@ -423,13 +424,10 @@ in {
     tcpdump
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
-    # should be installed as system package
-    # gparted
 
+    # cli apps
     stow
     fastfetch
-    xclip
-    zplug
     # infinite recursion in overlay
     (pass.withExtensions (exts: with exts; [pass-otp]))
     docker-compose
@@ -440,20 +438,11 @@ in {
     ripgrep
     fd
     btop
+    socat
     jq
     gojq
-    eza
-    # zsh
-    carapace
-    atuin
-    z-lua
-    zinit
-    starship
     grpcui
     grpcurl
-    sqlite-interactive
-    clickhouse
-    postgresql_14
     syncplay
     trash-cli
     unzip
@@ -469,27 +458,35 @@ in {
     file
     bc
     atool
-    bat
     imagemagick
     ffmpegthumbnailer
-    poppler_utils
     fontpreview
     glow
     xdragon # supports Wayland too
     archivemount
-    fzf
     beets-unstable
-    mpd
     ncmpcpp
     restic
     graphviz
     spl-token-cli
     solores
-    wireguard-tools
-    bluetui
     btrfs-assistant
     btrfs-list
 
+    # db
+    sqlite-interactive
+    clickhouse
+    postgresql_14
+
+    # zsh
+    fzf
+    starship
+    carapace
+    atuin
+    z-lua
+    eza
+
+    # nix
     home-manager
     comma
     nix-index
@@ -497,7 +494,7 @@ in {
     nix-du
     deploy-rs
 
-    socat
+    # text editors
     helix
     clojure-lsp
     rust-analyzer
@@ -513,9 +510,11 @@ in {
     sqlfluff
     pandoc
 
+    # clojure
     leiningen
     babashka
 
+    # rust
     cargo
     cargo-cache
     cargo-expand

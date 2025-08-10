@@ -42,7 +42,7 @@ with lib; rec {
     in
       builtins.listToAttrs paths;
 
-  packageHomeFiles = target: package:
+  packageStowFiles = target: package:
     builtins.mapAttrs (n: v: {source = lib.mkForce v;}) (stowConfig target package);
 
   endsWith = str: suffix: let
