@@ -37,6 +37,14 @@ in {
               prev.rofi-calc
             ];
         });
+      oculante = prev.oculante.overrideAttrs (oldAttrs: {
+        postInstall =
+          (oldAttrs.postInstall or "")
+          + ''
+            substituteInPlace $out/share/applications/oculante.desktop \
+              --replace "oculante %U" "oculante %F"
+          '';
+      });
     })
   ];
 
