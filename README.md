@@ -4,12 +4,12 @@ This repo includes configuration for my hosts
 
 Key features:
 
-2.  Declarative encrypted BtrFs using [disko](https://github.com/nix-community/disko)
-3.  Minimal NixOS configuration: as much as possible is moved to Home Manager
-4.  Minimal Home Manager configuration: as much as possible is configured in
+1.  Declarative encrypted BtrFs using [disko](https://github.com/nix-community/disko)
+2.  Minimal NixOS configuration: as much as possible is moved to Home Manager
+3.  Minimal Home Manager configuration: as much as possible is configured in
     [stow](https://www.gnu.org/software/stow/)-compatible way
-5.  UWSM Hyprland
-6.  Minimal NeoVim configuration:
+4.  UWSM Hyprland
+5.  Minimal NeoVim configuration:
     -   As much as possible is done with either LSP or TreeSitter
     -   Desktop notifications
     -   External (yet integrated with editor) file manager ([n³](https://github.com/jarun/nnn))
@@ -52,13 +52,13 @@ reboot
 
 ### Change GTK Theme
 
-2.  Add theme package to `home.packages`
-3.  Some files might need to be deleted if they point to `/nix/store`, otherwise `nwg-look` won't
+1.  Add theme package to `home.packages`
+2.  Some files might need to be deleted if they point to `/nix/store`, otherwise `nwg-look` won't
     apply the changes:
     `rm {~/.local/share/icons/default/index.theme,~/.config/xsettingsd/xsettingsd.conf,~/.config/gtk-2.0/gtkrc,~/.config/gtk-3.0/settings.ini,~/.config/gtk-4.0/settings.ini}`
-4.  Select and apply themes using `nwg-look` tool
-5.  Run `systemctl --user restart xsettingsd.service`
-6.  Run `apply-config gtk` script to copy GTK configuration files to the repo
+3.  Select and apply themes using `nwg-look` tool
+4.  Run `systemctl --user restart xsettingsd.service`
+5.  Run `apply-config gtk` script to copy GTK configuration files to the repo
 
 ### Change QT Theme
 
