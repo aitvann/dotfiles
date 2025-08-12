@@ -15,11 +15,11 @@ in {
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.system}.default;
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
-      hyprland = inputs.hyprland.packages.${pkgs.system}.default;
       hyprlandPlugins =
         prev.hyprlandPlugins
         // {
-          hyprfocus = inputs.hyprfocus.packages.${pkgs.system}.default;
+          hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors;
+          xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
@@ -216,7 +216,8 @@ in {
     enable = true;
     systemd.enable = false;
     plugins = with pkgs.hyprlandPlugins; [
-      # hyprfocus
+      hypr-dynamic-cursors
+      xtra-dispatchers
     ];
   };
   programs.hyprlock.enable = true;

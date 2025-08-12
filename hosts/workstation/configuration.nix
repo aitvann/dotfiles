@@ -61,6 +61,7 @@ in {
   # required for Home Manager to configure system settings
   programs.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.default;
     withUWSM = true;
     xwayland.enable = true;
   };
