@@ -19,6 +19,20 @@
     select_current_song_on_change: false,
     browser_song_sort: [Disc, Track, Artist, Title],
     directories_sort: ModifiedTime(group_by_type: true, reverse: true),
+    cava: (
+        input: (
+            method: Fifo,
+            source: "/tmp/mpd.fifo",
+            sample_rate: 44100,
+            channels: 2,
+            sample_bits: 16,
+        ),
+        smoothing: (
+            noise_reduction: 77,
+            monstercat: false,
+            waves: false,
+        ),
+    ),
     album_art: (
         method: Auto,
         max_size_px: (width: 1200, height: 1200),
@@ -152,7 +166,21 @@
                                 (
                                     size: "70%",
                                     borders: "ALL",
-                                    pane: Pane(Queue),
+                                    pane: Split(
+                                        direction: Vertical,
+                                        panes: [
+                                            (
+                                                size: "50%",
+                                                borders: "BOTTOM",
+                                                pane: Pane(Queue)
+                                            ),
+                                            (
+                                                size: "50%",
+                                                borders: "NONE",
+                                                pane: Pane(Cava)
+                                            ),
+                                        ]
+                                    ),
                                 ),
                                 (
                                     size: "30%",

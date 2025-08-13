@@ -476,6 +476,7 @@ in {
     archivemount
     beets-unstable
     rmpc
+    cava
     restic
     graphviz
     spl-token-cli
