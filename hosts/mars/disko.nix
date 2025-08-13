@@ -1,9 +1,11 @@
-{disks ? ["/dev/nvme1n1"], ...}: {
+{...}: {
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = builtins.elemAt disks 0;
+        # unable to use `disks` argument as it's incompatible with `--flake` option
+        # device = builtins.elemAt disks 0;
+        device = "/dev/nvme1n1";
         content = {
           type = "gpt";
           partitions = {
@@ -22,7 +24,7 @@
               };
             };
             # MANUAL:
-            # echo 'password' > /tmp/secret.key
+            # vi > /tmp/secret.key
             luks = {
               end = "-64G";
               content = {
@@ -57,12 +59,11 @@
                     };
                     # MANUAL:
                     # ``` sh
-                    # sudo btrfs subvolume create /home/general/.snapshots
-                    # sudo chown root:users /home/general/.snapshots
+                    # chown -R general:users {.local,.snapshots}
                     # ````
                     "@home-general/.snapshots" = {
                       # no mount point, snapshot is nested
-                      mountOptions = ["compress=zstd" "noatime"];
+                      # no mount options sice they are derived from parent
                     };
                     # we don't want to snapshot games and their data as those can be recovered from Steam cloud
                     "@steam" = {

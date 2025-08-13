@@ -1,9 +1,11 @@
-{disks ? ["/dev/nvme0n1"], ...}: {
+{...}: {
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = builtins.elemAt disks 0;
+        # unable to use `disks` argument as it's incompatible with `--flake` option
+        # device = builtins.elemAt disks 0;
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -21,6 +23,8 @@
                 extraArgs = ["-nNIXBOOT"];
               };
             };
+            # MANUAL:
+            # vi > /tmp/secret.key
             luks = {
               end = "-64G";
               content = {
@@ -55,12 +59,11 @@
                     };
                     # MANUAL:
                     # ``` sh
-                    # sudo btrfs subvolume create /home/general/.snapshots
-                    # sudo chown root:users /home/general/.snapshots
+                    # chown -R general:users {.local,.snapshots}
                     # ````
                     "@home-general/.snapshots" = {
                       # no mount point, snapshot is nested
-                      mountOptions = ["compress=zstd" "noatime"];
+                      # no mount options sice they are derived from parent
                     };
                     # we don't want to snapshot games and their data as those can be recovered from Steam cloud
                     "@steam" = {
@@ -78,46 +81,21 @@
               };
             };
 
-            # luks-swap = {
-            #   size = "100%";
-            #   content = {
-            #     type = "luks";
-            #     name = "swap-crypted";
-            #     settings = {
-            #       keyFile = "/mnt-root/root/swap.key";
-            #     };
-            #     content = {
-            #       type = "swap";
-            #       randomEncryption = false; # using `keyFile` instead so hibernation works
-            #       resumeDevice = true;
-            #       extraArgs = ["-L NIXSWAP"];
-            #     };
-            #   };
-            # };
-            #
-            # add:
-            #
-            # MANUAL:
-            # dd count=1 bs=512 if=/dev/urandom of=/mnt/root/swap.key
-            #
-            # swapDevices = lib.mkForce [
-            #   {
-            #     device = "/dev/disk/by-partlabel/disk-main-swap";
-            #     encrypted = {
-            #       enable = true;
-            #       keyFile = "/mnt-root/root/swap.key";
-            #       blkDev = "/dev/disk/by-id/dm-name-swap-crypted";
-            #     };
-            #   }
-            # ];
-
-            swap = {
+            luks-swap = {
               size = "100%";
               content = {
-                type = "swap";
-                randomEncryption = true;
-                resumeDevice = true; # resume from hibernation from this device. won't actually work https://github.com/nix-community/disko/issues/604#issuecomment-2094123287
-                extraArgs = ["-L NIXSWAP"];
+                type = "luks";
+                name = "swap-crypted";
+                passwordFile = "/tmp/secret.key"; # Interactive
+                settings = {
+                  allowDiscards = true;
+                };
+                content = {
+                  type = "swap";
+                  randomEncryption = false; # using luks instead so hibernation works
+                  resumeDevice = true;
+                  extraArgs = ["-L" "NIXSWAP"];
+                };
               };
             };
           };
