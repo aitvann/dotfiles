@@ -21,7 +21,7 @@ size = "70% 80%"
 excludes = "*"
 
 [scratchpads.music-player]
-command = "foot --title music-player ncmpcpp"
+command = "foot --title music-player rmpc"
 animation = "fromTop"
 size = "70% 80%"
 excludes = "*"

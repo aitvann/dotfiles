@@ -475,7 +475,7 @@ in {
     xdragon # supports Wayland too
     archivemount
     beets-unstable
-    ncmpcpp
+    rmpc
     restic
     graphviz
     spl-token-cli
@@ -573,6 +573,7 @@ in {
       (packageHomeFiles ../stow-home/pipewire-general)
       (packageHomeFiles ../stow-home/qalculate)
       (packageHomeFiles ../stow-home/ripgrep)
+      (packageHomeFiles ../stow-home/rmpc)
       (packageHomeFiles ../stow-home/rofi)
       (packageHomeFiles ../stow-home/rofi-pass)
       (packageHomeFiles ../stow-home/rofimoji)
