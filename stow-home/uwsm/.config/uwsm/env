@@ -41,6 +41,10 @@ export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
 export XCURSOR_PATH="${XDG_DATA_HOME}/icons"
 export LEIN_HOME="${XDG_DATA_HOME}/lein"
 export SQLITE_HISTORY=${XDG_STATE_HOME}/sqlite_history
+export USERXSESSION="${XDG_CACHE_HOME}/X11/xsession"
+export USERXSESSIONRC="${XDG_CACHE_HOME}/X11/xsessionrc"
+export ALTUSERXSESSION="${XDG_CACHE_HOME}/X11/Xsession"
+export ERRFILE="${XDG_CACHE_HOME}/X11/xsession-errors"
 
 
 # ==============================================================================

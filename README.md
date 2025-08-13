@@ -30,9 +30,8 @@ Key features:
 # Could be: pluto, mars, jupiter, venus
 NIXHOST=pluto
 NIXUSER=general
-curl "https://raw.githubusercontent.com/aitvann/dotfiles/refs/heads/master/hosts/${NIXHOST}/disko.nix" > disko.nix
 echo -n 'main drive encryption password here' > /tmp/secret.key
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix --flake "github:aitvann/dotfiles?dir=hosts#${NIXHOST}"
 nixos-generate-config --show-hardware-config --no-filesystems --root /mnt
 # Edit configuration.nix accordingly
 sudo nixos-install --root /mnt --flake github:aitvann/dotfiles?dir=hosts#${NIXHOST}
@@ -40,8 +39,8 @@ nixos-enter --root /mnt/disko-install-root
 chown -R ${NIXUSER}:users {.local,.snapshots}
 su - ${NIXUSER}
 # Insert cd with secrets
-import-secrets ~/secrets.tar.gpg --password "password here"
-restic-jupiter restore -t ~ latest:home/${NIXUSER}
+import-secrets ~/secrets.tar.gpg
+restic-jupiter restore -t ~ latest:home/${USER}
 mkdir -p {~/.config/mpd,~/.config/gtk-2.0}
 reboot
 ```

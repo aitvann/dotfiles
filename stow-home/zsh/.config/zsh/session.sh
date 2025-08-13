@@ -26,7 +26,7 @@ alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles/ho
 alias hm-rebuild-switch="home-manager switch --flake /home/${USER}/dotfiles/hosts#${HOST}-${USER}"
 alias user-repl='nix repl ~/dotfiles/hosts#homeConfigurations."$HOST-$USER"'
 # pkgs = pluto.config.home-manager.extraSpecialArgs.inputs.nixpkgs.legacyPackages.x86_64-linux
-alias host-repl='nix repl ~/dotfiles/hosts#nixosConfigurations."$NAME"'
+alias host-repl='nix repl ~/dotfiles/hosts#nixosConfigurations."$HOST"'
 # :lf .#
 # pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux
 alias nix-repl='nix repl nixpkgs'
