@@ -37,6 +37,9 @@ in {
               prev.rofi-calc
             ];
         });
+      # HACK:
+      # fixing broken desktop entry
+      # https://github.com/Vladimir-csp/app2unit/issues/9#issuecomment-3175908089
       oculante = prev.oculante.overrideAttrs (oldAttrs: {
         postInstall =
           (oldAttrs.postInstall or "")
@@ -568,7 +571,7 @@ in {
       (packageHomeFiles ../stow-home/mpd)
       (packageHomeFiles ../stow-home/ncmpcpp)
       (packageHomeFiles ../stow-home/networkmanager-dmenu)
-      # (packageHomeFiles ../stow-home/nix)
+      (packageHomeFiles ../stow-home/nix)
       (packageHomeFiles ../stow-home/nvim)
       (packageHomeFiles ../stow-home/pam-gnupg)
       (packageHomeFiles ../stow-home/pipewire-general)
@@ -578,12 +581,12 @@ in {
       (packageHomeFiles ../stow-home/rofi)
       (packageHomeFiles ../stow-home/rofi-pass)
       (packageHomeFiles ../stow-home/rofimoji)
-      # (packageHomeFiles ../stow-home/ssh-general)
+      (packageHomeFiles ../stow-home/ssh-general)
       (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
       (packageHomeFiles ../stow-home/ueberzugpp)
       (packageHomeFiles ../stow-home/uwsm)
       (packageHomeFiles ../stow-home/wireplumber)
-      (packageHomeFiles ../stow-home/xdg) # prevents nnn:xdgdefault from working
+      (packageHomeFiles ../stow-home/xdg)
       (packageHomeFiles ../stow-home/xsettingsd)
       (packageHomeFiles ../stow-home/zsh)
     ]
@@ -603,14 +606,9 @@ in {
       (util.linkFiles "share/icons/Pop" "icons/Pop" pop-icon-theme)
 
       # xcursor
-      (util.linkFiles "share/icons/phinger-cursors-dark" "icons/phinger-cursors-dark" phinger-cursors)
-      (util.linkFiles "share/icons/phinger-cursors-dark-left" "icons/phinger-cursors-dark-left" phinger-cursors)
-      (util.linkFiles "share/icons/phinger-cursors-light" "icons/phinger-cursors-light" phinger-cursors)
-      (util.linkFiles "share/icons/phinger-cursors-light-left" "icons/phinger-cursors-light-left" phinger-cursors)
-
+      (util.linkFiles "share/icons/" "icons/" phinger-cursors)
       # hyprcursor
-      (util.linkFiles "share/icons/theme_phinger-cursors-dark" "icons/theme_phinger-cursors-dark" hyprcursor-phinger)
-      (util.linkFiles "share/icons/theme_phinger-cursors-light" "icons/theme_phinger-cursors-light" hyprcursor-phinger)
+      (util.linkFiles "share/icons/" "icons/" hyprcursor-phinger)
     ];
 
   home.stateVersion = "22.05";
