@@ -139,6 +139,12 @@ in {
 
   services.openssh.enable = true;
 
+  # GPU is not utilized when running as user service
+  services.ollama = {
+    enable = workstation.enable-llm;
+    acceleration = "rocm";
+  };
+
   # TODO: move to home config
   programs.gnupg.agent = {
     enable = true;

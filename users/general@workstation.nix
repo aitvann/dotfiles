@@ -73,10 +73,6 @@ in {
 
   services.syncthing.enable = true;
   services.mpd.enable = true;
-  services.ollama = {
-    enable = workstation.enable-llm;
-    acceleration = "rocm";
-  };
   services.open-webui = {
     enable = workstation.enable-llm;
     stateDir = "${config.xdg.dataHome}/open-webui";
