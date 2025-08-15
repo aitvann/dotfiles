@@ -10,6 +10,7 @@ yt-dlp \
     --extract-audio \
     --embed-thumbnail \
     --embed-metadata \
+    --extractor-arg "youtube:player_client=mweb" \
     --cookies-from-browser firefox \
     "https://www.youtube.com/playlist?list=PL3IFklmt6R9CVSzOPwWqovvz2gHEFaIEZ"
 
@@ -21,6 +22,7 @@ yt-dlp \
     --extract-audio \
     --embed-thumbnail \
     --embed-metadata \
+    --extractor-arg "youtube:player_client=mweb" \
     --cookies-from-browser firefox \
     "https://www.youtube.com/playlist?list=LM"
 
