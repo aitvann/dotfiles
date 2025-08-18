@@ -143,6 +143,9 @@ in {
   services.ollama = {
     enable = workstation.enable-llm;
     acceleration = "rocm";
+    environmentVariables = {
+      OLLAMA_FLASH_ATTENTION = "1";
+    };
   };
 
   # TODO: move to home config
