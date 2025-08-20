@@ -1,11 +1,12 @@
 [pyprland]
 plugins = ["scratchpads"]
 
-# [scratchpads.messenger]
-# command = "element-desktop"
-# animation = "fromTop"
-# size = "70% 80%"
-# excludes = "*"
+[scratchpads.messenger]
+command = "element-desktop"
+animation = "fromTop"
+size = "70% 80%"
+excludes = "*"
+class = "Element"
 
 [scratchpads.telegram]
 command = "Telegram"
