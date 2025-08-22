@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }: {
   imports = [
@@ -58,9 +59,10 @@
   # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
   security.pam.sshAgentAuth.enable = true;
 
+  # TODO: use cusom module so configuration from a default location is used instead
   services.xray = {
     enable = true;
-    settingsFile = ./xray.json;
+    settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.json";
   };
 
   networking.firewall = {
