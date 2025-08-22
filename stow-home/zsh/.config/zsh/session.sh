@@ -22,8 +22,8 @@ alias nnn="n"
 alias N='sudo -E nnn -dH'
 alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
 alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --password-command 'pass jupiter-backup'"
-alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles/hosts#${HOST} switch"
-alias hm-rebuild-switch="home-manager switch --flake /home/${USER}/dotfiles/hosts#${HOST}-${USER}"
+alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles#${HOST} switch"
+alias hm-rebuild-switch="home-manager switch --flake /home/${USER}/dotfiles#${HOST}-${USER}"
 alias user-repl='nix repl ~/dotfiles/hosts#homeConfigurations."$HOST-$USER"'
 # pkgs = pluto.config.home-manager.extraSpecialArgs.inputs.nixpkgs.legacyPackages.x86_64-linux
 alias host-repl='nix repl ~/dotfiles/hosts#nixosConfigurations."$HOST"'

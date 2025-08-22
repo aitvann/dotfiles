@@ -7,7 +7,7 @@
   update-system
   (do
     (shell "nix flake update")
-    (shell "mozilla-addons-to-nix ../packages/firefox-addons.json ../packages/generated-firefox-addons.nix")
+    (shell "mozilla-addons-to-nix packages/firefox-addons.json packages/generated-firefox-addons.nix")
     (shell "echo Now you gotta update every package in packages/ manually :)"))
   ; `browser.places.importBookmarksHTML` setting overrides existing bookmarks
   ; run it in case of closing Firefox without importing bookmarks

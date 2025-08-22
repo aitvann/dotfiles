@@ -555,7 +555,7 @@ in {
   home.file = util.recursiveMerge ([
       # {
       #   ".local/bin" = {
-      #     source = "${inputs.self}/../scripts";
+      #     source = "${inputs.self}/scripts";
       #     recursive = true;
       #   };
       # }
@@ -613,8 +613,8 @@ in {
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
 
       # bookmarks
-      (util.linkFiles "../configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
-      (util.linkFiles "../configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
+      (util.linkFiles "configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
+      (util.linkFiles "configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
 
       # icone themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)

@@ -58,9 +58,9 @@
       modules = [
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-        ./workstation/configuration.nix
+        hosts/workstation/configuration.nix
         disko.nixosModules.disko
-        ./pluto/disko.nix
+        hosts/pluto/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
@@ -70,14 +70,14 @@
             workstation = pluto-workstation;
           };
           # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.general = import "${self}/../users/general@workstation.nix";
+          home-manager.users.general = import "${self}/users/general@workstation.nix";
         }
       ];
     };
 
     homeConfigurations."pluto-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/general@workstation.nix"];
+      modules = ["${self}/users/general@workstation.nix"];
       extraSpecialArgs = {
         inherit inputs;
         workstation = pluto-workstation;
@@ -93,9 +93,9 @@
       modules = [
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-        ./workstation/configuration.nix
+        hosts/workstation/configuration.nix
         disko.nixosModules.disko
-        ./mars/disko.nix
+        hosts/mars/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
@@ -105,14 +105,14 @@
             workstation = mars-workstation;
           };
           # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.general = import "${self}/../users/general@workstation.nix";
+          home-manager.users.general = import "${self}/users/general@workstation.nix";
         }
       ];
     };
 
     homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/general@workstation.nix"];
+      modules = ["${self}/users/general@workstation.nix"];
       home-manager.extraSpecialArgs = {
         inherit inputs;
         workstation = mars-workstation;
@@ -122,20 +122,20 @@
     nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        ./jupiter/configuration.nix
+        hosts/jupiter/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.users.aitvann = import "${self}/../users/aitvann@jupiter.nix";
+          home-manager.users.aitvann = import "${self}/users/aitvann@jupiter.nix";
         }
       ];
     };
 
     homeConfigurations."jupiter-aitvann" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/aitvann@jupiter.nix"];
+      modules = ["${self}/users/aitvann@jupiter.nix"];
       extraSpecialArgs = {inherit inputs;};
     };
 
@@ -160,22 +160,22 @@
       specialArgs = {inherit inputs;};
       modules = [
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        ./venus/configuration.nix
+        hosts/venus/configuration.nix
         disko.nixosModules.disko
-        ./venus/disko.nix
+        hosts/venus/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.users.aitvann = import "${self}/../users/aitvann@venus.nix";
+          home-manager.users.aitvann = import "${self}/users/aitvann@venus.nix";
         }
       ];
     };
 
     homeConfigurations."venus-aitvann" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/../users/aitvann@venus.nix"];
+      modules = ["${self}/users/aitvann@venus.nix"];
       extraSpecialArgs = {inherit inputs;};
     };
 

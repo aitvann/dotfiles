@@ -31,10 +31,10 @@ Key features:
 NIXHOST=pluto
 NIXUSER=general
 echo -n 'main drive encryption password here' > /tmp/secret.key
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix --flake "github:aitvann/dotfiles?dir=hosts#${NIXHOST}"
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix --flake "github:aitvann/dotfiles#${NIXHOST}"
 nixos-generate-config --show-hardware-config --no-filesystems --root /mnt
 # Edit configuration.nix accordingly
-sudo nixos-install --root /mnt --flake github:aitvann/dotfiles?dir=hosts#${NIXHOST}
+sudo nixos-install --root /mnt --flake github:aitvann/dotfiles#${NIXHOST}
 nixos-enter --root /mnt/disko-install-root
 chown -R ${NIXUSER}:users {.local,.snapshots}
 su - ${NIXUSER}
