@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }: {
   imports = [
@@ -88,6 +89,12 @@
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce ["multi-user.target"];
   # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
   security.pam.sshAgentAuth.enable = true;
+
+  # TODO: use cusom module so configuration from a default location is used instead
+  services.xray = {
+    enable = true;
+    settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.json";
+  };
 
   # disable suspend on close laptop lid
   # https://unix.stackexchange.com/questions/257587/how-to-disable-suspend-on-close-laptop-lid-on-nixos

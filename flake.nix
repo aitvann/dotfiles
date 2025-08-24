@@ -121,6 +121,7 @@
 
     nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
       inherit system;
+      specialArgs = {inherit inputs;};
       modules = [
         hosts/jupiter/configuration.nix
         home-manager.nixosModules.home-manager

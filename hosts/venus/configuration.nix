@@ -67,7 +67,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [443];
+    allowedTCPPorts = [443 1024];
   };
 
   environment.sessionVariables = {
