@@ -199,7 +199,7 @@
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-    devShell.${system} = let
+    devShells.${system}.default = let
       overlays = [nur.overlays.default];
       pkgs = import nixpkgs {inherit system overlays;};
     in
