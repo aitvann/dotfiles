@@ -52,6 +52,7 @@
   services.deluge = {
     enable = true;
     openFirewall = true;
+    group = "homelab";
     declarative = true;
     # must be inside `services.deluge.dataDir` which is `/var/lib/deluge` by default
     authFile = "/var/lib/deluge/.config/deluge/deluge-auth";
@@ -68,13 +69,12 @@
       openFirewall = true;
     };
   };
-  users.users.deluge.extraGroups = ["homelab"];
 
   services.jellyfin = {
     enable = true;
+    group = "homelab";
     openFirewall = true;
   };
-  users.users.jellyfin.extraGroups = ["homelab"];
 
   services.earlyoom.enable = true;
 
