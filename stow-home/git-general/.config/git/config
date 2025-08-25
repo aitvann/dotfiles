@@ -1,6 +1,13 @@
 [core]
     excludesfile = ~/.config/git/.gitignore_global
 
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = "nvim  -d \"$LOCAL\" \"$REMOTE\""
+[difftool]
+	prompt = false
+
 [includeIf "gitdir:~/code/"]
     path = "~/.config/git/config.public"
 
