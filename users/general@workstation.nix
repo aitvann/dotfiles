@@ -146,6 +146,7 @@ in {
         ublacklist
         simple-translate
 
+        simplelogin
         fastforwardteam
         rust-search-extension
         web-archives
