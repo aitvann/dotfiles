@@ -435,6 +435,7 @@ in {
     protontricks
     discord
     element-desktop
+    hexchat
     qbittorrent
     tor-browser-bundle-bin
     monero-gui

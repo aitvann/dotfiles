@@ -49,6 +49,8 @@
 
   users.groups.homelab = {};
 
+  # MANUAL:
+  # enable Label plugin
   services.deluge = {
     enable = true;
     openFirewall = true;
@@ -71,6 +73,33 @@
   };
 
   services.jellyfin = {
+    enable = true;
+    group = "homelab";
+    openFirewall = true;
+  };
+  systemd.services.jellyfin.environment = {
+    http_proxy = "127.0.0.1:21445";
+    https_proxy = "127.0.0.1:21445";
+    noproxy = ".homelab.io,localhost,.localdomain,::1,::";
+  };
+
+  # MANUAL:
+  # root_folders = ["/srv/media/movies"]
+  # proxy = localhost:21445
+  # add Jellyfin connection
+  # add Deluge connection
+  services.radarr = {
+    enable = true;
+    group = "homelab";
+    openFirewall = true;
+  };
+
+  # MANUAL:
+  # root_folders = ["/srv/media/shows"]
+  # proxy = localhost:21445
+  # add Jellyfin connection
+  # add Deluge connection
+  services.sonarr = {
     enable = true;
     group = "homelab";
     openFirewall = true;
