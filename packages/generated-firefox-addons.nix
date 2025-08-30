@@ -2,10 +2,10 @@
   {
     "braavos-wallet" = buildFirefoxXpiAddon {
       pname = "braavos-wallet";
-      version = "4.7.3";
+      version = "4.9.2";
       addonId = "{a0c6ccfd-26a3-4df4-9729-aa036070ad29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4529432/braavos_wallet-4.7.3.xpi";
-      sha256 = "6c176ce5200fdd4b8d615a1dcb50428e0329fed5a54f0c45e26dff82fd564c4d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4556880/braavos_wallet-4.9.2.xpi";
+      sha256 = "b16af339509a75cade7af6979fea88e3b5364a98f6e3382e50c17ca2ec6adae5";
       meta = with lib;
       {
         homepage = "https://www.braavos.app";
@@ -77,6 +77,26 @@
           "tabs"
           "webRequest"
           "unlimitedStorage"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "proxy-toggle" = buildFirefoxXpiAddon {
+      pname = "proxy-toggle";
+      version = "1.2.1";
+      addonId = "{0c3ab5c8-57ac-4ad8-9dd1-ee331517884d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3405365/proxy_toggle-1.2.1.xpi";
+      sha256 = "467f2567f03ecbc503f931d39d5cd8a144b3279f34f0569c6796303b2013ea52";
+      meta = with lib;
+      {
+        description = "Toggle between direct connection and a single proxy server via a toolbar icon.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "proxy"
+          "<all_urls>"
+          "webRequest"
+          "webRequestBlocking"
         ];
         platforms = platforms.all;
       };

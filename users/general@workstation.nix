@@ -144,6 +144,8 @@ in {
         vimium
         # MANUAL: go to extension settings and import options manually
         ublacklist
+        # MANUAL: go to extension settings and configure `localhost:2080`
+        proxy-toggle
         simple-translate
 
         simplelogin
