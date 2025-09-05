@@ -1,3 +1,4 @@
+secrets/* filter=git-crypt diff=git-crypt
 known_hosts filter=git-crypt diff=git-crypt
 stow-home/syncthing-mars-general/.config/syncthing/config.xml filter=git-crypt diff=git-crypt
 stow-home/syncthing-mars-general/.config/syncthing/cert.pem filter=git-crypt diff=git-crypt

@@ -47,6 +47,11 @@
     # options = ["uid=1000" "gid=1000" "dmask=007" "fmask=117"];
   };
 
+  networking.firewall = {
+    # kitchenowl
+    allowedTCPPorts = [3043];
+  };
+
   users.groups.homelab = {};
 
   # MANUAL:
@@ -106,6 +111,34 @@
   };
 
   services.earlyoom.enable = true;
+
+  virtualisation = {
+    oci-containers.backend = "podman";
+    podman = {
+      enable = true;
+      autoPrune.enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
+      };
+    };
+  };
+
+  virtualisation.oci-containers.containers = {
+    kitchenowl = {
+      image = "docker.io/tombursch/kitchenowl:latest";
+      ports = ["3043:8080"];
+      environment = {
+        JWT_SECRET_KEY_FILE = "${inputs.self}/secrets/kitchenowl-jwt-${config.networking.hostName}.txt";
+      };
+      volumes = [
+        "/var/lib/kitchenowl:/data"
+      ];
+    };
+  };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/kitchenowl 0755 root root -"
+  ];
 
   services.openssh = {
     enable = true;
