@@ -140,5 +140,4 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 telescope.load_extension("ui-select")
-telescope.load_extension("projects")
 telescope.load_extension("fzf")

@@ -304,8 +304,6 @@ in {
       vim-suda
       # Load .envrc on cwd change
       direnv-vim
-      # cd to project root using LSP root or fallback to pattern matching
-      project-nvim
       # interactive environment for evaluating code within a running program
       conjure
       # allows to continue to use keybindings without switching to EN layout
