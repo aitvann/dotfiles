@@ -34,9 +34,9 @@ in {
   boot.initrd.systemd.enable = true;
   boot.plymouth.enable = true;
 
-  services.logind.powerKey = "hibernate";
-  services.logind.powerKeyLongPress = "poweroff";
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  services.logind.settings.Login.HandlePowerKey = "hibernate";
+  services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
   # hibernate after 30 min
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m

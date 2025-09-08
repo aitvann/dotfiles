@@ -170,7 +170,7 @@
 
   # disable suspend on close laptop lid
   # https://unix.stackexchange.com/questions/257587/how-to-disable-suspend-on-close-laptop-lid-on-nixos
-  services.logind.lidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";

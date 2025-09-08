@@ -421,7 +421,7 @@ in {
     seahorse
     xdg-terminal-exec
     # fix screen sharing
-    libsForQt5.xwaylandvideobridge
+    kdePackages.xwaylandvideobridge
     # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
     libsForQt5.qt5.qtwayland
     # open dialogs (Minecraft load book from file)
