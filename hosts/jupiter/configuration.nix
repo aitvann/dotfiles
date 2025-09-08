@@ -110,6 +110,16 @@
     openFirewall = true;
   };
 
+  # MANUAL:
+  # root_folders = ["/srv/media/music"]
+  # proxy = localhost:21445
+  # add Deluge connection
+  services.lidarr = {
+    enable = true;
+    group = "homelab";
+    openFirewall = true;
+  };
+
   services.earlyoom.enable = true;
 
   virtualisation = {

@@ -438,6 +438,7 @@ in {
     discord
     element-desktop
     hexchat
+    audacity
     qbittorrent
     tor-browser-bundle-bin
     monero-gui
