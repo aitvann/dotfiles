@@ -48,14 +48,15 @@
   };
 
   networking.firewall = {
-    # kitchenowl
-    allowedTCPPorts = [3043];
+    # kitchenowl, deluge
+    allowedTCPPorts = [3043 6821];
+    # deluge
+    allowedUDPPorts = [6821];
   };
 
   users.groups.homelab = {};
 
-  # MANUAL:
-  # enable Label plugin
+  # available options: https://git.deluge-torrent.org/deluge/tree/deluge/core/preferencesmanager.py#n37
   services.deluge = {
     enable = true;
     openFirewall = true;
@@ -65,11 +66,18 @@
     authFile = "/var/lib/deluge/.config/deluge/deluge-auth";
     config = {
       download_location = "/srv/torrents/";
-      # max_upload_speed = "1000.0";
-      # share_ratio_limit = "2.0";
       allow_remote = true;
       daemon_port = 58846;
-      listen_ports = [6881 6889];
+      enabled_plugins = ["Label"];
+      max_active_limit = 200;
+      max_active_seeding = 150;
+
+      random_port = false;
+      listen_random_port = false;
+      # forward ports on sun
+      listen_ports = [6821 6821];
+      random_outgoing_ports = true;
+      outgoing_ports = [0 0];
     };
     web = {
       enable = true;
@@ -139,7 +147,7 @@
       image = "docker.io/tombursch/kitchenowl:latest";
       ports = ["3043:8080"];
       environment = {
-        JWT_SECRET_KEY_FILE = "${inputs.self}/secrets/kitchenowl-jwt-${config.networking.hostName}.txt";
+        JWT_SECRET_KEY = builtins.readFile "${inputs.self}/secrets/kitchenowl-jwt-${config.networking.hostName}.txt";
       };
       volumes = [
         "/var/lib/kitchenowl:/data"
