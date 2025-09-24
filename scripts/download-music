@@ -12,7 +12,7 @@ yt-dlp \
     --embed-metadata \
     --extractor-arg "youtube:player_client=mweb" \
     --cookies-from-browser firefox \
-    "https://www.youtube.com/playlist?list=PL3IFklmt6R9CVSzOPwWqovvz2gHEFaIEZ"
+    "https://music.youtube.com/playlist?list=PL3IFklmt6R9CVSzOPwWqovvz2gHEFaIEZ"
 
 yt-dlp \
     -P $HOME/data/knowledge-base/media/music/import-source/ \
@@ -24,7 +24,7 @@ yt-dlp \
     --embed-metadata \
     --extractor-arg "youtube:player_client=mweb" \
     --cookies-from-browser firefox \
-    "https://www.youtube.com/playlist?list=LM"
+    "https://music.youtube.com/playlist?list=LM"
 
 # yt-dlp \
 #     -P $HOME/data/knowledge-base/media/music/import-source/ \

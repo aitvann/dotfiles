@@ -86,6 +86,8 @@ in {
   services.mpd.enable = true;
   services.open-webui = {
     enable = workstation.enable-llm;
+    host = "0.0.0.0";
+    port = 2402;
     stateDir = "${config.xdg.dataHome}/open-webui";
   };
   # TODO: install as systemd service

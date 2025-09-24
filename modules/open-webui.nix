@@ -44,13 +44,13 @@ in {
           "SCARF_NO_ANALYTICS=True"
           "DO_NOT_TRACK=True"
           "ANONYMIZED_TELEMETRY=False"
-          "WEBUI_AUTH=False"
+          "WEBUI_AUTH=True"
           "WEBUI_SECRET_KEY=${cfg.stateDir}/.webui_secret_key"
         ];
         example = ''            [
             "OLLAMA_API_BASE_URL=http://127.0.0.1:11434"
             # Enable authentication
-            "WEBUI_AUTH=True"
+            "WEBUI_AUTH=False"
           ] '';
         description = ''
           Extra environment variables for Open-WebUI.

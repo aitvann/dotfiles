@@ -50,8 +50,8 @@ in {
   # turning off explicitely in order to be able to build an ISO
   networking.wireless.enable = false;
   networking.firewall = {
-    # from https://jellyfin.org/docs/general/networking/index.html
-    allowedTCPPorts = [8096 8920];
+    # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama
+    allowedTCPPorts = [8096 8920 2402];
     allowedUDPPorts = [1900 7359];
   };
 
