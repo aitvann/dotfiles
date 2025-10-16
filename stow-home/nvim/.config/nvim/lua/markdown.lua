@@ -38,7 +38,9 @@ require("obsidian").setup({
         new = "<C-i>",
     },
 
-    disable_frontmatter = true,
+    formatter = {
+        disable = true
+    },
 
     ui = {
         -- FIXME: nice feature but require conceallevel to be <> 0 by default

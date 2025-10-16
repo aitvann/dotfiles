@@ -401,7 +401,7 @@ in {
     # desktop environment
     eww
     bluetui
-    rofi-wayland
+    rofi
     rofi-pass-wayland
     rofimoji
     networkmanager_dmenu
@@ -497,7 +497,7 @@ in {
     glow
     xdragon # supports Wayland too
     archivemount
-    beets-unstable
+    beets
     rmpc
     cava
     restic
