@@ -433,10 +433,11 @@ in {
     # libsForQt5.qt5ct
     # kdePackages.qt6ct
     obs-studio
-    telegram-desktop
     protontricks
     discord
+    telegram-desktop
     element-desktop
+    session-desktop
     hexchat
     audacity
     qbittorrent

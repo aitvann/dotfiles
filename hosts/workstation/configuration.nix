@@ -197,6 +197,8 @@ in {
     127.0.0.1 clickhouse-test
   '';
 
+  services.flatpak.enable = true;
+
   environment.systemPackages = with pkgs; [
     # won't work unles system installed
     gparted
