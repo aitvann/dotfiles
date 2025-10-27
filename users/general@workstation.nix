@@ -82,6 +82,7 @@ in {
   home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
 
+  services.udiskie.enable = true;
   services.syncthing.enable = true;
   services.mpd.enable = true;
   services.open-webui = {
@@ -185,21 +186,21 @@ in {
         # ``` sh
         # xdg-open $(cat ~/dotfiles/configs/searx-preferences.url)
         # ```
-        "SearXNG Belgium" = {
-          urls = [{template = "https://searx.be/?q={searchTerms}";}];
-          icon = "https://avatars.githubusercontent.com/u/80454229?s=200&v=4";
-          updateInterval = 24 * 60 * 60 * 1000; # every day
-          definedAliases = ["@sx"];
+        force = true;
+        default = "SearXNG Stream";
+        engines = {
+          "SearXNG Stream" = {
+            urls = [{template = "https://searx.stream/?q={searchTerms}";}];
+            icon = "https://avatars.githubusercontent.com/u/80454229?s=200&v=4";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = ["@sx"];
+          };
         };
       };
     in {
       general = {
         id = 0;
-        search = {
-          force = true;
-          default = "SearXNG Belgium";
-          engines = shared-engines;
-        };
+        search = shared-engines;
         extensions.packages = with pkgs.firefox-addons;
           [
             # MANUAL: go to extension settings and import options manually
@@ -225,11 +226,7 @@ in {
       };
       work = {
         id = 1;
-        search = {
-          force = true;
-          default = "SearXNG Belgium";
-          engines = shared-engines;
-        };
+        search = shared-engines;
         extensions.packages = shared-extensions;
       };
     };
