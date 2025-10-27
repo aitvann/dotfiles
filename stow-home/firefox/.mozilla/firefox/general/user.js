@@ -31,12 +31,6 @@ user_pref("privacy.trackingprotection.emailtracking.enabled", true);
 user_pref("privacy.trackingprotection.enabled", true);
 user_pref("privacy.trackingprotection.socialtracking.enabled", true);
 
-// DNS-over-HTTPS
-user_pref("doh-rollout.disable-heuristics", true);
-user_pref("network.trr.mode", 3);
-user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
-user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
-
 // Data Collection
 user_pref("browser.discovery.enabled", false);
 user_pref("app.shield.optoutstudies.enabled", false);

@@ -45,6 +45,20 @@ with lib; rec {
   packageStowFiles = target: package:
     builtins.mapAttrs (n: v: {source = lib.mkForce v;}) (stowConfig target package);
 
+  # TODO: make smarter
+  packageStowFilesCopyCommand = source: files: let
+    commands =
+      map
+      (file: ''
+        service_name=$(basename $STATE_DIRECTORY)
+        cp --force "${source}/$service_name/${file}" "$STATE_DIRECTORY/${file}"
+        chmod 600 "$STATE_DIRECTORY/${file}"
+      '')
+      files;
+    command = lib.concatStringsSep "\n" commands;
+  in
+    command;
+
   endsWith = str: suffix: let
     lenStr = stringLength str;
     lenSuffix = stringLength suffix;

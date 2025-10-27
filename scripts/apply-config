@@ -2,33 +2,41 @@
 ; vim: set ft=clojure:
 
 (require
+ '[babashka.cli :as cli]
  '[clojure.string :as str]
  '[babashka.fs :as fs]
  '[babashka.process :refer [sh]])
 
+(def opts (cli/parse-args *command-line-args*))
 (def home (System/getProperty "user.home"))
 (def user (System/getProperty "user.name"))
-(def repo (str home "/dotfiles"))
-(defn stow-package [package]
-  (let [user-specific (str repo "/stow-home/" package "-" user)
-        user-shared (str repo "/stow-home/" package)]
+(def repo (or (:repo (:opts opts)) (str home "/dotfiles")))
+(def roots {:home {:path "stow-home" :target home}
+            :system {:path "stow-system" :target "/etc"}
+            :service {:path "stow-service" :target "/var/lib"}})
+
+(defn stow-package-with-root [root package]
+  (let [user-specific (str repo "/" (:path (root roots)) "/" package "-" user)
+        user-shared (str repo "/" (:path (root roots)) "/" package)]
     (if (fs/exists? user-specific)
       user-specific
       user-shared)))
 
 (def blocked-files
-  (->> (sh {:dir repo} "git status --porcelain=v1")
-       :out
-       str/split-lines
-       (map #(str/trim %))
-       (map #(str/split % #" "))
-       (map #(get % 1))
-       (map #(str repo "/" %))
-       set))
+  (if (contains? (:opts opts) :skip-changed-check)
+    []
+    (->> (sh {:dir repo} "git status --porcelain=v1")
+         :out
+         str/split-lines
+         (map #(str/trim %))
+         (map #(str/split % #" "))
+         (map #(get % 1))
+         (map #(str repo "/" %))
+         set)))
 
-(defn cp-stow [package & paths]
-  (let [srcs (map #(str home "/" %) paths)
-        dsts (map #(str (stow-package package) "/" %) paths)]
+(defn cp-stow-with-root [root package & paths]
+  (let [srcs (map #(str (:target (root roots)) "/" %) paths)
+        dsts (map #(str (stow-package-with-root root package) "/" %) paths)]
     (if-let [blocked-file (first (filter #(contains? blocked-files %) dsts))]
       (println (str "File " blocked-file " modified, commit changes first; aborting"))
       (doall (for [[src dst] (map vector srcs dsts)]
@@ -36,16 +44,20 @@
                  (fs/copy src dst {:replace-existing true})
                  (println (str "Copied " src))))))))
 
-(def package (first *command-line-args*))
+(def cp-home (partial cp-stow-with-root :home))
+(def cp-service (partial cp-stow-with-root :service))
+
+(def package (first (:args opts)))
 (case package
-  "ssh" (cp-stow "ssh" ".ssh/known_hosts")
-  "xdg" (cp-stow "xdg" ".config/mimeapps.list")
-  "syncthing-mars" (cp-stow "syncthing-mars" ".config/syncthing/config.xml")
-  "syncthing-pluto" (cp-stow "syncthing-pluto" ".config/syncthing/config.xml")
+  "ssh" (cp-home "ssh" ".ssh/known_hosts")
+  "xdg" (cp-home "xdg" ".config/mimeapps.list")
+  "syncthing-mars" (cp-home "syncthing-mars" ".config/syncthing/config.xml")
+  "syncthing-pluto" (cp-home "syncthing-pluto" ".config/syncthing/config.xml")
   "gtk" (do
-          (cp-stow "icons" ".local/share/icons/default/index.theme")
-          (cp-stow "xsettingsd" ".config/xsettingsd/xsettingsd.conf")
-          (cp-stow "gtk-2.0" ".config/gtk-2.0/gtkrc")
-          (cp-stow "gtk-3.0" ".config/gtk-3.0/settings.ini")
-          (cp-stow "gtk-4.0" ".config/gtk-4.0/settings.ini"))
+          (cp-home "icons" ".local/share/icons/default/index.theme")
+          (cp-home "xsettingsd" ".config/xsettingsd/xsettingsd.conf")
+          (cp-home "gtk-2.0" ".config/gtk-2.0/gtkrc")
+          (cp-home "gtk-3.0" ".config/gtk-3.0/settings.ini")
+          (cp-home "gtk-4.0" ".config/gtk-4.0/settings.ini"))
+  "adguardhome" (cp-service "adguardhome" "AdGuardHome/AdGuardHome.yaml")
   (println "Package is not recognized"))

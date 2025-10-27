@@ -7,6 +7,7 @@
 } @ args: let
   util = import ../../lib/util.nix args;
   packageSystemFiles = util.packageStowFiles "/etc";
+  packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
 in {
   disabledModules = ["services/display-managers/greetd.nix"];
 
@@ -49,6 +50,7 @@ in {
   # enables wireless support via wpa_supplicant
   # turning off explicitely in order to be able to build an ISO
   networking.wireless.enable = false;
+  networking.nameservers = ["127.1.1.0:53"];
   networking.firewall = {
     # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama
     allowedTCPPorts = [8096 8920 2402];
@@ -198,6 +200,8 @@ in {
   '';
 
   services.flatpak.enable = true;
+  services.adguardhome.enable = true;
+  systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
   environment.systemPackages = with pkgs; [
     # won't work unles system installed
