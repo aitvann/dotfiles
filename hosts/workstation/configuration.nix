@@ -13,10 +13,12 @@ in {
 
   imports = [
     ../${workstation.host}/hardware-configuration.nix
+    inputs.zapret-discord-youtube.nixosModules.default
     # overriding module so it reads configuration from standard location, not from cli arg
     ../../modules/greetd.nix
   ];
 
+  nixpkgs.overlays = [(import ../../packages)];
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
@@ -202,6 +204,10 @@ in {
   services.flatpak.enable = true;
   services.adguardhome.enable = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
+  services.zapret-discord-youtube = {
+    enable = true;
+    config = "general(ALT2)";
+  };
 
   environment.systemPackages = with pkgs; [
     # won't work unles system installed

@@ -14,6 +14,9 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
+    zapret-discord-youtube.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -34,6 +37,7 @@
     home-manager,
     deploy-rs,
     disko,
+    zapret-discord-youtube,
     ...
   } @ inputs: let
     system = "x86_64-linux";
