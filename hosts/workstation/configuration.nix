@@ -52,7 +52,7 @@ in {
   # enables wireless support via wpa_supplicant
   # turning off explicitely in order to be able to build an ISO
   networking.wireless.enable = false;
-  networking.nameservers = ["127.1.1.0:53"];
+  networking.nameservers = ["127.0.0.1"];
   networking.firewall = {
     # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama
     allowedTCPPorts = [8096 8920 2402];

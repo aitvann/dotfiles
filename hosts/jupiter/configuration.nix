@@ -1,10 +1,12 @@
 {
   inputs,
   pkgs,
-  lib,
   config,
   ...
-}: {
+} @ args: let
+  util = import ../../lib/util.nix args;
+  packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
+in {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -48,10 +50,10 @@
   };
 
   networking.firewall = {
-    # kitchenowl, deluge
-    allowedTCPPorts = [3043 6821];
-    # deluge
-    allowedUDPPorts = [6821];
+    # deluge, kitchenowl
+    allowedTCPPorts = [6821 3043];
+    # deluge, AdGuardHome DNS
+    allowedUDPPorts = [6821 53];
   };
 
   users.groups.homelab = {};
@@ -177,6 +179,10 @@
     enable = true;
     settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.json";
   };
+
+  services.adguardhome.enable = true;
+  services.adguardhome.openFirewall = true;
+  systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
   # disable suspend on close laptop lid
   # https://unix.stackexchange.com/questions/257587/how-to-disable-suspend-on-close-laptop-lid-on-nixos
