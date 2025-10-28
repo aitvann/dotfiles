@@ -504,6 +504,7 @@ in {
     solores
     btrfs-assistant
     btrfs-list
+    zapret
 
     # db
     sqlite-interactive
@@ -612,6 +613,7 @@ in {
 
   xdg.dataFile = with pkgs;
     util.recursiveMerge [
+      (util.linkFiles "usr/share/" "./" zapret)
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
 

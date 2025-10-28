@@ -204,10 +204,12 @@ in {
   services.flatpak.enable = true;
   services.adguardhome.enable = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
-  services.zapret-discord-youtube = {
-    enable = true;
-    config = "general(ALT2)";
-  };
+
+  # using zapret on openwrt instead, uncommend when unable to connect to wifi
+  # services.zapret-discord-youtube = {
+  #   enable = true;
+  #   config = "general(ALT2)";
+  # };
 
   environment.systemPackages = with pkgs; [
     # won't work unles system installed
