@@ -205,11 +205,10 @@ in {
   services.adguardhome.enable = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
-  # Verify working: youtube.com discord.com proton.me rutracker.org
-  # Won't work since banned by ip: x.com instagram.com
+  # Verify working: youtube.com discord.com rutracker.org
+  # Won't work since banned by ip: x.com instagram.com proton.me
   #
   # Using zapret on openwrt instead, uncommend when unable to connect to wifi
-  #
   # services.zapret-discord-youtube = {
   #   enable = true;
   #   config = "general(ALT2)";

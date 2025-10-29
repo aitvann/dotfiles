@@ -9,8 +9,8 @@
 // ```
 
 // Search Engines
-user_pref("browser.urlbar.placeholderName", "SearXNG Belgium");
-user_pref("browser.urlbar.placeholderName.private", "SearXNG Belgium");
+user_pref("browser.urlbar.placeholderName", "SearXNG Stream");
+user_pref("browser.urlbar.placeholderName.private", "SearXNG Stream");
 
 // History
 // Cookies: Add Exception: CTRL-I > Permissions > Set cookies > Allow
