@@ -18,7 +18,7 @@ ls -d "${migrations}"/* | grep '\.up.sql' | xargs cp -t "${scope}/up-only-local"
 
 container_name=${name_prefix}-pg-db
 image_name=permissioned-postgres
-if [[ -f $mimgrations/version ]]; then
+if [[ -f $migrations/version ]]; then
   postgres_version=$(cat $migrations/version)
 else
   postgres_version="latest"
