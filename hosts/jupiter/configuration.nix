@@ -103,6 +103,7 @@ in {
   # proxy = localhost:21445
   # add Jellyfin connection
   # add Deluge connection
+  # authentication = Forms
   services.radarr = {
     enable = true;
     group = "homelab";
@@ -114,6 +115,7 @@ in {
   # proxy = localhost:21445
   # add Jellyfin connection
   # add Deluge connection
+  # authentication = Forms
   # add Indexers:
   # - Nyaa
   services.sonarr = {
@@ -126,6 +128,7 @@ in {
   # root_folders = ["/srv/media/music"]
   # proxy = localhost:21445
   # add Deluge connection
+  # authentication = Forms
   services.lidarr = {
     enable = true;
     group = "homelab";

@@ -6,7 +6,7 @@
          '[cheshire.core :as json])
 
 (def interval-ms 1000) ; 1s
-(def keyboards ["zmk-project-charybdis-keyboard" "dao-keyboard" "dao-keyboard-2" "at-translated-set-2-keyboard"])
+(def keyboards ["zmk-project-charybdis-keyboard" "charybdis-keyboard-1" "dao-keyboard" "dao-keyboard-2" "at-translated-set-2-keyboard"])
 
 (defn start-process [command & args]
   (let [pb (ProcessBuilder. (into [command] args))]

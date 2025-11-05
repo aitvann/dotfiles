@@ -59,7 +59,7 @@
                     };
                     # MANUAL:
                     # ``` sh
-                    # chown -R general:users {.local,.snapshots}
+                    # chown -R general:users /home/general/.local
                     # ````
                     "@home-general/.snapshots" = {
                       # no mount point, snapshot is nested

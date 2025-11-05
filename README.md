@@ -10,13 +10,13 @@ Key features:
     [stow](https://www.gnu.org/software/stow/)-compatible way
 4.  UWSM Hyprland
 5.  Minimal NeoVim configuration:
-    -   As much as possible is done with either LSP or TreeSitter
-    -   Desktop notifications
-    -   External (yet integrated with editor) file manager ([n³](https://github.com/jarun/nnn))
-    -   External (yet integrated with editor) Git GUI
-        ([Lazygit](https://github.com/jesseduffield/lazygit))
-    -   External (yet integrated with editor) terminal
-        ([Foot](https://github.com/jesseduffield/lazygit))
+    - As much as possible is done with either LSP or TreeSitter
+    - Desktop notifications
+    - External (yet integrated with editor) file manager ([n³](https://github.com/jarun/nnn))
+    - External (yet integrated with editor) Git GUI
+      ([Lazygit](https://github.com/jesseduffield/lazygit))
+    - External (yet integrated with editor) terminal
+      ([Foot](https://github.com/jesseduffield/lazygit))
 
 ## Installation
 
@@ -31,17 +31,17 @@ Key features:
 NIXHOST=pluto
 NIXUSER=general
 echo -n 'main drive encryption password here' > /tmp/secret.key
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix --flake "github:aitvann/dotfiles#${NIXHOST}"
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --flake github:aitvann/dotfiles#${NIXHOST}
 nixos-generate-config --show-hardware-config --no-filesystems --root /mnt
 # Edit configuration.nix accordingly
 sudo nixos-install --root /mnt --flake github:aitvann/dotfiles#${NIXHOST}
-nixos-enter --root /mnt/disko-install-root
-chown -R ${NIXUSER}:users {.local,.snapshots}
+sudo nixos-enter --root /mnt
+chown -R ${USER}:users /home/${USER}/{.local,.snapshots}
 su - ${NIXUSER}
 # Insert cd with secrets
 import-secrets ~/secrets.tar.gpg
 restic-jupiter restore -t ~ latest:home/${USER}
-mkdir -p {~/.config/mpd,~/.config/gtk-2.0}
+mkdir -p {~/.local/share/mpd,~/.config/gtk-2.0}
 reboot
 ```
 
