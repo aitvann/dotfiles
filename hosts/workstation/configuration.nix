@@ -201,6 +201,8 @@ in {
     127.0.0.1 clickhouse-test
   '';
 
+  security.pki.certificates = [(builtins.readFile ../../stow-system/cert-jupiter/cert/cert.pem)];
+
   services.flatpak.enable = true;
   services.adguardhome.enable = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];

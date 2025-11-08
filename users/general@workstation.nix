@@ -453,6 +453,7 @@ in {
     tagger
     tigervnc
     tcpdump
+    dig
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
 
