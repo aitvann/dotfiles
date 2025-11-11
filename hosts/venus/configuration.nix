@@ -4,7 +4,10 @@
   lib,
   config,
   ...
-}: {
+} @ args: let
+  util = import ../../lib/util.nix args;
+  packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
+in {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -47,6 +50,12 @@
   # https://github.com/serokell/deploy-rs/issues/25
   nix.settings.trusted-users = ["@wheel"];
 
+  networking.firewall = {
+    enable = true;
+    # xray-vless, xray-vmess, AdGuardHome
+    allowedTCPPorts = [443 1024 3000];
+  };
+
   services.openssh = {
     enable = true;
     # require public key authentication for better security
@@ -65,10 +74,9 @@
     settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.json";
   };
 
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [443 1024];
-  };
+  services.adguardhome.enable = true;
+  services.adguardhome.openFirewall = true;
+  systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
