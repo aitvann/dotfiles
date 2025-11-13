@@ -72,3 +72,5 @@ user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.download.always_ask_before_handling_new_types", true);
 user_pref("browser.download.useDownloadDir", false);
 user_pref("browser.shell.checkDefaultBrowser", false);
+// don't warn when accessing `about:config`
+user_pref("browser.aboutConfig.showWarning", false);

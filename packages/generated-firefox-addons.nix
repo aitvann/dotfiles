@@ -2,10 +2,10 @@
   {
     "braavos-wallet" = buildFirefoxXpiAddon {
       pname = "braavos-wallet";
-      version = "4.12.3";
+      version = "4.13.1";
       addonId = "{a0c6ccfd-26a3-4df4-9729-aa036070ad29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4589326/braavos_wallet-4.12.3.xpi";
-      sha256 = "3f5c81d9b9c24300d12987d2f025ad687d169a946cca4a0af6bd609ebf271b6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4610630/braavos_wallet-4.13.1.xpi";
+      sha256 = "4a3d1973e2dda9f053d3fa1e37b067213b993de307591e356b3b9ab15eb293fe";
       meta = with lib;
       {
         homepage = "https://www.braavos.app";
@@ -118,10 +118,10 @@
     };
     "tonkeeper" = buildFirefoxXpiAddon {
       pname = "tonkeeper";
-      version = "4.3.0";
+      version = "4.3.2";
       addonId = "wallet@tonkeeper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4593933/tonkeeper-4.3.0.xpi";
-      sha256 = "c45f509ec569d5e131888add5951edb7592739a2ace9b8059a775a9116ee3c39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4609785/tonkeeper-4.3.2.xpi";
+      sha256 = "ac2fd5ae59fb42f187bbdf609d685f6f8603aae61ec58c96a9e50f97c196f275";
       meta = with lib;
       {
         homepage = "https://tonkeeper.com/";

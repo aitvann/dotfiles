@@ -63,7 +63,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/wl-clip-persist.nix ../modules/open-webui.nix];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/open-webui.nix];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -78,6 +78,10 @@ in {
       "graalvm-oracle"
       "open-webui"
     ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "jitsi-meet-1.0.8792"
+  ];
 
   home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
@@ -125,7 +129,6 @@ in {
   # MANUAL (UPDATE): go to Bookmarks Manager and import
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-wayland;
     profiles = let
       shared-extensions = with pkgs.firefox-addons; [
         # filters: https://github.com/yokoffing/filterlists
@@ -155,7 +158,6 @@ in {
         fastforwardteam
         rust-search-extension
         web-archives
-        profile-switcher
         canvasblocker
         ff2mpv
 
@@ -417,8 +419,6 @@ in {
     pinentry-gnome3
     seahorse
     xdg-terminal-exec
-    # fix screen sharing
-    kdePackages.xwaylandvideobridge
     # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
     libsForQt5.qt5.qtwayland
     # open dialogs (Minecraft load book from file)
@@ -438,7 +438,7 @@ in {
     hexchat
     audacity
     qbittorrent
-    tor-browser-bundle-bin
+    tor-browser
     monero-gui
     monero-cli
     prismlauncher
@@ -494,7 +494,7 @@ in {
     ffmpegthumbnailer
     fontpreview
     glow
-    xdragon # supports Wayland too
+    dragon-drop
     archivemount
     beets
     rmpc
@@ -536,7 +536,7 @@ in {
     efm-langserver
     marksman
     nil
-    sumneko-lua-language-server
+    lua-language-server
     alejandra
     stylua
     nodePackages_latest.prettier
