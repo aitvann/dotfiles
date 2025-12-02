@@ -17,6 +17,9 @@
     zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
     zapret-discord-youtube.inputs.nixpkgs.follows = "nixpkgs";
 
+    current-location.url = "github:aitvann/current-location";
+    current-location.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 

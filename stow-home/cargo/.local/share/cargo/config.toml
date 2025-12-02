@@ -1,3 +1,7 @@
+[unstable]
+# https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option
+profile-rustflags = true
+
 [registries.zubr]
 index = "ssh://git@git.tt-int.net/shared/crates/index.git"
 
