@@ -1,0 +1,65 @@
+#! /usr/bin/env bb
+; vim: set ft=clojure:
+
+(require
+ '[clojure.string :as str]
+ '[babashka.process :refer [sh shell]])
+
+(def home (System/getProperty "user.home"))
+(def tessdata (str home "/.local/share/tessdata"))
+(def primary-languages #{"eng" "rus"})
+
+(defn run-rofi-multi [list prompt]
+  (let [{:keys [exit out]}
+        (sh {:in (str/join "\n" list)}
+            "rofi"
+            "-dmenu"
+            "-multi-select"
+            "-i"
+            "-p" prompt)]
+    (if (not= exit 0)
+      (throw (Exception. "User have cancelled the selection"))
+      (-> out
+          str/trim
+          str/split-lines))))
+
+; (def languages
+;   (->>
+;    (fs/list-dir tessdata)
+;    (map #(.getFileName %))
+;    (map str)
+;    (map #(re-matches #"(.*).traineddata" %))
+;    (filter identity)
+;    (map #(second %))
+;    (sort-by #((comp not contains?) primary-languages %))))
+
+(defn language-priority [lang]
+  (case lang
+    "rus" 0
+    "eng" 1
+    Integer/MAX_VALUE))
+
+(def languages
+  (->>
+   (sh "tesseract --list-langs")
+   :out
+   str/split-lines
+   ; skipping annotation
+   rest
+   (sort-by language-priority)))
+
+(def selected-languages
+  (run-rofi-multi languages "Select Language"))
+
+(def languages-args
+  (->>
+   selected-languages
+   (str/join "+")))
+
+(def status
+  (-> (shell {:err :string}
+             "tesseract" "-" "-" "-l" languages-args)
+      :err
+      str))
+
+(sh "notify-send" "OCR" status)

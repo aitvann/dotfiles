@@ -411,6 +411,7 @@ in {
     foot
     slurp
     grim
+    tesseract
     brightnessctl
     qpwgraph
     libnotify
