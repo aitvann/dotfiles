@@ -148,7 +148,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*',
     callback = function(args)
         local filepath = args.file
-        if filepath ~= "" then
+        if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
             local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. vim.loop.getpid() .. ".txt", "w", 438) -- 438 is octal for 0666 permissions
             if not file then
                 vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
