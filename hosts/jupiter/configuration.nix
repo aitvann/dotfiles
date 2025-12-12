@@ -105,6 +105,10 @@ in {
   # add Jellyfin connection
   # add Deluge connection
   # authentication = Forms
+  # rename movies = true
+  # change language of every default profile to Russian
+  # import lists: Letterbox Radarr
+  # add https://github.com/screeny05/letterboxd-list-radarr list
   services.radarr = {
     enable = true;
     group = "homelab";
@@ -117,6 +121,7 @@ in {
   # add Jellyfin connection
   # add Deluge connection
   # authentication = Forms
+  # rename episodes = true
   # add Indexers:
   # - Nyaa
   services.sonarr = {
@@ -130,9 +135,20 @@ in {
   # proxy = localhost:21445
   # add Deluge connection
   # authentication = Forms
+  # rename tracks = true
   services.lidarr = {
     enable = true;
     group = "homelab";
+    openFirewall = true;
+  };
+
+  # MANUAL:
+  # proxy = localhost:21445
+  # authentication = Forms
+  # applications: Radarr, Sonarr
+  # indexers: RuTracker (add RUS), The Pirate Bay
+  services.prowlarr = {
+    enable = true;
     openFirewall = true;
   };
 
