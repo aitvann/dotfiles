@@ -136,7 +136,7 @@ in {
   };
 
   # required for Nekoray to work
-  programs.nekoray = {
+  programs.throne = {
     enable = true;
     tunMode.enable = true;
   };
@@ -146,7 +146,7 @@ in {
   # GPU is not utilized when running as user service
   services.ollama = {
     enable = workstation.enable-llm;
-    acceleration = "rocm";
+    package = pkgs.ollama-vulkan;
     environmentVariables = {
       OLLAMA_FLASH_ATTENTION = "1";
     };

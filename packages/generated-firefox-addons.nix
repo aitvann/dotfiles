@@ -2,10 +2,10 @@
   {
     "braavos-wallet" = buildFirefoxXpiAddon {
       pname = "braavos-wallet";
-      version = "4.13.1";
+      version = "4.15.2";
       addonId = "{a0c6ccfd-26a3-4df4-9729-aa036070ad29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4610630/braavos_wallet-4.13.1.xpi";
-      sha256 = "4a3d1973e2dda9f053d3fa1e37b067213b993de307591e356b3b9ab15eb293fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4634662/braavos_wallet-4.15.2.xpi";
+      sha256 = "634a89e4d10f0d97283dfeae4af4318564dc4d8166ac0c2f0133b631b27fd7e9";
       meta = with lib;
       {
         homepage = "https://www.braavos.app";
@@ -103,10 +103,10 @@
     };
     "revoke-cash" = buildFirefoxXpiAddon {
       pname = "revoke-cash";
-      version = "0.7.2";
+      version = "0.7.3";
       addonId = "webextension@revoke.cash";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4592300/revoke_cash-0.7.2.xpi";
-      sha256 = "ba62249a29171d9ec1ef6741d003265728c435a0e1de6ecd9513049a65c386bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4629745/revoke_cash-0.7.3.xpi";
+      sha256 = "223bd9d082f56bfb6e2b9d1108fb08d8d1bd2341b948f9b2fe8ff22d41636778";
       meta = with lib;
       {
         homepage = "https://revoke.cash";
@@ -118,10 +118,10 @@
     };
     "tonkeeper" = buildFirefoxXpiAddon {
       pname = "tonkeeper";
-      version = "4.3.2";
+      version = "4.3.3";
       addonId = "wallet@tonkeeper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4609785/tonkeeper-4.3.2.xpi";
-      sha256 = "ac2fd5ae59fb42f187bbdf609d685f6f8603aae61ec58c96a9e50f97c196f275";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4624593/tonkeeper-4.3.3.xpi";
+      sha256 = "48e6190cc926714599b1b6275d6c42ab4da352e3a941879f87b422edec6fc333";
       meta = with lib;
       {
         homepage = "https://tonkeeper.com/";
