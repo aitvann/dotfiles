@@ -499,6 +499,7 @@ in {
     glow
     dragon-drop
     archivemount
+    bat
     beets
     rmpc
     cava

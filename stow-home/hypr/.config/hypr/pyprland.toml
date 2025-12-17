@@ -7,12 +7,14 @@ animation = "fromTop"
 size = "70% 80%"
 excludes = "*"
 class = "Element"
+pinned = false
 
 [scratchpads.telegram]
 command = "Telegram"
 animation = "fromTop"
 size = "70% 80%"
 excludes = "*"
+pinned = false
 
 [scratchpads.terminal]
 command = "foot --title terminal-popup"
@@ -20,9 +22,11 @@ class = "terminal-popup"
 animation = "fromTop"
 size = "70% 80%"
 excludes = "*"
+pinned = false
 
 [scratchpads.music-player]
 command = "foot --title music-player rmpc"
 animation = "fromTop"
 size = "70% 80%"
 excludes = "*"
+pinned = false
