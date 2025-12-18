@@ -135,10 +135,9 @@ in {
     enableCompletion = false;
   };
 
-  # required for Nekoray to work
-  programs.throne = {
+  services.v2raya = {
     enable = true;
-    tunMode.enable = true;
+    cliPackage = pkgs.xray;
   };
 
   services.openssh.enable = true;
