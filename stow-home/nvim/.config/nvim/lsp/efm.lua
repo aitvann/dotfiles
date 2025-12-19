@@ -1,4 +1,4 @@
 return {
     init_options = { documentFormatting = true },
-    filetypes = { 'html', 'css', 'scss', 'json', 'markdown', 'sql', "solidity" },
+    filetypes = { 'html', 'css', 'scss', 'json', 'jsonc', 'markdown', 'sql', "solidity" },
 }

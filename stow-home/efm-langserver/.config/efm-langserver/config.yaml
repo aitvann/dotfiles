@@ -26,6 +26,10 @@ tools:
   json-fixjson: &json-fixjson
     format-command: 'fixjson'
 
+  jsonc-prettier: &jsonc-prettier
+    format-command: 'prettier ${--tab-width:tabWidth} --parser jsonc'
+    format-stdin: true
+
   # adding --tab-stop=2 would make lists use single space character but would brake wide tables, idk why
   # using gfm insteam of markdown fixes tables and lists but brakes embeded links https://github.com/jgm/pandoc/issues/553
   #
@@ -198,6 +202,9 @@ languages:
   json:
     # - <<: *json-fixjson
     - <<: *json-prettier
+
+  jsonc:
+    - <<: *jsonc-prettier
 
   markdown:
     # - <<: *markdown-markdownlint
