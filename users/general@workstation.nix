@@ -151,10 +151,8 @@ in {
         vimium
         # MANUAL: go to extension settings and import options manually
         ublacklist
-        # MANUAL: go to extension settings and configure `localhost:20173` (SOCKS5 Rules)
-        # TODO: move to [ZeroOmega](https://addons.mozilla.org/en-US/firefox/addon/zeroomega/)
-        # and specify two proxies: `localhost:20173` (SOCKS5 Rules) and `localhost:20170` (SOCKS5)
-        proxy-toggle
+        # MANUAL: go to extension settings and import options manually
+        zeroomega
         simple-translate
 
         simplelogin
