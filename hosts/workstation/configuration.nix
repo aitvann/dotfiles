@@ -135,11 +135,6 @@ in {
     enableCompletion = false;
   };
 
-  services.v2raya = {
-    enable = true;
-    cliPackage = pkgs.xray;
-  };
-
   services.openssh.enable = true;
 
   # GPU is not utilized when running as user service

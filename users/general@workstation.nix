@@ -459,6 +459,7 @@ in {
     dig
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
+    v2rayn
 
     # cli apps
     stow
@@ -620,6 +621,8 @@ in {
     util.recursiveMerge [
       (util.linkFiles "usr/share/" "./" zapret)
       (util.linkFiles "share/" "./" nix-direnv)
+      (util.linkFiles "bin/" "v2rayN/bin/xray/" xray)
+      (util.linkFiles "bin/" "v2rayN/bin/sing_box/" sing-box)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
 
       # bookmarks
