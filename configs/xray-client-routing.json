@@ -38,7 +38,14 @@
     "enabled": true,
     "remarks": "Proxy sites blocked from Russia",
     "type": "field",
-    "domain": ["deepl.com", "grok.x.com", "wiki.termux.com", "wiki.termux.dev"],
+    "domain": [
+      "deepl.com",
+      "grok.x.com",
+      "wiki.termux.com",
+      "wiki.termux.dev",
+      "browserleaks.com",
+      "http3check.net"
+    ],
     "outboundTag": "proxy"
   },
   {

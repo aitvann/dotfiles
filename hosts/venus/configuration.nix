@@ -54,6 +54,12 @@ in {
     enable = true;
     # xray-vless, xray-vmess, AdGuardHome
     allowedTCPPorts = [443 1024 3000];
+
+    # VLESS-Reality: forward remaining ports (udp:443 is forwarded by xray) to a mask site (rutube.ru)
+    extraForwardRules = ''
+      iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to-destination 178.248.233.148:443
+      iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 178.248.233.148:80
+    '';
   };
 
   services.openssh = {
