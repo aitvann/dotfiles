@@ -11,8 +11,8 @@ stow-home/syncthing-pluto-general/.config/syncthing/https-cert.pem filter=git-cr
 stow-home/syncthing-pluto-general/.config/syncthing/https-key.pem filter=git-crypt diff=git-crypt
 stow-home/syncthing-pluto-general/.config/syncthing/key.pem filter=git-crypt diff=git-crypt
 configs/searx-preferences.url filter=git-crypt diff=git-crypt
-stow-system/xray-venus/xray/config.jsonc filter=git-crypt diff=git-crypt
-stow-system/xray-jupiter/xray/config.jsonc filter=git-crypt diff=git-crypt
+stow-system/xray-venus/xray/config.json filter=git-crypt diff=git-crypt
+stow-system/xray-jupiter/xray/config.json filter=git-crypt diff=git-crypt
 stow-system/cert-jupiter/cert/key.pem filter=git-crypt diff=git-crypt
 stow-service/adguardhome/AdGuardHome/AdGuardHome.yaml filter=git-crypt diff=git-crypt
 configs/browser-bookmarks.general.html filter=git-crypt diff=git-crypt

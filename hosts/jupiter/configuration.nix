@@ -194,7 +194,7 @@ in {
   # TODO: use cusom module so configuration from a default location is used instead
   services.xray = {
     enable = true;
-    settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.jsonc";
+    settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.json";
   };
 
   services.adguardhome.enable = true;
