@@ -207,7 +207,7 @@ in {
   };
 
   environment.etc = util.recursiveMerge [
-    (packageSystemFiles ../../stow-system/nginx)
+    (packageSystemFiles ../../stow-system/nginx-jupiter)
     (packageSystemFiles ../../stow-system/cert-jupiter)
   ];
 
