@@ -1,15 +1,17 @@
 {
   inputs,
   pkgs,
-  lib,
   config,
   ...
 } @ args: let
   util = import ../../lib/util.nix args;
+  packageSystemFiles = util.packageStowFiles "/etc";
   packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
 in {
   imports = [
     ./hardware-configuration.nix
+    # Adding TLS-ALPN-01 support. See https://github.com/NixOS/nixpkgs/issues/268554
+    ../../modules/acme/default.nix
   ];
 
   #boot.loader.systemd-boot.enable = true;
@@ -52,12 +54,13 @@ in {
 
   networking.firewall = {
     enable = true;
-    # xray-vless, xray-vmess, AdGuardHome
-    allowedTCPPorts = [443 1024 3000];
+    # xray-vless/nginx, xray-vmess, iptables, AdGuardHome
+    allowedTCPPorts = [443 50936 80 3000];
+    # xray-vless
+    allowedUDPPorts = [443];
 
     # VLESS-Reality: forward remaining ports (udp:443 is forwarded by xray) to a mask site (rutube.ru)
     extraForwardRules = ''
-      iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to-destination 178.248.233.148:443
       iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 178.248.233.148:80
     '';
   };
@@ -83,6 +86,25 @@ in {
   services.adguardhome.enable = true;
   services.adguardhome.openFirewall = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
+
+  services.nginx = {
+    enable = true;
+    package = pkgs.nginx.override {withStream = true;};
+    enableReload = true;
+  };
+
+  security.acme.acceptTerms = true;
+  security.acme.defaults.group = config.services.nginx.group;
+  security.acme.defaults.email = "crayon_reprise128@simplelogin.com";
+  security.acme.certs."observatory.st" = {
+    domain = "observatory.st";
+    tlsMode = true;
+    tlsPort = 10443;
+  };
+
+  environment.etc = util.recursiveMerge [
+    (packageSystemFiles ../../stow-system/nginx-venus)
+  ];
 
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
