@@ -54,8 +54,8 @@ in {
 
   networking.firewall = {
     enable = true;
-    # xray-vless/nginx, xray-vmess, iptables, AdGuardHome
-    allowedTCPPorts = [443 50936 80 3000];
+    # xray-vless/nginx, iptables, AdGuardHome
+    allowedTCPPorts = [443 80 3000];
     # xray-vless
     allowedUDPPorts = [443];
 
