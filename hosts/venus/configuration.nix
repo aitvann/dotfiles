@@ -104,6 +104,7 @@ in {
 
   environment.etc = util.recursiveMerge [
     (packageSystemFiles ../../stow-system/nginx-venus)
+    (packageSystemFiles ../../stow-system/website)
   ];
 
   environment.sessionVariables = {
