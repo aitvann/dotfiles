@@ -54,10 +54,10 @@ in {
 
   networking.firewall = {
     enable = true;
-    # xray-vless/nginx, iptables, AdGuardHome
-    allowedTCPPorts = [443 80 3000];
-    # xray-vless
-    allowedUDPPorts = [443];
+    # xray-vless/nginx, xray-ss, iptables, AdGuardHome
+    allowedTCPPorts = [443 33964 80 3000];
+    # xray-vless/nginx, xray-ss
+    allowedUDPPorts = [443 33964];
 
     # VLESS-Reality: forward remaining ports (udp:443 is forwarded by xray) to a mask site (rutube.ru)
     extraForwardRules = ''
