@@ -1,5 +1,3 @@
-require("lsp.plugin-renamer")
-
 local lsp_utils = require("lsp.utils")
 local toggling = require("toggling")
 local diagnostics = require("lsp.diagnostics")

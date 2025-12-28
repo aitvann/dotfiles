@@ -322,8 +322,6 @@ in {
       # fuzzy finder over lists
       telescope-nvim
       telescope-fzf-native-nvim
-      # better renaming input
-      renamer-nvim
       # shows signs for added, modified, and removed lines.
       # and other git stuff inside buffer
       gitsigns-nvim
