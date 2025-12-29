@@ -6,9 +6,12 @@ require("obsidian").setup({
         },
     },
 
+    -- disable backlinks tips
+    log_level = vim.log.levels.WARN,
+
     daily_notes = {
         folder = "daily",
-        template = "default.md"
+        template = "default.md",
     },
 
     -- disable, LSP is used instead
@@ -17,42 +20,51 @@ require("obsidian").setup({
         blink = false,
     },
 
+    -- disable whatever that is
+    frontmatter = {
+        enabled = false
+    },
+
     templates = {
         subdir = "templates",
         date_format = "%Y-%m-%d",
         time_format = "%H:%M",
     },
 
-    attachments = {
-        img_folder = "media/images",
+    picker = {
+        name = "telescope.nvim",
+        note_mappings = {
+            new = "<C-x>",
+            -- use completion instead
+            insert_link = nil,
+        },
+        tag_mappings = {
+            new = "<C-x>",
+            -- use completion instead
+            insert_tag = nil,
+        },
     },
 
-    -- disable backlinks tips
-    log_level = vim.log.levels.WARN,
+    note_path_func = function(spec)
+        local path = spec.dir / spec.title
+        return path:with_suffix(".md")
+    end,
 
     legacy_commands = false,
-
-    finder_mappings = {
-        -- TODO: integrate with normal Telescope workflow
-        -- Create a new note from your query
-        new = "<C-i>",
-    },
 
     formatter = {
         disable = true
     },
 
+    -- FIXME: nice feature but require conceallevel to be <> 0 by default
     ui = {
-        -- FIXME: nice feature but require conceallevel to be <> 0 by default
-        enable = false,        -- set to false to disable all additionak syntax features
-        update_debounce = 200, -- update delay after a text change (in milliseconds)
-        -- FIXME: does not work
-        -- Use bullet marks for non-checkbox lists.
-        bullets = { char = "•", hl_group = "ObsidianBullet" },
-        external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-        reference_text = { hl_group = "ObsidianRefText" },
-        highlight_text = { hl_group = "ObsidianHighlightText" },
-    }
+        enable = false,
+    },
+
+    attachments = {
+        img_folder = "media/images",
+    },
+
 })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -63,9 +75,7 @@ vim.api.nvim_create_autocmd("FileType", {
         -- 98 because this is how mush fits on half of my screen
         vim.o.textwidth = 98
         vim.o.linebreak = true
-        -- https://github.com/neovim/neovim/issues/14626
-        -- vim.o.colorcolumn = 98
-        vim.cmd [[ setlocal colorcolumn=98 ]]
+        vim.o.colorcolumn = "98"
 
         vim.cmd [[
             let b:surround_{char2nr('~')} = "~~\r~~"
@@ -90,7 +100,15 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "gf", "<cmd>Obsidian quick_switch<CR>",
             { silent = true, desc = "Go to File (Note)", buffer = buffer })
 
-        require("autolist").setup()
+        local autolist = require("autolist")
+        autolist.setup({
+            enabled = true,
+            colon = {
+                indent = true,
+                indent_raw = false,
+                preferred = "-",
+            }
+        })
 
         vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", { silent = true, buffer = buffer })
         vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { silent = true, buffer = buffer })
@@ -99,14 +117,8 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", { silent = true, buffer = buffer })
 
         vim.keymap.set("n", "<localleader>c", "<cmd>AutolistToggleCheckbox<cr>", { silent = true, buffer = buffer })
-        vim.keymap.set("n", "<C-A>", "<cmd>AutolistCycleNext<cr><C-A>",
-            { noremap = true, silent = true, buffer = buffer })
-        vim.keymap.set("n", "<C-X>", "<cmd>AutolistCyclePrev<cr><C-X>",
-            { noremap = true, silent = true, buffer = buffer })
-
-        -- want dot-repeat
-        -- vim.keymap.set("n", "<leader>ln", require("autolist").cycle_next_dr, { expr = true, noremap = true, silent = true, buffer = buffer })
-        -- vim.keymap.set("n", "<leader>lp", require("autolist").cycle_prev_dr, { expr = true, noremap = true, silent = true, buffer = buffer })
+        vim.keymap.set("n", ">b", autolist.cycle_next_dr, { expr = true, noremap = true, silent = true, buffer = buffer })
+        vim.keymap.set("n", "<b", autolist.cycle_prev_dr, { expr = true, noremap = true, silent = true, buffer = buffer })
 
         vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>", { silent = true, buffer = buffer })
 
