@@ -346,13 +346,6 @@ in {
       # For pretty kind icons on completion
       lspkind-nvim
 
-      # --------------------------------------------------------------------------------
-      # Languages
-      # --------------------------------------------------------------------------------
-
-      # Nix
-      vim-nix
-
       # Lisp
       parpar-nvim
       nvim-paredit
