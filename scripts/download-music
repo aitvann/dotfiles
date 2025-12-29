@@ -1,36 +1,29 @@
-#! /bin/sh
+#! /usr/bin/env bb
+; vim: set ft=clojure:
 
-#     -o "%(album_artist&{} - |)s%(album|singletones)s/%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
+(require
+ '[babashka.cli :as cli]
+ '[babashka.process :refer [sh]])
 
-yt-dlp \
-    -P $HOME/data/knowledge-base/media/music/import-source/ \
-    -o "%(creator).200B%(creator.201&...|)s%(creator& - |)#s%(track,title)#s.%(ext)s" \
-    --download-archive $HOME/data/knowledge-base/media/music/dlp-index.txt \
-    -f bestaudio \
-    --extract-audio \
-    --embed-thumbnail \
-    --embed-metadata \
-    --cookies-from-browser firefox \
-    "https://music.youtube.com/playlist?list=PL3IFklmt6R9CVSzOPwWqovvz2gHEFaIEZ"
+(def home (System/getProperty "user.home"))
 
-yt-dlp \
-    -P $HOME/data/knowledge-base/media/music/import-source/ \
-    -o "%(creator).200B%(creator.201&...|)s%(creator& - |)#s%(track,title)#s.%(ext)s" \
-    --download-archive $HOME/data/knowledge-base/media/music/dlp-index.txt \
-    -f bestaudio \
-    --extract-audio \
-    --embed-thumbnail \
-    --embed-metadata \
-    --cookies-from-browser firefox \
-    "https://music.youtube.com/playlist?list=LM"
+(def opts (cli/parse-args *command-line-args*))
+(def proxy? (contains? (:opts opts) :proxy))
 
-# --extractor-args "youtubetab:skip=authcheck" \
+; -o "%(album_artist&{} - |)s%(album|singletones)s/%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
+; --extractor-args "youtubetab:skip=authcheck" \
 
-# yt-dlp \
-#     -P $HOME/data/knowledge-base/media/music/import-source/ \
-#     -o "%(creator&{} - |)#s%(track,title)#s.%(ext)s" \
-#     -f bestaudio \
-#     --extract-audio \
-#     --audio-format flac \
-#     --embed-metadata \
-#     "https://www.youtube.com/playlist?list=PL3IFklmt6R9DHmsaCHYD4REmLYIII4rn2"
+(apply
+ sh {:out :inherit :err :inherit} "yt-dlp"
+ (concat
+  (if proxy? ["--proxy" "socks5://127.0.0.1:10808"] [])
+  ["-P" (str home "data/knowledge-base/media/music/import-source/")]
+  ["-o" "%(creator).200B%(creator.201&...|)s%(creator& - |)#s%(track,title)#s.%(ext)s"]
+  ["--download-archive" (str home "data/knowledge-base/media/music/dlp-index.txt")]
+  ["-f" "bestaudio"]
+  ["--extract-audio"]
+  ["--embed-thumbnail"]
+  ["--embed-metadata"]
+  ["--cookies-from-browser" "firefox"]
+  ["https://music.youtube.com/playlist?list=LM"]))
+
