@@ -180,30 +180,9 @@ in {
         # flagfox # unfree
         # draw-io-for-nation # missing for FF
       ];
-
-      # TODO: make it non-nix
-      # https://github.com/eyedeekay/backup-extensions/blob/8bebe49550fdb144e624d266f321ec02f62a4dea/Makefile#L5
-      # https://github.com/nix-community/home-manager/blob/master/modules/programs/firefox.nix#L925
-      shared-engines = {
-        # MANUAL: to restore preferences run:
-        # ``` sh
-        # xdg-open $(cat ~/dotfiles/configs/searx-preferences.url)
-        # ```
-        force = true;
-        default = "SearXNG Stream";
-        engines = {
-          "SearXNG Stream" = {
-            urls = [{template = "https://searx.stream/?q={searchTerms}";}];
-            icon = "https://avatars.githubusercontent.com/u/80454229?s=200&v=4";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = ["@sx"];
-          };
-        };
-      };
     in {
       general = {
         id = 0;
-        search = shared-engines;
         extensions.packages = with pkgs.firefox-addons;
           [
             # MANUAL: go to extension settings and import options manually
@@ -229,7 +208,6 @@ in {
       };
       work = {
         id = 1;
-        search = shared-engines;
         extensions.packages = shared-extensions;
       };
     };
