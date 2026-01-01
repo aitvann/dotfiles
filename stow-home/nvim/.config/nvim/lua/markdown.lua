@@ -61,6 +61,14 @@ require("obsidian").setup({
         enable = false,
     },
 
+    callbacks = {
+        enter_note = function(note)
+            -- remap LSP keybinding
+            vim.keymap.set("n", "gf", "<cmd>Obsidian quick_switch<CR>",
+                { silent = true, desc = "Go to File (Note)", buffer = note.bufnr })
+        end
+    },
+
     attachments = {
         img_folder = "media/images",
     },
@@ -95,10 +103,6 @@ vim.api.nvim_create_autocmd("FileType", {
             { silent = true, desc = "insert Template", buffer = buffer })
         vim.keymap.set("n", "<localleader>r", "<cmd>Obsidian rename<CR>",
             { silent = true, desc = "Rename current note", buffer = buffer })
-        --
-        -- remap LSP keybinding
-        vim.keymap.set("n", "gf", "<cmd>Obsidian quick_switch<CR>",
-            { silent = true, desc = "Go to File (Note)", buffer = buffer })
 
         local autolist = require("autolist")
         autolist.setup({
