@@ -17,6 +17,7 @@ application/x-shellscript=nvim.desktop
 application/sdp=nvim.desktop
 application/pdf=firefox.desktop
 application/toml=nvim.desktop
+application/json=nvim.desktop
 application/x-cue=nvim.desktop
 application/x-gnome-saved-search=nnn.desktop
 application/x-qpwgraph-patchbay=org.rncbc.qpwgraph.desktop
