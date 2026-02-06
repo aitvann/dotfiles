@@ -60,6 +60,7 @@ in {
             ];
         }
       );
+      graalvmPackages21 = inputs.nixpkgs-graalvm21.legacyPackages.${prev.system}.graalvmCEPackages;
     })
   ];
 
@@ -402,6 +403,7 @@ in {
     # libsForQt5.qt5ct
     # kdePackages.qt6ct
     obs-studio
+    kdePackages.kdenlive
     protontricks
     discord
     telegram-desktop
@@ -413,9 +415,13 @@ in {
     tor-browser
     monero-gui
     monero-cli
-    prismlauncher
-    # openjdk8-bootstrap
-    graalvmPackages.graalvm-oracle_17
+    (prismlauncher.override {
+      jdks = [
+        graalvmPackages.graalvm-oracle_17
+        graalvmPackages21.graalvm-ce
+      ];
+    })
+    mcaselector
     mpv
     vlc
     dbeaver-bin
@@ -429,6 +435,8 @@ in {
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
     v2rayn
+    gramps
+    comaps
 
     # cli apps
     stow

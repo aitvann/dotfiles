@@ -694,6 +694,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-graalvm21": {
+      "locked": {
+        "lastModified": 1708814358,
+        "narHash": "sha256-mYJwTy2TNTOXbxVtmhXDv98F2ORhxRzL1S6yw1+1G20=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "336eda0d07dc5e2be1f923990ad9fdb6bc8e28e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "336eda0d07dc5e2be1f923990ad9fdb6bc8e28e3",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1761765539,
@@ -781,6 +797,7 @@
         "hyprland-plugins": "hyprland-plugins",
         "nix-alien": "nix-alien",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-graalvm21": "nixpkgs-graalvm21",
         "nur": "nur",
         "zapret-discord-youtube": "zapret-discord-youtube"
       }

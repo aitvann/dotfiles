@@ -14,6 +14,8 @@
 
 (def home (System/getProperty "user.home"))
 
+; TODO: add Gramps
+
 (println "importing Z history...")
 (def zlua-history-src (str home "/.local/share/zsh/.zlua"))
 (def z-history-dst (str home "/data/backups/z-history/zlua_" (formatted-timestamp)))
