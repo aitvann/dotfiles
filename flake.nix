@@ -171,7 +171,8 @@
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         hosts/venus/configuration.nix
         disko.nixosModules.disko
-        hosts/venus/disko.nix
+        # Won't boot with disko
+        # hosts/venus/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
@@ -197,6 +198,20 @@
           "-p"
           "7818"
 
+          # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
+          "-A"
+        ];
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
+      };
+    };
+
+    # Initial setup
+    deploy.nodes.venus-init = {
+      hostname = "venus.home.arpa";
+      sshUser = "root";
+      profiles.system = {
+        user = "root";
+        sshOpts = [
           # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
           "-A"
         ];
