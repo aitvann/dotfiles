@@ -8,7 +8,7 @@
   util = import ../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
-  home.username = "aitvann";
+  home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
 
   home.packages = with pkgs; [

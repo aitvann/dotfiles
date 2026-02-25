@@ -177,20 +177,20 @@
           home-manager.useGlobalPkgs = false;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.users.aitvann = import "${self}/users/aitvann@venus.nix";
+          home-manager.users.general = import "${self}/users/general@venus.nix";
         }
       ];
     };
 
-    homeConfigurations."venus-aitvann" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."venus-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = ["${self}/users/aitvann@venus.nix"];
+      modules = ["${self}/users/general@venus.nix"];
       extraSpecialArgs = {inherit inputs;};
     };
 
     deploy.nodes.venus = {
       hostname = "venus";
-      sshUser = "aitvann";
+      sshUser = "general";
       profiles.system = {
         user = "root";
         sshOpts = [
