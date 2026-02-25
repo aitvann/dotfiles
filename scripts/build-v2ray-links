@@ -10,6 +10,7 @@
 
 (def opts (cli/parse-args *command-line-args*))
 (def target (or (:target (:opts opts)) (str home "/dotfiles/stow-system/website/www/v2ray-links")))
+(def venus-ip (str/trim (slurp (str home "/dotfiles/secrets/venus-ip.txt"))))
 (def xray-config-path (or (:xray-config (:opts opts)) (str home "/dotfiles/stow-system/xray-venus/xray/config.json")))
 
 (defn encodeBase64 [txt]
@@ -20,7 +21,7 @@
 (def xray-config (json/parse-string (slurp xray-config-path) true))
 
 (defn build-vless  [uuid]
-  (str "vless://" uuid "@82.153.138.53:443?encryption=none&security=reality&sni=rutube.ru&alpn=h2&fp=chrome&pbk=nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg&type=xhttp&host=rutube.ru&path=entry&mode=stream-up&extra=%22xmux%22%3A%20%7B%0A%20%20%22maxConcurrency%22%3A%201%2C%0A%20%20%22hMaxRequestTimes%22%3A%20%22600-900%22%2C%0A%20%20%22hMaxReusableSecs%22%3A%20%221800-3000%22%0A%7D%2C%0A%22downloadSettings%22%3A%20%7B%0A%20%20%22address%22%3A%20%2282.153.138.53%22%2C%0A%20%20%22port%22%3A%20443%2C%0A%20%20%22network%22%3A%20%22xhttp%22%2C%0A%20%20%22xhttpSettings%22%3A%20%7B%0A%20%20%20%20%22path%22%3A%20%22entry%22%2C%0A%20%20%20%20%22xmux%22%3A%20%7B%0A%20%20%20%20%20%20%22maxConnections%22%3A%201%2C%0A%20%20%20%20%20%20%22hMaxRequestTimes%22%3A%20%22600-900%22%2C%0A%20%20%20%20%20%20%22hMaxReusableSecs%22%3A%20%221800-3000%22%0A%20%20%20%20%7D%0A%20%20%7D%2C%0A%20%20%22security%22%3A%20%22reality%22%2C%0A%20%20%22realitySettings%22%3A%20%7B%0A%20%20%20%20%22serverName%22%3A%20%22rutube.ru%22%2C%0A%20%20%20%20%22password%22%3A%20%22nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg%22%2C%0A%20%20%20%20%22fingerprint%22%3A%20%22chrome%22%0A%20%20%7D%2C%0A%20%20%22tlsSettings%22%3A%20%7B%0A%20%20%20%20%22alpn%22%3A%20%5B%22h3%22%5D%0A%20%20%7D%0A%7D#VLESS"))
+  (str "vless://" uuid "@" venus-ip ":443?encryption=none&security=reality&sni=rutube.ru&alpn=h2&fp=chrome&pbk=nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg&type=xhttp&host=rutube.ru&path=entry&mode=stream-up&extra=%22xmux%22%3A%20%7B%0A%20%20%22maxConcurrency%22%3A%201%2C%0A%20%20%22hMaxRequestTimes%22%3A%20%22600-900%22%2C%0A%20%20%22hMaxReusableSecs%22%3A%20%221800-3000%22%0A%7D%2C%0A%22downloadSettings%22%3A%20%7B%0A%20%20%22address%22%3A%20%2282.153.138.53%22%2C%0A%20%20%22port%22%3A%20443%2C%0A%20%20%22network%22%3A%20%22xhttp%22%2C%0A%20%20%22xhttpSettings%22%3A%20%7B%0A%20%20%20%20%22path%22%3A%20%22entry%22%2C%0A%20%20%20%20%22xmux%22%3A%20%7B%0A%20%20%20%20%20%20%22maxConnections%22%3A%201%2C%0A%20%20%20%20%20%20%22hMaxRequestTimes%22%3A%20%22600-900%22%2C%0A%20%20%20%20%20%20%22hMaxReusableSecs%22%3A%20%221800-3000%22%0A%20%20%20%20%7D%0A%20%20%7D%2C%0A%20%20%22security%22%3A%20%22reality%22%2C%0A%20%20%22realitySettings%22%3A%20%7B%0A%20%20%20%20%22serverName%22%3A%20%22rutube.ru%22%2C%0A%20%20%20%20%22password%22%3A%20%22nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg%22%2C%0A%20%20%20%20%22fingerprint%22%3A%20%22chrome%22%0A%20%20%7D%2C%0A%20%20%22tlsSettings%22%3A%20%7B%0A%20%20%20%20%22alpn%22%3A%20%5B%22h3%22%5D%0A%20%20%7D%0A%7D#VLESS"))
 
 (def vless-links
   (->>
@@ -36,7 +37,7 @@
 (defn build-ss [client-pwd]
   (let [pwd (str "2022-blake3-aes-128-gcm:dvb1D6DbqydKwFP5AXI/zg==:" client-pwd)
         base64-pwd (encodeBase64 pwd)]
-    (str "ss://" base64-pwd "@82.153.138.53:33964#SS")))
+    (str "ss://" base64-pwd "@" venus-ip ":33964#SS")))
 
 (def ss-links
   (->>

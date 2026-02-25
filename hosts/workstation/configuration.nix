@@ -189,10 +189,10 @@ in {
   # environment.binsh = "${pkgs.dash}/bin/dash";
 
   networking.extraHosts = ''
-    127.0.0.1 local_kafka
     127.0.0.1 postgres-test
-    127.0.0.1 users-postgres-test
     127.0.0.1 clickhouse-test
+
+    ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
   '';
 
   security.pki.certificates = [(builtins.readFile ../../stow-system/cert-jupiter/cert/cert.pem)];
