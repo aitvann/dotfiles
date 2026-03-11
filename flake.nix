@@ -171,8 +171,8 @@
         # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         hosts/venus/configuration.nix
         disko.nixosModules.disko
-        # Won't boot with disko
-        # hosts/venus/disko.nix
+        # Cloud Init installation won't boot with disko
+        hosts/venus/disko.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = false;
@@ -230,6 +230,7 @@
         buildInputs = [
           pkgs.nur.repos.rycee.mozilla-addons-to-nix
           pkgs.disko
+          pkgs.nixos-anywhere
         ];
       };
   };
