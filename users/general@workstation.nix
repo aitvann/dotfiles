@@ -260,6 +260,14 @@ in {
     ];
   };
 
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      # Does not work with Wayland
+      # droidcam-obs
+    ];
+  };
+
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
@@ -402,7 +410,6 @@ in {
     nwg-look
     # libsForQt5.qt5ct
     # kdePackages.qt6ct
-    obs-studio
     kdePackages.kdenlive
     protontricks
     discord

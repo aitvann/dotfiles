@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   lib,
@@ -160,6 +161,11 @@ in {
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
+
+  # Video Input devices support (v4l2)
+  programs.obs-studio.enable = true;
+  programs.obs-studio.package = null; # Install using Home Manger instead if needed
+  programs.obs-studio.enableVirtualCamera = true;
 
   virtualisation.docker = {
     enable = true;
