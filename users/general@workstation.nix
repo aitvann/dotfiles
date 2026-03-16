@@ -38,6 +38,11 @@ in {
               prev.rofi-calc
             ];
         });
+      gramps = prev.gramps.overrideAttrs (old: {
+        # required for GraphView addon
+        buildInputs = old.buildInputs ++ [prev.goocanvas3];
+        # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
+      });
       # HACK:
       # fixing broken desktop entry
       # https://github.com/Vladimir-csp/app2unit/issues/9#issuecomment-3175908089
