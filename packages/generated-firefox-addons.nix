@@ -103,10 +103,10 @@
     };
     "revoke-cash" = buildFirefoxXpiAddon {
       pname = "revoke-cash";
-      version = "0.7.3";
+      version = "0.7.4";
       addonId = "webextension@revoke.cash";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4629745/revoke_cash-0.7.3.xpi";
-      sha256 = "223bd9d082f56bfb6e2b9d1108fb08d8d1bd2341b948f9b2fe8ff22d41636778";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4652742/revoke_cash-0.7.4.xpi";
+      sha256 = "2cd8ce3c93063f9727f97cf3a26e62010a684ecf3bf47c9b2f6a835a7e8d4675";
       meta = with lib;
       {
         homepage = "https://revoke.cash";

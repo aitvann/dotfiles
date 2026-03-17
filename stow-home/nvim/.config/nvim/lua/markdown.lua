@@ -70,7 +70,7 @@ require("obsidian").setup({
     },
 
     attachments = {
-        img_folder = "media/images",
+        folder = "media/images",
     },
 
 })

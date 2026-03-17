@@ -18,7 +18,7 @@ in {
       hyprlandPlugins =
         prev.hyprlandPlugins
         // {
-          hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors;
+          # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors;
           xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
@@ -40,7 +40,7 @@ in {
         });
       gramps = prev.gramps.overrideAttrs (old: {
         # required for GraphView addon
-        buildInputs = old.buildInputs ++ [prev.goocanvas3];
+        buildInputs = old.buildInputs ++ [prev.goocanvas_3];
         # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
       });
       # HACK:
@@ -223,7 +223,8 @@ in {
     enable = true;
     systemd.enable = false;
     plugins = with pkgs.hyprlandPlugins; [
-      hypr-dynamic-cursors
+      # TODO: enable when compiles again
+      # hypr-dynamic-cursors
       xtra-dispatchers
     ];
   };
@@ -289,7 +290,7 @@ in {
       # useful lua functions
       plenary-nvim
       # analyze file structure
-      nvim-treesitter.withAllGrammars
+      nvim-treesitter-legacy.withAllGrammars
       # repeat motions
       nvim-next
       # easily create textobjects
@@ -345,7 +346,7 @@ in {
       # indentetion
       indent-blankline-nvim
       # tree-sitter text objects
-      nvim-treesitter-textobjects
+      nvim-treesitter-textobjects-legacy
       # auto bullets
       autolist-nvim
       # align helper
@@ -448,7 +449,8 @@ in {
     wireshark
     v2rayn
     gramps
-    comaps
+    # TODO: enable when compiles
+    # comaps
 
     # cli apps
     stow
@@ -579,6 +581,7 @@ in {
       (packageHomeFiles ../stow-home/gtk-3.0)
       (packageHomeFiles ../stow-home/gtk-4.0)
       (packageHomeFiles ../stow-home/helix)
+      (packageHomeFiles ../stow-home/pypr)
       (packageHomeFiles ../stow-home/hypr)
       (packageHomeFiles ../stow-home/icons)
       (packageHomeFiles ../stow-home/lazygit)
@@ -586,7 +589,7 @@ in {
       (packageHomeFiles ../stow-home/ncmpcpp)
       (packageHomeFiles ../stow-home/networkmanager-dmenu)
       (packageHomeFiles ../stow-home/nix)
-      (packageHomeFiles ../stow-home/nvim)
+      # (packageHomeFiles ../stow-home/nvim)
       (packageHomeFiles ../stow-home/pam-gnupg)
       (packageHomeFiles ../stow-home/pipewire-general)
       (packageHomeFiles ../stow-home/qalculate)
