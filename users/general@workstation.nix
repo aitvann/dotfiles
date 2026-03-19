@@ -589,7 +589,7 @@ in {
       (packageHomeFiles ../stow-home/ncmpcpp)
       (packageHomeFiles ../stow-home/networkmanager-dmenu)
       (packageHomeFiles ../stow-home/nix)
-      # (packageHomeFiles ../stow-home/nvim)
+      (packageHomeFiles ../stow-home/nvim)
       (packageHomeFiles ../stow-home/pam-gnupg)
       (packageHomeFiles ../stow-home/pipewire-general)
       (packageHomeFiles ../stow-home/qalculate)
