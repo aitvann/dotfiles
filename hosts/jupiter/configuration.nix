@@ -17,8 +17,6 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "jupiter";
-  # Pick only one of the below networking options.
-  networking.wireless.enable = lib.mkForce false; # Enables wireless support via wpa_supplicant. turning off explicitely in order to be able to build an ISO
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   i18n.defaultLocale = "en_GB.UTF-8";

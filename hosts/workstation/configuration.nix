@@ -48,11 +48,7 @@ in {
   };
 
   networking.hostName = workstation.host;
-  # pick only one of the below networking options
   networking.networkmanager.enable = true;
-  # enables wireless support via wpa_supplicant
-  # turning off explicitely in order to be able to build an ISO
-  networking.wireless.enable = lib.mkForce false;
   networking.nameservers = ["127.0.0.1"];
   networking.firewall = {
     # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama
