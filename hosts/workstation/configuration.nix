@@ -158,6 +158,17 @@ in {
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
+  # Virtualisation
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
+  users.groups.libvirtd.members = ["general"];
+  networking.firewall.trustedInterfaces = ["virbr0"];
+  # Fixes "address already in use" wiht Virt-Manager network
+  # https://wiki.libvirt.org/Virtual_network_default_has_not_been_started.html#solution
+  services.dnsmasq.enable = true;
+  services.dnsmasq.settings.listen-address = "127.0.0.1";
+  services.dnsmasq.settings.bind-interfaces = true; # dont wildcard bind
+
   # Video Input devices support (v4l2)
   programs.obs-studio.enable = true;
   programs.obs-studio.package = null; # Install using Home Manger instead if needed
@@ -213,6 +224,9 @@ in {
   # };
 
   environment.systemPackages = with pkgs; [
+    # Virtualisation
+    dnsmasq
+
     # won't work unles system installed
     gparted
 
