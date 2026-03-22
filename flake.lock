@@ -201,6 +201,22 @@
         "type": "github"
       }
     },
+    "flatpaks": {
+      "locked": {
+        "lastModified": 1769601081,
+        "narHash": "sha256-J0n+J/qfU3xTf5iaMcQrEK4dA5GSYQcw8XJuhZsM1Pc=",
+        "owner": "in-a-dil-emma",
+        "repo": "declarative-flatpak",
+        "rev": "aba8c5ca67444cf4bcd0b02df284de1c93533a19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "in-a-dil-emma",
+        "ref": "latest",
+        "repo": "declarative-flatpak",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -753,6 +769,7 @@
         "current-location": "current-location",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
+        "flatpaks": "flatpaks",
         "home-manager": "home-manager",
         "hyprcursor-phinger": "hyprcursor-phinger",
         "hyprland": "hyprland",

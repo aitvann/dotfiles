@@ -70,7 +70,7 @@ in {
   ];
 
   disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/open-webui.nix];
+  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/open-webui.nix inputs.flatpaks.homeModules.default];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
@@ -386,6 +386,21 @@ in {
       # kanagawa-nvim
       # nightfox-nvim
       # gruvbox-nvim
+    ];
+  };
+
+  services.flatpak = {
+    enable = true;
+    preSwitchCommand = ''
+      # https://github.com/in-a-dil-emma/declarative-flatpak/issues/30#issuecomment-2360118207
+      ${lib.getExe pkgs.flatpak} override --user --unshare=network md.obsidian.Obsidian
+    '';
+    remotes = {
+      "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+    };
+    packages = [
+      "flathub:app/com.github.tchx84.Flatseal//stable"
+      "flathub:app/md.obsidian.Obsidian//stable"
     ];
   };
 

@@ -15,6 +15,8 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
+
     zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
     zapret-discord-youtube.inputs.nixpkgs.follows = "nixpkgs";
 
