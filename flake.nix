@@ -233,6 +233,7 @@
           pkgs.nur.repos.rycee.mozilla-addons-to-nix
           pkgs.disko
           pkgs.nixos-anywhere
+          pkgs.xray
         ];
       };
   };
