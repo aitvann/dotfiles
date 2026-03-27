@@ -74,8 +74,6 @@ in {
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "discord"
-      "obsidian"
       "unrar"
       "steam"
       "steam-run"
@@ -401,6 +399,8 @@ in {
     packages = [
       "flathub:app/com.github.tchx84.Flatseal//stable"
       "flathub:app/md.obsidian.Obsidian//stable"
+      # TODO: fix screen sharing (works with native package)
+      "flathub:app/de.shorsh.discord-screenaudio//stable"
     ];
   };
 
@@ -441,7 +441,6 @@ in {
     # kdePackages.qt6ct
     kdePackages.kdenlive
     protontricks
-    discord
     telegram-desktop
     element-desktop
     session-desktop

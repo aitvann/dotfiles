@@ -50,7 +50,7 @@ else
     fi
 
     cp $flake $flake_target
-    git add $flake_target
+    git add $flake_target Cargo.toml
     git commit -m "chore: add flake environment"
     echo "source_up_if_exists" > .envrc
     echo "use flake" >> .envrc
