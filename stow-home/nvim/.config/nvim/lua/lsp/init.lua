@@ -4,16 +4,22 @@ local diagnostics = require("lsp.diagnostics")
 
 local blink = require("blink.cmp")
 
-vim.lsp.enable {
-    "rust_analyzer", -- rust
-    "solc",          -- solidity
-    "lua_ls",        -- lua
-    "nil_ls",        -- nix
-    "marksman",      -- markdown
-    "clojure_lsp",   -- clojure
-    "taplo",         -- toml
-    "efm"
-}
+vim.api.nvim_create_autocmd("User", {
+    pattern = "DirenvLoaded",
+    callback = function()
+        vim.lsp.enable {
+            "rust_analyzer", -- rust
+            "solc",          -- solidity
+            "lua_ls",        -- lua
+            "nil_ls",        -- nix
+            "marksman",      -- markdown
+            "clojure_lsp",   -- clojure
+            "taplo",         -- toml
+            "efm"
+        }
+    end,
+    desc = "Make sure Direnv environment is loaded before enabling LSP (fixes rust-analyzer)",
+})
 
 -- construct capabilities object
 local capabilities = vim.tbl_deep_extend(

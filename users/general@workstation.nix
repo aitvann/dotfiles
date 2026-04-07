@@ -26,8 +26,7 @@ in {
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
-        # `O_RESTOREPREVIEW=1` does not play nice with hypr-current-location
-        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1"];
+        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
       });
       rofi-wayland =
         prev.rofi-wayland.override
@@ -309,13 +308,13 @@ in {
       conjure
       # allows to continue to use keybindings without switching to EN layout
       langmapper-nvim
+      # Find project root and change CWD to it
+      project-nvim
 
       # --------------------------------------------------------------------------------
       # Interface
       # --------------------------------------------------------------------------------
 
-      # choose project using Telescope
-      telescope-project-nvim
       # status line
       lualine-nvim
       # fuzzy finder over lists
@@ -341,7 +340,7 @@ in {
       vim-surround
       # gc to comment line
       comment-nvim
-      # context aware commenting
+      # smarter context aware commenting
       nvim-ts-context-commentstring
       # autocomplition using multiple sources
       blink-cmp

@@ -153,7 +153,15 @@ vim.api.nvim_create_autocmd('BufEnter', {
             if not file then
                 vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
             else
-                local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
+                local location
+                local root, _lsp_or_method = require('project').get_project_root()
+                if root ~= nil then
+                    location = root
+                else
+                    location = filepath
+                end
+
+                local data = vim.fn.json_encode({ location = location, nvim_pipe = vim.v.servername })
                 vim.loop.fs_write(file, data, -1,
                     function(write_err)
                         if write_err then
