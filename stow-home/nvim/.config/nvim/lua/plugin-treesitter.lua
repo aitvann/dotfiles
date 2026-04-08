@@ -1,151 +1,194 @@
-local configs = require("nvim-treesitter.configs")
-local context_commentstring = require('ts_context_commentstring')
-local next_integrations = require("nvim-next.integrations")
+-- local configs = require("nvim-treesitter.configs")
+-- local context_commentstring = require('ts_context_commentstring')
+-- local next_integrations = require("nvim-next.integrations")
 
-next_integrations.treesitter_textobjects()
+-- next_integrations.treesitter_textobjects()
 
-configs.setup({
-    sync_install = false,
-    ignore_install = { "" }, -- List of parsers to ignore installing
-    autopairs = {
-        enable = true,
-    },
-    highlight = {
-        enable = true,    -- false will disable the whole extension
-        disable = { "" }, -- list of language that will be disabled
-        additional_vim_regex_highlighting = false,
-    },
-    indent = { enable = true, disable = { "yaml" } },
-    textobjects = {
-        select = {
-            enable = true,
-
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
-
-            keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ["af"] = { query = "@function.outer", desc = "select OUTER part of a Function region" },
-                ["if"] = { query = "@function.inner", desc = "select INNER part of a Function region" },
-                ["ac"] = { query = "@class.outer", desc = "select OUTER part of a Class region" },
-                ["ic"] = { query = "@class.inner", desc = "select INNER part of a Class region" },
-                ["aa"] = { query = "@parameter.outer", desc = "select OUTER part of a Argument region" },
-                ["ia"] = { query = "@parameter.inner", desc = "select INNER part of a Argument region" },
-                ["am"] = { query = "@comment.outer", desc = "select OUTER part of a coMMent region" },
-                ["im"] = { query = "@comment.outer", desc = "select OUTER part of a coMMent region" }, -- fake inner
-                -- ["im"] = { query = "@comment.inner", desc = "select INNER part of a coMMent region" }, -- no such object
-                ["ao"] = { query = "@loop.outer", desc = "select OUTER part of a lOOp region" },
-                ["io"] = { query = "@loop.inner", desc = "select INNER part of a lOOp region" },
-                ["an"] = { query = "@conditional.outer", desc = "select OUTER part of a coNditional region" },
-                ["in"] = { query = "@conditional.inner", desc = "select INNER part of a coNditional region" },
-                ["ag"] = { query = "@assignment.outer", desc = "select OUTER part of a assiGnment region" },
-                ["ig"] = { query = "@assignment.outer", desc = "select OUTER part of a assiGnment region" }, -- fake inner
-                -- ["ig"] = { query = "@assignment.inner", desc = "select OUTER part of a assiGnment region" }, -- no such object
-                ["al"] = { query = "@assignment.lhs", desc = "select OUTER part of a assignment Lhs region" },
-                ["il"] = { query = "@assignment.lhs", desc = "select OUTER part of a assignment Lhs region" }, -- nodiff inner
-                ["ar"] = { query = "@assignment.rhs", desc = "select OUTER part of a assignment Rhs region" },
-                ["ir"] = { query = "@assignment.rhs", desc = "select OUTER part of a assignment Rhs region" }, -- nodiff inner
-                -- You can also use captures from other query groups like `locals.scm`
-                ["as"] = { query = "@scope", query_group = "locals", desc = "select language Scope" },
-                ["is"] = { query = "@scope", query_group = "locals", desc = "select language Scope" }, -- nodiff inner
-            },
-
-            -- TODO: make 'fake' and 'nodiff' textobjects actually do something
-            -- If you set this to `true` (default is `false`) then any textobject is
-            -- extended to include preceding or succeeding whitespace. Succeeding
-            -- whitespace has priority in order to act similarly to eg the built-in
-            -- `ap`.
-            --
-            -- Can also be a function which gets passed a table with the keys
-            -- * query_string: eg '@function.inner'
-            -- * selection_mode: eg 'v'
-            -- and should return true of false
-            include_surrounding_whitespace = false,
-        },
-        swap = {
-            enable = true,
-            swap_next = {
-                [">a"] = { query = "@parameter.inner", desc = "swap with next Parameter" },
-            },
-            swap_previous = {
-                ["<a"] = { query = "@parameter.inner", desc = "swap with previous Parameter" },
-            },
-        },
-    },
-    nvim_next = {
-        enable = true,
-        textobjects = {
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    ["]f"] = { query = "@function.outer", desc = "Next Function start" },
-                    ["]c"] = { query = "@class.outer", desc = "Next Class start" },
-                    ["]a"] = { query = "@parameter.outer", desc = "Next Argument start" },
-                    ["]m"] = { query = "@comment.outer", desc = "Next coMMent start" },
-                    ["]o"] = { query = "@loop.outer", desc = "Next lOOp start" },
-                    ["]n"] = { query = "@conditional.outer", desc = "Next coNditional start" },
-                    ["]g"] = { query = "@assignment.outer", desc = "Next assiGnment start" },
-                    ["]l"] = { query = "@assignment.lhs", desc = "Next Lhs start" },
-                    ["]r"] = { query = "@assignment.rhs", desc = "Next Rhs start" },
-                    ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-                },
-                goto_next_end = {
-                    ["]F"] = { query = "@function.outer", desc = "Next Function end" },
-                    ["]C"] = { query = "@class.outer", desc = "Next Class end" },
-                    ["]A"] = { query = "@parameter.outer", desc = "Next Argument end" },
-                    ["]M"] = { query = "@comment.outer", desc = "Next coMMent end" },
-                    ["]O"] = { query = "@loop.outer", desc = "Next lOOp end" },
-                    ["]N"] = { query = "@conditional.outer", desc = "Next coNditional end" },
-                    ["]G"] = { query = "@assignment.outer", desc = "Next assiGnment end" },
-                    ["]L"] = { query = "@assignment.lhs", desc = "Next Lhs end" },
-                    ["]R"] = { query = "@assignment.rhs", desc = "Next Rhs end" },
-                    ["]S"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-                },
-                goto_previous_start = {
-                    ["[f"] = { query = "@function.outer", desc = "Previous Function start" },
-                    ["[c"] = { query = "@class.outer", desc = "Previous Class start" },
-                    ["[a"] = { query = "@parameter.outer", desc = "Previous Argument start" },
-                    ["[m"] = { query = "@comment.outer", desc = "Previous coMMent start" },
-                    ["[o"] = { query = "@loop.outer", desc = "Previous lOOp start" },
-                    ["[n"] = { query = "@conditional.outer", desc = "Previous coNditional start" },
-                    ["[g"] = { query = "@assignment.outer", desc = "Previous assiGnment start" },
-                    ["[l"] = { query = "@assignment.lhs", desc = "Previous Lhs start" },
-                    ["[r"] = { query = "@assignment.rhs", desc = "Previous Rhs start" },
-                    ["[s"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
-                },
-                goto_previous_end = {
-                    ["[F"] = { query = "@function.outer", desc = "Previous Function end" },
-                    ["[C"] = { query = "@class.outer", desc = "Previous Class end" },
-                    ["[A"] = { query = "@parameter.outer", desc = "Previous Argument end" },
-                    ["[M"] = { query = "@comment.outer", desc = "Previous coMMent end" },
-                    ["[O"] = { query = "@loop.outer", desc = "Previous lOOp end" },
-                    ["[N"] = { query = "@conditional.outer", desc = "Previous coNditional end" },
-                    ["[G"] = { query = "@assignment.outer", desc = "Previous assiGnment end" },
-                    ["[L"] = { query = "@assignment.lhs", desc = "Previous Lhs end" },
-                    ["[R"] = { query = "@assignment.rhs", desc = "Previous Rhs end" },
-                    ["[S"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
-                },
-                -- Below will go to either the start or the end, whichever is closer.
-                -- Use if you want more granular movements
-                -- Make it even more gradual by adding multiple queries and regex.
-                goto_next = {
-                    ["]]"] = { query = "@function.outer", desc = "Next function" },
-                },
-                goto_previous = {
-                    ["[["] = { query = "@function.outer", desc = "Previous function" },
-                }
-            }
-        },
-
-    }
+vim.api.nvim_create_autocmd("FileType", { -- enable treesitter highlighting and indents
+    callback = function(args)
+        local filetype = args.match
+        local lang = vim.treesitter.language.get_lang(filetype)
+        if lang ~= nil and vim.treesitter.language.add(lang) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            vim.treesitter.start()
+        end
+    end
 })
 
-vim.g.skip_ts_context_commentstring_module = true
-context_commentstring.setup {
-    enable = true,
-    enable_autocmd = false,
+
+vim.g.no_plugin_maps = true
+require("nvim-treesitter-textobjects").setup {
+    select = {
+        lookahead = true,
+        selection_modes = function(_) return 'v' end,
+        include_surrounding_whitespace = false,
+    },
+    move = {
+        set_jumps = true,
+    },
+
 }
+
+local select = require "nvim-treesitter-textobjects.select"
+vim.keymap.set({ "x", "o" }, "af", function() select.select_textobject("@function.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a Function region" })
+vim.keymap.set({ "x", "o" }, "if", function() select.select_textobject("@function.inner", "textobjects") end,
+    { silent = true, desc = "select INNER part of a Function region" })
+vim.keymap.set({ "x", "o" }, "ac", function() select.select_textobject("@class.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a Class region" })
+vim.keymap.set({ "x", "o" }, "ic", function() select.select_textobject("@class.inner", "textobjects") end,
+    { silent = true, desc = "select INNER part of a Class region" })
+vim.keymap.set({ "x", "o" }, "aa", function() select.select_textobject("@parameter.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a Argument region" })
+vim.keymap.set({ "x", "o" }, "ia", function() select.select_textobject("@parameter.inner", "textobjects") end,
+    { silent = true, desc = "select INNER part of a Argument region" })
+vim.keymap.set({ "x", "o" }, "am", function() select.select_textobject("@comment.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a coMMent region" })
+vim.keymap.set({ "x", "o" }, "im", function() select.select_textobject("@comment.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a coMMent region" }) -- fake inner for consistency
+-- vim.keymap.set({ "x", "o" }, "im", function() select.select_textobject("@comment.inner", "textobjects") end,
+--     { silent = true, desc = "select INNER part of a coMMent region" }) -- no such object
+vim.keymap.set({ "x", "o" }, "ao", function() select.select_textobject("@loop.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a lOOp region" })
+vim.keymap.set({ "x", "o" }, "io", function() select.select_textobject("@loop.inner", "textobjects") end,
+    { silent = true, desc = "select INNER part of a lOOp region" })
+vim.keymap.set({ "x", "o" }, "an", function() select.select_textobject("@conditional.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a coNditional region" })
+vim.keymap.set({ "x", "o" }, "in", function() select.select_textobject("@conditional.inner", "textobjects") end,
+    { silent = true, desc = "select INNER part of a coNditional region" })
+vim.keymap.set({ "x", "o" }, "ag", function() select.select_textobject("@assignment.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a assiGnment region" })
+vim.keymap.set({ "x", "o" }, "ig", function() select.select_textobject("@assignment.outer", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a assiGnment region" }) -- fake inner for consistency
+-- vim.keymap.set({ "x", "o" }, "ig", function() select.select_textobject("@assignment.inner", "textobjects") end,
+--     { silent = true, desc = "select OUTER part of a assiGnment region" }) -- no such object
+vim.keymap.set({ "x", "o" }, "al", function() select.select_textobject("@assignment.lhs", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a assignment Lhs region" })
+vim.keymap.set({ "x", "o" }, "il", function() select.select_textobject("@assignment.lhs", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a assignment Lhs region" }) -- nodiff inner
+vim.keymap.set({ "x", "o" }, "ar", function() select.select_textobject("@assignment.rhs", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a assignment Rhs region" })
+vim.keymap.set({ "x", "o" }, "ir", function() select.select_textobject("@assignment.rhs", "textobjects") end,
+    { silent = true, desc = "select OUTER part of a assignment Rhs region" }) -- nodiff inner
+vim.keymap.set({ "x", "o" }, "as", function() select.select_textobject("@scope", "locals") end,
+    { silent = true, desc = "select language Scope" })
+vim.keymap.set({ "x", "o" }, "is", function() select.select_textobject("@scope", "locals") end,
+    { silent = true, desc = "select language Scope" }) -- nodiff inner
+
+-- local swap = require "nvim-treesitter-textobjects.swap"
+-- vim.keymap.set({ "n" }, ">a", function() swap.swap_next "@parameter.inner" end,
+--     { silent = true, desc = "swap with next Parameter" })
+-- vim.keymap.set({ "n" }, "<a", function() swap.swap_previous "@parameter.inner" end,
+--     { silent = true, desc = "swap with previous Parameter" })
+
+local move = require "nvim-treesitter-textobjects.move"
+
+vim.keymap.set({ "n", "x", "o" }, "]f", function() move.goto_next_start("@function.outer", "textobjects") end,
+    { silent = true, desc = "Next Function start" })
+vim.keymap.set({ "n", "x", "o" }, "]c", function() move.goto_next_start("@class.outer", "textobjects") end,
+    { silent = true, desc = "Next Class start" })
+vim.keymap.set({ "n", "x", "o" }, "]a", function() move.goto_next_start("@parameter.outer", "textobjects") end,
+    { silent = true, desc = "Next Argument start" })
+vim.keymap.set({ "n", "x", "o" }, "]m", function() move.goto_next_start("@comment.outer", "textobjects") end,
+    { silent = true, desc = "Next coMMent start" })
+vim.keymap.set({ "n", "x", "o" }, "]o", function() move.goto_next_start("@loop.outer", "textobjects") end,
+    { silent = true, desc = "Next lOOp start" })
+vim.keymap.set({ "n", "x", "o" }, "]n", function() move.goto_next_start("@conditional.outer", "textobjects") end,
+    { silent = true, desc = "Next coNditional start" })
+vim.keymap.set({ "n", "x", "o" }, "]g", function() move.goto_next_start("@assignment.outer", "textobjects") end,
+    { silent = true, desc = "Next assiGnment start" })
+vim.keymap.set({ "n", "x", "o" }, "]l", function() move.goto_next_start("@assignment.lhs", "textobjects") end,
+    { silent = true, desc = "Next Lhs start" })
+vim.keymap.set({ "n", "x", "o" }, "]r", function() move.goto_next_start("@assignment.rhs", "textobjects") end,
+    { silent = true, desc = "Next Rhs start" })
+vim.keymap.set({ "n", "x", "o" }, "]s", function() move.goto_next_start("@scope", "locals") end,
+    { silent = true, desc = "Next scope" })
+
+vim.keymap.set({ "n", "x", "o" }, "]F", function() move.goto_next_end("@function.outer", "textobjects") end,
+    { silent = true, desc = "Next Function end" })
+vim.keymap.set({ "n", "x", "o" }, "]C", function() move.goto_next_end("@class.outer", "textobjects") end,
+    { silent = true, desc = "Next Class end" })
+vim.keymap.set({ "n", "x", "o" }, "]A", function() move.goto_next_end("@parameter.outer", "textobjects") end,
+    { silent = true, desc = "Next Argument end" })
+vim.keymap.set({ "n", "x", "o" }, "]M", function() move.goto_next_end("@comment.outer", "textobjects") end,
+    { silent = true, desc = "Next coMMent end" })
+vim.keymap.set({ "n", "x", "o" }, "]O", function() move.goto_next_end("@loop.outer", "textobjects") end,
+    { silent = true, desc = "Next lOOp end" })
+vim.keymap.set({ "n", "x", "o" }, "]N", function() move.goto_next_end("@conditional.outer", "textobjects") end,
+    { silent = true, desc = "Next coNditional end" })
+vim.keymap.set({ "n", "x", "o" }, "]G", function() move.goto_next_end("@assignment.outer", "textobjects") end,
+    { silent = true, desc = "Next assiGnment end" })
+vim.keymap.set({ "n", "x", "o" }, "]L", function() move.goto_next_end("@assignment.lhs", "textobjects") end,
+    { silent = true, desc = "Next Lhs end" })
+vim.keymap.set({ "n", "x", "o" }, "]R", function() move.goto_next_end("@assignment.rhs", "textobjects") end,
+    { silent = true, desc = "Next Rhs end" })
+vim.keymap.set({ "n", "x", "o" }, "]S", function() move.goto_next_end("@scope", "locals") end,
+    { silent = true, desc = "Next scope" })
+
+vim.keymap.set({ "n", "x", "o" }, "[f", function() move.goto_previous_start("@function.outer", "textobjects") end,
+    { silent = true, desc = "Previous Function start" })
+vim.keymap.set({ "n", "x", "o" }, "[c", function() move.goto_previous_start("@class.outer", "textobjects") end,
+    { silent = true, desc = "Previous Class start" })
+vim.keymap.set({ "n", "x", "o" }, "[a", function() move.goto_previous_start("@parameter.outer", "textobjects") end,
+    { silent = true, desc = "Previous Argument start" })
+vim.keymap.set({ "n", "x", "o" }, "[m", function() move.goto_previous_start("@comment.outer", "textobjects") end,
+    { silent = true, desc = "Previous coMMent start" })
+vim.keymap.set({ "n", "x", "o" }, "[o", function() move.goto_previous_start("@loop.outer", "textobjects") end,
+    { silent = true, desc = "Previous lOOp start" })
+vim.keymap.set({ "n", "x", "o" }, "[n", function() move.goto_previous_start("@conditional.outer", "textobjects") end,
+    { silent = true, desc = "Previous coNditional start" })
+vim.keymap.set({ "n", "x", "o" }, "[g", function() move.goto_previous_start("@assignment.outer", "textobjects") end,
+    { silent = true, desc = "Previous assiGnment start" })
+vim.keymap.set({ "n", "x", "o" }, "[l", function() move.goto_previous_start("@assignment.lhs", "textobjects") end,
+    { silent = true, desc = "Previous Lhs start" })
+vim.keymap.set({ "n", "x", "o" }, "[r", function() move.goto_previous_start("@assignment.rhs", "textobjects") end,
+    { silent = true, desc = "Previous Rhs start" })
+vim.keymap.set({ "n", "x", "o" }, "[s", function() move.goto_previous_start("@scope", "local") end,
+    { silent = true, desc = "Previous scope" })
+
+vim.keymap.set({ "n", "x", "o" }, "[F", function() move.goto_previous_end("@function.outer", "textobjects") end,
+    { silent = true, desc = "Previous Function end" })
+vim.keymap.set({ "n", "x", "o" }, "[C", function() move.goto_previous_end("@class.outer", "textobjects") end,
+    { silent = true, desc = "Previous Class end" })
+vim.keymap.set({ "n", "x", "o" }, "[A", function() move.goto_previous_end("@parameter.outer", "textobjects") end,
+    { silent = true, desc = "Previous Argument end" })
+vim.keymap.set({ "n", "x", "o" }, "[M", function() move.goto_previous_end("@comment.outer", "textobjects") end,
+    { silent = true, desc = "Previous coMMent end" })
+vim.keymap.set({ "n", "x", "o" }, "[O", function() move.goto_previous_end("@loop.outer", "textobjects") end,
+    { silent = true, desc = "Previous lOOp end" })
+vim.keymap.set({ "n", "x", "o" }, "[N", function() move.goto_previous_end("@conditional.outer", "textobjects") end,
+    { silent = true, desc = "Previous coNditional end" })
+vim.keymap.set({ "n", "x", "o" }, "[G", function() move.goto_previous_end("@assignment.outer", "textobjects") end,
+    { silent = true, desc = "Previous assiGnment end" })
+vim.keymap.set({ "n", "x", "o" }, "[L", function() move.goto_previous_end("@assignment.lhs", "textobjects") end,
+    { silent = true, desc = "Previous Lhs end" })
+vim.keymap.set({ "n", "x", "o" }, "[R", function() move.goto_previous_end("@assignment.rhs", "textobjects") end,
+    { silent = true, desc = "Previous Rhs end" })
+vim.keymap.set({ "n", "x", "o" }, "[S", function() move.goto_previous_end("@scope", "locals") end,
+    { silent = true, desc = "Previous scope" })
+
+-- Go to either the start or the end, whichever is closer.
+-- Use if you want more granular movements
+vim.keymap.set({ "n", "x", "o" }, "]]", function() move.goto_next("@function.outer", "textobjects") end,
+    { silent = true, desc = "Next function" })
+vim.keymap.set({ "n", "x", "o" }, "[[", function() move.goto_previous("@function.outer", "textobjects") end,
+    { silent = true, desc = "Previous function" })
+
+-- TODO: fix repeatable movements
+-- local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
+-- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+-- -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+-- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+-- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+-- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+-- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
+
+-- vim.g.skip_ts_context_commentstring_module = true
+-- context_commentstring.setup {
+--     enable = true,
+--     enable_autocmd = false,
+-- }
 
 local highlight = {
     "RainbowRed",

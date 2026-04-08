@@ -302,7 +302,7 @@ in {
       # useful lua functions
       plenary-nvim
       # analyze file structure
-      nvim-treesitter-legacy.withAllGrammars
+      nvim-treesitter.withAllGrammars
       # repeat motions
       nvim-next
       # easily create textobjects
@@ -358,7 +358,7 @@ in {
       # indentetion
       indent-blankline-nvim
       # tree-sitter text objects
-      nvim-treesitter-textobjects-legacy
+      nvim-treesitter-textobjects
       # auto bullets
       autolist-nvim
       # align helper
