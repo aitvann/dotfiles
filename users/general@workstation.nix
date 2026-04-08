@@ -194,8 +194,7 @@ in {
             # search-by-image # became not available at some point
             return-youtube-dislikes
             markdownload
-            # TODO: generate during system update
-            # new-minecraft-wiki-redirect
+            new-minecraft-wiki-redirect
 
             # Crypto
             metamask
@@ -233,7 +232,7 @@ in {
   services.dunst.enable = true;
   # use stow package instead
   xdg.configFile."dunst/dunstrc".enable = false;
-  services.swww.enable = true;
+  services.awww.enable = true;
   services.wl-clip-persist.enable = true;
   services.xsettingsd.enable = true;
   qt.enable = true;
@@ -281,6 +280,14 @@ in {
 
   programs.neovim = {
     enable = true;
+
+    # Disable warning
+    # TODO: remove when not needed anymore
+    withRuby = false;
+    withPython3 = false;
+    # Keep config intact (using Stow instead)
+    initLua = lib.mkForce "";
+
     plugins = with pkgs.vimPlugins; [
       # --------------------------------------------------------------------------------
       # General
@@ -556,8 +563,8 @@ in {
     lua-language-server
     alejandra
     stylua
-    nodePackages_latest.prettier
-    nodePackages_latest.markdownlint-cli2
+    prettier
+    markdownlint-cli2
     sqlfluff
     pandoc
 

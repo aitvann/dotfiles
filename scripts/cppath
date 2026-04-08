@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# Description: Copy relative paths to clipboard.
+#              Call a first time on file A.
+#              Call a second time on file B.
+#              The relative path from A to B is copied in the clipboard.
+#              If A==B, then the full path of A is copied in the clipboard.
+#
+# Shell: POSIX compliant
+# Author: raffaem
+
+fromfile=${XDG_CONFIG_HOME:-$HOME/.config}/nnn/cppathfrom
+# If you want a system notification when a file path is copied to clipboard,
+# put this variable  to 1.
+notify=1
+
+
+send_notification() {
+	if [ "$notify" -eq 1 ]; then
+		notify-send "cppath" "Path '$path' copied to clipboard"
+	fi
+}
+
+if [ -z "$1" ]; then
+	printf "ERROR: No file selected"
+	exit
+fi
+
+if ! [ -f "$fromfile" ]; then
+	realpath "$1" >"$fromfile"
+else
+	from="$(cat "$fromfile")"
+	rm "$fromfile"
+	to="$(realpath "$1")"
+	if [ "$from" == "$to" ]; then
+		path="$from"
+	else
+		from="$(dirname "$from")"
+		path="$(realpath --relative-to="$from" "$to")"
+	fi
+	if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+		# We need `echo` here and not `cat`
+		# as we need to  copy the file path, not the file content
+		printf "%s" "$path" | wl-copy
+		printf "%s" "$path" | wl-copy --primary
+		send_notification
+	elif [ "$XDG_SESSION_TYPE" == "x11" ]; then
+		printf "%s" "$path" | xclip -selection clipboard
+		printf "%s" "$path" | xclip -selection primary
+		send_notification
+	else
+		printf "ERROR: Unrecognized session type"
+	fi
+fi

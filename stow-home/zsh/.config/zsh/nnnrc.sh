@@ -6,14 +6,16 @@ export NNN_FIFO=/tmp/nnn.fifo
 export NNN_MCLICK='p'
 
 export NNN_TERMINAL=foot
+# TODO: migrate back to wallpaper plugin once it migrates to `awww`
 export NNN_PLUG="\
 v:preview-tui;\
 d:dragdrop;\
 j:fzcd;\
 r:gitroot;\
-w:wallpaper;\
+w:-!awww img \"\$nnn\"*;\
 s:xdgdefault;\
 o:fzopen;\
+h:!cppath \"\$nnn\"*;\
 y:-!wayland-copy-file \"\$nnn\"*;\
 p:!wayland-paste-file*"
 

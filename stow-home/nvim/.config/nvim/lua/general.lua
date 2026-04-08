@@ -30,6 +30,10 @@ vim.filetype.add({
     },
 })
 
+require('vim._core.ui2').enable({
+    enable = true
+})
+
 -- folds
 vim.opt.foldmethod = "expr"
 -- WARN: causes significant slowdowns: cmdline cmp, lsp symbols, scrolling
