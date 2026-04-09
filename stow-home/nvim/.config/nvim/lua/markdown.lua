@@ -25,12 +25,6 @@ require("obsidian").setup({
         enabled = false
     },
 
-    templates = {
-        subdir = "templates",
-        date_format = "%Y-%m-%d",
-        time_format = "%H:%M",
-    },
-
     picker = {
         name = "telescope.nvim",
         note_mappings = {
@@ -45,16 +39,31 @@ require("obsidian").setup({
         },
     },
 
+    -- using just returning title instead of `require("obsidian.builtin").title_id`
+    -- to preserve capitalisation
+    note_id_func = function(title) return title end,
+
     note_path_func = function(spec)
-        local path = spec.dir / spec.title
-        return path:with_suffix(".md")
+        local path = spec.dir / spec.id
+        path = path:with_suffix(".md")
+        return path
     end,
 
-    legacy_commands = false,
+    note = {
+        template = "default.md",
+    },
 
     formatter = {
         disable = true
     },
+
+    templates = {
+        subdir = "templates",
+        date_format = "%Y-%m-%d",
+        time_format = "%H:%M",
+    },
+
+    legacy_commands = false,
 
     -- FIXME: nice feature but require conceallevel to be <> 0 by default
     ui = {
