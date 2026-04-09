@@ -159,18 +159,23 @@ vim.api.nvim_create_autocmd('BufEnter', {
     callback = function(args)
         local filepath = args.file
         if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
-            local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. vim.loop.getpid() .. ".txt", "w", 438) -- 438 is octal for 0666 permissions
-            if not file then
-                vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
-            else
-                local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
-                vim.loop.fs_write(file, data, -1,
-                    function(write_err)
-                        if write_err then
-                            vim.notify("Error writing file: " .. write_err, vim.log.levels.ERROR)
-                        end
-                        vim.loop.fs_close(file)
-                    end)
+            local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
+            -- Writing pids for server and every UI attached to it
+            -- Usefull when UI process is not a child of server process (like after :restart)
+            local pids = vim.iter({ utils.get_ui_pids(), vim.uv.os_getpid() }):flatten()
+            for pid in pids do
+                local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. pid .. ".txt", "w", 438) -- 438 is octal for 0666 permissions
+                if not file then
+                    vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
+                else
+                    vim.loop.fs_write(file, data, -1,
+                        function(write_err)
+                            if write_err then
+                                vim.notify("Error writing file: " .. write_err, vim.log.levels.ERROR)
+                            end
+                            vim.loop.fs_close(file)
+                        end)
+                end
             end
         end
     end,

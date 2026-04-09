@@ -314,6 +314,8 @@ in {
       # Interface
       # --------------------------------------------------------------------------------
 
+      # start page
+      mini-sessions
       # status line
       lualine-nvim
       # fuzzy finder over lists
