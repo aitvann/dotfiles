@@ -11,6 +11,6 @@ final: prev: {
   vimPlugins =
     prev.vimPlugins
     // {
-      nvim-next = final.callPackage ./nvim-next.nix {};
+      repeatable-move-nvim = final.callPackage ./repeatable-move-nvim.nix {};
     };
 }

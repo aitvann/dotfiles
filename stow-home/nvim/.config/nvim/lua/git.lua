@@ -3,7 +3,7 @@ local gitsigns = require("gitsigns")
 local whichkey = require("which-key")
 local builtin = require("telescope.builtin")
 
-local next_integrations = require("nvim-next.integrations")
+local repeat_move = require("repeatable_move")
 gitsigns.setup({
     signs = {
         add = { text = "▍" },
@@ -18,22 +18,22 @@ gitsigns.setup({
     word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
-        local nngs = next_integrations.gitsigns(gs)
+        local next_hunk, prev_hunk = repeat_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
 
         -- Navigation
-        vim.keymap.set("n", "]h", function()
+        vim.keymap.set({ "n", "x", "o" }, "]h", function()
             if vim.wo.diff then
                 return "]h"
             end
-            vim.schedule(nngs.next_hunk)
+            vim.schedule(next_hunk)
             return "<Ignore>"
         end, { expr = true, desc = "GOTO NEXT Hunk" })
 
-        vim.keymap.set("n", "[h", function()
+        vim.keymap.set({ "n", "x", "o" }, "[h", function()
             if vim.wo.diff then
                 return "[h"
             end
-            vim.schedule(nngs.prev_hunk)
+            vim.schedule(prev_hunk)
             return "<Ignore>"
         end, { expr = true, desc = "GOTO PREVIOUS Hunk" })
 

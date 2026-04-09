@@ -304,7 +304,7 @@ in {
       # analyze file structure
       nvim-treesitter.withAllGrammars
       # repeat motions
-      nvim-next
+      repeatable-move-nvim
       # easily create textobjects
       vim-textobj-user
       # Sudo write
