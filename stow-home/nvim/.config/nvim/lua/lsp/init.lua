@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("User", {
             "rust_analyzer", -- rust
             "solc",          -- solidity
             "lua_ls",        -- lua
-            "nil_ls",        -- nix
+            "nixd",          -- nix
             "marksman",      -- markdown
             "clojure_lsp",   -- clojure
             "taplo",         -- toml

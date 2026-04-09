@@ -19,6 +19,9 @@ in {
     ../../modules/greetd.nix
   ];
 
+  # used by `nixd`
+  # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   nixpkgs.overlays = [(import ../../packages)];
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [

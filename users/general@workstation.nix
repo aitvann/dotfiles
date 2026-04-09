@@ -262,14 +262,6 @@ in {
     ];
   };
 
-  # Virtualisation
-  # dconf.settings = {
-  #   "org/virt-manager/virt-manager/connections" = {
-  #     autoconnect = ["qemu:///system"];
-  #     uris = ["qemu:///system"];
-  #   };
-  # };
-
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
@@ -559,7 +551,7 @@ in {
     taplo
     efm-langserver
     marksman
-    nil
+    nixd
     lua-language-server
     alejandra
     stylua
