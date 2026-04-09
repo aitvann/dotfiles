@@ -1,24 +1,3 @@
--- mapping rules
--- ' - leader
--- 'g - Git
--- 't - Toggle
---   'tf - Toggle Formatting
---   'tc - Toggle auto Comment
--- ] - go to next
---   ]d - go to next Diagnostic
---   ]h - go to next Hunk
--- [ - go to previous
---   [d - go to previous Diagnostic
---   [h - go to previous Hunk
--- g - Go
--- gs - Go Swap
--- gc - Go Comment
--- <Tab> in normal - cycle buffers forward
--- <S-Tab> in normal - cycle buffers backward
--- <Space> in normal - inline toggle
--- <Tab> in insert - inline toggle
--- <Enter> - go to file
-
 -- must be the first line of config
 require("lang-layout")
 
