@@ -2,6 +2,7 @@ local utils = require("utils")
 
 local whichkey = require("which-key")
 local builtin = require("telescope.builtin")
+local repeat_move = require("repeatable_move")
 
 vim.o.hidden = true
 vim.o.autoread = true
@@ -147,6 +148,11 @@ vim.cmd([[
     endfunction
 ]])
 
+local qf_next = function() vim.cmd("cnext " .. vim.v.count1) end
+local qf_prev = function() vim.cmd("cprev " .. vim.v.count1) end
+qf_next, qf_prev = repeat_move.make_repeatable_move_pair(qf_next, qf_prev)
+vim.keymap.set({ "n", "x", "o" }, "]q", qf_next, { silent = true, desc = "next Quickfix item" })
+vim.keymap.set({ "n", "x", "o" }, "[q", qf_prev, { silent = true, desc = "previous Quickfix item" })
 
 vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*',
