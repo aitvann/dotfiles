@@ -460,8 +460,8 @@ in {
     mpv
     vlc
     dbeaver-bin
-    # intalls the whole
-    # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04/?utm_source=share&utm_medium=web2x&context=3
+    # intalls the whole suite
+    # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04
     libreoffice-qt
     tagger
     tigervnc

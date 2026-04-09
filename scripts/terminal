@@ -6,7 +6,7 @@
 (require
  '[clojure.java.io :as io]
  '[hypr-current-location :refer [get-data]]
- '[clojure.java.shell :as shell :refer [sh]])
+ '[babashka.process :refer [process]])
 
 (defn dirname [path]
   (let [file (io/file path)]
@@ -18,4 +18,8 @@
 
 (let [{:keys [location]} (get-data)
       location (dirname location)]
-  (sh "foot" "-D" location))
+  ; (process "foot" "-D" location)
+  (deref (process "foot" "-D" location)))
+
+; ; HACK: process won't spawn unless we sleep for a bit. Better then `deref`
+; (Thread/sleep 100)
