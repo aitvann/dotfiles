@@ -71,12 +71,11 @@ vim.keymap.set({ "x", "o" }, "as", function() select.select_textobject("@scope",
 vim.keymap.set({ "x", "o" }, "is", function() select.select_textobject("@scope", "locals") end,
     { silent = true, desc = "select language Scope" }) -- nodiff inner
 
--- TODO: make it work and with repeatable movements
--- local swap = require "nvim-treesitter-textobjects.swap"
--- vim.keymap.set({ "n" }, ">a", function() swap.swap_next "@parameter.inner" end,
---     { silent = true, desc = "swap with next Parameter" })
--- vim.keymap.set({ "n" }, "<a", function() swap.swap_previous "@parameter.inner" end,
---     { silent = true, desc = "swap with previous Parameter" })
+local swap = require "nvim-treesitter-textobjects.swap"
+vim.keymap.set({ "n" }, ">a", function() swap.swap_next "@parameter.inner" end,
+    { silent = true, desc = "swap with next Parameter" })
+vim.keymap.set({ "n" }, "<a", function() swap.swap_previous "@parameter.inner" end,
+    { silent = true, desc = "swap with previous Parameter" })
 
 local move = require "nvim-treesitter-textobjects.move"
 
