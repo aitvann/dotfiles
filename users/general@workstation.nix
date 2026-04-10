@@ -309,13 +309,15 @@ in {
       langmapper-nvim
       # Find project root and change CWD to it
       project-nvim
+      # better session managment
+      mini-sessions
 
       # --------------------------------------------------------------------------------
       # Interface
       # --------------------------------------------------------------------------------
 
       # start page
-      mini-sessions
+      mini-starter
       # status line
       lualine-nvim
       # fuzzy finder over lists
