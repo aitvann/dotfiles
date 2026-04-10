@@ -286,7 +286,7 @@ in {
       # --------------------------------------------------------------------------------
 
       # delete the buffer without closing the window
-      bufdelete-nvim
+      mini-bufremove
       # smooth scrolling
       neoscroll-nvim
       # highlight color code

@@ -98,7 +98,7 @@ vim.keymap.set("n", "<C-H>", "<cmd>noh<CR>", { silent = true, desc = "no search 
 -- buffers
 vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>", { silent = true, desc = "cycle trought buffers forward" })
 vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>", { silent = true, desc = "cycle trought buffers backward" })
-vim.keymap.set("n", "<Backspace>", utils.close_current_buffer, { silent = true, desc = "close buffer" })
+vim.keymap.set("n", "<Backspace>", require("mini.bufremove").delete, { silent = true, desc = "close buffer" })
 
 -- tabs
 vim.keymap.set("n", "gt", ":tabnew %<CR>", { silent = true, desc = "Go to new Tab" })
