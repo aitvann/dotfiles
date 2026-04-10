@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 vim.api.nvim_create_autocmd("BufEnter", {
     group = find_files_hijack_netrw,
+    desc = "Open Telescope file picker instead of native file browser",
     pattern = "*",
     callback = function()
         vim.schedule(function()

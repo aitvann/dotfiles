@@ -1,10 +1,6 @@
--- local configs = require("nvim-treesitter.configs")
--- local context_commentstring = require('ts_context_commentstring')
--- local next_integrations = require("nvim-next.integrations")
-
--- next_integrations.treesitter_textobjects()
-
-vim.api.nvim_create_autocmd("FileType", { -- enable treesitter highlighting and indents
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("treesitter_enable", { clear = true }),
+    desc = "Enable treesitter highlighting and indents",
     callback = function(args)
         local filetype = args.match
         local lang = vim.treesitter.language.get_lang(filetype)
@@ -75,6 +71,7 @@ vim.keymap.set({ "x", "o" }, "as", function() select.select_textobject("@scope",
 vim.keymap.set({ "x", "o" }, "is", function() select.select_textobject("@scope", "locals") end,
     { silent = true, desc = "select language Scope" }) -- nodiff inner
 
+-- TODO: make it work and with repeatable movements
 -- local swap = require "nvim-treesitter-textobjects.swap"
 -- vim.keymap.set({ "n" }, ">a", function() swap.swap_next "@parameter.inner" end,
 --     { silent = true, desc = "swap with next Parameter" })

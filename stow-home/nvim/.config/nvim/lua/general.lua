@@ -48,6 +48,7 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
     group = vim.api.nvim_create_augroup("unfold-on-enter", { clear = true }),
+    desc = "Unfold folds on enter (HACK)",
     pattern = "*",
     callback = function()
         vim.schedule(function()
@@ -155,6 +156,8 @@ vim.keymap.set({ "n", "x", "o" }, "]q", qf_next, { silent = true, desc = "next Q
 vim.keymap.set({ "n", "x", "o" }, "[q", qf_prev, { silent = true, desc = "previous Quickfix item" })
 
 vim.api.nvim_create_autocmd('BufEnter', {
+    group = vim.api.nvim_create_augroup('current_location', {}),
+    desc = "Integration with current-location script: write current location on every location change",
     pattern = '*',
     callback = function(args)
         local filepath = args.file
@@ -209,14 +212,15 @@ vim.keymap.set("n", "gb", builtin.buffers, { silent = true, desc = "Go to a buff
 vim.keymap.set("n", "gJ", builtin.jumplist, { silent = true, desc = "Go to Jump point" })
 
 vim.api.nvim_create_autocmd("FileType", {
-    desc = "Automatically Split help Buffers to the right",
+    group = vim.api.nvim_create_augroup("help_buffer_right_split", { clear = true }),
+    desc = "Automatically split help buffers to the right",
     pattern = "help",
     command = "wincmd L",
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    desc = "Autocreate a dir when saving a file",
     group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
+    desc = "Autocreate a dir when saving a file",
     callback = function(event)
         if event.match:match("^%w%w+:[\\/][\\/]") then
             return
@@ -228,12 +232,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- see https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/"
 vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
+    group = vim.api.nvim_create_augroup("correct_terminal_background", { clear = true }),
     desc = "Corrects terminal background color according to colorscheme",
     callback = function()
         if vim.api.nvim_get_hl(0, { name = "Normal" }).bg then
             io.write(string.format("\027]11;#%06x\027\\", vim.api.nvim_get_hl(0, { name = "Normal" }).bg))
         end
         vim.api.nvim_create_autocmd("UILeave", {
+            group = vim.api.nvim_create_augroup("correct_terminal_background_leave", { clear = true }),
             callback = function()
                 io.write("\027]111\027\\")
             end,
@@ -242,6 +248,7 @@ vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
 })
 
 vim.api.nvim_create_autocmd("TermOpen", {
+    group = vim.api.nvim_create_augroup("terminal_clean_ui", { clear = true }),
     desc = "Remove UI clutter in the terminal",
     callback = function()
         local is_terminal = vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "terminal"
@@ -252,8 +259,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-    desc = "Auto jump to last position",
     group = vim.api.nvim_create_augroup("auto-last-position", { clear = true }),
+    desc = "Auto jump to last position",
     callback = function(args)
         local position = vim.api.nvim_buf_get_mark(args.buf, [["]])
         local winid = vim.fn.bufwinid(args.buf)
@@ -262,8 +269,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("VimResized", {
-    desc = "Auto resize window equaly",
     group = vim.api.nvim_create_augroup("auto-equeal-window", { clear = true }),
+    desc = "Auto resize window equaly",
     command = "wincmd ="
 })
 

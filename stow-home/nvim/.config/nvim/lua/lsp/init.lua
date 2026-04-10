@@ -5,6 +5,8 @@ local diagnostics = require("lsp.diagnostics")
 local blink = require("blink.cmp")
 
 vim.api.nvim_create_autocmd("User", {
+    group = vim.api.nvim_create_augroup("lsp_enable", { clear = true }),
+    desc = "Make sure Direnv environment is loaded before enabling LSP (fixes rust-analyzer)",
     pattern = "DirenvLoaded",
     callback = function()
         vim.lsp.enable {
@@ -18,7 +20,6 @@ vim.api.nvim_create_autocmd("User", {
             "efm"
         }
     end,
-    desc = "Make sure Direnv environment is loaded before enabling LSP (fixes rust-analyzer)",
 })
 
 -- construct capabilities object
@@ -31,6 +32,8 @@ local capabilities = vim.tbl_deep_extend(
 vim.lsp.config('*', { capabilities = capabilities })
 
 vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
+    desc = "LspAttach callback",
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf

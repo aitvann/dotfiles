@@ -24,6 +24,8 @@ starter.setup({
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
+    group = vim.api.nvim_create_augroup('open_startup_page', { clear = true }),
+    desc = "Open startup page when there is nothing else to show and there is no local session (ignore global sessions)",
     nested = true,
     callback = function()
         local cwd = vim.fn.getcwd()

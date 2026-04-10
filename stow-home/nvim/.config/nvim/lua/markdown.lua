@@ -86,6 +86,7 @@ require("obsidian").setup({
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("markdown", { clear = true }),
+    desc = "Setup markdown",
     pattern = "markdown",
     callback = function(args)
         local buffer = args.buf
@@ -141,5 +142,4 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", { silent = true, buffer = buffer })
         vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>", { silent = true, buffer = buffer })
     end,
-    desc = "markdown",
 })

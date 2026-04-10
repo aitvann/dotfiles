@@ -58,6 +58,7 @@ end
 
 vim.api.nvim_create_autocmd("BufEnter", {
     group = vim.api.nvim_create_augroup("toggling-on-enter", { clear = true }),
+    desc = "Set initial values for toggles",
     pattern = "*",
     callback = function()
         for name, toggle in pairs(M.toggles) do
@@ -66,7 +67,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
             end
         end
     end,
-    desc = "telescope replacement for netrw",
 })
 
 whichkey.add({ { "<leader>t", group = "Toggling" } })

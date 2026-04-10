@@ -13,8 +13,9 @@ return function(_, _, buffer)
         toggling.toggle("fmt_on_save")
     end, { silent = true, buffer = buffer, desc = "Toggle Formatting on save" })
 
-    local lsp_document_formatting = vim.api.nvim_create_augroup("lsp_document_formatting", { clear = false })
     vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("lsp_document_formatting", { clear = false }),
+        desc = "Format buffer on save",
         callback = function()
             if toggling.is_enabled("fmt_on_save") then
                 -- sync by default
@@ -22,7 +23,6 @@ return function(_, _, buffer)
                 vim.lsp.buf.format({ bufnr = buffer })
             end
         end,
-        group = lsp_document_formatting,
         buffer = buffer,
     })
 end
