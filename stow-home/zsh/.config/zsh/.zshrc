@@ -1,3 +1,5 @@
+source $XDG_CONFIG_HOME/sh/.shrc
+
 ZSH_DATA=$XDG_DATA_HOME/zsh
 ZSH_PLUGINS=$ZSH_DATA/plugins
 
@@ -124,10 +126,6 @@ add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 precmd() {
     print -Pn "\e]133;A\e\\"
 }
-
-source $ZDOTDIR/session.sh
-
-# code belove require BABASHKA_CLASSPATH to be set and scripts to be in-place
 
 # write current location
 function update_cwd_file() {

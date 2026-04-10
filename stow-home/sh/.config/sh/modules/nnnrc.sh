@@ -1,5 +1,3 @@
-CONFIG_HOME=$XDG_CONFIG_HOME/zsh
-
 export NNN_FIFO=/tmp/nnn.fifo
 
 # flash firmware to keyboard using only mouse
@@ -36,5 +34,3 @@ w:$HOME/data/knowledge-base/media/wallpapers;\
 e:/run/media/$USER;\
 s:/run/current-system/sw;\
 u:/etc/profiles/per-user/$USER"
-
-source $CONFIG_HOME/nnn-quitcd.sh

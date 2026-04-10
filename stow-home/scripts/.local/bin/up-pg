@@ -2,7 +2,7 @@
 
 set -e
 
-parrent_path=$(dirname -- $BASH_SOURCE)
+parrent_path=$(dirname -- $0)
 lib="${parrent_path}/.up-pg"
 
 [ -z "$1" ] && echo "path to migrations must be set, aborting" && exit

@@ -1,4 +1,6 @@
-CONFIG_HOME=$XDG_CONFIG_HOME/zsh
+#! /usr/bin/env sh
+
+parrent_dir=$(dirname -- $0)
 
 # NOTE: install rust packages with nix
 # export PATH="$HOME/.local/share/cargo/bin:$PATH"
@@ -36,4 +38,6 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias monerod=monerod --data-dir "${XDG_DATA_HOME}/monero/blockchain"
 
 # modules
-source $CONFIG_HOME/nnnrc.sh
+for file in "$parrent_dir"/modules/*; do
+    [ -f "$file" ] && . "$file"
+done
