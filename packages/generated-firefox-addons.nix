@@ -81,26 +81,6 @@
         platforms = platforms.all;
       };
     };
-    "proxy-toggle" = buildFirefoxXpiAddon {
-      pname = "proxy-toggle";
-      version = "1.2.1";
-      addonId = "{0c3ab5c8-57ac-4ad8-9dd1-ee331517884d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3405365/proxy_toggle-1.2.1.xpi";
-      sha256 = "467f2567f03ecbc503f931d39d5cd8a144b3279f34f0569c6796303b2013ea52";
-      meta = with lib;
-      {
-        description = "Toggle between direct connection and a single proxy server via a toolbar icon.";
-        license = licenses.mit;
-        mozPermissions = [
-          "storage"
-          "proxy"
-          "<all_urls>"
-          "webRequest"
-          "webRequestBlocking"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "revoke-cash" = buildFirefoxXpiAddon {
       pname = "revoke-cash";
       version = "0.7.4";
