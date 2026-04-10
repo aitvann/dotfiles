@@ -35,11 +35,5 @@ alias nix-repl='nix repl nixpkgs'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias monerod=monerod --data-dir "${XDG_DATA_HOME}/monero/blockchain"
 
-# scripts
-SCRIPTS_HOME=/home/$USER/dotfiles/scripts
-mkdir -p ~/.local/bin
-# using `ln -T`so we dont get `up-postgres` inside `up-postgres` after multiple runs
-command ls $SCRIPTS_HOME | xargs -I {} ln -T -s $SCRIPTS_HOME/{} ~/.local/bin/{} 2> /dev/null
-
 # modules
 source $CONFIG_HOME/nnnrc.sh

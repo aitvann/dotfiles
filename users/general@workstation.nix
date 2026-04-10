@@ -578,13 +578,6 @@ in {
   ];
 
   home.file = util.recursiveMerge ([
-      # {
-      #   ".local/bin" = {
-      #     source = "${inputs.self}/scripts";
-      #     recursive = true;
-      #   };
-      # }
-
       # stow packages
       (packageHomeFiles ../stow-home/atuin)
       (packageHomeFiles ../stow-home/beets)
@@ -621,6 +614,7 @@ in {
       (packageHomeFiles ../stow-home/rmpc)
       (packageHomeFiles ../stow-home/rofi)
       (packageHomeFiles ../stow-home/rofi-pass)
+      (packageHomeFiles ../stow-home/scripts)
       (packageHomeFiles ../stow-home/rofimoji)
       (packageHomeFiles ../stow-home/ssh-general)
       (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)

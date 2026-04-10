@@ -1,6 +1,6 @@
 #! /bin/sh
 
-PARENT_DIR=$(dirname -- "$(rreadlink "$0")")
+PARENT_DIR=$(dirname -- "${BASH_SOURCE}")
 LIB="${PARENT_DIR}/.init-env"
 
 set -e

@@ -2,8 +2,7 @@
 
 set -e
 
-# parrent_path=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
-# cd $parrent_path
+# parrent_path=$(dirname -- $BASH_SOURCE)
 
 [ -z "$1" ] && echo "path to migrations must be set, aborting" && exit
 
