@@ -22,6 +22,8 @@ in {
   # used by `nixd`
   # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  # better be the same to the one defined on home-level
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.overlays = [(import ../../packages)];
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [

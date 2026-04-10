@@ -547,6 +547,7 @@ in {
     nix-alien
     nix-du
     deploy-rs
+    nh
 
     # text editors
     helix
