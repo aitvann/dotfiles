@@ -332,6 +332,8 @@ in {
       nvim-web-devicons
       # Pretty telescope select menu
       telescope-ui-select-nvim
+      # Notifications
+      mini-notify
 
       # --------------------------------------------------------------------------------
       # Editing

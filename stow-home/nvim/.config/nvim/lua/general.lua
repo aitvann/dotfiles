@@ -273,5 +273,3 @@ vim.api.nvim_create_autocmd("VimResized", {
     desc = "Auto resize window equaly",
     command = "wincmd ="
 })
-
-require('notifications').setup {}

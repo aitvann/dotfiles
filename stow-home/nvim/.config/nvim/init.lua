@@ -1,3 +1,6 @@
+vim.g.has_ui = #vim.api.nvim_list_uis() > 0
+vim.g.has_gui = vim.g.has_ui and (vim.env.DISPLAY ~= nil or vim.env.WAYLAND_DISPLAY ~= nil)
+
 -- must be the first line of config
 require("lang-layout")
 
@@ -22,6 +25,7 @@ require("plugin-telescope")
 require("plugin-conjure")
 require("s-expressions")
 require("markdown")
+require("notifications")
 -- require("dump-mappings")
 
 -- must be the very last line of config
