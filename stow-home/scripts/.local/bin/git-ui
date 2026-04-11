@@ -1,12 +1,40 @@
 #! /usr/bin/env bb
 ; vim: set ft=clojure:
 
-(load-file (str (System/getenv "HOME") "/.local/bin/hypr_current_location.bb"))
-
 (require
- '[clojure.java.io :as io]
  '[hypr-current-location :refer [get-data]]
- '[clojure.java.shell :as shell :refer [sh]])
+ '[cheshire.core :as json]
+ '[babashka.process :refer [process]]
+ '[clojure.java.io :as io])
+
+(def active-workspace-task (process "hyprctl" "activeworkspace" "-j"))
+(def clients-task (process "hyprctl" "clients" "-j"))
+
+(import 'java.lang.ProcessHandle)
+(defn sig-term [pid]
+  (when-let [handle (-> (ProcessHandle/of (long pid))
+                        (.orElse nil))]
+    (.destroy handle)))
+
+(defn kill-current-and-exit [& titles]
+  (let [workspace-id
+        (-> active-workspace-task
+            :out
+            io/reader
+            (json/parse-stream true)
+            :id)
+        file-manager-pids
+        (->> clients-task
+             :out
+             io/reader
+             ((fn [x] (json/parse-stream x true)))
+             (filter (fn [{:keys [workspace]}] (= workspace-id (:id workspace))))
+             (filter (fn [{:keys [title floating]}] (and floating (some #(= % title) titles))))
+             (map #(:pid %)))]
+    (when (seq file-manager-pids)
+      (doseq [pid file-manager-pids]
+        (sig-term pid))
+      (System/exit 0))))
 
 (defn dirname [path]
   (let [file (io/file path)]
@@ -18,4 +46,5 @@
 
 (let [{:keys [location nvim_pipe]} (get-data)
       location (dirname location)]
-  (sh "foot" "--log-level=error" "--title=git-ui" "zsh" "-ic" (str "cd '" location "'; NVIM_PIPE=" nvim_pipe " lazygit")))
+  (kill-current-and-exit "git-ui")
+  (process "foot" "--log-level=error" "--title=git-ui" "zsh" "-ic" (str "cd '" location "'; NVIM_PIPE=" nvim_pipe " lazygit")))

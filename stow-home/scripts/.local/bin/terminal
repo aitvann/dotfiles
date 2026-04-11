@@ -1,12 +1,10 @@
 #! /usr/bin/env bb
 ; vim: set ft=clojure:
 
-(load-file (str (System/getenv "HOME") "/.local/bin/hypr_current_location.bb"))
-
 (require
- '[clojure.java.io :as io]
  '[hypr-current-location :refer [get-data]]
- '[babashka.process :refer [process]])
+ '[babashka.process :refer [process]]
+ '[clojure.java.io :as io])
 
 (defn dirname [path]
   (let [file (io/file path)]
@@ -18,8 +16,7 @@
 
 (let [{:keys [location]} (get-data)
       location (dirname location)]
-  ; (process "foot" "-D" location)
-  (deref (process "foot" "-D" location)))
+  @(process "foot" "-D" location))
 
 ; ; HACK: process won't spawn unless we sleep for a bit. Better then `deref`
 ; (Thread/sleep 100)

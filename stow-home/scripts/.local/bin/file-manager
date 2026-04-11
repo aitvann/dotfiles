@@ -1,19 +1,51 @@
 #! /usr/bin/env bb
 ; vim: set ft=clojure:
 
-(load-file (str (System/getenv "HOME") "/.local/bin/hypr_current_location.bb"))
-
 (require
  '[hypr-current-location :refer [get-data]]
- '[clojure.java.shell :as shell :refer [sh]])
+ '[babashka.process :refer [process]]
+ '[cheshire.core :as json]
+ '[clojure.java.io :as io])
 
+(def active-workspace-task (process "hyprctl" "activeworkspace" "-j"))
+(def clients-task (process "hyprctl" "clients" "-j"))
+
+(import 'java.lang.ProcessHandle)
+(defn sig-term [pid]
+  (when-let [handle (-> (ProcessHandle/of (long pid))
+                        (.orElse nil))]
+    (.destroy handle)))
+
+(defn kill-current-and-exit [& titles]
+  (let [workspace-id
+        (-> active-workspace-task
+            :out
+            io/reader
+            (json/parse-stream true)
+            :id)
+        file-manager-pids
+        (->> clients-task
+             :out
+             io/reader
+             ((fn [x] (json/parse-stream x true)))
+             (filter (fn [{:keys [workspace]}] (= workspace-id (:id workspace))))
+             (filter (fn [{:keys [title floating]}] (and floating (some #(= % title) titles))))
+             (map #(:pid %)))]
+    (when (seq file-manager-pids)
+      (doseq [pid file-manager-pids]
+        (sig-term pid))
+      (System/exit 0))))
+
+(def home (System/getenv "HOME"))
 (let [{:keys [location nvim_pipe]} (get-data)]
-  (sh
+  (kill-current-and-exit "nnn-file-manager" "nnn-file-manager-terminal")
+  (process
    "foot"
    "--log-level=error"
    "--title=nnn-file-manager"
    "zsh" "-ic"
    (str
     "NNN_TERMINAL='foot --log-level=error --title=nnn-file-manager-terminal'
-    VISUAL='file-manager-edit-file " nvim_pipe " '
-    n -E -P v '" location "'")))
+     VISUAL='file-manager-edit-file " nvim_pipe " '
+     n -E -S -P v " (if (= location home) "" (str "'" location "'")))))
+
