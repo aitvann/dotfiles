@@ -32,7 +32,39 @@ vim.filetype.add({
 })
 
 require('vim._core.ui2').enable({
-    enable = true
+    enable = true,
+
+    -- TODO: there should be a better way once ui2 is stable
+    -- disabling pager so <CR> won't move cursor to it and ruin <localleader> mappings
+    msg = {
+        targets = {
+            ['']         = 'msg',
+            empty        = 'cmd',
+            bufwrite     = 'msg',
+            confirm      = 'cmd',
+            emsg         = 'msg', -- change from 'pager'
+            echo         = 'msg',
+            echomsg      = 'msg',
+            echoerr      = 'msg', -- change from 'pager'
+            completion   = 'cmd',
+            list_cmd     = 'msg',
+            lua_error    = 'msg',
+            lua_print    = 'msg',
+            progress     = 'msg',
+            rpc_error    = 'msg',
+            quickfix     = 'msg',
+            search_cmd   = 'cmd',
+            search_count = 'cmd',
+            shell_cmd    = 'msg',
+            shell_err    = 'msg',
+            shell_out    = 'msg',
+            shell_ret    = 'msg',
+            undo         = 'msg',
+            verbose      = 'msg',
+            wildlist     = 'cmd',
+            wmsg         = 'msg',
+        },
+    },
 })
 
 -- folds

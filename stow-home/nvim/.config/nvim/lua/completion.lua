@@ -27,8 +27,6 @@ blink.setup({
     },
 
     completion = {
-        -- try when more stable
-        -- Displays a preview of the selected item on the current line
         ghost_text = {
             enabled = true,
         },
@@ -38,12 +36,31 @@ blink.setup({
         }
     },
 
-    -- try when more stable
     signature = {
         enabled = true,
         window = {
             border = "rounded",
         }
+    },
+
+    cmdline = {
+        keymap = {
+            preset = 'inherit',
+        },
+
+        completion = {
+            ghost_text = {
+                enabled = true,
+            },
+
+            list = {
+                selection = { preselect = false, auto_insert = false }
+            },
+
+            menu = {
+                auto_show = true,
+            }
+        },
     },
 
     -- Default list of enabled providers defined so that you can extend it

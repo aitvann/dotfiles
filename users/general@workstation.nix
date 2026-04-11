@@ -334,6 +334,8 @@ in {
       telescope-ui-select-nvim
       # Notifications
       mini-notify
+      # Centered cmdline
+      tiny-cmdline-nvim
 
       # --------------------------------------------------------------------------------
       # Editing

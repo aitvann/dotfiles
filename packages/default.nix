@@ -12,5 +12,6 @@ final: prev: {
     prev.vimPlugins
     // {
       repeatable-move-nvim = final.callPackage ./repeatable-move-nvim.nix {};
+      tiny-cmdline-nvim = final.callPackage ./tiny-cmdline-nvim.nix {};
     };
 }
