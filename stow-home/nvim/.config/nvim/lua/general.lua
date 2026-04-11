@@ -72,6 +72,7 @@ vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window
 
 -- leader
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
+vim.keymap.set("n", "<leader>W", ":w<CR>", { silent = true, desc = "Write ALL buffers" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, desc = "Quite from current editor" })
 vim.keymap.set("n", "<leader>Q", ":qa<CR>", { silent = true, desc = "Quite from editor" })
 vim.keymap.set("n", "<leader>o", "o<Esc>", { silent = true, desc = "create line ABOVE in normal mode" })

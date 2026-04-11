@@ -361,6 +361,8 @@ in {
       autolist-nvim
       # align helper
       mini-align
+      # Interactive LSP rename
+      live-rename-nvim
 
       # --------------------------------------------------------------------------------
       # Lsp
