@@ -2,14 +2,17 @@ local vfn = vim.fn
 
 local library = {}
 local function add(lib)
-    for _, p in pairs(vfn.expand(lib, false, true)) do
+    local expanded = vfn.expand(lib, false, true)
+    local paths = type(expanded) == "string" and { expanded } or expanded
+    for _, path in pairs(paths) do
         local uv = vim.uv or vim.loop
-        p = uv.fs_realpath(p)
-        if p then
-            library[p] = true
+        local real_path = uv.fs_realpath(path)
+        if real_path then
+            library[path] = true
         end
     end
 end
+
 -- add runtime
 -- add plugins it may be very slow to add all in path
 add('$VIMRUNTIME')

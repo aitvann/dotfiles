@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
                 return
             end
 
-            vim.api.nvim_buf_set_option(0, "bufhidden", "wipe")
+            vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = 0 })
             -- Required to trigger 'BufEnter' and other events
             vim.cmd("cd %:p:h")
 
