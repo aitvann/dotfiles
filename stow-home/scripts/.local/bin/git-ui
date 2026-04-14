@@ -47,4 +47,4 @@
 (let [{:keys [location nvim_pipe]} (get-data)
       location (dirname location)]
   (kill-current-and-exit "git-ui")
-  (process "foot" "--log-level=error" "--title=git-ui" "zsh" "-ic" (str "cd '" location "'; NVIM_PIPE=" nvim_pipe " lazygit")))
+  (process "kitty" "--title=git-ui" "--override" "cursor_trail=0" "zsh" "-ic" (str "cd '" location "'; NVIM_PIPE=" nvim_pipe " lazygit")))

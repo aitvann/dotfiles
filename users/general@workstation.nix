@@ -241,7 +241,8 @@ in {
     enable = true;
     plugins = with pkgs.nnnPlugins; [
       helper
-      preview-tui
+      # preview-tui
+      better-preview-tui
       dragdrop
       fzcd
       gitroot
@@ -421,9 +422,9 @@ in {
     rofimoji
     networkmanager_dmenu
     networkmanagerapplet
-    nerd-fonts.jetbrains-mono
+    jetbrains-mono
     wl-clipboard
-    foot
+    kitty
     slurp
     grim
     tesseract
@@ -598,7 +599,6 @@ in {
       # (packageHomeFiles ../stow-home/eww)
       (packageHomeFiles ../stow-home/firefox)
       (packageHomeFiles ../stow-home/firefoxprofileswitcher-general)
-      (packageHomeFiles ../stow-home/foot)
       (packageHomeFiles ../stow-home/git-general)
       (packageHomeFiles ../stow-home/gnupg)
       (packageHomeFiles ../stow-home/gtk-2.0-general)
@@ -608,6 +608,7 @@ in {
       (packageHomeFiles ../stow-home/pypr)
       (packageHomeFiles ../stow-home/hypr)
       (packageHomeFiles ../stow-home/icons)
+      (packageHomeFiles ../stow-home/kitty)
       (packageHomeFiles ../stow-home/lazygit)
       (packageHomeFiles ../stow-home/mpd)
       (packageHomeFiles ../stow-home/ncmpcpp)

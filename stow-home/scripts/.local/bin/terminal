@@ -16,7 +16,7 @@
 
 (let [{:keys [location]} (get-data)
       location (dirname location)]
-  @(process "foot" "-D" location))
+  @(process "kitty" location))
 
 ; ; HACK: process won't spawn unless we sleep for a bit. Better then `deref`
 ; (Thread/sleep 100)

@@ -15,8 +15,7 @@ Key features:
     - External (yet integrated with editor) file manager ([n³](https://github.com/jarun/nnn))
     - External (yet integrated with editor) Git GUI
       ([Lazygit](https://github.com/jesseduffield/lazygit))
-    - External (yet integrated with editor) terminal
-      ([Foot](https://github.com/jesseduffield/lazygit))
+    - External (yet integrated with editor) terminal ([Kitty](https://sw.kovidgoyal.net/kitty/))
 
 ## Installation
 

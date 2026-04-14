@@ -202,8 +202,6 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 vim.g.rainbow_delimiters = { highlight = highlight }
--- https://github.com/lukas-reineke/indent-blankline.nvim/issues/686#issuecomment-1745902526
--- https://codeberg.org/dnkl/foot/issues/828#issuecomment-284301
 require("ibl").setup {
     scope = { highlight = highlight },
     indent = { char = "▏" },

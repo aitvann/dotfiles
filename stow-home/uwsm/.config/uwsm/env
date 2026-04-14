@@ -60,7 +60,7 @@ export ERRFILE="${XDG_CACHE_HOME}/X11/xsession-errors"
 
 export VISUAL=nvim
 export EDITOR="${VISUAL}"
-export TERM=foot
+export TERM=kitty
 export TERMINAL="${TERM}"
 export OPENER="app2unit-open"
 export BROWSER="firefox"

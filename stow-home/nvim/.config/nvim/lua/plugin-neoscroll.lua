@@ -15,7 +15,10 @@ vim.keymap.set(modes, '<Up>', function() neoscroll.scroll(-5, { move_cursor = tr
     { desc = 'scroll DOWN' })
 vim.keymap.set(modes, '<Down>', function() neoscroll.scroll(5, { move_cursor = true, duration = 50 }) end,
     { desc = 'scroll UP' })
-vim.keymap.set(modes, '<PageUp>', function() neoscroll.ctrl_u({ duration = 250 }) end,
+vim.keymap.set(modes, '<PageUp>', function() neoscroll.ctrl_u({ duration = 250 }) end, { desc = 'scroll DOWN' })
+vim.keymap.set(modes, '<PageDown>', function() neoscroll.ctrl_d({ duration = 250 }) end, { desc = 'scroll UP' })
+
+vim.keymap.set("i", '<C-Up>', function() neoscroll.scroll(-5, { move_cursor = true, duration = 50 }) end,
     { desc = 'scroll DOWN' })
-vim.keymap.set(modes, '<PageDown>', function() neoscroll.ctrl_d({ duration = 250 }) end,
+vim.keymap.set("i", '<C-Down>', function() neoscroll.scroll(5, { move_cursor = true, duration = 50 }) end,
     { desc = 'scroll UP' })

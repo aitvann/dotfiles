@@ -3,10 +3,10 @@ export NNN_FIFO=/tmp/nnn.fifo
 # flash firmware to keyboard using only mouse
 export NNN_MCLICK='p'
 
-export NNN_TERMINAL=foot
+export NNN_TERMINAL=kitty
 # TODO: migrate back to wallpaper plugin once it migrates to `awww`
 export NNN_PLUG="\
-v:preview-tui;\
+v:better-preview-tui;\
 d:dragdrop;\
 j:fzcd;\
 r:gitroot;\

@@ -38,14 +38,11 @@
 
 (def home (System/getenv "HOME"))
 (let [{:keys [location nvim_pipe]} (get-data)]
-  (kill-current-and-exit "nnn-file-manager" "nnn-file-manager-terminal")
+  (kill-current-and-exit "nnn-file-manager" "preview-tui")
   (process
-   "foot"
-   "--log-level=error"
+   "kitty"
    "--title=nnn-file-manager"
    "zsh" "-ic"
    (str
-    "NNN_TERMINAL='foot --log-level=error --title=nnn-file-manager-terminal'
-     VISUAL='file-manager-edit-file " nvim_pipe " '
+    "VISUAL='file-manager-edit-file " nvim_pipe " '
      n -E -S -P v " (if (= location home) "" (str "'" location "'")))))
-

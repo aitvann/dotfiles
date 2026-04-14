@@ -19,7 +19,7 @@ pinned = false
 lazy = false
 
 [scratchpads.terminal]
-command = "foot --title terminal-popup"
+command = "kitty --title terminal-popup"
 class = "terminal-popup"
 animation = "fromTop"
 size = "70% 80%"
@@ -28,7 +28,7 @@ pinned = false
 lazy = false
 
 [scratchpads.music-player]
-command = "foot --title music-player rmpc"
+command = "kitty --title music-player rmpc"
 animation = "fromTop"
 size = "70% 80%"
 excludes = "*"
