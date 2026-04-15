@@ -426,7 +426,7 @@ in {
     rofimoji
     networkmanager_dmenu
     networkmanagerapplet
-    jetbrains-mono
+    nerd-fonts.jetbrains-mono
     wl-clipboard
     kitty
     slurp
