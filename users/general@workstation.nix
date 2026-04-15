@@ -312,6 +312,8 @@ in {
       project-nvim
       # better session managment
       mini-sessions
+      # Kitty scrollback integration
+      kitty-scrollback-nvim
 
       # --------------------------------------------------------------------------------
       # Interface

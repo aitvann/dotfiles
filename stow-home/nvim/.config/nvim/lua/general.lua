@@ -20,8 +20,9 @@ vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
 vim.o.laststatus = 3
 
-vim.o.cursorline = true
-vim.o.cursorcolumn = true
+-- Those are not needed with Kitty's cursor trail
+vim.o.cursorline = false
+vim.o.cursorcolumn = false
 vim.cmd("highlight CursorLine guibg=#3a405e")
 
 vim.filetype.add({
