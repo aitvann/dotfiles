@@ -339,6 +339,8 @@ in {
       mini-notify
       # Centered cmdline
       tiny-cmdline-nvim
+      # Snacks bundles: images (fzf-lua doesn't support image.nvim)
+      snacks-nvim
 
       # --------------------------------------------------------------------------------
       # Editing
