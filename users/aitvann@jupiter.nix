@@ -16,6 +16,8 @@ in {
     stow
     btop
     neovim
+    kitty
+
     fastfetch
   ];
 
