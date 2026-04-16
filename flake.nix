@@ -234,6 +234,7 @@
           pkgs.disko
           pkgs.nixos-anywhere
           pkgs.xray
+          pkgs.openssl
         ];
       };
   };
