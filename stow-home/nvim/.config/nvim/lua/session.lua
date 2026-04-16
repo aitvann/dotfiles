@@ -1,5 +1,12 @@
 local utils = require("utils")
 
+-- Ideal launch behaviour:
+-- - [x] With a file specified -> open the file
+-- - [x] With a directory specified -> open file picker
+-- - [x] Nothing specified but from a directory with local session -> open the local session
+-- - [ ] Nothing specified buf from a directory that corresponds to a global session (which one?) -> open the global session
+-- - [x] Nothing specified and no session could be found -> open startup page
+
 local local_session_file = '.session.vim'
 require('mini.sessions').setup({
     autoread = false,
