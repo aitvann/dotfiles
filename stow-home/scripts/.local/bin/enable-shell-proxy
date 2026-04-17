@@ -1,0 +1,8 @@
+#! /bin/sh
+
+# Source it with `source` or `.` to enable proxy
+
+export http_proxy="http://localhost:10808"
+export https_proxy="http://localhost:10808"
+export ftp_proxy="http://localhost:10808"
+export all_proxy="socks5://localhost:10808"
