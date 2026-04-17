@@ -17,9 +17,9 @@
  sh {:out :inherit :err :inherit} "yt-dlp"
  (concat
   (if proxy? ["--proxy" "socks5://127.0.0.1:10808"] [])
-  ["-P" (str home "data/knowledge-base/media/music/import-source/")]
+  ["-P" (str home "/data/knowledge-base/media/music/import-source/")]
   ["-o" "%(creator).200B%(creator.201&...|)s%(creator& - |)#s%(track,title)#s.%(ext)s"]
-  ["--download-archive" (str home "data/knowledge-base/media/music/dlp-index.txt")]
+  ["--download-archive" (str home "/data/knowledge-base/media/music/dlp-index.txt")]
   ["-f" "bestaudio"]
   ["--extract-audio"]
   ["--embed-thumbnail"]
