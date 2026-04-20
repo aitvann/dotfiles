@@ -18,5 +18,6 @@ final: prev: {
     // {
       repeatable-move-nvim = final.callPackage ./repeatable-move-nvim.nix {};
       tiny-cmdline-nvim = final.callPackage ./tiny-cmdline-nvim.nix {};
+      fzf-lua-frecency = final.callPackage ./fzf-lua-frecency.nix {};
     };
 }

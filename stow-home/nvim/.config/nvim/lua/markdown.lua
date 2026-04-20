@@ -26,7 +26,7 @@ require("obsidian").setup({
     },
 
     picker = {
-        name = "telescope.nvim",
+        name = "fzf-lua",
         note_mappings = {
             new = "<C-x>",
             -- use completion instead

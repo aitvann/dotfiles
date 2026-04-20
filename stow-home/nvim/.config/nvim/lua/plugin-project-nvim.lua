@@ -9,7 +9,7 @@ require('project').setup({
 -- source: https://github.com/nvim-telescope/telescope.nvim/issues/2806#issuecomment-1904877188
 local find_files_hijack_netrw = vim.api.nvim_create_augroup("find_files_hijack_netrw", { clear = true })
 -- clear FileExplorer appropriately to prevent netrw from launching on folders
--- netrw may or may not be loaded before telescope-find-files
+-- netrw may or may not be loaded before picker plugin
 -- conceptual credits to nvim-tree and telescope-file-browser
 vim.api.nvim_create_autocmd("VimEnter", {
     pattern = "*",
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 vim.api.nvim_create_autocmd("BufEnter", {
     group = find_files_hijack_netrw,
-    desc = "Open Telescope file picker instead of native file browser",
+    desc = "Open fuzzy file picker instead of native file browser",
     pattern = "*",
     callback = function()
         vim.schedule(function()
@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
             -- Required to trigger 'BufEnter' and other events
             vim.cmd("cd %:p:h")
 
-            require("telescope.builtin").find_files({
+            require("fzf-lua").files({
                 cwd = vim.fn.expand("%:p:h"),
             })
         end)

@@ -1,9 +1,8 @@
 local gitsigns = require("gitsigns")
 
 local whichkey = require("which-key")
-local builtin = require("telescope.builtin")
-
 local repeat_move = require("repeatable_move")
+
 gitsigns.setup({
     signs = {
         add = { text = "▍" },
@@ -105,6 +104,7 @@ gitsigns.setup({
 -- vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { link = 'GitSignsDeleteNr' })
 
 
+local fzf_lua = require("fzf-lua")
 whichkey.add({ { "<leader>g", group = "Git" } })
-vim.keymap.set("n", "<leader>gm", builtin.git_commits, { silent = true, desc = "open Git coMMits" })
-vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true, desc = "open Git Branches" })
+vim.keymap.set("n", "<leader>gm", fzf_lua.git_commits, { silent = true, desc = "open Git coMMits" })
+vim.keymap.set("n", "<leader>gb", fzf_lua.git_branches, { silent = true, desc = "open Git Branches" })

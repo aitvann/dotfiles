@@ -1,7 +1,7 @@
-local telescope = require("telescope.builtin")
+local fzf_lua = require("fzf-lua")
 
 return function(_, _, buffer)
-    vim.keymap.set("n", "gs", telescope.lsp_document_symbols,
+    vim.keymap.set("n", "gs", fzf_lua.lsp_document_symbols,
         { silent = true, buffer = buffer, desc = "Go to DOCUMENT Symbols" }
     )
 end

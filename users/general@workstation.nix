@@ -292,8 +292,6 @@ in {
       neoscroll-nvim
       # highlight color code
       nvim-colorizer-lua
-      # useful lua functions
-      plenary-nvim
       # analyze file structure
       nvim-treesitter.withAllGrammars
       # repeat motions
@@ -324,8 +322,8 @@ in {
       # status line
       lualine-nvim
       # fuzzy finder over lists
-      telescope-nvim
-      telescope-fzf-native-nvim
+      fzf-lua
+      fzf-lua-frecency
       # shows signs for added, modified, and removed lines.
       # and other git stuff inside buffer
       gitsigns-nvim
@@ -333,8 +331,6 @@ in {
       which-key-nvim
       # Pretty icons
       nvim-web-devicons
-      # Pretty telescope select menu
-      telescope-ui-select-nvim
       # Notifications
       mini-notify
       # Centered cmdline
@@ -497,6 +493,7 @@ in {
     git-crypt
     lazygit
     direnv
+    delta
     ripgrep
     fd
     btop

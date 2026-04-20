@@ -1,7 +1,6 @@
 local utils = require("utils")
 
 local whichkey = require("which-key")
-local builtin = require("telescope.builtin")
 local repeat_move = require("repeatable_move")
 
 vim.o.hidden = true
@@ -239,11 +238,31 @@ vim.keymap.set("n", "<Left>", "zh", { silent = true, desc = "scroll horizontally
 vim.keymap.set("n", "<Right>", "zl", { silent = true, desc = "scroll horizontally to the RIGHT" })
 
 -- navigation
-vim.keymap.set("n", "gf", function() builtin.find_files({ hidden = true }) end, { silent = true, desc = "Go to a File" })
-vim.keymap.set("n", "gw", builtin.current_buffer_fuzzy_find, { silent = true, desc = "Go to Word in the CURRENT buffer" })
-vim.keymap.set("n", "gW", builtin.live_grep, { silent = true, desc = "Go to Word in the PROJECT" })
-vim.keymap.set("n", "gb", builtin.buffers, { silent = true, desc = "Go to a buffer" })
-vim.keymap.set("n", "gJ", builtin.jumplist, { silent = true, desc = "Go to Jump point" })
+local fzf_lua = require("fzf-lua")
+local fzf_lua_frecency = require('fzf-lua-frecency')
+vim.keymap.set("n", "gf", function()
+    fzf_lua_frecency.frecency({
+        cwd_only = true,
+        all_files = true,
+        display_score = false,
+        fzf_opts = { ["--no-sort"] = false }
+    })
+end, { silent = true, desc = "Go to a File" })
+vim.keymap.set("n", "gw", fzf_lua.blines, { silent = true, desc = "Go to Word in the CURRENT buffer" })
+-- vim.keymap.set("n", "gW", fzf-lua.grep_project, { silent = true, desc = "Go to Word in the PROJECT" })
+vim.keymap.set("n", "gW", function()
+        FzfLua.live_grep({
+            -- Enter `blob` mode immediately
+            glob_separator = "file:",
+            search = "file:*",
+            no_esc = true,
+            -- Skip filename from search (still displayed)
+            fzf_opts = { ['--nth'] = '2..' }
+        })
+    end,
+    { silent = true, desc = "Go to Word in the PROJECT" })
+vim.keymap.set("n", "gb", fzf_lua.buffers, { silent = true, desc = "Go to a buffer" })
+vim.keymap.set("n", "gJ", fzf_lua.jumps, { silent = true, desc = "Go to Jump point" })
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("help_buffer_right_split", { clear = true }),

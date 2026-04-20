@@ -1,12 +1,12 @@
 -- diagnostics does not depend on any capability
 
-local telescope = require("telescope.builtin")
+local fzf_lua = require("fzf-lua")
 local repeat_move = require("repeatable_move")
 
 local M = {}
 
 M.on_attach = function(_client, buffer)
-    vim.keymap.set("n", '<leader>M', telescope.diagnostics,
+    vim.keymap.set("n", '<leader>M', fzf_lua.diagnostics_workspace,
         { silent = true, desc = 'show PROJECT diagnostics (Messages)', buffer = buffer })
     vim.keymap.set("n", '<leader>m', vim.diagnostic.open_float,
         { silent = true, desc = 'show CURRENT LINE diagnostics (Messages)', buffer = buffer })
