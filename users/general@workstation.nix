@@ -263,6 +263,16 @@ in {
     ];
   };
 
+  programs.bat = {
+    enable = true;
+    themes = {
+      tokyonight-storm = {
+        src = pkgs.vimPlugins.tokyonight-nvim;
+        file = "extras/sublime/tokyonight_storm.tmTheme";
+      };
+    };
+  };
+
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
@@ -523,7 +533,6 @@ in {
     glow
     dragon-drop
     archivemount
-    bat
     beets
     rmpc
     cava
@@ -589,6 +598,7 @@ in {
   home.file = util.recursiveMerge ([
       # stow packages
       (packageHomeFiles ../stow-home/atuin)
+      (packageHomeFiles ../stow-home/bat)
       (packageHomeFiles ../stow-home/beets)
       (packageHomeFiles ../stow-home/btop)
       (packageHomeFiles ../stow-home/cargo)

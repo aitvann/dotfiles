@@ -41,7 +41,8 @@ fzf_lua.setup({
     previewers = {
         codeaction_native = {
             -- Using recommended config for `delta
-            pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
+            pager =
+            [[delta --syntax-theme tokyonight-storm --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
         },
     }
 })
