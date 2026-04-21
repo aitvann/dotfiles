@@ -347,6 +347,8 @@ in {
       tiny-cmdline-nvim
       # Snacks bundles: images (fzf-lua doesn't support image.nvim)
       snacks-nvim
+      # Colorful current line number
+      modicator-nvim
 
       # --------------------------------------------------------------------------------
       # Editing

@@ -20,7 +20,8 @@ vim.o.scrolloff = 8
 vim.o.laststatus = 3
 
 -- Those are not needed with Kitty's cursor trail
-vim.o.cursorline = false
+vim.o.cursorline = true
+vim.opt.cursorlineopt = "number"
 vim.o.cursorcolumn = false
 vim.cmd("highlight CursorLine guibg=#3a405e")
 
