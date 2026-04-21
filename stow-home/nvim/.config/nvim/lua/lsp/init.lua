@@ -70,6 +70,14 @@ vim.diagnostic.config({
     }
 })
 
+-- Clear default LPS keymap as they conflict with Go to Reference (`gr`)
+vim.keymap.del({ "n", "x" }, "gra")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "grt")
+vim.keymap.del("n", "grx")
+
 -- formatting
 toggling.register({
     name = "fmt_on_save",
