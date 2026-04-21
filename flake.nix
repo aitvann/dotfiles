@@ -123,7 +123,7 @@
     homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = ["${self}/users/general@workstation.nix"];
-      home-manager.extraSpecialArgs = {
+      extraSpecialArgs = {
         inherit inputs;
         workstation = mars-workstation;
       };
