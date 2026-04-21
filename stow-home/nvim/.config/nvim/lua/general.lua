@@ -300,17 +300,6 @@ vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
-    group = vim.api.nvim_create_augroup("terminal_clean_ui", { clear = true }),
-    desc = "Remove UI clutter in the terminal",
-    callback = function()
-        local is_terminal = vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "terminal"
-        vim.o.number = not is_terminal
-        vim.o.relativenumber = not is_terminal
-        vim.o.signcolumn = is_terminal and "no" or "yes"
-    end,
-})
-
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("auto-last-position", { clear = true }),
     desc = "Auto jump to last position",
