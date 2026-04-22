@@ -130,6 +130,6 @@ precmd() {
 # write current location
 function update_cwd_file() {
   current_pid=$(echo $$)
-  bb -m hypr-current-location write zsh $current_pid $PWD
+  current-location write zsh $PWD $current_pid
 }
 add-zsh-hook -Uz chpwd update_cwd_file

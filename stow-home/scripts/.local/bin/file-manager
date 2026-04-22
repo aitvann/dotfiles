@@ -36,8 +36,7 @@
         (sig-term pid))
       (System/exit 0))))
 
-(def home (System/getenv "HOME"))
-(let [{:keys [location nvim_pipe]} (get-data)]
+(let [{:keys [location nvim_pipe fallback]} (get-data)]
   (kill-current-and-exit "nnn-file-manager" "preview-tui")
   (process
    "kitty"
@@ -45,4 +44,4 @@
    "zsh" "-ic"
    (str
     "VISUAL='file-manager-edit-file " nvim_pipe " '
-     n -E -S -P v " (if (= location home) "" (str "'" location "'")))))
+     n -E -S -P v " (if fallback "" (str "'" location "'")))))

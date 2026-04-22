@@ -190,35 +190,23 @@ vim.keymap.set({ "n", "x", "o" }, "]q", qf_next, { silent = true, desc = "next Q
 vim.keymap.set({ "n", "x", "o" }, "[q", qf_prev, { silent = true, desc = "previous Quickfix item" })
 
 vim.api.nvim_create_autocmd('BufEnter', {
-    group = vim.api.nvim_create_augroup('current_location', {}),
+    group = vim.api.nvim_create_augroup('current_location', { clear = true }),
     desc = "Integration with current-location script: write current location on every location change",
-    pattern = '*',
     callback = function(args)
         local filepath = args.file
         if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
-            local ok, err = vim.uv.fs_mkdir("/tmp/current-location", 493) -- 493 is octal for 755 permissions
-            if not ok and err and not vim.startswith(err, "EEXIST") then
-                vim.notify("Error creating dir: " .. err, vim.log.levels.ERROR)
-            end
-
-            local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
-            -- Writing pids for server and every UI attached to it
-            -- Usefull when UI process is not a child of server process (like after :restart)
-            local pids = vim.iter({ utils.get_ui_pids(), vim.uv.os_getpid() }):flatten()
-            for pid in pids do
-                local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. pid .. ".txt", "w", 429) -- 429 is octal for 655 permissions
-                if not file then
-                    vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
-                else
-                    vim.loop.fs_write(file, data, -1,
-                        function(write_err)
-                            if write_err then
-                                vim.notify("Error writing file: " .. write_err, vim.log.levels.ERROR)
-                            end
-                            vim.loop.fs_close(file)
-                        end)
+            -- Race condition?
+            vim.system(
+                vim.iter({ "current-location", "write", "nvim", filepath, utils.get_ui_pids(), vim.uv.os_getpid(),
+                    "--nvim-pipe", vim.v.servername }):flatten():totable(),
+                { text = true },
+                function(result)
+                    if result.code ~= 0 then
+                        vim.notify("Error writing current location (" .. result.code .. "): " .. result.stderr,
+                            vim.log.levels.ERROR)
+                    end
                 end
-            end
+            )
         end
     end,
 })
