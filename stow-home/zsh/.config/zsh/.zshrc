@@ -95,21 +95,6 @@ bindkey '' backward-kill-word # <Ctrl-Backspace>
 autoload -U select-word-style
 select-word-style bash
 
-# HACK: fix chpwd hooks not running on sturtup
-# https://gist.github.com/laggardkernel/b2cbc937aa1149530a4886c8bcc7cf7c
-function _self_destruct_hook {
-  local f
-  for f in ${chpwd_functions}; do
-    "$f"
-  done
-
-  # remove self from precmd
-  precmd_functions=(${(@)precmd_functions:#_self_destruct_hook})
-  builtin unfunction _self_destruct_hook
-}
-
-add-zsh-hook precmd _self_destruct_hook
-
 # OSC-7
 function osc7-pwd() {
     emulate -L zsh # also sets localoptions for us
@@ -127,9 +112,29 @@ precmd() {
     print -Pn "\e]133;A\e\\"
 }
 
+# define an array to collect functions run only once
+typeset -ag self_destruct_functions=()
+function _self_destruct_hook {
+  local f
+  for f in ${self_destruct_functions}; do
+    "$f"
+  done
+
+  # remove self from precmd
+  precmd_functions=(${(@)precmd_functions:#_self_destruct_hook})
+  builtin unfunction _self_destruct_hook
+  unset self_destruct_functions
+}
+
+precmd_functions=(_self_destruct_hook ${precmd_functions[@]})
+
 # write current location
 function update_cwd_file() {
   current_pid=$(echo $$)
   current-location write zsh $PWD $current_pid
 }
+
 add-zsh-hook -Uz chpwd update_cwd_file
+
+# chpwd hook is not triggered on startup by design so we trigger it once manually
+self_destruct_functions=(${self_destruct_functions[@]} update_cwd_file)
