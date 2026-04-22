@@ -21,7 +21,7 @@ vim.o.laststatus = 3
 
 -- Those are not needed with Kitty's cursor trail
 vim.o.cursorline = true
-vim.opt.cursorlineopt = "number"
+vim.o.cursorlineopt = "number"
 vim.o.cursorcolumn = false
 vim.cmd("highlight CursorLine guibg=#3a405e")
 
@@ -196,12 +196,17 @@ vim.api.nvim_create_autocmd('BufEnter', {
     callback = function(args)
         local filepath = args.file
         if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
+            local ok, err = vim.uv.fs_mkdir("/tmp/current-location", 493) -- 493 is octal for 755 permissions
+            if not ok and err and not vim.startswith(err, "EEXIST") then
+                vim.notify("Error creating dir: " .. err, vim.log.levels.ERROR)
+            end
+
             local data = vim.fn.json_encode({ location = filepath, nvim_pipe = vim.v.servername })
             -- Writing pids for server and every UI attached to it
             -- Usefull when UI process is not a child of server process (like after :restart)
             local pids = vim.iter({ utils.get_ui_pids(), vim.uv.os_getpid() }):flatten()
             for pid in pids do
-                local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. pid .. ".txt", "w", 438) -- 438 is octal for 0666 permissions
+                local file, err = vim.loop.fs_open("/tmp/current-location/nvim-" .. pid .. ".txt", "w", 429) -- 429 is octal for 655 permissions
                 if not file then
                     vim.notify("Error opening file: " .. err, vim.log.levels.ERROR)
                 else
