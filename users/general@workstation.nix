@@ -42,6 +42,11 @@ in {
         buildInputs = old.buildInputs ++ [prev.goocanvas_3];
         # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
       });
+      beets = prev.beets.overridePythonAttrs (old: {
+        propagatedBuildInputs =
+          # required for lastgenre plugin
+          old.propagatedBuildInputs or [] ++ [prev.python3.pkgs.socksio];
+      });
       # HACK:
       # fixing broken desktop entry
       # https://github.com/Vladimir-csp/app2unit/issues/9#issuecomment-3175908089
