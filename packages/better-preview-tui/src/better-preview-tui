@@ -120,7 +120,7 @@ start_preview() {
             env "${ENVVARS[@]}" \
                 kitty \
                 --override "cursor_trail=0" \
-                --title "preview-tui" \
+                --title "${NNN_KITTY_PREVIEW_TITLE:-preview-tui}" \
                 -e "$0" "$1" ;;
         wezterm)
             export "${ENVVARS[@]}"
