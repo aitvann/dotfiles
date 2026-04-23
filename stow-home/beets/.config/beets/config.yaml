@@ -1,11 +1,12 @@
 plugins:
+  - musicbrainz
+  - spotify
   - chroma
   - fromfilename
   - fetchart
   - embedart
   - lastgenre
   - lyrics
-  - spotify
   - edit
   - mbsync
   - playlist
@@ -19,7 +20,6 @@ library: ~/data/knowledge-base/media/music/beets.db
 # preferring Spotify because we want to fetch album info for singletons (beets 1.6.1 required)
 # still requires to use -t during import: https://github.com/beetbox/beets/issues/4605
 musicbrainz:
-  enabled: yes
   data_source_mismatch_penalty: 0.9
 
 spotify:
