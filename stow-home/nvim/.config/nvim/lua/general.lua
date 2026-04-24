@@ -103,6 +103,18 @@ vim.keymap.set("i", "<C-z>", "<Esc>zza", { silent = true })
 vim.keymap.set("n", "G", "Gzz", { silent = true })
 vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window" })
 
+local parag_next = function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('}' .. vim.v.count1, 't', true, true),
+        'n', true)
+end
+local parag_prev = function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('{' .. vim.v.count1, 't', true, true),
+        'n', true)
+end
+parag_next, parag_prev = repeat_move.make_repeatable_move_pair(parag_next, parag_prev)
+vim.keymap.set({ "n", "x", "o" }, "}", parag_next)
+vim.keymap.set({ "n", "x", "o" }, "{", parag_prev)
+
 -- leader
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>W", ":w<CR>", { silent = true, desc = "Write ALL buffers" })
