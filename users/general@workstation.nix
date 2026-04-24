@@ -361,8 +361,6 @@ in {
 
       # automaticaly close #, (, {, etc.
       nvim-autopairs
-      # easily change the sorrounding
-      vim-surround
       # gc to comment line
       comment-nvim
       # smarter context aware commenting
@@ -383,6 +381,10 @@ in {
       mini-align
       # Interactive LSP rename
       live-rename-nvim
+      # Easy operation on surroundings
+      mini-surround
+      # Textobjects
+      mini-ai
 
       # --------------------------------------------------------------------------------
       # Lsp

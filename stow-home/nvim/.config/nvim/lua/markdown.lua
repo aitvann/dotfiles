@@ -95,16 +95,6 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.o.linebreak = true
         vim.o.colorcolumn = "98"
 
-        vim.cmd [[
-            let b:surround_{char2nr('~')} = "~~\r~~"
-            let b:surround_{char2nr('i')} = "*\r*"
-            let b:surround_{char2nr('o')} = "**\r**" " bOld
-            let b:surround_{char2nr('c')} = "`\r`"
-            let b:surround_{char2nr('C')} = "```\r```"
-            let b:surround_{char2nr('k')} = "[\r]()" " linK
-            let b:surround_{char2nr('K')} = "[[|\r]\]" " linK
-        ]]
-
         vim.keymap.set("n", "<localleader>d", "<cmd>Obsidian today<CR>",
             { silent = true, desc = "go to toDay's note", buffer = buffer })
         vim.keymap.set("n", "<localleader>b", "<cmd>Obsidian backlinks<CR>",
