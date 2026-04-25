@@ -6,4 +6,5 @@ end
 return {
     progress_or_filename = require 'progress-or-filename',
     diagnostics = require 'diagnostics',
+    macro = require 'macro',
 }

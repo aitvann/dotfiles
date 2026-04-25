@@ -18,11 +18,11 @@ lualine.setup({
     -- +-------------------------------------------------+
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
+        lualine_b = { { "b:gitsigns_head", icon = "" }, "diff", components.macro },
         lualine_c = { { components.progress_or_filename, path = 1 } },
         lualine_x = {},
         lualine_y = { { components.diagnostics } },
-        lualine_z = { "progress", "location" },
+        lualine_z = { "searchcount", "selectioncount", "progress", "location" },
     },
     inactive_sections = {
         lualine_a = {},
