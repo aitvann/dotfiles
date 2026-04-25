@@ -95,6 +95,10 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.o.linebreak = true
         vim.o.colorcolumn = "98"
 
+        -- Prevent builtin keymap from overriding quickfix list keymaps
+        vim.keymap.del("n", "]]", { buf = buffer })
+        vim.keymap.del("n", "[[", { buf = buffer })
+
         vim.keymap.set("n", "<localleader>d", "<cmd>Obsidian today<CR>",
             { silent = true, desc = "go to toDay's note", buffer = buffer })
         vim.keymap.set("n", "<localleader>b", "<cmd>Obsidian backlinks<CR>",
