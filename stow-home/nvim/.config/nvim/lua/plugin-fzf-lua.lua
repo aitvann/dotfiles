@@ -1,4 +1,6 @@
 local fzf_lua = require("fzf-lua")
+
+local previewer_prefix = "delta --syntax-theme tokyonight-storm"
 fzf_lua.setup({
     { "ivy", "hide" },
     keymap = {
@@ -28,6 +30,13 @@ fzf_lua.setup({
         -- TODO: make it a per-project configuration
         hidden = true,
     },
+    git = {
+        status = { preview_pager = previewer_prefix },
+        diff = { preview_pager = previewer_prefix },
+        commits = { preview_pager = previewer_prefix },
+        bcommits = { preview_pager = previewer_prefix },
+        blame = { preview_pager = previewer_prefix },
+    },
     grep = {
         -- TODO: make it a per-project configuration
         hidden = true,
@@ -42,7 +51,7 @@ fzf_lua.setup({
         codeaction_native = {
             -- Using recommended config for `delta
             pager =
-            [[delta --syntax-theme tokyonight-storm --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
+                previewer_prefix .. ' --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"',
         },
     }
 })

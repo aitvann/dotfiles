@@ -1,5 +1,15 @@
 [core]
     excludesfile = ~/.config/git/.gitignore_global
+    pager = delta --syntax-theme tokyonight-storm
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    dark = true
+
+[merge]
+    conflictStyle = zdiff3
 
 [diff]
 	tool = nvimdiff
