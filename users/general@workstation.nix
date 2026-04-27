@@ -311,8 +311,6 @@ in {
       nvim-treesitter.withAllGrammars
       # repeat motions
       repeatable-move-nvim
-      # easily create textobjects
-      vim-textobj-user
       # Sudo write
       vim-suda
       # Load .envrc on cwd change
@@ -367,8 +365,6 @@ in {
       nvim-ts-context-commentstring
       # autocomplition using multiple sources
       blink-cmp
-      # v text object to select bar in foo_ba|r_bax
-      vim-textobj-variable-segment
       # Highlights parentheses in rainbow
       rainbow-delimiters-nvim
       # indentetion
@@ -385,6 +381,10 @@ in {
       mini-surround
       # Textobjects
       mini-ai
+      # A dependency for vim-textobj-variable-segment
+      vim-textobj-user
+      # v text object to select bar in foo_ba|r_bax
+      vim-textobj-variable-segment
 
       # --------------------------------------------------------------------------------
       # Lsp
@@ -482,6 +482,7 @@ in {
       jdks = [
         graalvmPackages.graalvm-oracle_17
         graalvmPackages21.graalvm-ce
+        graalvmPackages.graalvm-ce
       ];
     })
     mcaselector

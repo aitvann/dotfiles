@@ -16,9 +16,9 @@ M.on_attach = function(_client, buffer)
     jump_next, jump_prev = repeat_move.make_repeatable_move_pair(jump_next, jump_prev)
 
     vim.keymap.set({ "n", "x", "o" }, "]d", jump_next,
-        { silent = true, desc = "GOTO PREVIOUS diagnostics", buffer = buffer })
-    vim.keymap.set({ "n", "x", "o" }, "[d", jump_prev,
         { silent = true, desc = "GOTO NEXT diagnostics", buffer = buffer })
+    vim.keymap.set({ "n", "x", "o" }, "[d", jump_prev,
+        { silent = true, desc = "GOTO PREVIOUS diagnostics", buffer = buffer })
 end
 
 return M

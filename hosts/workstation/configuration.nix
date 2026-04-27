@@ -174,6 +174,17 @@ in {
   programs.obs-studio.package = null; # Install using Home Manger instead if needed
   programs.obs-studio.enableVirtualCamera = true;
 
+  services.yggdrasil = {
+    enable = false;
+    persistentKeys = true;
+    settings = {
+      Peers = [
+        "tls://5.181.181.60:42853"
+      ];
+      IfName = "ygg0";
+    };
+  };
+
   virtualisation.docker = {
     enable = true;
     storageDriver = "overlay2";

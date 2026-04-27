@@ -180,18 +180,16 @@ for _, char in ipairs(goto_characters) do
     next, prev = rm.make_repeatable_move_pair(next, prev)
 
     vim.keymap.set({ "n", "x", "o" }, "]" .. char, next,
-        { silent = true, desc = "Goto NEXT START of textobject " .. char })
+        { silent = true, desc = "GOTO NEXT START of textobject " .. char })
     vim.keymap.set({ "n", "x", "o" }, "[" .. char, prev,
-        { silent = true, desc = "Goto PREVIOUS START of textobject " .. char })
+        { silent = true, desc = "GOTO PREVIOUS START of textobject " .. char })
 
     local next = function() ai.move_cursor('right', 'a', char, opts('next')) end
     local prev = function() ai.move_cursor('right', 'a', char, opts('prev')) end
     next, prev = rm.make_repeatable_move_pair(next, prev)
 
-    local char = string.upper(char)
-
-    vim.keymap.set({ "n", "x", "o" }, "]" .. char, next,
-        { silent = true, desc = "Goto NEXT END of textobject " .. char })
-    vim.keymap.set({ "n", "x", "o" }, "[" .. char, prev,
-        { silent = true, desc = "Goto PREVIOUS END of textobject " .. char })
+    vim.keymap.set({ "n", "x", "o" }, "]" .. string.upper(char), next,
+        { silent = true, desc = "GOTO NEXT END of textobject " .. char })
+    vim.keymap.set({ "n", "x", "o" }, "[" .. string.upper(char), prev,
+        { silent = true, desc = "GOTO PREVIOUS END of textobject " .. char })
 end
