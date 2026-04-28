@@ -1,0 +1,20 @@
+{
+  "element_call": {
+    "brand": "Element Call",
+    "guest_spa_url": "https://call.element.io",
+    "use_exclusively": true
+  },
+  "features": {
+    "feature_element_call_video_rooms": true,
+    "feature_group_calls": true,
+    "feature_video_rooms": true
+  },
+  "setting_defaults": {
+    "UIFeature.advancedEncryption": true,
+    "UIFeature.advancedSettings": true,
+    "UIFeature.feedback": false,
+    "UIFeature.voip": true,
+    "UIFeature.widgets": true
+  },
+  "show_labs_settings": true
+}

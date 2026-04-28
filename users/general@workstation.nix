@@ -616,6 +616,7 @@ in {
       (packageHomeFiles ../stow-home/discord)
       (packageHomeFiles ../stow-home/dunst)
       (packageHomeFiles ../stow-home/efm-langserver)
+      (packageHomeFiles ../stow-home/element)
       # breaks styling
       # (packageHomeFiles ../stow-home/eww)
       (packageHomeFiles ../stow-home/firefox)
