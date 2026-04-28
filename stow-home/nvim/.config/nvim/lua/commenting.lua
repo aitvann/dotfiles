@@ -53,6 +53,7 @@ vim.keymap.set("n", "<leader>tc", function()
 end, { silent = true, desc = "Toggle auto-Comment" })
 toggling.register({
     name = "auto_comment",
+    initial = true,
     description = "Auto-comment",
     on_enable_hook = function()
         vim.cmd([[set formatoptions+=cro]])

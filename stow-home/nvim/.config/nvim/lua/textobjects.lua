@@ -10,9 +10,10 @@ local custom_surroundings = {
     i = { input = { "%*().-()%*" }, output = { left = "*", right = "*" }, },
     -- markdown BOLD (highlight with Yellow marker)
     y = { input = { '%*%*().-()%*%*' }, output = { left = "**", right = "**" }, },
-    -- TODO: jump mappings conflict with diagnostics jump mappings
+    -- FIXME: jump mappings conflict with diagnostics jump mappings
     -- markdown coDe block
     d = { input = { '```[%w_%s]*\n().-()%s*```' }, output = { left = "```\n", right = "\n```" }, },
+    ["`"] = { input = { '%`().-()%`' }, output = { left = "`", right = "`" }, },
     -- markdown LINK
     x = { input = { "%[().-()%]%(.-%)" }, output = { left = "[", right = "]()" }, },
     -- Zettelkasten links
@@ -24,21 +25,21 @@ local custom_surroundings = {
 
 local spec_treesitter = ai.gen_spec.treesitter
 local treesitter_textobjects = {
-    f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
-    c = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
-    a = spec_treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
-    m = spec_treesitter({ a = '@comment.outer', i = '@comment.outer' }), -- no `.inner`, using fake one
-    o = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),
-    n = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
-    g = spec_treesitter({ a = '@assignment.outer', i = '@assignment.outer' }), -- no `.inner`, using fake one
-    l = spec_treesitter({ a = '@assignment.lhs', i = '@assignment.lhs' }),     -- `a` and `i` are the same
-    r = spec_treesitter({ a = '@assignment.rhs', i = '@assignment.rhs' }),     -- `a` and `i` are the same
+    f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),       -- Funcition
+    c = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),             -- Class
+    a = spec_treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),     -- parameter (Argument)
+    m = spec_treesitter({ a = '@comment.outer', i = '@comment.outer' }),         -- coMMent. No `.inner`, using fake one
+    o = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),               -- lOOp
+    n = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }), -- coNditional
+    g = spec_treesitter({ a = '@assignment.outer', i = '@assignment.outer' }),   -- assiGnment. No `.inner`, using fake one
+    l = spec_treesitter({ a = '@assignment.lhs', i = '@assignment.lhs' }),       -- Lhs. `a` and `i` are the same
+    r = spec_treesitter({ a = '@assignment.rhs', i = '@assignment.rhs' }),       -- Rhs. `a` and `i` are the same
     -- TODO: conflicts with Strike surrounding
     -- TODO: figure out a way to specify query group `locals`
     -- s = spec_treesitter({ a = '@scope', i = '@scope' }), -- `a` and `i` are the same
 
     -- overriding surroundings
-    u = spec_treesitter({ a = '@call.outer', i = '@call.inner' }),
+    u = spec_treesitter({ a = '@call.outer', i = '@call.outer' }), -- no `.inner`, using fake one
 }
 
 -- local search_method = 'cover_or_next'
@@ -175,14 +176,8 @@ vim.list_extend(goto_characters, vim.tbl_keys(custom_textobjects))
 for _, char in ipairs(goto_characters) do
     local opts = function(sm) return { n_times = vim.v.count1, search_method = 'cover_or_' .. sm } end
 
-    local next = function() ai.move_cursor('left', 'a', char, opts('next')) end
-    local prev = function() ai.move_cursor('left', 'a', char, opts('prev')) end
-    next, prev = rm.make_repeatable_move_pair(next, prev)
-
-    vim.keymap.set({ "n", "x", "o" }, "]" .. char, next,
-        { silent = true, desc = "GOTO NEXT START of textobject " .. char })
-    vim.keymap.set({ "n", "x", "o" }, "[" .. char, prev,
-        { silent = true, desc = "GOTO PREVIOUS START of textobject " .. char })
+    -- Defining GOTO NEXT END first so that GOTO NEXT START will take priority
+    -- is cases when there is no upper case variant for a character (e.g. `)
 
     local next = function() ai.move_cursor('right', 'a', char, opts('next')) end
     local prev = function() ai.move_cursor('right', 'a', char, opts('prev')) end
@@ -192,4 +187,13 @@ for _, char in ipairs(goto_characters) do
         { silent = true, desc = "GOTO NEXT END of textobject " .. char })
     vim.keymap.set({ "n", "x", "o" }, "[" .. string.upper(char), prev,
         { silent = true, desc = "GOTO PREVIOUS END of textobject " .. char })
+
+    local next = function() ai.move_cursor('left', 'a', char, opts('next')) end
+    local prev = function() ai.move_cursor('left', 'a', char, opts('prev')) end
+    next, prev = rm.make_repeatable_move_pair(next, prev)
+
+    vim.keymap.set({ "n", "x", "o" }, "]" .. char, next,
+        { silent = true, desc = "GOTO NEXT START of textobject " .. char })
+    vim.keymap.set({ "n", "x", "o" }, "[" .. char, prev,
+        { silent = true, desc = "GOTO PREVIOUS START of textobject " .. char })
 end

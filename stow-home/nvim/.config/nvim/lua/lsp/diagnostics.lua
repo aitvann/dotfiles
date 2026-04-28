@@ -1,4 +1,4 @@
--- diagnostics does not depend on any capability
+-- diagnostics do not depend on any capability
 
 local fzf_lua = require("fzf-lua")
 local repeat_move = require("repeatable_move")

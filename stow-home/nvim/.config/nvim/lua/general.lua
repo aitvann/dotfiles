@@ -117,7 +117,7 @@ vim.keymap.set({ "n", "x", "o" }, "{", parag_prev)
 
 -- leader
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
-vim.keymap.set("n", "<leader>W", ":w<CR>", { silent = true, desc = "Write ALL buffers" })
+vim.keymap.set("n", "<leader>W", ":wa<CR>", { silent = true, desc = "Write ALL buffers" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, desc = "Quite from current editor" })
 vim.keymap.set("n", "<leader>Q", ":qa<CR>", { silent = true, desc = "Quite from editor" })
 vim.keymap.set("n", "<leader>o", "o<Esc>", { silent = true, desc = "create line ABOVE in normal mode" })
@@ -155,10 +155,10 @@ vim.keymap.set("n", "<S-Del>", ":tabclose<CR>", { silent = true, desc = "CLOSE t
 
 -- moving over the windows
 whichkey.add({ { "g", group = "Go to" } })
-vim.keymap.set("n", "gh", function() vim.fn.WinMove("h") end, { silent = true, desc = "GO to the LEFT window" })
-vim.keymap.set("n", "gl", function() vim.fn.WinMove("l") end, { silent = true, desc = "GO to the RIGHT window" })
-vim.keymap.set("n", "gk", function() vim.fn.WinMove("k") end, { silent = true, desc = "GO to the ABOVE window" })
-vim.keymap.set("n", "gj", function() vim.fn.WinMove("j") end, { silent = true, desc = "GO to the BELOW window" })
+vim.keymap.set("n", "gh", function() vim.fn.WinMove("h") end, { silent = true, desc = "Go to the LEFT window" })
+vim.keymap.set("n", "gl", function() vim.fn.WinMove("l") end, { silent = true, desc = "Go to the RIGHT window" })
+vim.keymap.set("n", "gk", function() vim.fn.WinMove("k") end, { silent = true, desc = "Go to the ABOVE window" })
+vim.keymap.set("n", "gj", function() vim.fn.WinMove("j") end, { silent = true, desc = "Go to the BELOW window" })
 
 -- mirroring current window
 whichkey.add({ { "gm", group = "Go Mirror window" } })
