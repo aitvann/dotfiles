@@ -462,6 +462,7 @@ in {
     # open dialogs (Minecraft load book from file)
     adwaita-qt6
     zenity
+    showmethekey
 
     # gui apps
     nwg-look
