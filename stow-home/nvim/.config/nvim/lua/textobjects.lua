@@ -2,6 +2,9 @@ local ai = require("mini.ai")
 local surround = require("mini.surround")
 local rm = require("repeatable_move")
 
+-- local search_method = 'cover_or_next'
+local search_method = 'cover'
+
 local regex_surroundings = {
     -- markdown Strike
     s = { input = { "%~%~().-()%~%~" }, output = { left = "~~", right = "~~" } },
@@ -43,9 +46,6 @@ local treesitter_textobjects = {
     -- TODO: figure out a way to specify query group `locals`
     -- s = spec_treesitter({ a = '@scope', i = '@scope' }), -- `a` and `i` are the same
 }
-
--- local search_method = 'cover_or_next'
-local search_method = 'cover'
 
 local surroundings_textobjects = vim.iter(pairs(regex_surroundings))
     :map(function(id, spec) return { [id] = spec.input } end)
@@ -197,12 +197,12 @@ local goto_characters = { 'b', 'q', '?', 't' }
 vim.list_extend(goto_characters, vim.tbl_keys(custom_textobjects))
 
 for _, char in ipairs(goto_characters) do
-    local opts = function(sm) return { n_times = vim.v.count1, search_method = 'cover_or_' .. sm } end
+    local opts = function(sm) return { n_times = vim.v.count1, search_method = sm } end
 
     -- Defining GOTO NEXT END first so that GOTO NEXT START will take priority
-    -- is cases when there is no upper case variant for a character (e.g. `)
+    -- is cases when there is no upper case variant for a character (e.g. ` textobject)
 
-    local next = function() ai.move_cursor('right', 'a', char, opts('next')) end
+    local next = function() ai.move_cursor('right', 'a', char, opts('cover_or_next')) end
     local prev = function() ai.move_cursor('right', 'a', char, opts('prev')) end
     next, prev = rm.make_repeatable_move_pair(next, prev)
 
@@ -212,7 +212,7 @@ for _, char in ipairs(goto_characters) do
         { silent = true, desc = "GOTO PREVIOUS END of textobject " .. char })
 
     local next = function() ai.move_cursor('left', 'a', char, opts('next')) end
-    local prev = function() ai.move_cursor('left', 'a', char, opts('prev')) end
+    local prev = function() ai.move_cursor('left', 'a', char, opts('cover_or_prev')) end
     next, prev = rm.make_repeatable_move_pair(next, prev)
 
     vim.keymap.set({ "n", "x", "o" }, "]" .. char, next,
