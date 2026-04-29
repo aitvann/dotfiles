@@ -2,56 +2,67 @@ local ai = require("mini.ai")
 local surround = require("mini.surround")
 local rm = require("repeatable_move")
 
-local ts_input = surround.gen_spec.input.treesitter
-local custom_surroundings = {
+local regex_surroundings = {
     -- markdown Strike
-    s = { input = { "%~%~().-()%~%~" }, output = { left = "~~", right = "~~" }, },
+    s = { input = { "%~%~().-()%~%~" }, output = { left = "~~", right = "~~" } },
     -- markdown Italic
-    i = { input = { "%*().-()%*" }, output = { left = "*", right = "*" }, },
+    i = { input = { "%*().-()%*" }, output = { left = "*", right = "*" } },
     -- markdown BOLD (highlight with Yellow marker)
-    y = { input = { '%*%*().-()%*%*' }, output = { left = "**", right = "**" }, },
-    -- FIXME: jump mappings conflict with diagnostics jump mappings
-    -- markdown coDe block
-    d = { input = { '```[%w_%s]*\n().-()%s*```' }, output = { left = "```\n", right = "\n```" }, },
-    ["`"] = { input = { '%`().-()%`' }, output = { left = "`", right = "`" }, },
+    y = { input = { '%*%*().-()%*%*' }, output = { left = "**", right = "**" } },
+    ["`"] = { input = { '%`().-()%`' }, output = { left = "`", right = "`" } },
     -- markdown LINK
-    x = { input = { "%[().-()%]%(.-%)" }, output = { left = "[", right = "]()" }, },
+    x = { input = { "%[().-()%]%(.-%)" }, output = { left = "[", right = "]()" } },
     -- Zettelkasten links
-    z = { input = { '%[%[().-()%]%]' }, output = { left = "[[", right = "]]" }, },
-
-    -- fUnction call
-    u = { input = ts_input({ outer = '@call.outer', inner = '@call.inner' }) },
+    z = { input = { '%[%[().-()%]%]' }, output = { left = "[[", right = "]]" } },
 }
 
-local spec_treesitter = ai.gen_spec.treesitter
+local treesitter_surroundings = {
+    -- Won't work bacause `markdown_inline` parser is not loaded in some cases.
+    -- See [issue](https://github.com/nvim-mini/mini.nvim/issues/2397#issuecomment-4345953431)
+    -- i = { input = { outer = '@emphasis.outer', inner = '@emphasis.inner' }, output = { left = "*", right = "*" } },
+    -- y = { input = { outer = '@strong_emphasis.outer', inner = '@strong_emphasis.inner' }, output = { left = "**", right = "**" } },
+
+    -- FIXME: jump mappings conflict with diagnostics jump mappings
+    -- markdown coDe block
+    d = { input = { outer = '@cell.outer', inner = '@cell.inner' }, output = { left = "```\n", right = "\n```" } },
+    -- fUnction call
+    u = { input = { outer = '@call.outer', inner = '@call.inner' } },
+}
+
 local treesitter_textobjects = {
-    f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),       -- Funcition
-    c = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),             -- Class
-    a = spec_treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),     -- parameter (Argument)
-    m = spec_treesitter({ a = '@comment.outer', i = '@comment.outer' }),         -- coMMent. No `.inner`, using fake one
-    o = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),               -- lOOp
-    n = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }), -- coNditional
-    g = spec_treesitter({ a = '@assignment.outer', i = '@assignment.outer' }),   -- assiGnment. No `.inner`, using fake one
-    l = spec_treesitter({ a = '@assignment.lhs', i = '@assignment.lhs' }),       -- Lhs. `a` and `i` are the same
-    r = spec_treesitter({ a = '@assignment.rhs', i = '@assignment.rhs' }),       -- Rhs. `a` and `i` are the same
+    f = { outer = '@function.outer', inner = '@function.inner' },       -- Funcition
+    c = { outer = '@class.outer', inner = '@class.inner' },             -- Class
+    a = { outer = '@parameter.outer', inner = '@parameter.inner' },     -- parameter (Argument)
+    m = { outer = '@comment.outer', inner = '@comment.outer' },         -- coMMent. No `.inner`, using fake one
+    o = { outer = '@loop.outer', inner = '@loop.inner' },               -- lOOp
+    n = { outer = '@conditional.outer', inner = '@conditional.inner' }, -- coNditional
+    g = { outer = '@assignment.outer', inner = '@assignment.outer' },   -- assiGnment. No `.inner`, using fake one
+    l = { outer = '@assignment.lhs', inner = '@assignment.lhs' },       -- Lhs. `a` and `i` are the same
+    r = { outer = '@assignment.rhs', inner = '@assignment.rhs' },       -- Rhs. `a` and `i` are the same
     -- TODO: conflicts with Strike surrounding
     -- TODO: figure out a way to specify query group `locals`
     -- s = spec_treesitter({ a = '@scope', i = '@scope' }), -- `a` and `i` are the same
-
-    -- overriding surroundings
-    u = spec_treesitter({ a = '@call.outer', i = '@call.outer' }), -- no `.inner`, using fake one
 }
 
 -- local search_method = 'cover_or_next'
 local search_method = 'cover'
 
-local surroundings_textobjects = vim.iter(custom_surroundings)
-    :map(function(cs) return { [cs] = custom_surroundings[cs].input } end)
+local surroundings_textobjects = vim.iter(pairs(regex_surroundings))
+    :map(function(id, spec) return { [id] = spec.input } end)
+    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
+
+local treesitter_surroundings_textobjects = vim.iter(pairs(treesitter_surroundings))
+    :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.input.outer, i = spec.input.inner }) } end)
+    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
+
+local treesitter_textobjects_specs = vim.iter(pairs(treesitter_textobjects))
+    :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.outer, i = spec.inner }) } end)
     :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
 
 local custom_textobjects = {}
 custom_textobjects = vim.tbl_extend('force', custom_textobjects, surroundings_textobjects)
-custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_textobjects)
+custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_surroundings_textobjects)
+custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_textobjects_specs)
 
 ai.setup({
     custom_textobjects = custom_textobjects,
@@ -82,6 +93,18 @@ ai.setup({
     n_lines = 100,
     silent = true,
 })
+
+local treesitter_surroundings_specs = vim.iter(pairs(treesitter_surroundings))
+    :map(function(id, spec)
+        local new_spec = spec
+        new_spec.input = surround.gen_spec.input.treesitter(new_spec.input)
+        return { [id] = new_spec }
+    end)
+    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
+
+local custom_surroundings = {}
+custom_surroundings = vim.tbl_extend('force', custom_surroundings, regex_surroundings)
+custom_surroundings = vim.tbl_extend('force', custom_surroundings, treesitter_surroundings_specs)
 
 surround.setup({
     custom_surroundings = custom_surroundings,
@@ -131,9 +154,9 @@ local get_visual_region = function()
     return res
 end
 
-local selopts = function(search_method)
+local selopts = function(sm)
     -- NOTE: might have to specify `vis_mode`
-    return { search_method = search_method, n_times = vim.v.count1, reference_region = get_visual_region() }
+    return { search_method = sm, n_times = vim.v.count1, reference_region = get_visual_region() }
 end
 
 for _, char in ipairs(select_characters) do
