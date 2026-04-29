@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("User", {
     pattern = "DirenvLoaded",
     callback = function()
         vim.lsp.enable {
+            "vimdoc_ls",     -- vimdoc
             "rust_analyzer", -- rust
             "solc",          -- solidity
             "lua_ls",        -- lua

@@ -579,6 +579,7 @@ in {
 
     # text editors
     helix
+    vimdoc-language-server
     clojure-lsp
     rust-analyzer
     taplo
