@@ -301,6 +301,8 @@ in {
       # General
       # --------------------------------------------------------------------------------
 
+      # A collection of utilities
+      plenary-nvim
       # delete the buffer without closing the window
       mini-bufremove
       # smooth scrolling
