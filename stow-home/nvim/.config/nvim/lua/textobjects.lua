@@ -10,6 +10,11 @@ local rm = require("repeatable_move")
 local search_method = 'cover'
 
 local regex_surroundings = {
+    -- disable default 'function call' surrounding
+    -- as a better treesitter one will be used instead
+    -- with a different id
+    f = nil,
+
     -- markdown Strike
     s = { input = { "%~%~().-()%~%~" }, output = { left = "~~", right = "~~" } },
     -- markdown Italic
@@ -32,7 +37,15 @@ local treesitter_surroundings = {
     -- markdown coDe block
     d = { input = { outer = '@cell.outer', inner = '@cell.inner' }, output = { left = "```\n", right = "\n```" } },
     -- fUnction call
-    u = { input = { outer = '@call.outer', inner = '@call.inner' } },
+    u = {
+        input = { outer = '@call.outer', inner = '@call.inner' },
+        -- Copy from mini.ai/lua/mini/surround.lua
+        output = function()
+            local fun_name = surround.user_input('Function name')
+            if fun_name == nil then return nil end
+            return { left = ('%s('):format(fun_name), right = ')' }
+        end,
+    },
 }
 
 local treesitter_textobjects = {
@@ -55,14 +68,17 @@ local treesitter_textobjects = {
 -- --------------------------------------------------------------------------------
 
 local surroundings_textobjects = vim.iter(pairs(regex_surroundings))
+    :filter(function(_, spec) return spec end)
     :map(function(id, spec) return { [id] = spec.input } end)
     :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
 
 local treesitter_surroundings_textobjects = vim.iter(pairs(treesitter_surroundings))
+    :filter(function(_, spec) return spec end)
     :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.input.outer, i = spec.input.inner }) } end)
     :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
 
 local treesitter_textobjects_specs = vim.iter(pairs(treesitter_textobjects))
+    :filter(function(_, spec) return spec end)
     :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.outer, i = spec.inner }) } end)
     :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
 
@@ -102,6 +118,7 @@ ai.setup({
 })
 
 local treesitter_surroundings_specs = vim.iter(pairs(treesitter_surroundings))
+    :filter(function(_, spec) return spec end)
     :map(function(id, spec)
         local new_spec = spec
         new_spec.input = surround.gen_spec.input.treesitter(new_spec.input)
@@ -207,11 +224,9 @@ end
 -- --------------------------------------------------------------------------------
 -- Goto
 -- --------------------------------------------------------------------------------
---
--- conflicts with jumping to the next quickfix item
+
 local goto_ids = { '(', '[', '{', '<', 'b', '"', '\'', 'q', '?', 't' }
 vim.list_extend(goto_ids, vim.tbl_keys(custom_textobjects))
-
 
 local get_textobject_end_id = function(start_id)
     local upper_case_variant = string.upper(start_id)
