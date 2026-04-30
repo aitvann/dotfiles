@@ -2,6 +2,10 @@ local ai = require("mini.ai")
 local surround = require("mini.surround")
 local rm = require("repeatable_move")
 
+-- --------------------------------------------------------------------------------
+-- Configuration
+-- --------------------------------------------------------------------------------
+
 -- local search_method = 'cover_or_next'
 local search_method = 'cover'
 
@@ -25,7 +29,6 @@ local treesitter_surroundings = {
     -- i = { input = { outer = '@emphasis.outer', inner = '@emphasis.inner' }, output = { left = "*", right = "*" } },
     -- y = { input = { outer = '@strong_emphasis.outer', inner = '@strong_emphasis.inner' }, output = { left = "**", right = "**" } },
 
-    -- FIXME: jump mappings conflict with diagnostics jump mappings
     -- markdown coDe block
     d = { input = { outer = '@cell.outer', inner = '@cell.inner' }, output = { left = "```\n", right = "\n```" } },
     -- fUnction call
@@ -46,6 +49,10 @@ local treesitter_textobjects = {
     -- TODO: figure out a way to specify query group `locals`
     -- s = spec_treesitter({ a = '@scope', i = '@scope' }), -- `a` and `i` are the same
 }
+
+-- --------------------------------------------------------------------------------
+-- Setup
+-- --------------------------------------------------------------------------------
 
 local surroundings_textobjects = vim.iter(pairs(regex_surroundings))
     :map(function(id, spec) return { [id] = spec.input } end)
@@ -130,6 +137,10 @@ surround.setup({
     silent = true,
 })
 
+-- --------------------------------------------------------------------------------
+-- Select
+-- --------------------------------------------------------------------------------
+
 local select_characters = { "(", "[", "{", "<", ")", "]", "}", ">", "b", "\"", "'", "q", "?", "t", }
 vim.list_extend(select_characters, vim.tbl_keys(custom_textobjects))
 
@@ -193,30 +204,58 @@ for _, char in ipairs(select_characters) do
         { silent = true, desc = "select Around CURRENT " .. char .. " textobject" })
 end
 
-local goto_characters = { 'b', 'q', '?', 't' }
-vim.list_extend(goto_characters, vim.tbl_keys(custom_textobjects))
+-- --------------------------------------------------------------------------------
+-- Goto
+-- --------------------------------------------------------------------------------
+--
+-- conflicts with jumping to the next quickfix item
+local goto_ids = { '(', '[', '{', '<', 'b', '"', '\'', 'q', '?', 't' }
+vim.list_extend(goto_ids, vim.tbl_keys(custom_textobjects))
 
-for _, char in ipairs(goto_characters) do
+
+local get_textobject_end_id = function(start_id)
+    local upper_case_variant = string.upper(start_id)
+    local pairs = {
+        ['('] = ')',
+        ['['] = ']',
+        ['{'] = '}',
+        ['<'] = '>',
+    }
+
+    local pair = pairs[start_id]
+    if start_id ~= upper_case_variant then
+        return upper_case_variant
+    elseif pair then
+        return pair
+    else
+        return start_id
+    end
+end
+
+for _, id in ipairs(goto_ids) do
     local opts = function(sm) return { n_times = vim.v.count1, search_method = sm } end
 
     -- Defining GOTO NEXT END first so that GOTO NEXT START will take priority
     -- is cases when there is no upper case variant for a character (e.g. ` textobject)
+    -- Ideally we would jump to the closest side in this case but this feature
+    -- is not planned: https://github.com/nvim-mini/mini.nvim/issues/2398#issuecomment-4353212366
 
-    local next = function() ai.move_cursor('right', 'a', char, opts('cover_or_next')) end
-    local prev = function() ai.move_cursor('right', 'a', char, opts('prev')) end
+    local end_id = get_textobject_end_id(id)
+    local next = function() ai.move_cursor('right', 'a', id, opts('cover_or_next')) end
+    local prev = function() ai.move_cursor('right', 'a', id, opts('prev')) end
     next, prev = rm.make_repeatable_move_pair(next, prev)
 
-    vim.keymap.set({ "n", "x", "o" }, "]" .. string.upper(char), next,
-        { silent = true, desc = "GOTO NEXT END of textobject " .. char })
-    vim.keymap.set({ "n", "x", "o" }, "[" .. string.upper(char), prev,
-        { silent = true, desc = "GOTO PREVIOUS END of textobject " .. char })
+    vim.keymap.set({ "n", "x", "o" }, "]" .. end_id, next,
+        { silent = true, desc = "GOTO NEXT END of textobject " .. id })
+    vim.keymap.set({ "n", "x", "o" }, "[" .. end_id, prev,
+        { silent = true, desc = "GOTO PREVIOUS END of textobject " .. id })
 
-    local next = function() ai.move_cursor('left', 'a', char, opts('next')) end
-    local prev = function() ai.move_cursor('left', 'a', char, opts('cover_or_prev')) end
+    local next = function() ai.move_cursor('left', 'a', id, opts('next')) end
+    local prev = function() ai.move_cursor('left', 'a', id, opts('cover_or_prev')) end
     next, prev = rm.make_repeatable_move_pair(next, prev)
 
-    vim.keymap.set({ "n", "x", "o" }, "]" .. char, next,
-        { silent = true, desc = "GOTO NEXT START of textobject " .. char })
-    vim.keymap.set({ "n", "x", "o" }, "[" .. char, prev,
-        { silent = true, desc = "GOTO PREVIOUS START of textobject " .. char })
+    vim.keymap.set({ "n", "x", "o" }, "]" .. id, next,
+        { silent = true, desc = "GOTO NEXT START of textobject " .. id })
+    vim.keymap.set({ "n", "x", "o" }, "[" .. id, prev,
+        { silent = true, desc = "GOTO PREVIOUS START of textobject " .. id })
 end

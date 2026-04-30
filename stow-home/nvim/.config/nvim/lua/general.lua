@@ -198,8 +198,8 @@ vim.cmd([[
 local qf_next = function() vim.cmd("cnext " .. vim.v.count1) end
 local qf_prev = function() vim.cmd("cprev " .. vim.v.count1) end
 qf_next, qf_prev = repeat_move.make_repeatable_move_pair(qf_next, qf_prev)
-vim.keymap.set({ "n", "x", "o" }, "]]", qf_next, { silent = true, desc = "GOTO NEXT quickfix item" })
-vim.keymap.set({ "n", "x", "o" }, "[[", qf_prev, { silent = true, desc = "GOTO PREVIOUS quickfix item" })
+vim.keymap.set({ "n", "x", "o" }, "]<space>", qf_next, { silent = true, desc = "GOTO NEXT quickfix item" })
+vim.keymap.set({ "n", "x", "o" }, "[<space>", qf_prev, { silent = true, desc = "GOTO PREVIOUS quickfix item" })
 
 vim.api.nvim_create_autocmd('BufEnter', {
     group = vim.api.nvim_create_augroup('current_location', { clear = true }),
