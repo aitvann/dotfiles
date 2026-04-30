@@ -104,11 +104,11 @@ vim.keymap.set("n", "G", "Gzz", { silent = true })
 vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window" })
 
 local parag_next = function()
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('}' .. vim.v.count1, 't', true, true),
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('}' .. vim.v.count1, true, true, true),
         'n', true)
 end
 local parag_prev = function()
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('{' .. vim.v.count1, 't', true, true),
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('{' .. vim.v.count1, true, true, true),
         'n', true)
 end
 parag_next, parag_prev = repeat_move.make_repeatable_move_pair(parag_next, parag_prev)
@@ -257,7 +257,7 @@ end, { silent = true, desc = "Go to a File" })
 vim.keymap.set("n", "gw", fzf_lua.blines, { silent = true, desc = "Go to Word in the CURRENT buffer" })
 -- vim.keymap.set("n", "gW", fzf-lua.grep_project, { silent = true, desc = "Go to Word in the PROJECT" })
 vim.keymap.set("n", "gW", function()
-        FzfLua.live_grep({
+        fzf_lua.live_grep({
             -- Enter `blob` mode immediately
             glob_separator = "file:",
             search = "file:*",
@@ -289,7 +289,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- see https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/"
+-- see https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/
 vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
     group = vim.api.nvim_create_augroup("correct_terminal_background", { clear = true }),
     desc = "Corrects terminal background color according to colorscheme",

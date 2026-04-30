@@ -95,7 +95,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.o.linebreak = true
         vim.o.colorcolumn = "98"
 
-        -- Prevent builtin keymap from overriding quickfix list keymaps
+        -- Prevent builtin keymap from overriding custom keymaps
         vim.keymap.del("n", "]]", { buf = buffer })
         vim.keymap.del("n", "[[", { buf = buffer })
 
