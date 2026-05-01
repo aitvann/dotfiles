@@ -354,6 +354,8 @@ in {
       snacks-nvim
       # Colorful current line number
       modicator-nvim
+      # Editable quickfix list
+      quicker-nvim
 
       # --------------------------------------------------------------------------------
       # Editing

@@ -219,22 +219,6 @@ parag_next, parag_prev = repeat_move.make_repeatable_move_pair(parag_next, parag
 vim.keymap.set({ "n", "x", "o" }, "}", parag_next)
 vim.keymap.set({ "n", "x", "o" }, "{", parag_prev)
 
--- Repeating quickfix list jump
-local qf_next = function() vim.cmd("cnext " .. vim.v.count1) end
-local qf_prev = function() vim.cmd("cprev " .. vim.v.count1) end
-qf_next, qf_prev = repeat_move.make_repeatable_move_pair(qf_next, qf_prev)
-vim.keymap.set({ "n", "x", "o" }, "]<space>", qf_next, { silent = true, desc = "GOTO NEXT quickfix item" })
-vim.keymap.set({ "n", "x", "o" }, "[<space>", qf_prev, { silent = true, desc = "GOTO PREVIOUS quickfix item" })
-
-vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("quickfix_winfixbuf", { clear = true }),
-    desc = "Lock quickfix list windows to their buffers",
-    pattern = "qf",
-    callback = function()
-        vim.opt_local.winfixbuf = true
-    end,
-})
-
 vim.api.nvim_create_autocmd('BufEnter', {
     group = vim.api.nvim_create_augroup('current_location', { clear = true }),
     desc = "Integration with current-location script: write current location on every location change",
