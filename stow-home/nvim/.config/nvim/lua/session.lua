@@ -15,10 +15,16 @@ sessions.setup({
     file = local_session_file,
 })
 
--- TODO: ask for session name, use local session if no name provided
-vim.keymap.set("n", "<leader>s", function() sessions().write(local_session_file) end,
-    { silent = true, desc = "write Session" })
 vim.keymap.set("n", "<leader>b", sessions.restart, { silent = true, desc = "reBoot NeoVim" })
+vim.keymap.set("n", "<leader>s", function()
+        local session_name = vim.fn.input('Session name: ', local_session_file)
+        if session_name ~= "" then
+            sessions.write(session_name)
+        else
+            print('Session creation was canceled')
+        end
+    end,
+    { silent = true, desc = "Save current layout as a Session" })
 
 starter.setup({
     evaluate_single = true,
