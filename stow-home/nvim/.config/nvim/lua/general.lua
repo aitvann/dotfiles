@@ -1,5 +1,4 @@
 local utils = require("utils")
-
 local whichkey = require("which-key")
 local repeat_move = require("repeatable_move")
 
@@ -23,7 +22,25 @@ vim.o.laststatus = 3
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.cursorcolumn = false
-vim.cmd("highlight CursorLine guibg=#3a405e")
+
+-- Tabulation
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+
+-- Folds
+vim.o.foldmethod = "manual"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldtext = ''
+vim.o.fillchars = 'fold: '
+vim.cmd("set nofoldenable")
+
+-- Search
+vim.o.hlsearch = true
+vim.o.incsearch = true
+vim.keymap.set("n", "<C-H>", "<cmd>noh<CR>", { silent = true, desc = "no search Highlight" })
 
 vim.filetype.add({
     pattern = {
@@ -43,10 +60,10 @@ require('vim._core.ui2').enable({
             empty        = 'cmd',
             bufwrite     = 'msg',
             confirm      = 'cmd',
-            emsg         = 'msg', -- change from 'pager'
+            emsg         = 'msg',
             echo         = 'msg',
             echomsg      = 'msg',
-            echoerr      = 'msg', -- change from 'pager'
+            echoerr      = 'msg',
             completion   = 'cmd',
             list_cmd     = 'msg',
             lua_error    = 'msg',
@@ -68,28 +85,6 @@ require('vim._core.ui2').enable({
     },
 })
 
--- folds
-vim.opt.foldmethod = "expr"
--- WARN: causes significant slowdowns: cmdline cmp, lsp symbols, scrolling
--- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" -- deprecated
-vim.o.foldtext = ''
-vim.o.fillchars = 'fold: '
-
--- HACK:
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
-    group = vim.api.nvim_create_augroup("unfold-on-enter", { clear = true }),
-    desc = "Unfold folds on enter (HACK)",
-    pattern = "*",
-    callback = function()
-        vim.schedule(function()
-            vim.cmd [[ normal zR ]]
-        end)
-    end,
-})
-
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("i", "kk", "<Esc>:w<CR>", { silent = true })
 vim.keymap.set("n", "Y", "y$", { silent = true })
@@ -103,19 +98,7 @@ vim.keymap.set("i", "<C-z>", "<Esc>zza", { silent = true })
 vim.keymap.set("n", "G", "Gzz", { silent = true })
 vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window" })
 
-local parag_next = function()
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('}' .. vim.v.count1, true, true, true),
-        'n', true)
-end
-local parag_prev = function()
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('{' .. vim.v.count1, true, true, true),
-        'n', true)
-end
-parag_next, parag_prev = repeat_move.make_repeatable_move_pair(parag_next, parag_prev)
-vim.keymap.set({ "n", "x", "o" }, "}", parag_next)
-vim.keymap.set({ "n", "x", "o" }, "{", parag_prev)
-
--- leader
+-- Leader
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
 vim.keymap.set("n", "<leader>W", ":wa<CR>", { silent = true, desc = "Write ALL buffers" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { silent = true, desc = "Quite from current editor" })
@@ -128,39 +111,44 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>d", "\"+d", { silent = true, desc = "
 vim.keymap.set("n", "<leader>;", function()
     vim.cmd("terminal")
     vim.cmd("startinsert")
-    vim.keymap.set("t", "<Esc>", "<C-\\><C-N>", { silent = true, buffer = true, desc = "buffer" })
+    vim.keymap.set("t", "<Esc>", "<C-\\><C-N>",
+        { silent = true, buffer = true, desc = "Escape terminal mode with just <Esc>" })
 end, { silent = true, desc = "open terminal" })
 
--- tabulation
-vim.o.expandtab = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 4
-
--- search
-vim.o.hlsearch = true
-vim.o.incsearch = true
-vim.keymap.set("n", "<C-H>", "<cmd>noh<CR>", { silent = true, desc = "no search Highlight" })
-
--- buffers
+-- Buffers
 vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>", { silent = true, desc = "cycle trought buffers forward" })
 vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>", { silent = true, desc = "cycle trought buffers backward" })
 vim.keymap.set("n", "<Backspace>", require("mini.bufremove").delete, { silent = true, desc = "close buffer" })
 
--- tabs
+-- Tabs
 vim.keymap.set("n", "gt", ":tabnew %<CR>", { silent = true, desc = "Go to new Tab" })
 vim.keymap.set("n", "L", ":tabn<CR>", { silent = true, desc = "cycle tabs to the Left" })
 vim.keymap.set("n", "H", ":tabp<CR>", { silent = true, desc = "cycle tabs to the Right" })
 vim.keymap.set("n", "<S-Del>", ":tabclose<CR>", { silent = true, desc = "CLOSE tab" })
 
--- moving over the windows
-whichkey.add({ { "g", group = "Go to" } })
-vim.keymap.set("n", "gh", function() vim.fn.WinMove("h") end, { silent = true, desc = "Go to the LEFT window" })
-vim.keymap.set("n", "gl", function() vim.fn.WinMove("l") end, { silent = true, desc = "Go to the RIGHT window" })
-vim.keymap.set("n", "gk", function() vim.fn.WinMove("k") end, { silent = true, desc = "Go to the ABOVE window" })
-vim.keymap.set("n", "gj", function() vim.fn.WinMove("j") end, { silent = true, desc = "Go to the BELOW window" })
+-- Source: https://youtu.be/7Jtr66Kx0RA?t=4m59s
+local win_move = function(key)
+    local curwin = vim.api.nvim_win_get_number(0)
+    vim.cmd("wincmd " .. key)
+    if curwin == vim.api.nvim_win_get_number(0) then
+        if key == 'j' or key == 'k' then
+            vim.cmd "wincmd s"
+        else
+            vim.cmd "wincmd v"
+        end
 
--- mirroring current window
+        vim.cmd("wincmd " .. key)
+    end
+end
+
+-- Moving over the windows
+whichkey.add({ { "g", group = "Go to" } })
+vim.keymap.set("n", "gh", function() win_move("h") end, { silent = true, desc = "Go to the LEFT window" })
+vim.keymap.set("n", "gl", function() win_move("l") end, { silent = true, desc = "Go to the RIGHT window" })
+vim.keymap.set("n", "gk", function() win_move("k") end, { silent = true, desc = "Go to the ABOVE window" })
+vim.keymap.set("n", "gj", function() win_move("j") end, { silent = true, desc = "Go to the BELOW window" })
+
+-- Mirroring current window
 whichkey.add({ { "gm", group = "Go Mirror window" } })
 vim.keymap.set("n", "gmh", "gh<Del>gh",
     { silent = true, remap = true, desc = "GO to the LEFT window mirroring the current window" })
@@ -171,7 +159,7 @@ vim.keymap.set("n", "gmk", "gk<Del>gk",
 vim.keymap.set("n", "gmj", "gj<Del>gj",
     { silent = true, remap = true, desc = "GO to the BELOW window mirroring the current window" })
 
--- moving(pulling) current window
+-- Moving(pulling) current window
 whichkey.add({ { "gp", group = "Go Pull window" } })
 vim.keymap.set("n", "gph", "<C-W>h <C-W>x",
     { silent = true, desc = "Go to the LEFT, Pulling the current window with you" })
@@ -180,70 +168,18 @@ vim.keymap.set("n", "gpl", "<C-W>l <C-W>x",
 vim.keymap.set("n", "gpk", "<C-W>k <C-W>x", { silent = true, desc = "Go UP, Pulling the current window with you" })
 vim.keymap.set("n", "gpj", "<C-W>j <C-W>x", { silent = true, desc = "Go DOWN, Pulling the current window with you" })
 
-vim.cmd([[
-    function! WinMove(key)
-        let t:curwin = winnr()
-        exec "wincmd ".a:key
-        if (t:curwin == winnr())
-            if (match(a:key, '[jk]'))
-                wincmd v
-            else
-                wincmd s
-            endif
-            exec "wincmd ".a:key
-        endif
-    endfunction
-]])
-
-local qf_next = function() vim.cmd("cnext " .. vim.v.count1) end
-local qf_prev = function() vim.cmd("cprev " .. vim.v.count1) end
-qf_next, qf_prev = repeat_move.make_repeatable_move_pair(qf_next, qf_prev)
-vim.keymap.set({ "n", "x", "o" }, "]<space>", qf_next, { silent = true, desc = "GOTO NEXT quickfix item" })
-vim.keymap.set({ "n", "x", "o" }, "[<space>", qf_prev, { silent = true, desc = "GOTO PREVIOUS quickfix item" })
-
-vim.api.nvim_create_autocmd('BufEnter', {
-    group = vim.api.nvim_create_augroup('current_location', { clear = true }),
-    desc = "Integration with current-location script: write current location on every location change",
-    callback = function(args)
-        local filepath = args.file
-        if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
-            -- Race condition?
-            vim.system(
-                vim.iter({ "current-location", "write", "nvim", filepath, utils.get_ui_pids(), vim.uv.os_getpid(),
-                    "--nvim-pipe", vim.v.servername }):flatten():totable(),
-                { text = true },
-                function(result)
-                    if result.code ~= 0 then
-                        vim.notify("Error writing current location (" .. result.code .. "): " .. result.stderr,
-                            vim.log.levels.ERROR)
-                    end
-                end
-            )
-        end
-    end,
-})
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', {}),
-    desc = 'Hightlight selection on yank',
-    pattern = '*',
-    callback = function()
-        vim.hl.on_yank { higroup = 'HighlightedyankRegion', timeout = 300 }
-    end,
-})
-
--- resizing
+-- Resizing
 vim.keymap.set("n", '<S-Left>', function() vim.fn.ResizeLeft(4) end, { silent = true, desc = 'move window divider LEFT' })
 vim.keymap.set("n", '<S-Right>', function() vim.fn.ResizeRight(4) end,
     { silent = true, desc = 'move window divider RIGHT' })
 vim.keymap.set("n", '<S-Up>', function() vim.fn.ResizeUp(4) end, { silent = true, desc = 'move window divider UP' })
 vim.keymap.set("n", '<S-Down>', function() vim.fn.ResizeDown(4) end, { silent = true, desc = 'move window divider DOWN' })
 
--- scrolling
+-- Scrolling
 vim.keymap.set("n", "<Left>", "zh", { silent = true, desc = "scroll horizontally to the LEFT" })
 vim.keymap.set("n", "<Right>", "zl", { silent = true, desc = "scroll horizontally to the RIGHT" })
 
--- navigation
+-- Navigation
 local fzf_lua = require("fzf-lua")
 local fzf_lua_frecency = require('fzf-lua-frecency')
 vim.keymap.set("n", "gf", function()
@@ -270,6 +206,68 @@ vim.keymap.set("n", "gW", function()
 vim.keymap.set("n", "gb", fzf_lua.buffers, { silent = true, desc = "Go to a buffer" })
 vim.keymap.set("n", "gJ", fzf_lua.jumps, { silent = true, desc = "Go to Jump point" })
 
+-- repeating paragraph jump
+local parag_next = function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('}' .. vim.v.count1, true, true, true),
+        'n', true)
+end
+local parag_prev = function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('{' .. vim.v.count1, true, true, true),
+        'n', true)
+end
+parag_next, parag_prev = repeat_move.make_repeatable_move_pair(parag_next, parag_prev)
+vim.keymap.set({ "n", "x", "o" }, "}", parag_next)
+vim.keymap.set({ "n", "x", "o" }, "{", parag_prev)
+
+-- Repeating quickfix list jump
+local qf_next = function() vim.cmd("cnext " .. vim.v.count1) end
+local qf_prev = function() vim.cmd("cprev " .. vim.v.count1) end
+qf_next, qf_prev = repeat_move.make_repeatable_move_pair(qf_next, qf_prev)
+vim.keymap.set({ "n", "x", "o" }, "]<space>", qf_next, { silent = true, desc = "GOTO NEXT quickfix item" })
+vim.keymap.set({ "n", "x", "o" }, "[<space>", qf_prev, { silent = true, desc = "GOTO PREVIOUS quickfix item" })
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("quickfix_winfixbuf", { clear = true }),
+    desc = "Lock quickfix list windows to their buffers",
+    pattern = "qf",
+    callback = function()
+        vim.opt_local.winfixbuf = true
+    end,
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    group = vim.api.nvim_create_augroup('current_location', { clear = true }),
+    desc = "Integration with current-location script: write current location on every location change",
+    callback = function(args)
+        local filepath = args.file
+        -- Writing pids for server and every UI attached to it
+        -- Usefull when UI process is not a child of server process (like after :restart)
+        if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
+            -- Race condition?
+            vim.system(
+                vim.iter({ "current-location", "write", "nvim", filepath, utils.get_ui_pids(), vim.uv.os_getpid(),
+                    "--nvim-pipe", vim.v.servername }):flatten():totable(),
+                { text = true },
+                function(result)
+                    if result.code ~= 0 then
+                        vim.notify("Error writing current location (" .. result.code .. "): " .. result.stderr,
+                            vim.log.levels.ERROR)
+                    end
+                end
+            )
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup('highlight_yank', {}),
+    desc = 'Hightlight selection on yank',
+    pattern = '*',
+    callback = function()
+        vim.hl.on_yank { higroup = 'HighlightedyankRegion', timeout = 300 }
+    end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("help_buffer_right_split", { clear = true }),
     desc = "Automatically split help buffers to the right",
@@ -289,7 +287,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- see https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/
+-- See https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/
 vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
     group = vim.api.nvim_create_augroup("correct_terminal_background", { clear = true }),
     desc = "Corrects terminal background color according to colorscheme",
