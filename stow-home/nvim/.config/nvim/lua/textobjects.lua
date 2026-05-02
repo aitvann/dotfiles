@@ -3,6 +3,57 @@ local surround = require("mini.surround")
 local rm = require("repeatable_move")
 
 -- --------------------------------------------------------------------------------
+-- Library
+-- --------------------------------------------------------------------------------
+
+local make_custom_surroundings = function(specs)
+    local treesitter_surroundings_specs = specs.treesitter_surroundings and
+        vim.iter(pairs(specs.treesitter_surroundings))
+        :filter(function(_, spec) return spec end)
+        :map(function(id, spec)
+            local new_spec = spec
+            new_spec.input = surround.gen_spec.input.treesitter(new_spec.input)
+            return { [id] = new_spec }
+        end)
+        :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end) or {}
+
+    local custom_surroundings = {}
+    custom_surroundings = vim.tbl_extend('force', custom_surroundings, specs.regex_surroundings or {})
+    custom_surroundings = vim.tbl_extend('force', custom_surroundings, treesitter_surroundings_specs)
+
+    return custom_surroundings
+end
+
+local make_custom_textobjects = function(specs)
+    local surroundings_textobjects = specs.regex_surroundings and
+        vim.iter(pairs(specs.regex_surroundings))
+        :filter(function(_, spec) return spec end)
+        :map(function(id, spec) return { [id] = spec.input } end)
+        :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end) or {}
+
+    local treesitter_surroundings_textobjects = specs.treesitter_surroundings and
+        vim.iter(pairs(specs.treesitter_surroundings))
+        :filter(function(_, spec) return spec end)
+        :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.input.outer, i = spec.input.inner }) } end)
+        :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end) or {}
+
+    local treesitter_textobjects_specs = specs.treesitter_textobjects and
+        vim.iter(pairs(specs.treesitter_textobjects))
+        :filter(function(_, spec) return spec end)
+        :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.outer, i = spec.inner }) } end)
+        :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end) or {}
+
+    local custom_textobjects = {}
+    custom_textobjects = vim.tbl_extend('force', custom_textobjects, surroundings_textobjects)
+    custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_surroundings_textobjects)
+    custom_textobjects = vim.tbl_extend('force', custom_textobjects, specs.regex_textobjects or {})
+    custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_textobjects_specs)
+
+    return custom_textobjects
+end
+
+
+-- --------------------------------------------------------------------------------
 -- Configuration
 -- --------------------------------------------------------------------------------
 
@@ -48,6 +99,16 @@ local treesitter_surroundings = {
     },
 }
 
+local treesitter_surroundings_quote = {
+    q = { input = { outer = '@quoted.outer', inner = '@quoted.inner' }, output = { left = "\"", right = "\"" } },
+}
+
+local regex_textobjects = {
+    -- TODO: Make it smart enough
+    -- See https://github.com/nvim-mini/mini.nvim/issues/151#issuecomment-1401626377
+    -- v = { { '%f[%w]()%w+()_', '%f[%u]()()%w*[%l%d]()()%u' } },
+}
+
 local treesitter_textobjects = {
     f = { outer = '@function.outer', inner = '@function.inner' },       -- Funcition
     c = { outer = '@class.outer', inner = '@class.inner' },             -- Class
@@ -58,34 +119,18 @@ local treesitter_textobjects = {
     g = { outer = '@assignment.outer', inner = '@assignment.outer' },   -- assiGnment. No `.inner`, using fake one
     l = { outer = '@assignment.lhs', inner = '@assignment.lhs' },       -- Lhs. `a` and `i` are the same
     r = { outer = '@assignment.rhs', inner = '@assignment.rhs' },       -- Rhs. `a` and `i` are the same
-    -- TODO: conflicts with Strike surrounding
-    -- TODO: figure out a way to specify query group `locals`
-    -- s = spec_treesitter({ a = '@scope', i = '@scope' }), -- `a` and `i` are the same
 }
 
 -- --------------------------------------------------------------------------------
 -- Setup
 -- --------------------------------------------------------------------------------
 
-local surroundings_textobjects = vim.iter(pairs(regex_surroundings))
-    :filter(function(_, spec) return spec end)
-    :map(function(id, spec) return { [id] = spec.input } end)
-    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
-
-local treesitter_surroundings_textobjects = vim.iter(pairs(treesitter_surroundings))
-    :filter(function(_, spec) return spec end)
-    :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.input.outer, i = spec.input.inner }) } end)
-    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
-
-local treesitter_textobjects_specs = vim.iter(pairs(treesitter_textobjects))
-    :filter(function(_, spec) return spec end)
-    :map(function(id, spec) return { [id] = ai.gen_spec.treesitter({ a = spec.outer, i = spec.inner }) } end)
-    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
-
-local custom_textobjects = {}
-custom_textobjects = vim.tbl_extend('force', custom_textobjects, surroundings_textobjects)
-custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_surroundings_textobjects)
-custom_textobjects = vim.tbl_extend('force', custom_textobjects, treesitter_textobjects_specs)
+local custom_textobjects = make_custom_textobjects({
+    regex_surroundings = regex_surroundings,
+    treesitter_surroundings = treesitter_surroundings,
+    regex_textobjects = regex_textobjects,
+    treesitter_textobjects = treesitter_textobjects,
+})
 
 ai.setup({
     custom_textobjects = custom_textobjects,
@@ -117,18 +162,11 @@ ai.setup({
     silent = true,
 })
 
-local treesitter_surroundings_specs = vim.iter(pairs(treesitter_surroundings))
-    :filter(function(_, spec) return spec end)
-    :map(function(id, spec)
-        local new_spec = spec
-        new_spec.input = surround.gen_spec.input.treesitter(new_spec.input)
-        return { [id] = new_spec }
-    end)
-    :fold({}, function(acc, t) return vim.tbl_extend("force", acc, t) end)
 
-local custom_surroundings = {}
-custom_surroundings = vim.tbl_extend('force', custom_surroundings, regex_surroundings)
-custom_surroundings = vim.tbl_extend('force', custom_surroundings, treesitter_surroundings_specs)
+local custom_surroundings = make_custom_surroundings({
+    regex_surroundings = regex_surroundings,
+    treesitter_surroundings = treesitter_surroundings
+})
 
 surround.setup({
     custom_surroundings = custom_surroundings,
@@ -152,6 +190,30 @@ surround.setup({
     -- From the very top to the very bottom
     n_lines = 100,
     silent = true,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("treesitter_quote_surrounding", { clear = true }),
+    desc = "Enable TreeSitter-powered quote textobject for supported languages",
+    pattern = {
+        "lua", "rust", "clojure", "nix",
+        -- Does not work for some reason
+        -- "sh"
+    },
+    callback = function(event)
+        vim.b[event.buf].miniai_config = {
+            custom_textobjects = make_custom_textobjects({
+                treesitter_surroundings = treesitter_surroundings_quote
+            }),
+        }
+
+        vim.b[event.buf].minisurround_config = {
+            custom_surroundings = make_custom_surroundings({
+                treesitter_surroundings = treesitter_surroundings_quote
+            }),
+        }
+    end
 })
 
 -- --------------------------------------------------------------------------------
