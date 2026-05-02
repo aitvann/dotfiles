@@ -389,6 +389,8 @@ in {
       vim-textobj-user
       # v text object to select bar in foo_ba|r_bax
       vim-textobj-variable-segment
+      # Better formatting
+      conform-nvim
 
       # --------------------------------------------------------------------------------
       # Lsp
