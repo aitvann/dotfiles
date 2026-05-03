@@ -303,6 +303,7 @@ in {
 
       # A collection of utilities
       plenary-nvim
+      mini-misc
       # delete the buffer without closing the window
       mini-bufremove
       # smooth scrolling
@@ -321,8 +322,6 @@ in {
       conjure
       # allows to continue to use keybindings without switching to EN layout
       langmapper-nvim
-      # Find project root and change CWD to it
-      project-nvim
       # better session managment
       mini-sessions
       # Kitty scrollback integration

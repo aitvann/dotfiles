@@ -1,6 +1,7 @@
 local utils = require("utils")
 local whichkey = require("which-key")
 local repeat_move = require("repeatable_move")
+local misc = require("mini.misc")
 
 vim.o.hidden = true
 vim.o.autoread = true
@@ -246,7 +247,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', {}),
+    group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
     desc = 'Hightlight selection on yank',
     pattern = '*',
     callback = function()
@@ -273,35 +274,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- See https://www.reddit.com/r/neovim/comments/1ehidxy/you_can_remove_padding_around_neovim_instance/
-vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
-    group = vim.api.nvim_create_augroup("correct_terminal_background", { clear = true }),
-    desc = "Corrects terminal background color according to colorscheme",
-    callback = function()
-        if vim.api.nvim_get_hl(0, { name = "Normal" }).bg then
-            io.write(string.format("\027]11;#%06x\027\\", vim.api.nvim_get_hl(0, { name = "Normal" }).bg))
-        end
-        vim.api.nvim_create_autocmd("UILeave", {
-            group = vim.api.nvim_create_augroup("correct_terminal_background_leave", { clear = true }),
-            callback = function()
-                io.write("\027]111\027\\")
-            end,
-        })
-    end,
-})
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-    group = vim.api.nvim_create_augroup("auto-last-position", { clear = true }),
-    desc = "Auto jump to last position",
-    callback = function(args)
-        local position = vim.api.nvim_buf_get_mark(args.buf, [["]])
-        local winid = vim.fn.bufwinid(args.buf)
-        pcall(vim.api.nvim_win_set_cursor, winid, position)
-    end,
-})
-
 vim.api.nvim_create_autocmd("VimResized", {
     group = vim.api.nvim_create_augroup("auto-equeal-window", { clear = true }),
     desc = "Auto resize window equaly",
     command = "wincmd ="
 })
+
+misc.setup_auto_root()
+misc.setup_termbg_sync()
+misc.setup_restore_cursor()
