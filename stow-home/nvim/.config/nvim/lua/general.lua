@@ -17,6 +17,7 @@ vim.o.numberwidth = 2
 vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
 vim.o.laststatus = 3
+vim.o.swapfile = false
 
 -- Those are not needed with Kitty's cursor trail
 vim.o.cursorline = true
