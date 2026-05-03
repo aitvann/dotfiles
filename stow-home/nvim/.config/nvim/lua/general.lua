@@ -97,6 +97,7 @@ vim.keymap.set("x", "<", "<gv", { silent = true })
 vim.keymap.set("i", "<C-z>", "<Esc>zza", { silent = true })
 vim.keymap.set("n", "G", "Gzz", { silent = true })
 vim.keymap.set("n", "<Del>", "<cmd>q<CR>", { silent = true, desc = "CLOSE window" })
+vim.keymap.set("n", "s<CR>", "cl<CR>", { silent = true, desc = "split line" })
 
 -- Leader
 vim.keymap.set("n", "<leader>w", ":w<CR>", { silent = true, desc = "Write current buffer" })
