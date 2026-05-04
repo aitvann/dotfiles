@@ -107,9 +107,15 @@ local treesitter_surroundings_quote = {
 }
 
 local regex_textobjects = {
-    -- TODO: Make it smart enough
-    -- See https://github.com/nvim-mini/mini.nvim/issues/151#issuecomment-1401626377
-    -- v = { { '%f[%w]()%w+()_', '%f[%u]()()%w*[%l%d]()()%u' } },
+    -- -- Word
+    -- w = { "()()%f[%w_][%w_]+()[ \t]*()" },
+    -- -- Big Word
+    -- W = { "()()%f[%w%p][%w%p]+()[ \t]*()", },
+
+    v = {
+        { "%u[%l%d]+%f[^%l%d]", "%f[^%s%p][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]", "%f[^%s%p][%a%d]+%f[^%a%d]", "^[%a%d]+%f[^%a%d]", },
+        "^().*()$",
+    }
 }
 
 local treesitter_textobjects = {

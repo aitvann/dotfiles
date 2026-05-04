@@ -384,10 +384,6 @@ in {
       mini-surround
       # Textobjects
       mini-ai
-      # A dependency for vim-textobj-variable-segment
-      vim-textobj-user
-      # v text object to select bar in foo_ba|r_bax
-      vim-textobj-variable-segment
       # Better formatting
       conform-nvim
 

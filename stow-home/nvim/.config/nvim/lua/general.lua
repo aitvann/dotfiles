@@ -19,6 +19,7 @@ vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
 vim.o.laststatus = 3
 vim.o.swapfile = false
+vim.o.foldenable = false
 
 -- Those are not needed with Kitty's cursor trail
 vim.o.cursorline = true
@@ -30,14 +31,6 @@ vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
-
--- Folds
-vim.o.foldmethod = "manual"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldtext = ''
-vim.o.fillchars = 'fold: '
-vim.cmd("set nofoldenable")
 
 -- Search
 vim.o.hlsearch = true
