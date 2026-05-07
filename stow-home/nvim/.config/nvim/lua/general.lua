@@ -5,13 +5,13 @@ local misc = require("mini.misc")
 
 vim.o.hidden = true
 vim.o.autoread = true
-vim.cmd("set nowrap")
+vim.o.wrap = false
 vim.o.signcolumn = "yes"
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.updatetime = 1000
 vim.o.encoding = "utf-8"
-vim.cmd("set noshowmode")
+vim.o.showmode = false
 vim.o.showtabline = 1
 vim.o.termguicolors = true
 vim.o.numberwidth = 2
@@ -201,7 +201,7 @@ vim.keymap.set("n", "gf", function()
     })
 end, { silent = true, desc = "Go to a File" })
 vim.keymap.set("n", "gw", fzf_lua.blines, { silent = true, desc = "Go to Word in the CURRENT buffer" })
--- vim.keymap.set("n", "gW", fzf-lua.grep_project, { silent = true, desc = "Go to Word in the PROJECT" })
+-- vim.keymap.set("n", "gW", fzf_lua.grep_project, { silent = true, desc = "Go to Word in the PROJECT" })
 vim.keymap.set("n", "gW", function()
         fzf_lua.live_grep({
             -- Enter `blob` mode immediately

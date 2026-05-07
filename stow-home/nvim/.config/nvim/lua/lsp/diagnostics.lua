@@ -5,7 +5,7 @@ local repeat_move = require("repeatable_move")
 
 local M = {}
 
-M.on_attach = function(_client, buffer)
+M.on_attach = function(_, buffer)
     vim.keymap.set("n", '<leader>M', fzf_lua.diagnostics_workspace,
         { silent = true, desc = 'show PROJECT diagnostics (Messages)', buffer = buffer })
     vim.keymap.set("n", '<leader>m', vim.diagnostic.open_float,

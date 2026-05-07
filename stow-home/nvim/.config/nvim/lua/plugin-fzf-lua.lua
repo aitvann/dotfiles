@@ -30,16 +30,16 @@ fzf_lua.setup({
         -- TODO: make it a per-project configuration
         hidden = true,
     },
+    grep = {
+        -- TODO: make it a per-project configuration
+        hidden = true,
+    },
     git = {
         status = { preview_pager = previewer_prefix },
         diff = { preview_pager = previewer_prefix },
         commits = { preview_pager = previewer_prefix },
         bcommits = { preview_pager = previewer_prefix },
         blame = { preview_pager = previewer_prefix },
-    },
-    grep = {
-        -- TODO: make it a per-project configuration
-        hidden = true,
     },
     lsp = {
         code_actions = {
@@ -58,4 +58,4 @@ fzf_lua.setup({
 
 fzf_lua.register_ui_select()
 
-vim.keymap.set("n", "<C-P>", FzfLua.resume, { silent = true, desc = "show Previous search" })
+vim.keymap.set("n", "<C-P>", fzf_lua.resume, { silent = true, desc = "show Previous search" })

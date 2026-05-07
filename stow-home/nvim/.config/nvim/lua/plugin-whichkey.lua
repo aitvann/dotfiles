@@ -1,3 +1,5 @@
 local whichkey = require 'which-key'
 
-whichkey.setup()
+whichkey.setup({
+    preset = "modern",
+})

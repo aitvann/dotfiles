@@ -2,6 +2,7 @@ local lsp_utils = require("lsp.utils")
 local toggling = require("toggling")
 local diagnostics = require("lsp.diagnostics")
 
+local conform = require("conform")
 local blink = require("blink.cmp")
 
 vim.api.nvim_create_autocmd("User", {
@@ -48,6 +49,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 lsp_utils.apply_handlers()
 
+conform.setup({
+    format_after_save = function(_)
+        if toggling.is_enabled("fmt_on_save") then
+            return { lsp_format = "prefer" }
+        end
+    end,
+})
+
 vim.diagnostic.config({
     virtual_text = true,
     underline = true,
@@ -65,10 +74,10 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO] = "",
         },
         numhl = {
-            [vim.diagnostic.severity.WARN] = "WarningMsg",
             [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-            [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+            [vim.diagnostic.severity.WARN] = "WarningMsg",
             [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+            [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
         },
     }
 })
