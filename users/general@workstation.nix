@@ -304,6 +304,8 @@ in {
       # A collection of utilities
       plenary-nvim
       mini-misc
+      # the bridge between lua and configuration of LS
+      nvim-lspconfig
       # delete the buffer without closing the window
       mini-bufremove
       # smooth scrolling
@@ -346,7 +348,7 @@ in {
       # opens a popup with suggestions to complete a key binding
       which-key-nvim
       # Pretty icons
-      nvim-web-devicons
+      mini-icons
       # Notifications
       mini-notify
       # Centered cmdline
@@ -388,21 +390,10 @@ in {
       mini-ai
       # Better formatting
       conform-nvim
-
-      # --------------------------------------------------------------------------------
-      # Lsp
-      # --------------------------------------------------------------------------------
-
-      # the bridge between lua and configuration of LS
-      nvim-lspconfig
-      # For pretty kind icons on completion
-      lspkind-nvim
-
       # Lisp
       parpar-nvim
       nvim-paredit
       nvim-parinfer
-
       # Obsidian markdown
       obsidian-nvim
 

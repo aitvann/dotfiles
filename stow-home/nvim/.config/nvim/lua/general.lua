@@ -42,13 +42,13 @@ vim.o.foldmethod = "manual" -- expr
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldtext = ""
 vim.o.foldlevelstart = 99
--- vim.wo.foldcolumn = "1"
+vim.wo.foldcolumn = "0" -- 1
 vim.opt.fillchars = {
     fold = " ",
-    foldopen = "󰅀",
-    foldclose = "󰅂",
-    foldinner = "│",
-    foldsep = "│",
+    foldopen = require('symbols').get('foldopen'),
+    foldclose = require('symbols').get('foldclose'),
+    foldinner = require('symbols').get('foldinner'),
+    foldsep = require('symbols').get('foldinner'),
 }
 
 vim.filetype.add({

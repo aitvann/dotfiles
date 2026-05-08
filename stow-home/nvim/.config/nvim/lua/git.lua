@@ -5,11 +5,11 @@ local repeat_move = require("repeatable_move")
 
 gitsigns.setup({
     signs = {
-        add = { text = "▍" },
-        change = { text = "▍" },
-        delete = { text = "▸" },
-        topdelete = { text = "▾" },
-        changedelete = { text = "▍" },
+        add = { text = require('symbols').get("git_add") },
+        change = { text = require('symbols').get("git_change") },
+        delete = { text = require('symbols').get("git_delete") },
+        topdelete = { text = require('symbols').get("git_topdelete") },
+        changedelete = { text = require('symbols').get("git_changedelete") },
     },
     signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
