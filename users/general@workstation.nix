@@ -326,6 +326,8 @@ in {
       mini-sessions
       # Kitty scrollback integration
       kitty-scrollback-nvim
+      # Smart window resize
+      winresize-nvim
 
       # --------------------------------------------------------------------------------
       # Interface

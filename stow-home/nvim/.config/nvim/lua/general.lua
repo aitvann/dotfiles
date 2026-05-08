@@ -179,11 +179,15 @@ vim.keymap.set("n", "gpk", "<C-W>k <C-W>x", { silent = true, desc = "Go UP, Pull
 vim.keymap.set("n", "gpj", "<C-W>j <C-W>x", { silent = true, desc = "Go DOWN, Pulling the current window with you" })
 
 -- Resizing
-vim.keymap.set("n", '<S-Left>', function() vim.fn.ResizeLeft(4) end, { silent = true, desc = 'move window divider LEFT' })
-vim.keymap.set("n", '<S-Right>', function() vim.fn.ResizeRight(4) end,
+local winresize = require('winresize')
+vim.keymap.set("n", '<S-Left>', function() winresize.resize(0, 4, 'left') end,
+    { silent = true, desc = 'move window divider LEFT' })
+vim.keymap.set("n", '<S-Right>', function() winresize.resize(0, 4, 'right') end,
     { silent = true, desc = 'move window divider RIGHT' })
-vim.keymap.set("n", '<S-Up>', function() vim.fn.ResizeUp(4) end, { silent = true, desc = 'move window divider UP' })
-vim.keymap.set("n", '<S-Down>', function() vim.fn.ResizeDown(4) end, { silent = true, desc = 'move window divider DOWN' })
+vim.keymap.set("n", '<S-Up>', function() winresize.resize(0, 4, 'up') end,
+    { silent = true, desc = 'move window divider UP' })
+vim.keymap.set("n", '<S-Down>', function() winresize.resize(0, 4, 'down') end,
+    { silent = true, desc = 'move window divider DOWN' })
 
 -- Scrolling
 vim.keymap.set("n", "<Left>", "zh", { silent = true, desc = "scroll horizontally to the LEFT" })
