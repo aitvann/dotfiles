@@ -1,7 +1,8 @@
 local fzf_lua = require("fzf-lua")
 
+-- Saving base configuration in a global variable so it's easy to adjust it per-project
 local previewer_prefix = "delta --syntax-theme tokyonight-storm"
-fzf_lua.setup({
+FzfLuaConfig = {
     { "ivy", "hide" },
     keymap = {
         fzf = {
@@ -26,14 +27,6 @@ fzf_lua.setup({
             -- ["ctrl-i"] = FzfLua.actions.toggle_ignore,
         }
     },
-    files = {
-        -- TODO: make it a per-project configuration
-        hidden = true,
-    },
-    grep = {
-        -- TODO: make it a per-project configuration
-        hidden = true,
-    },
     git = {
         status = { preview_pager = previewer_prefix },
         diff = { preview_pager = previewer_prefix },
@@ -49,12 +42,14 @@ fzf_lua.setup({
     },
     previewers = {
         codeaction_native = {
-            -- Using recommended config for `delta
+            -- Using recommended config for `delta`
             pager =
                 previewer_prefix .. ' --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"',
         },
     }
-})
+}
+
+fzf_lua.setup(FzfLuaConfig)
 
 fzf_lua.register_ui_select()
 

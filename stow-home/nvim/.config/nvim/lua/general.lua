@@ -19,6 +19,7 @@ vim.o.timeoutlen = 2000
 vim.o.scrolloff = 8
 vim.o.laststatus = 3
 vim.o.swapfile = false
+vim.o.exrc = true
 
 -- Those are not needed with Kitty's cursor trail
 vim.o.cursorline = true
@@ -37,7 +38,7 @@ vim.o.incsearch = true
 vim.keymap.set("n", "<C-H>", "<cmd>noh<CR>", { silent = true, desc = "no search Highlight" })
 
 -- Folds. Disable for now
-vim.o.foldenable = false
+vim.o.foldenable = false    -- true
 vim.o.foldmethod = "manual" -- expr
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldtext = ""

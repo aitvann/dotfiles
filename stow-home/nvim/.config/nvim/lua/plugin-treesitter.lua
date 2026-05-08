@@ -13,17 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 
 vim.g.no_plugin_maps = true
-require("nvim-treesitter-textobjects").setup {
-    select = {
-        lookahead = true,
-        selection_modes = function(_) return 'v' end,
-        include_surrounding_whitespace = false,
-    },
-    move = {
-        set_jumps = true,
-    },
-
-}
+require("nvim-treesitter-textobjects").setup {}
 
 local swap = require "nvim-treesitter-textobjects.swap"
 vim.keymap.set({ "n" }, ">a", function() swap.swap_next "@parameter.inner" end,
