@@ -4,6 +4,10 @@ local fzf_lua = require("fzf-lua")
 local previewer_prefix = "delta --syntax-theme tokyonight-storm"
 FzfLuaConfig = {
     { "ivy", "hide" },
+    defaults = {
+        -- show greyed - out directory before filename
+        formatter = "path.dirname_first",
+    },
     keymap = {
         fzf = {
             true,
