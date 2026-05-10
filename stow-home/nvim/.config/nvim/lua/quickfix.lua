@@ -19,7 +19,12 @@ quicker.setup({
     highlight = {
         -- Load the referenced buffers to apply more accurate highlights (may be slow)
         load_buffers = true,
-    }
+    },
+    on_qf = function(bufnr)
+        for winid in vim.iter(vim.fn.win_findbuf(bufnr)) do
+            vim.wo[winid].winfixbuf = true
+        end
+    end,
 })
 
 -- Repeating quickfix list jump
