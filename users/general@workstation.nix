@@ -330,6 +330,8 @@ in {
       kitty-scrollback-nvim
       # Smart window resize
       winresize-nvim
+      # Lazygit inside the editor
+      lazygit-nvim
 
       # --------------------------------------------------------------------------------
       # Interface

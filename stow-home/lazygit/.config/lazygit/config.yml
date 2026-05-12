@@ -8,33 +8,34 @@ services:
 # - 'quit': exit Lazygit
 notARepository: quit
 
-# If true, periodically fetch from remote
-# AND PROMT FOR SSH PASSWORD
-autoFetch: true
-
 promptToReturnFromSubprocess: false
 
 git:
+  # If true, periodically fetch from remote
+  # AND PROMT FOR SSH PASSWORD
+  autoFetch: false
+
   pagers:
     - pager: delta --syntax-theme tokyonight-storm --dark --paging=never
 
 os:
   edit: |
-    if [[ ${EDITOR:0:4} == "nvim" ]]; then
-      nvim --server "$NVIM_PIPE" --remote {{filename}}
-      if [ ! -z $NVIM_PIPE ]; then
-          kill -TERM $(ps -o ppid= -p $$)
+    if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then
+      nvim --server ${NVIM:-${NVIM_PIPE}} --remote-send '<cmd>lua require("git").lazygit_edit_file({{filename}})<CR>'
+
+      if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then
+        kill -TERM $(ps -o ppid= -p $$)
       fi
     else
-      $EDITOR
-    fi
+      $VISUAL -- {{filename}}
+    fi 
   editAtLine: |
-    if [[ ${EDITOR:0:4} == "nvim" ]]; then
-      nvim --server "$NVIM_PIPE" --remote {{filename}}
-      nvim --server "$NVIM_PIPE" --remote-send "<Esc>:{{line}}<CR>"
-      if [ ! -z $NVIM_PIPE ]; then
-          kill -TERM $(ps -o ppid= -p $$)
+    if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then
+      nvim --server ${NVIM:-${NVIM_PIPE}} --remote-send '<cmd>lua require("git").lazygit_edit_file({{filename}}, {{line}})<CR>'
+
+      if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then
+        kill -TERM $(ps -o ppid= -p $$)
       fi
     else
-      $EDITOR
-    fi
+      $VISUAL +{{line}} -- {{filename}}
+    fi 

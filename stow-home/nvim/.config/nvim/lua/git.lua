@@ -87,24 +87,46 @@ gitsigns.setup({
     },
 })
 
--- vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'GitSignsAdd' })
--- vim.api.nvim_set_hl(0, 'GitSignsAddLn', { link = 'GitSignsAddLn' })
--- vim.api.nvim_set_hl(0, 'GitSignsAddNr', { link = 'GitSignsAddNr' })
--- vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'GitSignsChange' })
--- vim.api.nvim_set_hl(0, 'GitSignsChangeLn', { link = 'GitSignsChangeLn' })
--- vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { link = 'GitSignsChangeNr' })
--- vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'GitSignsChange' })
--- vim.api.nvim_set_hl(0, 'GitSignsChangedeleteLn', { link = 'GitSignsChangeLn' })
--- vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { link = 'GitSignsChangeNr' })
--- vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'GitSignsDelete' })
--- vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', { link = 'GitSignsDeleteLn' })
--- vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { link = 'GitSignsDeleteNr' })
--- vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'GitSignsDelete' })
--- vim.api.nvim_set_hl(0, 'GitSignsTopdeleteLn', { link = 'GitSignsDeleteLn' })
--- vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { link = 'GitSignsDeleteNr' })
-
-
 local fzf_lua = require("fzf-lua")
 whichkey.add({ { "<leader>g", group = "Git" } })
 vim.keymap.set("n", "<leader>gm", fzf_lua.git_commits, { silent = true, desc = "open Git coMMits" })
 vim.keymap.set("n", "<leader>gb", fzf_lua.git_branches, { silent = true, desc = "open Git Branches" })
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGitCurrentFile<CR>", { silent = true, desc = "open Git window" })
+
+local M = {}
+
+M.lazygit_edit_file = function(filename, line)
+    local lazygit_win = vim.api.nvim_get_current_win()
+    local lazygit_buf = vim.api.nvim_win_get_buf(lazygit_win)
+    local lazygit_filetype = vim.bo[lazygit_buf].filetype
+    local lazygit_buftype = vim.bo[lazygit_buf].buftype
+
+    if lazygit_buftype == 'terminal' and lazygit_filetype == 'lazygit' then
+        -- graceful close, requires `vim.defer_fn`
+        -- local channel = vim.bo[lazygit_buf].channel
+        -- vim.api.nvim_chan_send(channel, vim.keycode("q"))
+
+        -- force because we are killing lazygit process
+        vim.api.nvim_buf_delete(lazygit_buf, { force = true })
+    end
+
+    local target_win = vim.api.nvim_get_current_win()
+    local target_buf = vim.api.nvim_win_get_buf(target_win)
+
+    local jump_to_line = function()
+        if line then
+            vim.api.nvim_win_set_cursor(target_win, { line, 1 })
+        end
+    end
+
+    if vim.api.nvim_buf_get_name(target_buf) == filename then
+        jump_to_line()
+    else
+        local bufnr = vim.fn.bufadd(filename)
+        vim.fn.bufload(bufnr)
+        vim.api.nvim_win_set_buf(target_win, bufnr)
+        jump_to_line()
+    end
+end
+
+return M
