@@ -1,0 +1,23 @@
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+} @ args: let
+  util = import ../lib/util.nix args;
+  packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
+in {
+  nixpkgs.overlays = [
+    (final: prev: {
+      current-location = inputs.current-location.packages.${prev.system}.default;
+    })
+  ];
+
+  home.packages = with pkgs; [
+    current-location
+  ];
+
+  home.file = util.recursiveMerge [
+    (packageHomeFiles ../stow-home/current-location)
+  ];
+}

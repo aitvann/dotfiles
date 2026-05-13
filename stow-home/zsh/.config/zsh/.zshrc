@@ -1,5 +1,6 @@
 source $XDG_CONFIG_HOME/sh/.shrc
 
+ZSH_CONFIG=$XDG_CONFIG_HOME/zsh
 ZSH_DATA=$XDG_DATA_HOME/zsh
 ZSH_PLUGINS=$ZSH_DATA/plugins
 
@@ -112,29 +113,10 @@ precmd() {
     print -Pn "\e]133;A\e\\"
 }
 
-# define an array to collect functions run only once
-typeset -ag self_destruct_functions=()
-function _self_destruct_hook {
-  local f
-  for f in ${self_destruct_functions}; do
-    "$f"
-  done
-
-  # remove self from precmd
-  precmd_functions=(${(@)precmd_functions:#_self_destruct_hook})
-  builtin unfunction _self_destruct_hook
-  unset self_destruct_functions
-}
-
-precmd_functions=(_self_destruct_hook ${precmd_functions[@]})
-
-# write current location
-function update_cwd_file() {
-  current_pid=$(echo $$)
-  current-location write zsh $PWD $current_pid
-}
-
-add-zsh-hook -Uz chpwd update_cwd_file
-
-# chpwd hook is not triggered on startup by design so we trigger it once manually
-self_destruct_functions=(${self_destruct_functions[@]} update_cwd_file)
+if [ -d "${ZSH_CONFIG}/modules" ]; then
+    setopt local_options no_nomatch 2>/dev/null
+    for file in "${ZSH_CONFIG}/modules"/*; do
+        [ -f "$file" ] && . $file
+    done
+    setopt local_options nomatch 2>/dev/null
+fi

@@ -22,7 +22,6 @@ in {
           xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
-      current-location = inputs.current-location.packages.${prev.system}.default;
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       rofi-wayland =
@@ -84,6 +83,7 @@ in {
 
     # features
     ../features/nnn.nix
+    ../features/current-location.nix
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -446,7 +446,6 @@ in {
     oculante
     pinentry-gnome3
     seahorse
-    current-location
     xdg-terminal-exec
     # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
     libsForQt5.qt5.qtwayland

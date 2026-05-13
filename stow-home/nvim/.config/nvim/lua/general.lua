@@ -1,4 +1,3 @@
-local utils = require("utils")
 local whichkey = require("which-key")
 local repeat_move = require("repeatable_move")
 local misc = require("mini.misc")
@@ -233,30 +232,6 @@ end
 parag_next, parag_prev = repeat_move.make_repeatable_move_pair(parag_next, parag_prev)
 vim.keymap.set({ "n", "x", "o" }, "}", parag_next)
 vim.keymap.set({ "n", "x", "o" }, "{", parag_prev)
-
-vim.api.nvim_create_autocmd('BufEnter', {
-    group = vim.api.nvim_create_augroup('current_location', { clear = true }),
-    desc = "Integration with current-location script: write current location on every location change",
-    callback = function(args)
-        local filepath = args.file
-        -- Writing pids for server and every UI attached to it
-        -- Usefull when UI process is not a child of server process (like after :restart)
-        if filepath ~= "" and vim.fn.filereadable(filepath) == 1 then
-            -- Race condition?
-            vim.system(
-                vim.iter({ "current-location", "write", "nvim", filepath, utils.get_ui_pids(), vim.uv.os_getpid(),
-                    "--nvim-pipe", vim.v.servername }):flatten():totable(),
-                { text = true },
-                function(result)
-                    if result.code ~= 0 then
-                        vim.notify("Error writing current location (" .. result.code .. "): " .. result.stderr,
-                            vim.log.levels.ERROR)
-                    end
-                end
-            )
-        end
-    end,
-})
 
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),

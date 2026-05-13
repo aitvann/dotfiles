@@ -3,9 +3,8 @@ local bufremove = require("mini.bufremove")
 local M = {}
 
 M.get_config_root = function()
-    local vimrc = vim.fn.expand("$MYVIMRC")
-    local res, _ = vimrc:gsub("/[^/]*$", "")
-    return res
+    -- TODO: handle `-u` argument by manually parsing it
+    return vim.fn.stdpath('config')
 end
 
 M.close_buffer_by_name = function(name)

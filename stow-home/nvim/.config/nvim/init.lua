@@ -35,6 +35,19 @@ require("markdown")
 require("notifications")
 -- require("dump-mappings")
 
+local modules_dir = require('utils').get_config_root() .. '/lua/modules'
+if vim.uv.fs_stat(modules_dir) then
+    for name, type in vim.fs.dir(modules_dir) do
+        if type == 'file' and name:match('%.lua$') then
+            local module = 'modules.' .. name:gsub('%.lua$', '')
+            local ok, err = pcall(require, module)
+            if not ok then
+                vim.notify('Failed to load ' .. module .. ': ' .. err, vim.log.levels.WARN)
+            end
+        end
+    end
+end
+
 -- must be the very last line of config
 -- remap Vim keybindings
 require('langmapper').automapping({ buffer = false })
