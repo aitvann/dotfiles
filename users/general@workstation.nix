@@ -25,9 +25,6 @@ in {
       current-location = inputs.current-location.packages.${prev.system}.default;
       firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
-      nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
-        makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
-      });
       rofi-wayland =
         prev.rofi-wayland.override
         (old: {
@@ -82,9 +79,11 @@ in {
     ../modules/zsh.nix
 
     # overrides
-    ../modules/nnn.nix
     ../modules/hyprland.nix
     ../modules/mpd.nix
+
+    # features
+    ../features/nnn.nix
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -252,21 +251,6 @@ in {
   services.wl-clip-persist.enable = true;
   services.xsettingsd.enable = true;
   qt.enable = true;
-
-  programs.nnn = {
-    enable = true;
-    plugins = with pkgs.nnnPlugins; [
-      helper
-      # preview-tui
-      better-preview-tui
-      dragdrop
-      fzcd
-      gitroot
-      wallpaper
-      xdgdefault
-      fzopen
-    ];
-  };
 
   programs.my-zsh = {
     enable = true;
@@ -532,25 +516,11 @@ in {
     grpcurl
     syncplay
     trash-cli
-    unzip
-    unrar
-    p7zip
-    zip
-    ffmpeg
     yt-dlp
     srm
     sshfs
-    ueberzugpp
-    tree
-    file
     bc
-    atool
     imagemagick
-    ffmpegthumbnailer
-    fontpreview
-    glow
-    dragon-drop
-    archivemount
     beets
     rmpc
     cava
@@ -645,7 +615,7 @@ in {
       (packageHomeFiles ../stow-home/ncmpcpp)
       (packageHomeFiles ../stow-home/networkmanager-dmenu)
       (packageHomeFiles ../stow-home/nix)
-      (packageHomeFiles ../stow-home/nvim)
+      (packageHomeFiles ../stow-home/nnn)
       (packageHomeFiles ../stow-home/pam-gnupg)
       (packageHomeFiles ../stow-home/pipewire-general)
       (packageHomeFiles ../stow-home/qalculate)

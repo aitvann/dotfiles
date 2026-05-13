@@ -14,6 +14,14 @@ in {
   options.programs.nnn = {
     enable = mkEnableOption "Whetever to enable n³";
     package = mkPackageOption pkgs "nnn" {};
+    extraPackages = mkOption {
+      type = with types; listOf package;
+      example = literalExpression "with pkgs; [ ffmpegthumbnailer mediainfo sxiv ]";
+      description = ''
+        Extra packages available to nnn.
+      '';
+      default = [];
+    };
     plugins = mkOption {
       type = with types; listOf package;
       default = [];
@@ -27,11 +35,23 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [cfg.package];
-    xdg.configFile = let
-      files = map (util.linkFiles "bin/" "nnn/plugins/") cfg.plugins;
-    in
-      util.recursiveMerge files;
-  };
+  config = let
+    nnnPackage = cfg.package.overrideAttrs (oldAttrs: {
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [pkgs.makeWrapper];
+      postInstall = let
+      in ''
+        ${oldAttrs.postInstall or ""}
+
+        wrapProgram $out/bin/nnn \
+          --prefix PATH : "${lib.makeBinPath cfg.extraPackages}"
+      '';
+    });
+  in
+    mkIf cfg.enable {
+      home.packages = [nnnPackage];
+      xdg.configFile = let
+        files = map (util.linkFiles "bin/" "nnn/plugins/") cfg.plugins;
+      in
+        util.recursiveMerge files;
+    };
 }

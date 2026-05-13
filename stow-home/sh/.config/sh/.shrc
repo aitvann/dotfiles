@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-parrent_dir=$(dirname -- $0)
+SH_CONFIG=$XDG_CONFIG_HOME/sh
 
 # NOTE: install rust packages with nix
 # export PATH="$HOME/.local/share/cargo/bin:$PATH"
@@ -20,8 +20,6 @@ alias ls="exa"
 alias l="ls -la --color=auto"
 alias vi="nvim"
 alias top="btop"
-alias nnn="n"
-alias N='sudo -E nnn -dH'
 alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
 alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --password-command 'pass jupiter-backup'"
 alias nixos-rebuild-switch="nh os switch /home/${USER}/dotfiles"
@@ -34,6 +32,8 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias monerod=monerod --data-dir "${XDG_DATA_HOME}/monero/blockchain"
 
 # modules
-for file in "$parrent_dir"/modules/*; do
-    [ -f "$file" ] && . "$file"
-done
+if [ -d "${ZSH_CONFIG}/modules" ]; then
+    for file in "${SH_CONFIG}/modules"/*; do
+        [ -f "$file" ] && . "$file"
+    done
+fi
