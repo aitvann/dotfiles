@@ -32,7 +32,7 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias monerod=monerod --data-dir "${XDG_DATA_HOME}/monero/blockchain"
 
 # modules
-if [ -d "${ZSH_CONFIG}/modules" ]; then
+if [ -d "${SH_CONFIG}/modules" ]; then
     for file in "${SH_CONFIG}/modules"/*; do
         [ -f "$file" ] && . "$file"
     done

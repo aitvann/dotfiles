@@ -82,8 +82,7 @@ in {
     ../modules/mpd.nix
 
     # features
-    ../features/nnn.nix
-    ../features/current-location.nix
+    ../features/file-manager.nix
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
