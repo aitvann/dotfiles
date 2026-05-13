@@ -8,6 +8,9 @@ with lib; let
   util = import ../lib/util.nix args;
   cfg = config.programs.nnn;
 in {
+  # override default modules so it accepts plugins as packages
+  disabledModules = ["programs/nnn.nix"];
+
   options.programs.nnn = {
     enable = mkEnableOption "Whetever to enable n³";
     package = mkPackageOption pkgs "nnn" {};

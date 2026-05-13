@@ -73,8 +73,19 @@ in {
     })
   ];
 
-  disabledModules = ["programs/nnn.nix" "modules/services/windows-managers/hyprland.nix" "services/mpd.nix"];
-  imports = [../modules/zsh.nix ../modules/nnn.nix ../modules/hyprland.nix ../modules/mpd.nix ../modules/app2unit.nix ../modules/open-webui.nix inputs.flatpaks.homeModules.default];
+  imports = [
+    inputs.flatpaks.homeModules.default
+
+    # custom modules
+    ../modules/app2unit.nix
+    ../modules/open-webui.nix
+    ../modules/zsh.nix
+
+    # overrides
+    ../modules/nnn.nix
+    ../modules/hyprland.nix
+    ../modules/mpd.nix
+  ];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [

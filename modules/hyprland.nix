@@ -1,13 +1,14 @@
 {
   config,
   lib,
-  pkgs,
   ...
 } @ args:
 with lib; let
   util = import ../lib/util.nix args;
   cfg = config.programs.hyprland;
 in {
+  disabledModules = ["modules/services/windows-managers/hyprland.nix"];
+
   options.programs.hyprland = {
     enable = mkEnableOption "Whetever to enable Hyprland wayland compositor.";
     plugins = mkOption {

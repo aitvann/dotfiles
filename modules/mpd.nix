@@ -7,6 +7,8 @@
 with lib; let
   cfg = config.services.mpd;
 in {
+  disabledModules = ["services/mpd.nix"];
+
   options = {
     services.mpd = {
       enable = mkEnableOption "Whetever to enable mpd";
