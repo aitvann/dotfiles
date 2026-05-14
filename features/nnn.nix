@@ -71,6 +71,9 @@ in {
       imagemagick
       ffmpeg
       ffmpegthumbnailer
+      poppler-utils
+      djvulibre
+      gnome-epub-thumbnailer
       fontpreview
       glow
     ];
