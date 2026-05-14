@@ -569,10 +569,6 @@ in {
     sqlfluff
     pandoc
 
-    # clojure
-    leiningen
-    babashka
-
     # rust
     cargo
     cargo-cache
