@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -21,6 +22,7 @@ in {
       nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
         makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
       });
+      advcpmv = inputs.advcpmv.packages.${prev.system}.default;
     })
   ];
 
@@ -39,6 +41,7 @@ in {
         archivemount
         sshfs
         trash-cli
+        advcpmv
       ];
 
       dragdrop-deps = with pkgs; [dragon-drop];

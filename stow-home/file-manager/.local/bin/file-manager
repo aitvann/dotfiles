@@ -45,4 +45,4 @@
    "zsh" "-ic"
    (str
     "VISUAL='file-manager-edit-file " nvim_pipe " '
-     n -E -S -P v " (if fallback "" (str "'" location "'")))))
+     n -r -E -S -P v " (if fallback "" (str "'" location "'")))))

@@ -23,6 +23,9 @@
     current-location.url = "github:aitvann/current-location";
     current-location.inputs.nixpkgs.follows = "nixpkgs";
 
+    advcpmv.url = "github:Gigahawk/advcpmv-flake";
+    advcpmv.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
