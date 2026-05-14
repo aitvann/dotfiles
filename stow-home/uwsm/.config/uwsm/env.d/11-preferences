@@ -1,0 +1,20 @@
+# vim: set ft=sh:
+
+export VISUAL=nvim
+export EDITOR="${VISUAL}"
+export TERM=kitty
+export TERMINAL="${TERM}"
+export OPENER="app2unit-open"
+export BROWSER="firefox"
+export MANPAGER="nvim +Man!"
+
+# Only for custom scripts. Install any external software uisng Nix only
+export PATH="${XDG_BIN_HOME}:${PATH}"
+
+# NOTE: xcursor fallback cursor for apps that don't support serverside cursor (hyprcursor)
+# NOTE: GTK's settings.ini file should be enought, it not uncomment lines below
+# XCURSOR_SIZE=24
+# CURSOR_THEME=phinger-cursors-dark
+
+export QT_QPA_PLATFORMTHEME="adwaita"
+export QT_STYLE_OVERRIDE="adwaita-dark"
