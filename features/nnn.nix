@@ -13,6 +13,7 @@ in {
     ];
   in
     [
+      ../modules/unfree.nix
       ../modules/nnn.nix
     ]
     ++ preview-tui-deps;
@@ -24,6 +25,10 @@ in {
       });
       advcpmv = inputs.advcpmv.packages.${prev.system}.default;
     })
+  ];
+
+  nixpkgs.allowedUnfreePackages = [
+    "unrar"
   ];
 
   programs.nnn = {

@@ -73,6 +73,7 @@ in {
     # custom modules
     ../modules/app2unit.nix
     ../modules/open-webui.nix
+    ../modules/unfree.nix
     ../modules/zsh.nix
 
     # overrides
@@ -85,17 +86,15 @@ in {
     ../features/showmethekey.nix
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "unrar"
-      "steam"
-      "steam-run"
-      "steam-original"
-      "steam-runtime"
-      "steam-unwrapped"
-      "graalvm-oracle"
-      "open-webui"
-    ];
+  nixpkgs.allowedUnfreePackages = [
+    "steam"
+    "steam-run"
+    "steam-original"
+    "steam-runtime"
+    "steam-unwrapped"
+    "graalvm-oracle"
+    "open-webui"
+  ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "jitsi-meet-1.0.8792"
