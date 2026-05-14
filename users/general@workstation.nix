@@ -22,7 +22,7 @@ in {
           xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
-      firefox-wayland = prev.firefox-wayland.override {nativeMessagingHosts = with pkgs; [firefox-profile-switcher-connector ff2mpv-rust];};
+      firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       rofi-wayland =
         prev.rofi-wayland.override

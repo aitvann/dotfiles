@@ -6,7 +6,6 @@ final: prev: {
     };
   spl-token-cli = final.callPackage ./spl-token-cli.nix {};
   solores = final.callPackage ./solores.nix {};
-  firefox-profile-switcher-connector = final.callPackage ./firefox-profile-switcher-connector.nix {};
   zsh-fast-syntax-highlighting = final.callPackage ./zsh-fast-syntax-highlighting.nix {};
   bgutil-ytdlp-pot-provider = final.callPackage ./bgutil-ytdlp-pot-provider.nix {};
 
