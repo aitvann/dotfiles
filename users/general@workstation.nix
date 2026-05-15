@@ -65,7 +65,6 @@ in {
             ];
         }
       );
-      graalvmPackages21 = inputs.nixpkgs-graalvm21.legacyPackages.${prev.system}.graalvmCEPackages;
     })
   ];
 
@@ -84,6 +83,7 @@ in {
     ../features/file-manager.nix
     ../features/flatpak.nix
     ../features/showmethekey.nix
+    ../features/minecraft.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -92,7 +92,6 @@ in {
     "steam-original"
     "steam-runtime"
     "steam-unwrapped"
-    "graalvm-oracle"
     "open-webui"
   ];
 
@@ -439,14 +438,6 @@ in {
     tor-browser
     monero-gui
     monero-cli
-    (prismlauncher.override {
-      jdks = [
-        graalvmPackages.graalvm-oracle_17
-        graalvmPackages21.graalvm-ce
-        graalvmPackages.graalvm-ce
-      ];
-    })
-    mcaselector
     mpv
     vlc
     dbeaver-bin
