@@ -1,6 +1,12 @@
 #! /bin/sh
 
-nvim --server $1 --remote "${2}"
-if [ ! -z $1 ]; then
-    kill -TERM $(ps -o ppid= -p $$)
-fi
+VISUAL=$1
+if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then
+    nvim --server "${NVIM:-${NVIM_PIPE}}" --remote "${2}" &> /dev/null &
+
+    if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then
+        kill -TERM $(ps -o ppid= -p $$)
+    fi
+else
+    $VISUAL -- $2
+fi 
