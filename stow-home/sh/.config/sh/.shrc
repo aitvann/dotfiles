@@ -16,8 +16,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 # xmodmap -e "keycode 46 = l L Right L" # l
 
 # aliases
-alias ls="exa"
-alias l="ls -la --color=auto"
+alias l="eza -la --color=auto"
 alias vi="nvim"
 alias top="btop"
 alias spass="PASSWORD_STORE_DIR=${XDG_DATA_HOME}/shadow-password-store pass"
