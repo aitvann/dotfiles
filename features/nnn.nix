@@ -8,9 +8,7 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   imports = let
-    preview-tui-deps = [
-      # bat
-    ];
+    preview-tui-deps = [../features/bat.nix];
   in
     [
       ../modules/unfree.nix
