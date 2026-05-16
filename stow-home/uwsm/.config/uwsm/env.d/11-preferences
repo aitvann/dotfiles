@@ -11,6 +11,9 @@ export MANPAGER="nvim +Man!"
 # Only for custom scripts. Install any external software uisng Nix only
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
+# telling SSH how to access the gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 # NOTE: xcursor fallback cursor for apps that don't support serverside cursor (hyprcursor)
 # NOTE: GTK's settings.ini file should be enought, it not uncomment lines below
 # XCURSOR_SIZE=24

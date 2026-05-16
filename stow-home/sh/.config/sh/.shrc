@@ -5,9 +5,6 @@ SH_CONFIG=$XDG_CONFIG_HOME/sh
 # NOTE: install rust packages with nix
 # export PATH="$HOME/.local/share/cargo/bin:$PATH"
 
-# telling SSH how to access the gpg-agent
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
 # keystrokes
 # xmodmap -e "keycode 64 = Mode_switch" # set Alt_l as the "Mode_switch"
 # xmodmap -e "keycode 43 = h H Left H" # h
