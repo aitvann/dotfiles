@@ -48,8 +48,10 @@
       location (dirname location)]
   (kill-current-and-exit "git-ui")
   (process
-   (System/getenv "TERMINAL")
+   {:extra-env {"NVIM_PIPE" nvim_pipe}}
+   "kitty"
    "--title=git-ui"
-   "--override" "cursor_trail=0" ; Kitty specific :(
+   "--override" "cursor_trail=0"
+   "--working-directory" location
    "-e"
-   "zsh" "-ic" (str "cd '" location "'; NVIM_PIPE=" nvim_pipe " lazygit")))
+   "lazygit"))
