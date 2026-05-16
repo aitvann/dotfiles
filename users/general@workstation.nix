@@ -38,11 +38,6 @@ in {
         buildInputs = old.buildInputs ++ [prev.goocanvas_3];
         # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
       });
-      beets = prev.beets.overridePythonAttrs (old: {
-        propagatedBuildInputs =
-          # required for lastgenre plugin
-          old.propagatedBuildInputs or [] ++ [prev.python3.pkgs.socksio];
-      });
       # HACK:
       # fixing broken desktop entry
       # https://github.com/Vladimir-csp/app2unit/issues/9#issuecomment-3175908089
@@ -54,17 +49,6 @@ in {
               --replace "oculante %U" "oculante %F"
           '';
       });
-      # workaround https://github.com/yt-dlp/yt-dlp/issues/12482#issuecomment-2867953965
-      yt-dlp = prev.yt-dlp.overridePythonAttrs (
-        oa: {
-          # plugins
-          propagatedBuildInputs =
-            (oa.propagatedBuildInputs or [])
-            ++ [
-              pkgs.bgutil-ytdlp-pot-provider
-            ];
-        }
-      );
     })
   ];
 
@@ -77,13 +61,13 @@ in {
 
     # overrides
     ../modules/hyprland.nix
-    ../modules/mpd.nix
 
     # features
     ../features/file-manager.nix
     ../features/flatpak.nix
     ../features/showmethekey.nix
     ../features/minecraft.nix
+    ../features/music-library.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -104,20 +88,11 @@ in {
 
   services.udiskie.enable = true;
   services.syncthing.enable = true;
-  services.mpd.enable = true;
   services.open-webui = {
     enable = workstation.enable-llm;
     host = "0.0.0.0";
     port = 2402;
     stateDir = "${config.xdg.dataHome}/open-webui";
-  };
-  # TODO: install as systemd service
-  services.podman = {
-    enable = true;
-    containers.bgutil-ytdlp-pot-provider = {
-      image = "docker.io/brainicism/bgutil-ytdlp-pot-provider:1.1.0";
-      ports = ["4416:4416"];
-    };
   };
 
   programs.chromium = {
@@ -476,14 +451,10 @@ in {
     grpcurl
     syncplay
     trash-cli
-    yt-dlp
     srm
     sshfs
     bc
     imagemagick
-    beets
-    rmpc
-    cava
     restic
     graphviz
     spl-token-cli
@@ -543,7 +514,6 @@ in {
   home.file = util.recursiveMerge ([
       # stow packages
       (packageHomeFiles ../stow-home/atuin)
-      (packageHomeFiles ../stow-home/beets)
       (packageHomeFiles ../stow-home/btop)
       (packageHomeFiles ../stow-home/cargo)
       (packageHomeFiles ../stow-home/direnv)
@@ -565,8 +535,6 @@ in {
       (packageHomeFiles ../stow-home/icons)
       (packageHomeFiles ../stow-home/kitty)
       (packageHomeFiles ../stow-home/lazygit)
-      (packageHomeFiles ../stow-home/mpd)
-      (packageHomeFiles ../stow-home/ncmpcpp)
       (packageHomeFiles ../stow-home/networkmanager-dmenu)
       (packageHomeFiles ../stow-home/nix)
       (packageHomeFiles ../stow-home/nnn)
@@ -575,7 +543,6 @@ in {
       (packageHomeFiles ../stow-home/pipewire-general)
       (packageHomeFiles ../stow-home/qalculate)
       (packageHomeFiles ../stow-home/ripgrep)
-      (packageHomeFiles ../stow-home/rmpc)
       (packageHomeFiles ../stow-home/rofi)
       (packageHomeFiles ../stow-home/rofi-pass)
       (packageHomeFiles ../stow-home/scripts)
