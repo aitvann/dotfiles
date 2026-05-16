@@ -68,6 +68,7 @@ in {
     ../features/showmethekey.nix
     ../features/minecraft.nix
     ../features/music-library.nix
+    ../features/gnupg.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -525,7 +526,6 @@ in {
       (packageHomeFiles ../stow-home/firefox)
       (packageHomeFiles ../stow-home/firefoxprofileswitcher-general)
       (packageHomeFiles ../stow-home/git-general)
-      (packageHomeFiles ../stow-home/gnupg)
       (packageHomeFiles ../stow-home/gtk-2.0-general)
       (packageHomeFiles ../stow-home/gtk-3.0)
       (packageHomeFiles ../stow-home/gtk-4.0)

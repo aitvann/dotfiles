@@ -148,12 +148,6 @@ in {
     };
   };
 
-  # TODO: move to home config
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   # NOTE: requires user in wireshark group
   programs.wireshark.enable = true;
 
@@ -199,6 +193,11 @@ in {
 
   environment.etc = util.recursiveMerge [
     {
+      # TODO: figure out how to add package to PATH the proper way
+      "gnupg/gpg-agent.conf".text = ''
+        pinentry-program ${lib.getExe pkgs.pinentry-gnome3}
+      '';
+
       # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
       "strongswan.conf".text = "";
     }
