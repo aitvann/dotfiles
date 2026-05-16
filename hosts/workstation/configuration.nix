@@ -137,8 +137,6 @@ in {
     enableCompletion = false;
   };
 
-  services.openssh.enable = true;
-
   # GPU is not utilized when running as user service
   services.ollama = {
     enable = workstation.enable-llm;

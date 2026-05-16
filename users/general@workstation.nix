@@ -69,6 +69,7 @@ in {
     ../features/minecraft.nix
     ../features/music-library.nix
     ../features/gnupg.nix
+    ../features/ssh.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
