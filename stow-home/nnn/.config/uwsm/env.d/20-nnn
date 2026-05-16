@@ -1,9 +1,13 @@
+# vim: set ft=sh:
+
+export NNN_OPTS="aAGr"
+
 export NNN_FIFO=/tmp/nnn.fifo
 
 # flash firmware to keyboard using only mouse
 export NNN_MCLICK='p'
 
-export NNN_TERMINAL=kitty
+export NNN_TERMINAL="${TERMINAL}"
 # TODO: migrate back to wallpaper plugin once it migrates to `awww`
 export NNN_PLUG="\
 v:better-preview-tui;\

@@ -39,17 +39,17 @@
       (System/exit 0))))
 
 (defn nnn [{:keys [location nvim_pipe fallback]} selection-file]
-  (sh
-   {:extra-env {"NNN_PREVIEW_TITLE" "nnn-file-manager-preview"}}
-   (System/getenv "TERMINAL")
-   "--title=nnn-file-manager"
-   "-e"
-   "zsh" "-ic"
-   (str "n "
-        "-S "
-        "-P v "
-        (if nvim_pipe (str "-p " selection-file " ") "")
-        (if fallback "" (str "'" location "'")))))
+  (apply
+   sh {:extra-env {"NNN_PREVIEW_TITLE" "nnn-file-manager-preview"}}
+   (concat
+    [(System/getenv "TERMINAL")]
+    ["--title=nnn-file-manager"]
+    ["-e"]
+    ["nnn"]
+    ["-S"]
+    ["-P" "v"]
+    (if nvim_pipe ["-p" selection-file] [])
+    (if fallback [] [location]))))
 
 (let [{:keys [nvim_pipe] :as data} (get-data)]
   (kill-current-and-exit "nnn-file-manager" "nnn-file-manager-preview")
