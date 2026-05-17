@@ -42,7 +42,6 @@ in {
 
   imports = [
     # custom modules
-    ../modules/app2unit.nix
     ../modules/open-webui.nix
     ../modules/unfree.nix
     ../modules/zsh.nix
@@ -58,6 +57,7 @@ in {
     ../features/music-library.nix
     ../features/gnupg.nix
     ../features/ssh.nix
+    ../features/wayland.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -204,8 +204,6 @@ in {
   programs.hyprlock.enable = true;
   services.hypridle.enable = true;
   services.hyprpolkitagent.enable = true;
-  programs.app2unit.enable = true;
-  programs.app2unit.overrideXdgOpen = true;
   services.dunst.enable = true;
   # use stow package instead
   xdg.configFile."dunst/dunstrc".enable = false;
@@ -539,7 +537,6 @@ in {
       (packageHomeFiles ../stow-home/rofimoji)
       (packageHomeFiles ../stow-home/ssh-general)
       (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
-      (packageHomeFiles ../stow-home/uwsm)
       (packageHomeFiles ../stow-home/wireplumber)
       (packageHomeFiles ../stow-home/xdg)
       (packageHomeFiles ../stow-home/xsettingsd)
