@@ -10,8 +10,6 @@
   packageSystemFiles = util.packageStowFiles "/etc";
   packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
 in {
-  disabledModules = ["services/display-managers/greetd.nix"];
-
   imports = [
     ../${workstation.host}/hardware-configuration.nix
     inputs.zapret-discord-youtube.nixosModules.default

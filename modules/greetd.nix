@@ -8,6 +8,8 @@
   tty = "tty${toString cfg.vt}";
   settingsFormat = pkgs.formats.toml {};
 in {
+  disabledModules = ["services/display-managers/greetd.nix"];
+
   options.services.greetd = {
     enable = lib.mkEnableOption "greetd, a minimal and flexible login manager daemon";
 

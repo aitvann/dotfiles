@@ -81,10 +81,6 @@ in {
     "open-webui"
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "jitsi-meet-1.0.8792"
-  ];
-
   home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
 
