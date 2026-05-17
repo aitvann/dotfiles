@@ -21,7 +21,7 @@ in {
       nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
         makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
       });
-      advcpmv = inputs.advcpmv.packages.${prev.system}.default;
+      advcpmv = inputs.advcpmv.packages.${prev.stdenv.hostPlatform.system}.default;
     })
   ];
 

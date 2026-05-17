@@ -9,7 +9,7 @@
 in {
   nixpkgs.overlays = [
     (final: prev: {
-      current-location = inputs.current-location.packages.${prev.system}.default;
+      current-location = inputs.current-location.packages.${prev.stdenv.hostPlatform.system}.default;
     })
   ];
 
