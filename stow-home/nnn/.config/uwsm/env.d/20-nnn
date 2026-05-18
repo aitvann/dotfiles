@@ -4,6 +4,12 @@ export NNN_OPTS="aAGr"
 
 export NNN_FIFO=/tmp/nnn.fifo
 
+# HACK: because 
+# Overriding `xdg-open` with binary in `~/.local/bin`
+# does not work for NNN. It uses the original `xdg-open`
+# passed to it through wrapper
+export NNN_OPENER="app2unit-open"
+
 # flash firmware to keyboard using only mouse
 export NNN_MCLICK='p'
 
