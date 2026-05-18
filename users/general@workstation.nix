@@ -32,11 +32,6 @@ in {
               prev.rofi-calc
             ];
         });
-      gramps = prev.gramps.overrideAttrs (old: {
-        # required for GraphView addon
-        buildInputs = old.buildInputs ++ [prev.goocanvas_3];
-        # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
-      });
     })
   ];
 
@@ -58,6 +53,7 @@ in {
     ../features/gnupg.nix
     ../features/ssh.nix
     ../features/wayland.nix
+    ../features/gramps.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -409,7 +405,6 @@ in {
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
     v2rayn
-    gramps
     # TODO: enable when compiles
     # comaps
 
