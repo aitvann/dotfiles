@@ -14,18 +14,18 @@ export NNN_OPENER="app2unit-open"
 export NNN_MCLICK='p'
 
 export NNN_TERMINAL="${TERMINAL}"
-# TODO: migrate back to wallpaper plugin once it migrates to `awww`
-export NNN_PLUG="\
-v:better-preview-tui;\
-d:dragdrop;\
-j:fzcd;\
-r:gitroot;\
-w:-!awww img \"\$nnn\"*;\
-s:xdgdefault;\
-o:fzopen;\
-h:!cppath \"\$nnn\"*;\
-y:-!wayland-copy-file \"\$nnn\"*;\
-p:!wayland-paste-file*"
+
+export NNN_PLUG=\
+'v:better-preview-tui;'\
+'d:dragdrop;'\
+'j:fzcd;'\
+'r:gitroot;'\
+'w:wallpaper;'\
+'s:xdgdefault;'\
+'o:fzopen;'\
+'h:!cppath "$nnn"*;'\
+'y:-!wayland-copy-file "$nnn"*;'\
+'p:!wayland-paste-file*'
 
 # use trash-cli
 export NNN_TRASH=1

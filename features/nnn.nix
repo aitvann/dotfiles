@@ -22,6 +22,14 @@ in {
         makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
       });
       advcpmv = inputs.advcpmv.packages.${prev.stdenv.hostPlatform.system}.default;
+      # HACK: wallpaper plugin still uses deprecated swww
+      awww = prev.awww.overrideAttrs (old: {
+        postFixup =
+          (old.postFixup or "")
+          + ''
+            ln -s ${prev.awww}/bin/awww $out/bin/swww
+          '';
+      });
     })
   ];
 
@@ -61,6 +69,7 @@ in {
       dragdrop
       fzcd
       gitroot
+      wallpaper
       xdgdefault
       fzopen
     ];
