@@ -13,14 +13,15 @@ in {
     (import ../packages)
     inputs.nur.overlays.default
     (final: prev: {
-      nix-alien = inputs.nix-alien.packages.${prev.stdenv.hostPlatform.system}.default;
+      nix-alien = inputs.nix-alien.packages.${prev.system}.default;
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
       hyprlandPlugins =
         prev.hyprlandPlugins
         // {
-          hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
+          # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors;
+          xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers;
         };
-      hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
+      hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
       firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       rofi-wayland =
@@ -36,6 +37,17 @@ in {
         # required for GraphView addon
         buildInputs = old.buildInputs ++ [prev.goocanvas_3];
         # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
+      });
+      # HACK:
+      # fixing broken desktop entry
+      # https://github.com/Vladimir-csp/app2unit/issues/9#issuecomment-3175908089
+      oculante = prev.oculante.overrideAttrs (oldAttrs: {
+        postInstall =
+          (oldAttrs.postInstall or "")
+          + ''
+            substituteInPlace $out/share/applications/oculante.desktop \
+              --replace "oculante %U" "oculante %F"
+          '';
       });
     })
   ];
@@ -67,7 +79,6 @@ in {
     "steam-runtime"
     "steam-unwrapped"
     "open-webui"
-    "live-rename.nvim"
   ];
 
   home.username = "general";
@@ -107,11 +118,6 @@ in {
   # MANUAL (UPDATE): go to Bookmarks Manager and import
   programs.firefox = {
     enable = true;
-    # Silencing the warning and
-    # Keeping the legacy behavior.
-    # Waiting for native messaging hosts directory
-    # and managed-storage directory to be moved as well
-    configPath = ".mozilla/firefox";
     profiles = let
       shared-extensions = with pkgs.firefox-addons; [
         # filters: https://github.com/yokoffing/filterlists
@@ -198,7 +204,9 @@ in {
     enable = true;
     systemd.enable = false;
     plugins = with pkgs.hyprlandPlugins; [
-      hypr-dynamic-cursors
+      # TODO: enable when compiles again
+      # hypr-dynamic-cursors
+      xtra-dispatchers
     ];
   };
   programs.hyprlock.enable = true;
