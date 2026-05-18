@@ -37,17 +37,6 @@ in {
         buildInputs = old.buildInputs ++ [prev.goocanvas_3];
         # propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [prev.graphviz];
       });
-      # HACK:
-      # fixing broken desktop entry
-      # https://github.com/Vladimir-csp/app2unit/issues/9#issuecomment-3175908089
-      oculante = prev.oculante.overrideAttrs (oldAttrs: {
-        postInstall =
-          (oldAttrs.postInstall or "")
-          + ''
-            substituteInPlace $out/share/applications/oculante.desktop \
-              --replace "oculante %U" "oculante %F"
-          '';
-      });
     })
   ];
 
