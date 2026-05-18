@@ -19,7 +19,6 @@ in {
         prev.hyprlandPlugins
         // {
           # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
-          xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.xtra-dispatchers;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
       firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
@@ -206,7 +205,6 @@ in {
     plugins = with pkgs.hyprlandPlugins; [
       # TODO: enable when compiles again
       # hypr-dynamic-cursors
-      xtra-dispatchers
     ];
   };
   programs.hyprlock.enable = true;
