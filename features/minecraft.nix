@@ -5,7 +5,7 @@
 }: {
   nixpkgs.overlays = [
     (final: prev: {
-      graalvmPackages21 = inputs.nixpkgs-graalvm21.legacyPackages.${prev.system}.graalvmCEPackages;
+      graalvmPackages21 = inputs.nixpkgs-graalvm21.legacyPackages.${prev.stdenv.hostPlatform.system}.graalvmCEPackages;
       prismlauncher = prev.prismlauncher.override {
         jdks = with pkgs; [
           graalvmPackages.graalvm-oracle_17

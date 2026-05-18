@@ -13,15 +13,15 @@ in {
     (import ../packages)
     inputs.nur.overlays.default
     (final: prev: {
-      nix-alien = inputs.nix-alien.packages.${prev.system}.default;
+      nix-alien = inputs.nix-alien.packages.${prev.stdenv.hostPlatform.system}.default;
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
       hyprlandPlugins =
         prev.hyprlandPlugins
         // {
-          # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors;
-          xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers;
+          # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
+          xtra-dispatchers = inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.xtra-dispatchers;
         };
-      hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.system}.default;
+      hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
       firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       rofi-wayland =
