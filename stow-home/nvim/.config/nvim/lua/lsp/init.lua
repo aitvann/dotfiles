@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("User", {
             "nixd",          -- nix
             "marksman",      -- markdown
             "clojure_lsp",   -- clojure
-            "taplo",         -- toml
+            "tombi",         -- toml
             "efm"
         }
     end,

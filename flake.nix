@@ -229,12 +229,29 @@
       pkgs = import nixpkgs {inherit system overlays;};
     in
       pkgs.mkShell {
-        buildInputs = [
-          pkgs.nur.repos.rycee.mozilla-addons-to-nix
+        buildInputs = with pkgs; [
+          # Tools
+          nixos-anywhere
+          xray
+          openssl
           pkgs.disko
-          pkgs.nixos-anywhere
-          pkgs.xray
-          pkgs.openssl
+          pkgs.nur.repos.rycee.mozilla-addons-to-nix
+
+          # Editor tools
+          efm-langserver
+          prettier
+          pandoc
+          markdownlint-cli2
+
+          nixd
+          alejandra
+
+          lua-language-server
+          stylua
+
+          marksman
+          clojure-lsp
+          vimdoc-language-server
         ];
       };
   };

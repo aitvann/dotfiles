@@ -440,6 +440,7 @@ in {
     btrfs-assistant
     btrfs-list
     zapret
+    helix
 
     # db
     sqlite-interactive
@@ -463,30 +464,8 @@ in {
     deploy-rs
     nh
 
-    # text editors
-    helix
-    vimdoc-language-server
-    clojure-lsp
-    rust-analyzer
-    taplo
-    efm-langserver
-    marksman
-    nixd
-    lua-language-server
-    alejandra
-    stylua
-    prettier
-    markdownlint-cli2
-    sqlfluff
-    pandoc
-
     # rust
     cargo
-    cargo-cache
-    cargo-expand
-    cargo-nextest
-    cargo-all-features
-    cargo-show-asm
   ];
 
   home.file = util.recursiveMerge ([
