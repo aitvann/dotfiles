@@ -493,7 +493,6 @@ in {
       (packageHomeFiles ../stow-home/lazygit)
       (packageHomeFiles ../stow-home/networkmanager-dmenu)
       (packageHomeFiles ../stow-home/nix)
-      (packageHomeFiles ../stow-home/nnn)
       (packageHomeFiles ../stow-home/nvim)
       (packageHomeFiles ../stow-home/pam-gnupg)
       (packageHomeFiles ../stow-home/pipewire-general)
