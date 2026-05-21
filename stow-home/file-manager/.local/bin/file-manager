@@ -66,7 +66,7 @@
              "-S "
              "-P v "
              (if nvim_pipe (str "-p " selection-file " ") "")
-             (if fallback "" location))))
+             (if fallback "" (str "'" location "'")))))
 
 (let [{:keys [nvim_pipe] :as data} (get-data)]
   (kill-current-and-exit "nnn-file-manager" "nnn-file-manager-preview")
