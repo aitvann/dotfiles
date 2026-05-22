@@ -21,7 +21,6 @@ in {
           # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
-      firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
       btop = prev.btop.override {rocmSupport = true;};
       rofi-wayland =
         prev.rofi-wayland.override
@@ -54,6 +53,7 @@ in {
     ../features/ssh.nix
     ../features/wayland.nix
     ../features/gramps.nix
+    ../features/firefox.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -97,91 +97,6 @@ in {
       {id = "ibnejdfjmmkpcnlpebklmnkoeoihofec";} # TronLink
       {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # Phantom wallet since it does not for some daps in Firefox
     ];
-  };
-
-  # MANUAL (UPDATE): go to Bookmarks Manager and import
-  programs.firefox = {
-    enable = true;
-    profiles = let
-      shared-extensions = with pkgs.firefox-addons; [
-        # filters: https://github.com/yokoffing/filterlists
-        #
-        # there are two way of confiugring uBlock Origin:
-        # - old: `adminSettings` was added a long time ago as a quick way to set any setting,
-        #   but its use is a bit complicated because it requires double-JSON encoding.
-        #   guide: https://www.reddit.com/r/uBlockOrigin/comments/o7q2ou/comment/h3cplhd/?utm_source=share&utm_content=share_button.
-        #   can be done automatically with Nix: https://discourse.nixos.org/t/generate-and-install-ublock-config-file-with-home-manager/19209
-        # - new: https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration
-        #
-        # MANUAL (UPDATE): go to UBlockOrigin settings:
-        # 1. backup Settings
-        # 2. backup My Filters (don't forget to eacape escapes)
-        # 3. update `managed-storage` file
-        ublock-origin
-
-        # MANUAL: go to extension settings and import options manually
-        vimium
-        # MANUAL: go to extension settings and import options manually
-        ublacklist
-        # MANUAL: go to extension settings and import options manually
-        zeroomega
-        simple-translate
-
-        simplelogin
-        fastforwardteam
-        rust-search-extension
-        web-archives
-        canvasblocker
-        ff2mpv
-
-        # cookies blocker
-        # uBlock filter lists avaliable for that purpose but work less efficient
-        # https://www.reddit.com/r/uBlockOrigin/comments/11tpnuk/comment/jckr3e2/
-        istilldontcareaboutcookies
-        # consent-o-matic
-
-        # TODO: Try It
-        # auto-tab-discard
-        # multi-account-containers
-        # bypass-paywalls-clean
-
-        # Tried
-        # clearurls # covered by ublock-origin.
-        # buster-captcha-solver # does not work
-        # browserpass # use rofi
-        # flagfox # unfree
-        # draw-io-for-nation # missing for FF
-      ];
-    in {
-      general = {
-        id = 0;
-        extensions.packages = with pkgs.firefox-addons;
-          [
-            # MANUAL: go to extension settings and import options manually
-            sponsorblock
-
-            # search-by-image # became not available at some point
-            return-youtube-dislikes
-            markdownload
-            new-minecraft-wiki-redirect
-
-            # Crypto
-            metamask
-            joinfire
-            phantom-app
-            tonkeeper
-            braavos-wallet
-            revoke-cash
-            # core-wallet # missing for FF
-            # tronlink # missing for FF
-          ]
-          ++ shared-extensions;
-      };
-      work = {
-        id = 1;
-        extensions.packages = shared-extensions;
-      };
-    };
   };
 
   programs.hyprland = {
@@ -479,8 +394,6 @@ in {
       (packageHomeFiles ../stow-home/element)
       # breaks styling
       # (packageHomeFiles ../stow-home/eww)
-      (packageHomeFiles ../stow-home/firefox)
-      (packageHomeFiles ../stow-home/firefoxprofileswitcher-general)
       (packageHomeFiles ../stow-home/git-general)
       (packageHomeFiles ../stow-home/gtk-2.0-general)
       (packageHomeFiles ../stow-home/gtk-3.0)
@@ -519,10 +432,6 @@ in {
       (util.linkFiles "bin/" "v2rayN/bin/xray/" xray)
       (util.linkFiles "bin/" "v2rayN/bin/sing_box/" sing-box)
       (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
-
-      # bookmarks
-      (util.linkFiles "configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
-      (util.linkFiles "configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
 
       # icone themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
