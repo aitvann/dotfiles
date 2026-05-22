@@ -12,6 +12,8 @@
       # i-dont-care-about-cookies = "fihnjjcciajhdojfnbdddfaoknhalnja";
       consent-o-matic = "mdjildafknihdffpkfmmpnpoiajfjnjd";
       json-resume-exporter-from-linkedin = "caobgmmcpklomkcckaenhjlokpmfbdec";
+      proxy-switchyomega-3-zero = "pfnededegaaopdmhkdmcofjmoldfiped";
+      yt-watch-later-assist = "deafalnegnfhjhejolidiobnapigcfpd";
 
       # crypto
       core-wallet = "agoakfejjabomempkjlepdflaleeobhb";
