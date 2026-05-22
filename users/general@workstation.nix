@@ -53,6 +53,7 @@ in {
     ../features/ssh.nix
     ../features/wayland.nix
     ../features/gramps.nix
+    ../features/chromium.nix
     ../features/firefox.nix
   ];
 
@@ -75,28 +76,6 @@ in {
     host = "0.0.0.0";
     port = 2402;
     stateDir = "${config.xdg.dataHome}/open-webui";
-  };
-
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock origin
-      {id = "annfbnbieaamhaimclajlajpijgkdblo";} # dark theme
-      {id = "ibplnjkanclpjokhdolnendpplpjiace";} # simple translate
-      {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # vimium
-      {id = "icallnadddjmdinamnolclfjanhfoafe";} # FastForward
-      {id = "lckanjgmijmafbedllaakclkaicjfmnk";} # clear urls
-      {id = "lanfdkkpgfjfdikkncbnojekcppdebfp";} # canvas fingerprint defender
-      {id = "pcbjiidheaempljdefbdplebgdgpjcbe";} # audio context fingerprint defender
-      # { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I dont care about cookies
-      {id = "mdjildafknihdffpkfmmpnpoiajfjnjd";} # consent-o-matic
-      {id = "caobgmmcpklomkcckaenhjlokpmfbdec";} # JSON Resume Exporter from LinkedIn
-
-      # crypto
-      {id = "agoakfejjabomempkjlepdflaleeobhb";} # core wallet
-      {id = "ibnejdfjmmkpcnlpebklmnkoeoihofec";} # TronLink
-      {id = "bfnaelmomeimhlpmgjnjophhpkkoljpa";} # Phantom wallet since it does not for some daps in Firefox
-    ];
   };
 
   programs.hyprland = {
