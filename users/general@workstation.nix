@@ -21,7 +21,6 @@ in {
           # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
-      btop = prev.btop.override {rocmSupport = true;};
       rofi-wayland =
         prev.rofi-wayland.override
         (old: {
@@ -55,6 +54,7 @@ in {
     ../features/gramps.nix
     ../features/chromium.nix
     ../features/firefox.nix
+    ../features/btop.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -315,7 +315,6 @@ in {
     delta
     ripgrep
     fd
-    btop
     socat
     jq
     gojq
@@ -365,7 +364,6 @@ in {
   home.file = util.recursiveMerge ([
       # stow packages
       (packageHomeFiles ../stow-home/atuin)
-      (packageHomeFiles ../stow-home/btop)
       (packageHomeFiles ../stow-home/cargo)
       (packageHomeFiles ../stow-home/direnv)
       (packageHomeFiles ../stow-home/dunst)
