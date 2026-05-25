@@ -54,8 +54,8 @@ in {
   networking.networkmanager.enable = true;
   networking.nameservers = ["127.0.0.1"];
   networking.firewall = {
-    # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama
-    allowedTCPPorts = [8096 8920 2402];
+    # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama, Syncthing
+    allowedTCPPorts = [8096 8920 2402 22000];
     allowedUDPPorts = [1900 7359];
   };
 

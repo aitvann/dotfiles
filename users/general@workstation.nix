@@ -71,6 +71,8 @@ in {
 
   services.udiskie.enable = true;
   services.syncthing.enable = true;
+  # services.syncthing.allProxy = "socks5://localhost:10808";
+  systemd.user.services.syncthing.Service.Environment = ["all_proxy=socks5://localhost:10808"];
   services.open-webui = {
     enable = workstation.enable-llm;
     host = "0.0.0.0";
