@@ -7,7 +7,7 @@ local blink = require("blink.cmp")
 
 vim.api.nvim_create_autocmd("User", {
     group = vim.api.nvim_create_augroup("lsp_enable", { clear = true }),
-    desc = "Make sure Direnv environment is loaded before enabling LSP (fixes rust-analyzer)",
+    desc = "Make sure Direnv environment is loaded before enabling LSP",
     pattern = "DirenvLoaded",
     callback = function()
         vim.lsp.enable {
@@ -19,6 +19,8 @@ vim.api.nvim_create_autocmd("User", {
             "marksman",      -- markdown
             "clojure_lsp",   -- clojure
             "tombi",         -- toml
+            "tinymist",      -- typst
+            "codebook",      -- spelling
             "efm"
         }
     end,

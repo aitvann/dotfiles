@@ -1,0 +1,17 @@
+dictionaries = [
+    "en_us",
+    "ru",
+]
+words = [
+    "clickhouse",
+    "hft",
+    "llm",
+    "nginx",
+    "nixpkgs",
+    "pkgs",
+    "profiler",
+    "proj",
+    "rdkafka",
+    "solana",
+    "sqlx",
+]

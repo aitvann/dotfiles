@@ -367,6 +367,7 @@ in {
       # stow packages
       (packageHomeFiles ../stow-home/atuin)
       (packageHomeFiles ../stow-home/cargo)
+      (packageHomeFiles ../stow-home/codebook)
       (packageHomeFiles ../stow-home/direnv)
       (packageHomeFiles ../stow-home/dunst)
       (packageHomeFiles ../stow-home/efm-langserver)
