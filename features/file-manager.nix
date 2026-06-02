@@ -5,7 +5,7 @@ in {
   imports = [
     ./babashka.nix
     ./current-location.nix
-    ./nnn.nix
+    ./nnn
   ];
 
   home.file = util.recursiveMerge [

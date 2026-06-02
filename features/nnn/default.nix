@@ -4,15 +4,15 @@
   pkgs,
   ...
 } @ args: let
-  util = import ../lib/util.nix args;
+  util = import ../../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   imports = let
-    preview-tui-deps = [../features/bat.nix];
+    preview-tui-deps = [../../features/bat.nix];
   in
     [
-      ../modules/unfree.nix
-      ../modules/nnn.nix
+      ../../modules/unfree.nix
+      ../../modules/nnn.nix
     ]
     ++ preview-tui-deps;
 
@@ -21,6 +21,12 @@ in {
       nnn = (prev.nnn.override {withNerdIcons = true;}).overrideAttrs (old: {
         makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
       });
+      nnnPlugins =
+        final.callPackage ./nnn-plugins.nix {}
+        // {
+          better-preview-tui = final.callPackage ./better-preview-tui {};
+        };
+
       advcpmv = inputs.advcpmv.packages.${prev.stdenv.hostPlatform.system}.default;
       # HACK: wallpaper plugin still uses deprecated swww
       awww = prev.awww.overrideAttrs (old: {
@@ -93,6 +99,6 @@ in {
     preview-tui-deps;
 
   home.file = util.recursiveMerge [
-    (packageHomeFiles ../stow-home/nnn)
+    (packageHomeFiles ../../stow-home/nnn)
   ];
 }
