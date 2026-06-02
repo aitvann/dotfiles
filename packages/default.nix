@@ -8,10 +8,6 @@ final: prev: {
   solores = final.callPackage ./solores.nix {};
   zsh-fast-syntax-highlighting = final.callPackage ./zsh-fast-syntax-highlighting.nix {};
   bgutil-ytdlp-pot-provider = final.callPackage ./bgutil-ytdlp-pot-provider.nix {};
-
-  firefox-addons =
-    final.nur.repos.rycee.firefox-addons
-    // (final.callPackage ./firefox-addons.nix {});
   vimPlugins =
     prev.vimPlugins
     // {

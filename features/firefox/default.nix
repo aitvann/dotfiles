@@ -4,11 +4,15 @@
   pkgs,
   ...
 } @ args: let
-  util = import ../lib/util.nix args;
+  util = import ../../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
     (final: prev: {
+      firefox-addons =
+        final.nur.repos.rycee.firefox-addons
+        // (final.callPackage ./addons {});
+
       firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
     })
   ];
@@ -99,7 +103,7 @@ in {
   };
 
   home.file = util.recursiveMerge [
-    (packageHomeFiles ../stow-home/firefox)
+    (packageHomeFiles ../../stow-home/firefox)
   ];
 
   xdg.dataFile = util.recursiveMerge [

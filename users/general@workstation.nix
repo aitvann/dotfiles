@@ -53,7 +53,7 @@ in {
     ../features/wayland.nix
     ../features/gramps.nix
     ../features/chromium.nix
-    ../features/firefox.nix
+    ../features/firefox
     ../features/btop.nix
   ];
 
