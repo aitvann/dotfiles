@@ -10,6 +10,8 @@
             ++ [pkgs.bgutil-ytdlp-pot-provider];
         }
       );
+
+      bgutil-ytdlp-pot-provider = final.callPackage ./bgutil-ytdlp-pot-provider.nix {};
     })
   ];
 

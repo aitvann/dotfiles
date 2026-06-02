@@ -7,7 +7,7 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   imports = [
-    ./yt-dlp.nix
+    ./yt-dlp
 
     # Override
     ../modules/mpd.nix
