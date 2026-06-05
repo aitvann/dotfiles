@@ -10,7 +10,7 @@
 
 (def opts (cli/parse-args *command-line-args*))
 (def target (or (:target (:opts opts)) (str home "/dotfiles/stow-system/website/www/v2ray-links")))
-(def venus-ip (str/trim (slurp (str home "/dotfiles/secrets/venus-ip.txt"))))
+(def host-ip (str/trim (slurp (str home "/dotfiles/secrets/venus-ip.txt"))))
 (def xray-config-path (or (:xray-config (:opts opts)) (str home "/dotfiles/stow-system/xray-venus/xray/config.json")))
 
 (defn encodeBase64 [txt]
@@ -21,7 +21,10 @@
 (def xray-config (json/parse-string (slurp xray-config-path) true))
 
 (defn build-vless  [uuid]
-  (str "vless://" uuid "@" venus-ip ":443?encryption=none&security=reality&sni=rutube.ru&fp=chrome&pbk=nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg&type=xhttp&host=rutube.ru&path=entry&mode=stream-up&extra=%7B%22xmux%22%3A%7B%22maxConcurrency%22%3A1%2C%22hMaxRequestTimes%22%3A%22600-900%22%2C%22hMaxReusableSecs%22%3A%221800-3000%22%7D%2C%22downloadSettings%22%3A%7B%22address%22%3A%22167.17.40.76%22%2C%22port%22%3A443%2C%22network%22%3A%22xhttp%22%2C%22xhttpSettings%22%3A%7B%22path%22%3A%22entry%22%2C%22xmux%22%3A%7B%22maxConnections%22%3A1%2C%22hMaxRequestTimes%22%3A%22600-900%22%2C%22hMaxReusableSecs%22%3A%221800-3000%22%7D%7D%2C%22security%22%3A%22reality%22%2C%22realitySettings%22%3A%7B%22serverName%22%3A%22rutube.ru%22%2C%22password%22%3A%22nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg%22%2C%22fingerprint%22%3A%22chrome%22%7D%2C%22tlsSettings%22%3A%7B%22alpn%22%3A%5B%22h3%22%5D%7D%7D%7D#VLESS"))
+  ; xmux not blocked (maxConnections: 1)
+  (str "vless://" uuid "@" host-ip ":443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=rutube.ru&fp=chrome&pbk=nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg&type=xhttp&host=rutube.ru&path=entry&mode=stream-up&extra=%7B%22xmux%22%3A%7B%22maxConnections%22%3A1%2C%22maxConcurrency%22%3A0%2C%22hMaxRequestTimes%22%3A%22600-900%22%2C%22hMaxReusableSecs%22%3A%221800-3000%22%7D%2C%22downloadSettings%22%3A%7B%22address%22%3A%22167.17.40.76%22%2C%22port%22%3A443%2C%22network%22%3A%22xhttp%22%2C%22xhttpSettings%22%3A%7B%22path%22%3A%22entry%22%2C%22xmux%22%3A%7B%22maxConnections%22%3A1%2C%22hMaxRequestTimes%22%3A%22600-900%22%2C%22hMaxReusableSecs%22%3A%221800-3000%22%7D%7D%2C%22security%22%3A%22reality%22%2C%22realitySettings%22%3A%7B%22serverName%22%3A%22rutube.ru%22%2C%22password%22%3A%22nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg%22%2C%22fingerprint%22%3A%22chrome%22%7D%2C%22tlsSettings%22%3A%7B%22alpn%22%3A%5B%22h3%22%5D%7D%7D%7D#VLESS"))
+  ; xmux speed optimized but blocked
+  ; (str "vless://" uuid "@" venus-ip ":443?encryption=none&security=reality&sni=rutube.ru&fp=chrome&pbk=nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg&type=xhttp&host=rutube.ru&path=entry&mode=stream-up&extra=%7B%22xmux%22%3A%7B%22maxConcurrency%22%3A1%2C%22hMaxRequestTimes%22%3A%22600-900%22%2C%22hMaxReusableSecs%22%3A%221800-3000%22%7D%2C%22downloadSettings%22%3A%7B%22address%22%3A%22167.17.40.76%22%2C%22port%22%3A443%2C%22network%22%3A%22xhttp%22%2C%22xhttpSettings%22%3A%7B%22path%22%3A%22entry%22%2C%22xmux%22%3A%7B%22maxConnections%22%3A1%2C%22hMaxRequestTimes%22%3A%22600-900%22%2C%22hMaxReusableSecs%22%3A%221800-3000%22%7D%7D%2C%22security%22%3A%22reality%22%2C%22realitySettings%22%3A%7B%22serverName%22%3A%22rutube.ru%22%2C%22password%22%3A%22nC2lzxbeTQGxcin-okwBxAYjiXhm8actbz4MySnElzg%22%2C%22fingerprint%22%3A%22chrome%22%7D%2C%22tlsSettings%22%3A%7B%22alpn%22%3A%5B%22h3%22%5D%7D%7D%7D#VLESS"))
 
 (def vless-links
   (->>
@@ -37,7 +40,7 @@
 (defn build-ss [client-pwd]
   (let [pwd (str "2022-blake3-aes-128-gcm:dvb1D6DbqydKwFP5AXI/zg==:" client-pwd)
         base64-pwd (encodeBase64 pwd)]
-    (str "ss://" base64-pwd "@" venus-ip ":33964#SS")))
+    (str "ss://" base64-pwd "@" host-ip ":33964#SS")))
 
 (def ss-links
   (->>
@@ -55,8 +58,9 @@
    (merge-with
     #(array-map :uuid (or (:uuid %1) (:uuid %2))
                 :links (concat (:links %1) (:links %2)))
-    vless-links
-    ss-links)
+    vless-links)
+    ; Disable for now
+    ; ss-links)
    (map (fn [[_email {:keys [uuid links]}]] (array-map uuid links)))
    (into {})))
 
