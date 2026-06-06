@@ -11,6 +11,8 @@
 in {
   imports = [
     ./hardware-configuration.nix
+
+    ../../modules/isponsorblocktv.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -205,9 +207,12 @@ in {
     enableReload = true;
   };
 
+  services.isponsorblocktv.enable = true;
+
   environment.etc = util.recursiveMerge [
     (packageSystemFiles ../../stow-system/nginx-jupiter)
     (packageSystemFiles ../../stow-system/cert-jupiter)
+    (packageSystemFiles ../../stow-system/isponsorblocktv)
   ];
 
   # disable suspend on close laptop lid

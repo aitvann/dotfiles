@@ -16,6 +16,7 @@ stow-system/xray-venus/xray/config.json filter=git-crypt diff=git-crypt
 stow-system/xray-jupiter/xray/config.json filter=git-crypt diff=git-crypt
 stow-system/cert-jupiter/cert/key.pem filter=git-crypt diff=git-crypt
 stow-system/website/** filter=git-crypt diff=git-crypt
+stow-system/isponsorblocktv/isponsorblocktv/config.json filter=git-crypt diff=git-crypt
 stow-service/adguardhome/AdGuardHome/AdGuardHome.yaml filter=git-crypt diff=git-crypt
 configs/browser-bookmarks.general.html filter=git-crypt diff=git-crypt
 configs/browser-bookmarks.work.html filter=git-crypt diff=git-crypt

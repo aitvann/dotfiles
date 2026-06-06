@@ -67,3 +67,14 @@ reboot
 
 1.  Do all the changes in a web GUI
 2.  Run `apply-config syncthing-${HOST}` to copy new configuration to the repo
+
+### Change ISponsorBlockTV Configuration
+
+``` sh
+docker run --rm -it \
+-v $HOME/dotfiles/stow-system/isponsorblocktv/isponsorblocktv:/app/data \
+--net=host \
+-e TERM=$TERM -e COLORTERM=$COLORTERM \
+ghcr.io/dmunozv04/isponsorblocktv \
+--setup
+```
