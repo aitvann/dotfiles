@@ -72,10 +72,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
     desc = "Open startup page when there is nothing else to show and there is no local session (ignore global sessions)",
     nested = true,
     callback = function()
+        if is_something_shown() then
+            return
+        end
+
         local cwd = vim.fn.getcwd()
         if vim.fn.filereadable(cwd .. "/" .. local_session_file) == 1 then
             pcall(sessions.read, sessions.config.file)
-        elseif not is_something_shown() then
+        else
             starter.open()
         end
     end,
