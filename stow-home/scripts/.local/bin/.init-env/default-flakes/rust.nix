@@ -81,7 +81,7 @@
         packages."${cargoToml.package.name}" = rustPackage "";
 
         devShells.nightly-latest =
-          mkDevShell (pkgs.rust-bin.selectLatestNightlyWith mkToolchain);
+          mkDevShell (pkgs.rust-bin.selectLatestNightlyWith (toolchain: mkToolchain toolchain.default));
         devShells.stable-latest = mkDevShell pkgs.rust-bin.stable.latest.default;
         devShells.msrv = mkDevShell pkgs.rust-bin.stable.${msrv}.default;
         devShells.pinned = mkDevShell pinnedToolchain;
