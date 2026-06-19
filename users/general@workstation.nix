@@ -56,6 +56,7 @@ in {
     ../features/firefox
     ../features/btop.nix
     ../features/neovim
+    ../features/helix.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -211,7 +212,6 @@ in {
     btrfs-assistant
     btrfs-list
     zapret
-    helix
 
     # db
     sqlite-interactive
@@ -243,10 +243,8 @@ in {
       # stow packages
       (packageHomeFiles ../stow-home/atuin)
       (packageHomeFiles ../stow-home/cargo)
-      (packageHomeFiles ../stow-home/codebook)
       (packageHomeFiles ../stow-home/direnv)
       (packageHomeFiles ../stow-home/dunst)
-      (packageHomeFiles ../stow-home/efm-langserver)
       (packageHomeFiles ../stow-home/element)
       # breaks styling
       # (packageHomeFiles ../stow-home/eww)
@@ -254,7 +252,6 @@ in {
       (packageHomeFiles ../stow-home/gtk-2.0-general)
       (packageHomeFiles ../stow-home/gtk-3.0)
       (packageHomeFiles ../stow-home/gtk-4.0)
-      (packageHomeFiles ../stow-home/helix)
       (packageHomeFiles ../stow-home/pypr)
       (packageHomeFiles ../stow-home/hypr)
       (packageHomeFiles ../stow-home/icons)
