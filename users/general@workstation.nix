@@ -37,7 +37,6 @@ in {
     # custom modules
     ../modules/open-webui.nix
     ../modules/unfree.nix
-    ../modules/zsh.nix
 
     # overrides
     ../modules/hyprland.nix
@@ -57,6 +56,7 @@ in {
     ../features/btop.nix
     ../features/neovim
     ../features/helix.nix
+    ../features/zsh
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -100,17 +100,6 @@ in {
   services.wl-clip-persist.enable = true;
   services.xsettingsd.enable = true;
   qt.enable = true;
-
-  programs.my-zsh = {
-    enable = true;
-    plugins = with pkgs; [
-      zsh-defer
-      zsh-fast-syntax-highlighting
-      (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
-      zsh-fzf-tab
-      zsh-autosuggestions
-    ];
-  };
 
   programs.obs-studio = {
     enable = true;
@@ -218,14 +207,6 @@ in {
     clickhouse
     postgresql_14
 
-    # zsh
-    fzf
-    starship
-    carapace
-    atuin
-    z-lua
-    eza
-
     # nix
     home-manager
     comma
@@ -241,7 +222,6 @@ in {
 
   home.file = util.recursiveMerge ([
       # stow packages
-      (packageHomeFiles ../stow-home/atuin)
       (packageHomeFiles ../stow-home/cargo)
       (packageHomeFiles ../stow-home/direnv)
       (packageHomeFiles ../stow-home/dunst)
@@ -266,14 +246,12 @@ in {
       (packageHomeFiles ../stow-home/rofi)
       (packageHomeFiles ../stow-home/rofi-pass)
       (packageHomeFiles ../stow-home/scripts)
-      (packageHomeFiles ../stow-home/sh)
       (packageHomeFiles ../stow-home/rofimoji)
       (packageHomeFiles ../stow-home/ssh-general)
       (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
       (packageHomeFiles ../stow-home/wireplumber)
       (packageHomeFiles ../stow-home/xdg)
       (packageHomeFiles ../stow-home/xsettingsd)
-      (packageHomeFiles ../stow-home/zsh)
     ]
     ++ (lib.optionals workstation.enable-monerod [(packageHomeFiles ../stow-home/monerod)]));
 
