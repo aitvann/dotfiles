@@ -52,6 +52,7 @@ types:
   muffled: bool
   bassboosted: bool
   asmr: bool
+  censored: bool
 
 edit:
   itemfields:
@@ -75,6 +76,7 @@ edit:
     - saturated
     - muffled
     - bassboosted
+    - censored
 
 lastgenre:
   source: track
