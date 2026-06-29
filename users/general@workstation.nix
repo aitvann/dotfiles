@@ -18,7 +18,7 @@ in {
       hyprlandPlugins =
         prev.hyprlandPlugins
         // {
-          # hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
+          hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
         };
       hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
       rofi-wayland =
@@ -86,8 +86,7 @@ in {
     enable = true;
     systemd.enable = false;
     plugins = with pkgs.hyprlandPlugins; [
-      # TODO: enable when compiles again
-      # hypr-dynamic-cursors
+      hypr-dynamic-cursors
     ];
   };
   programs.hyprlock.enable = true;
@@ -133,8 +132,6 @@ in {
     pinentry-gnome3
     seahorse
     xdg-terminal-exec
-    # QT support: https://wiki.hyprland.org/Useful-Utilities/Must-have/#qt-wayland-support
-    libsForQt5.qt5.qtwayland
     # open dialogs (Minecraft load book from file)
     adwaita-qt6
     zenity
@@ -261,7 +258,6 @@ in {
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "bin/" "v2rayN/bin/xray/" xray)
       (util.linkFiles "bin/" "v2rayN/bin/sing_box/" sing-box)
-      (util.linkFiles "lib/ladspa/" "rnnoise-plugin/lib/ladspa/" rnnoise-plugin)
 
       # icone themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)

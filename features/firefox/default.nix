@@ -20,6 +20,9 @@ in {
   # MANUAL (UPDATE): go to Bookmarks Manager and import
   programs.firefox = {
     enable = true;
+    # Muting warining message.
+    # TODO: Switch to XDG style once the resto of `~/.mozilla` moves
+    configPath = ".mozilla/firefox";
     profiles = let
       shared-extensions = with pkgs.firefox-addons; [
         # filters: https://github.com/yokoffing/filterlists

@@ -25,6 +25,10 @@ in {
     })
   ];
 
+  nixpkgs.allowedUnfreePackages = [
+    "live-rename.nvim"
+  ];
+
   programs.neovim = {
     enable = true;
 

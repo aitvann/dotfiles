@@ -83,11 +83,8 @@ local regex_surroundings = {
 }
 
 local treesitter_surroundings = {
-    -- Won't work bacause `markdown_inline` parser is not loaded in some cases.
-    -- See [issue](https://github.com/nvim-mini/mini.nvim/issues/2397#issuecomment-4345953431)
-    -- i = { input = { outer = '@emphasis.outer', inner = '@emphasis.inner' }, output = { left = "*", right = "*" } },
-    -- y = { input = { outer = '@strong_emphasis.outer', inner = '@strong_emphasis.inner' }, output = { left = "**", right = "**" } },
-
+    i = { input = { outer = '@emphasis.outer', inner = '@emphasis.inner' }, output = { left = "*", right = "*" } },
+    y = { input = { outer = '@strong_emphasis.outer', inner = '@strong_emphasis.inner' }, output = { left = "**", right = "**" } },
     -- markdown coDe block
     d = { input = { outer = '@cell.outer', inner = '@cell.inner' }, output = { left = "```\n", right = "\n```" } },
     -- fUnction call

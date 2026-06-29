@@ -40,7 +40,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LspAttach callback",
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if not client then return end
+
         local buffer = args.buf
+
+        -- Disable `obsidian-ls`
+        -- See https://github.com/orgs/obsidian-nvim/discussions/897#discussion-10341326
+        if client.name == 'obsidian-ls' then
+            client.server_capabilities.codeActionProvider = false
+            client.server_capabilities.documentSymbolProvider = false
+            client.server_capabilities.workspaceSymbolProvider = false
+            client.server_capabilities.definitionProvider = false
+            client.server_capabilities.referencesProvider = false
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.implementationProvider = false
+            client.server_capabilities.renameProvider = false
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end
 
         -- compose `to_attach` functions
         diagnostics.on_attach(client, buffer)

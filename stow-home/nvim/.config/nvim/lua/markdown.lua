@@ -14,11 +14,9 @@ require("obsidian").setup({
         template = "default.md",
     },
 
-    -- disable, LSP is used instead
-    completion = {
-        nvim_cmp = false,
-        blink = false,
-    },
+    -- TODO: disable `obsidian-ls` server.
+    -- See https://github.com/orgs/obsidian-nvim/discussions/897#discussion-10341326
+    completion = nil,
 
     -- disable whatever that is
     frontmatter = {

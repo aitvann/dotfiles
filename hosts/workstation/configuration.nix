@@ -74,6 +74,9 @@ in {
     excludePackages = with pkgs; [xterm];
   };
   programs.regreet.enable = true;
+  # HACK: the default `pkgs.cantarell-fonts` does not compile
+  programs.regreet.font.package = pkgs.dejavu_fonts;
+  programs.regreet.font.name = "DejaVu Sans";
   # TODO: figure out smooth plymouth transition as it is not supported out of the box
   # https://todo.sr.ht/~kennylevinsen/greetd/17
   services.greetd.greeterManagesPlymouth = false;
@@ -112,6 +115,7 @@ in {
     alsa.enable = true;
     pulse.enable = true;
   };
+  services.pipewire.extraLadspaPackages = with pkgs; [ rnnoise-plugin ];
 
   users.users.general = {
     isNormalUser = true;

@@ -29,8 +29,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
-    # hypr-dynamic-cursors.url = "github:VirtCode/hypr-dynamic-cursors";
-    # hypr-dynamic-cursors.inputs.hyprland.follows = "hyprland";
+    hypr-dynamic-cursors.url = "github:VirtCode/hypr-dynamic-cursors";
+    hypr-dynamic-cursors.inputs.hyprland.follows = "hyprland";
 
     hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
     hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
