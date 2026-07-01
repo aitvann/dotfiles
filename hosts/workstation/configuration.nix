@@ -115,7 +115,7 @@ in {
     alsa.enable = true;
     pulse.enable = true;
   };
-  services.pipewire.extraLadspaPackages = with pkgs; [ rnnoise-plugin ];
+  services.pipewire.extraLadspaPackages = with pkgs; [rnnoise-plugin];
 
   users.users.general = {
     isNormalUser = true;
@@ -191,7 +191,7 @@ in {
   services.strongswan.enable = true;
   networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
 
-  environment.etc = util.recursiveMerge [
+  environment.etc = lib.mkMerge [
     {
       # TODO: figure out how to add package to PATH the proper way
       "gnupg/gpg-agent.conf".text = ''

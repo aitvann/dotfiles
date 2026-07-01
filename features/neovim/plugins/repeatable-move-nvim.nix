@@ -2,7 +2,6 @@
   vimUtils,
   fetchFromGitHub,
   vimPlugins,
-  lib,
 }:
 vimUtils.buildVimPlugin {
   pname = "repeatable-move-nvim";

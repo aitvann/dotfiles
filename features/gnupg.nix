@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 } @ args: let
   util = import ../lib/util.nix args;
@@ -21,7 +22,7 @@ in {
     gnupg
   ];
 
-  home.file = util.recursiveMerge [
+  home.file = lib.mkMerge [
     {
       # Using Stow package instead
       "${homedir}/gpg-agent.conf".enable = false;

@@ -217,43 +217,43 @@ in {
     cargo
   ];
 
-  home.file = util.recursiveMerge ([
-      # stow packages
-      (packageHomeFiles ../stow-home/cargo)
-      (packageHomeFiles ../stow-home/direnv)
-      (packageHomeFiles ../stow-home/dunst)
-      (packageHomeFiles ../stow-home/element)
-      # breaks styling
-      # (packageHomeFiles ../stow-home/eww)
-      (packageHomeFiles ../stow-home/git-general)
-      (packageHomeFiles ../stow-home/gtk-2.0-general)
-      (packageHomeFiles ../stow-home/gtk-3.0)
-      (packageHomeFiles ../stow-home/gtk-4.0)
-      (packageHomeFiles ../stow-home/pypr)
-      (packageHomeFiles ../stow-home/hypr)
-      (packageHomeFiles ../stow-home/icons)
-      (packageHomeFiles ../stow-home/kitty)
-      (packageHomeFiles ../stow-home/lazygit)
-      (packageHomeFiles ../stow-home/networkmanager-dmenu)
-      (packageHomeFiles ../stow-home/nix)
-      (packageHomeFiles ../stow-home/pam-gnupg)
-      (packageHomeFiles ../stow-home/pipewire-general)
-      (packageHomeFiles ../stow-home/qalculate)
-      (packageHomeFiles ../stow-home/ripgrep)
-      (packageHomeFiles ../stow-home/rofi)
-      (packageHomeFiles ../stow-home/rofi-pass)
-      (packageHomeFiles ../stow-home/scripts)
-      (packageHomeFiles ../stow-home/rofimoji)
-      (packageHomeFiles ../stow-home/ssh-general)
-      (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
-      (packageHomeFiles ../stow-home/wireplumber)
-      (packageHomeFiles ../stow-home/xdg)
-      (packageHomeFiles ../stow-home/xsettingsd)
-    ]
-    ++ (lib.optionals workstation.enable-monerod [(packageHomeFiles ../stow-home/monerod)]));
+  home.file = lib.mkMerge [
+    # stow packages
+    (packageHomeFiles ../stow-home/cargo)
+    (packageHomeFiles ../stow-home/direnv)
+    (packageHomeFiles ../stow-home/dunst)
+    (packageHomeFiles ../stow-home/element)
+    # breaks styling
+    # (packageHomeFiles ../stow-home/eww)
+    (packageHomeFiles ../stow-home/git-general)
+    (packageHomeFiles ../stow-home/gtk-2.0-general)
+    (packageHomeFiles ../stow-home/gtk-3.0)
+    (packageHomeFiles ../stow-home/gtk-4.0)
+    (packageHomeFiles ../stow-home/pypr)
+    (packageHomeFiles ../stow-home/hypr)
+    (packageHomeFiles ../stow-home/icons)
+    (packageHomeFiles ../stow-home/kitty)
+    (packageHomeFiles ../stow-home/lazygit)
+    (packageHomeFiles ../stow-home/networkmanager-dmenu)
+    (packageHomeFiles ../stow-home/nix)
+    (packageHomeFiles ../stow-home/pam-gnupg)
+    (packageHomeFiles ../stow-home/pipewire-general)
+    (packageHomeFiles ../stow-home/qalculate)
+    (packageHomeFiles ../stow-home/ripgrep)
+    (packageHomeFiles ../stow-home/rofi)
+    (packageHomeFiles ../stow-home/rofi-pass)
+    (packageHomeFiles ../stow-home/scripts)
+    (packageHomeFiles ../stow-home/rofimoji)
+    (packageHomeFiles ../stow-home/ssh-general)
+    (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
+    (packageHomeFiles ../stow-home/wireplumber)
+    (packageHomeFiles ../stow-home/xdg)
+    (packageHomeFiles ../stow-home/xsettingsd)
+    (lib.mkIf workstation.enable-monerod (packageHomeFiles ../stow-home/monerod))
+  ];
 
   xdg.dataFile = with pkgs;
-    util.recursiveMerge [
+    lib.mkMerge [
       (util.linkFiles "usr/share/" "./" zapret)
       (util.linkFiles "share/" "./" nix-direnv)
       (util.linkFiles "bin/" "v2rayN/bin/xray/" xray)

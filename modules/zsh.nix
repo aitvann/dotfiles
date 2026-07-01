@@ -1,7 +1,7 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 } @ args:
 with lib; let
@@ -57,6 +57,6 @@ in {
       }: (util.linkFiles path "zsh/plugins/" package))
       files';
     in
-      util.recursiveMerge files;
+      lib.mkMerge files;
   };
 }

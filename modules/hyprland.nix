@@ -44,7 +44,7 @@ in {
     xdg.dataFile = let
       files = map (util.linkFiles "lib/" "hypr/plugins/") cfg.plugins;
     in
-      util.recursiveMerge files;
+      lib.mkMerge files;
 
     systemd.user.targets.hyprland-session = lib.mkIf cfg.systemd.enable {
       Unit = {

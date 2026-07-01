@@ -1,7 +1,6 @@
 {
   vimUtils,
   fetchFromGitHub,
-  lib,
 }:
 vimUtils.buildVimPlugin {
   pname = "winresize-nvim";

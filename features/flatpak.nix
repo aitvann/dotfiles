@@ -29,7 +29,7 @@ in {
     ];
   };
 
-  home.file = util.recursiveMerge [
+  home.file = lib.mkMerge [
     (packageHomeFiles ../stow-home/flatpak)
   ];
 }

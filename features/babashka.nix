@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 } @ args: let
   util = import ../lib/util.nix args;
@@ -12,7 +13,7 @@ in {
     # leiningen
   ];
 
-  home.file = util.recursiveMerge [
+  home.file = lib.mkMerge [
     (packageHomeFiles ../stow-home/babashka)
   ];
 }

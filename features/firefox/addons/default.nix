@@ -1,7 +1,7 @@
 {
   pkgs,
-  fetchurl,
   lib,
+  fetchurl,
   stdenv,
 } @ args:
 import ./generated-firefox-addons.nix {

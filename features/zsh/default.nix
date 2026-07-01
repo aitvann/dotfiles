@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 } @ args: let
   util = import ../../lib/util.nix args;
@@ -36,7 +37,7 @@ in {
     eza
   ];
 
-  home.file = util.recursiveMerge [
+  home.file = lib.mkMerge [
     (packageHomeFiles ../../stow-home/sh)
     (packageHomeFiles ../../stow-home/zsh)
     (packageHomeFiles ../../stow-home/atuin)

@@ -1,7 +1,7 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 } @ args:
 with lib; let
@@ -52,6 +52,6 @@ in {
       xdg.configFile = let
         files = map (util.linkFiles "bin/" "nnn/plugins/") cfg.plugins;
       in
-        util.recursiveMerge files;
+        lib.mkMerge files;
     };
 }

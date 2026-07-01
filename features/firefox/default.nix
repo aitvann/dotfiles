@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 } @ args: let
   util = import ../../lib/util.nix args;
@@ -105,11 +106,11 @@ in {
     };
   };
 
-  home.file = util.recursiveMerge [
+  home.file = lib.mkMerge [
     (packageHomeFiles ../../stow-home/firefox)
   ];
 
-  xdg.dataFile = util.recursiveMerge [
+  xdg.dataFile = lib.mkMerge [
     # bookmarks
     (util.linkFiles "configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
     (util.linkFiles "configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)

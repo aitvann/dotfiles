@@ -1,7 +1,7 @@
 {
   inputs,
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 } @ args: let
@@ -209,7 +209,7 @@ in {
 
   services.isponsorblocktv.enable = true;
 
-  environment.etc = util.recursiveMerge [
+  environment.etc = lib.mkMerge [
     (packageSystemFiles ../../stow-system/nginx-jupiter)
     (packageSystemFiles ../../stow-system/cert-jupiter)
     (packageSystemFiles ../../stow-system/isponsorblocktv)

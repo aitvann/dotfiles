@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 } @ args: let
   util = import ../lib/util.nix args;
@@ -37,7 +38,7 @@ in {
     app2unit
   ];
 
-  home.file = util.recursiveMerge [
+  home.file = lib.mkMerge [
     (packageHomeFiles ../stow-home/wayland)
   ];
 }
