@@ -267,6 +267,6 @@ vim.api.nvim_create_autocmd("VimResized", {
     command = "wincmd ="
 })
 
-misc.setup_auto_root()
+misc.setup_auto_root({ '.git', 'Makefile', 'flake.nix' })
 misc.setup_termbg_sync()
 misc.setup_restore_cursor()

@@ -27,7 +27,7 @@
           cargo-show-asm
 
           # Editor tools
-          taplo
+          tombi
         ];
 
         cargoToml = builtins.fromTOML (builtins.readFile ./Cargo.toml);
