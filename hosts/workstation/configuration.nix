@@ -22,7 +22,6 @@ in {
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   # better be the same to the one defined on home-level
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nixpkgs.overlays = [(import ../../packages)];
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "steam"

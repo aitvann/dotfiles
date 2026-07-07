@@ -10,7 +10,6 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
-    (import ../packages)
     inputs.nur.overlays.default
     (final: prev: {
       nix-alien = inputs.nix-alien.packages.${prev.stdenv.hostPlatform.system}.default;
@@ -193,8 +192,6 @@ in {
     imagemagick
     restic
     graphviz
-    spl-token-cli
-    solores
     btrfs-assistant
     btrfs-list
     zapret
