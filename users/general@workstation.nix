@@ -163,8 +163,7 @@ in {
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
     v2rayn
-    # TODO: enable when compiles
-    # comaps
+    comaps
 
     # cli apps
     stow
