@@ -9,6 +9,7 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   imports = [
+    ../terminal.nix
     ../editor-tools.nix
     ../git.nix
   ];

@@ -56,6 +56,7 @@ in {
     ../features/neovim
     ../features/helix.nix
     ../features/zsh
+    ../features/terminal.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
@@ -118,7 +119,6 @@ in {
     networkmanagerapplet
     nerd-fonts.jetbrains-mono
     wl-clipboard
-    kitty
     slurp
     grim
     tesseract
@@ -130,7 +130,6 @@ in {
     oculante
     pinentry-gnome3
     seahorse
-    xdg-terminal-exec
     # open dialogs (Minecraft load book from file)
     adwaita-qt6
     zenity
@@ -223,7 +222,6 @@ in {
     (packageHomeFiles ../stow-home/pypr)
     (packageHomeFiles ../stow-home/hypr)
     (packageHomeFiles ../stow-home/icons)
-    (packageHomeFiles ../stow-home/kitty)
     (packageHomeFiles ../stow-home/networkmanager-dmenu)
     (packageHomeFiles ../stow-home/nix)
     (packageHomeFiles ../stow-home/pam-gnupg)
