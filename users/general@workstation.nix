@@ -171,11 +171,7 @@ in {
     # infinite recursion in overlay
     (pass.withExtensions (exts: with exts; [pass-otp]))
     docker-compose
-    git
-    git-crypt
-    lazygit
     direnv
-    delta
     ripgrep
     fd
     socat
@@ -221,7 +217,6 @@ in {
     (packageHomeFiles ../stow-home/element)
     # breaks styling
     # (packageHomeFiles ../stow-home/eww)
-    (packageHomeFiles ../stow-home/git-general)
     (packageHomeFiles ../stow-home/gtk-2.0-general)
     (packageHomeFiles ../stow-home/gtk-3.0)
     (packageHomeFiles ../stow-home/gtk-4.0)
@@ -229,7 +224,6 @@ in {
     (packageHomeFiles ../stow-home/hypr)
     (packageHomeFiles ../stow-home/icons)
     (packageHomeFiles ../stow-home/kitty)
-    (packageHomeFiles ../stow-home/lazygit)
     (packageHomeFiles ../stow-home/networkmanager-dmenu)
     (packageHomeFiles ../stow-home/nix)
     (packageHomeFiles ../stow-home/pam-gnupg)

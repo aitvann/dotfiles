@@ -10,6 +10,7 @@
 in {
   imports = [
     ../editor-tools.nix
+    ../git.nix
   ];
 
   nixpkgs.overlays = [

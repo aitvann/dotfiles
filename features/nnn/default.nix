@@ -9,13 +9,14 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   imports = let
-    preview-tui-deps = [../../features/bat.nix];
+    preview-tui-deps = [../bat.nix];
+    gitroot-deps = [../git.nix];
   in
     [
       ../../modules/unfree.nix
       ../../modules/nnn.nix
     ]
-    ++ preview-tui-deps;
+    ++ preview-tui-deps ++ gitroot-deps;
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -64,11 +65,10 @@ in {
 
       dragdrop-deps = with pkgs; [dragon-drop];
       fzcd-deps = with pkgs; [fzf findutils];
-      gitroot-deps = with pkgs; [git];
       xdgdefault-deps = with pkgs; [xdg-utils fzf];
       fzopen-deps = with pkgs; [findutils fzf xdg-utils];
     in
-      base-deps ++ dragdrop-deps ++ fzcd-deps ++ gitroot-deps ++ xdgdefault-deps ++ fzopen-deps;
+      base-deps ++ dragdrop-deps ++ fzcd-deps ++ xdgdefault-deps ++ fzopen-deps;
     plugins = with pkgs.nnnPlugins; [
       helper
       # preview-tui
