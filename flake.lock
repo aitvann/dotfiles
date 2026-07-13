@@ -838,8 +838,7 @@
         "nix-alien": "nix-alien",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-graalvm21": "nixpkgs-graalvm21",
-        "nur": "nur",
-        "zapret-discord-youtube": "zapret-discord-youtube"
+        "nur": "nur"
       }
     },
     "rust-overlay": {
@@ -970,43 +969,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "type": "github"
-      }
-    },
-    "zapret-discord-youtube": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "zapret-flowseal": "zapret-flowseal"
-      },
-      "locked": {
-        "lastModified": 1782499723,
-        "narHash": "sha256-Q9w9hxzimX0O0wqQTfMJk/tEIvRtYI7GclLHSQAatKY=",
-        "owner": "kartavkun",
-        "repo": "zapret-discord-youtube",
-        "rev": "0951ba541a3523b298c0e787ceec43883191cd58",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kartavkun",
-        "repo": "zapret-discord-youtube",
-        "type": "github"
-      }
-    },
-    "zapret-flowseal": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782227480,
-        "narHash": "sha256-OJ14gttWLGVkwG4XR5LZdK2UOxMhIjwdrGo7x8YSiNE=",
-        "owner": "Flowseal",
-        "repo": "zapret-discord-youtube",
-        "rev": "d3aabff5d86b9be1cfbcb5b78a7a5b8354a2badb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Flowseal",
-        "repo": "zapret-discord-youtube",
         "type": "github"
       }
     }

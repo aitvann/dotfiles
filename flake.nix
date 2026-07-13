@@ -17,9 +17,6 @@
 
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
 
-    zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
-    zapret-discord-youtube.inputs.nixpkgs.follows = "nixpkgs";
-
     current-location.url = "github:aitvann/current-location";
     current-location.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -43,7 +40,6 @@
     home-manager,
     deploy-rs,
     disko,
-    zapret-discord-youtube,
     ...
   } @ inputs: let
     system = "x86_64-linux";
