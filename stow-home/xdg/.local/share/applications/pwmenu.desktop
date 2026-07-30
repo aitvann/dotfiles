@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type = Application
+Name = PwMenu
+Icon = ~/.local/share/icons/Pop/256x256/devices/audio-card.svg
+Exec = pwmenu --launcher rofi --icon xdg
+Terminal = false
+GenericName = System Control
+Categories = System

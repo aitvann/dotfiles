@@ -75,10 +75,10 @@
   (while true
     (println (get-info (args-to-kind m)))
     (Thread/sleep interval-ms)))
-(defn select-sink-cmd [_m] (start-process "pw-util" "select-sink"))
-(defn select-source-cmd [_m] (start-process "pw-util" "select-source"))
-(defn select-sink-profile-cmd [_m] (start-process "pw-util" "select-sink-profile"))
-(defn select-source-profile-cmd [_m] (start-process "pw-util" "select-source-profile"))
+(defn select-sink-cmd [_m] (start-process "pwmenu" "--launcher" "rofi" "--icon" "xdg" "--menu" "output-devices"))
+(defn select-source-cmd [_m] (start-process "pwmenu" "--launcher" "rofi" "--icon" "xdg" "--menu" "input-devices"))
+(defn select-sink-profile-cmd [_m] (start-process "pwmenu" "--launcher" "rofi" "--icon" "xdg" "--menu" "output-streams"))
+(defn select-source-profile-cmd [_m] (start-process "pwmenu" "--launcher" "rofi" "--icon" "xdg" "--menu" "input-streams"))
 
 (def table [{:cmds ["get"]                   :fn get-cmd}
             {:cmds ["listen"]                :fn listen-cmd}

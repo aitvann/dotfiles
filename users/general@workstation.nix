@@ -133,6 +133,8 @@ in {
     # open dialogs (Minecraft load book from file)
     adwaita-qt6
     zenity
+    # TODO: move .desktop file to `desktop` module
+    pwmenu
 
     # gui apps
     nwg-look
