@@ -9,11 +9,11 @@ in {
   imports = [
     ./babashka.nix
     ./current-location.nix
-    ./nnn
+    ./git.nix
     ./terminal.nix
   ];
 
   home.file = lib.mkMerge [
-    (packageHomeFiles ../stow-home/file-manager)
+    (packageHomeFiles ../stow-home/git-ui)
   ];
 }

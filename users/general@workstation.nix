@@ -57,6 +57,7 @@ in {
     ../features/helix.nix
     ../features/zsh
     ../features/terminal.nix
+    ../features/git-ui.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [
