@@ -8,7 +8,8 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   imports = [
-    ./btop.nix
+    ./ssh.nix
+    ./gnupg.nix
   ];
 
   home.packages = with pkgs; [

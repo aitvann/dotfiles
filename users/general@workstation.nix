@@ -183,7 +183,6 @@ in {
     syncplay
     trash-cli
     srm
-    sshfs
     bc
     imagemagick
     restic
@@ -234,7 +233,6 @@ in {
     (packageHomeFiles ../stow-home/rofi-pass)
     (packageHomeFiles ../stow-home/scripts)
     (packageHomeFiles ../stow-home/rofimoji)
-    (packageHomeFiles ../stow-home/ssh-general)
     (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
     (packageHomeFiles ../stow-home/wireplumber)
     (packageHomeFiles ../stow-home/xdg)

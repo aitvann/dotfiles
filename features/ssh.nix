@@ -13,9 +13,10 @@ in {
 
   home.packages = with pkgs; [
     openssh
+    sshfs
   ];
 
   home.file = lib.mkMerge [
-    (packageHomeFiles ../stow-home/ssh-general)
+    (packageHomeFiles ../stow-home/ssh-${config.home.username})
   ];
 }
