@@ -22,6 +22,8 @@ in {
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   # better be the same to the one defined on home-level
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  # TODO: move to features/gaming.nix
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "steam"
@@ -61,6 +63,7 @@ in {
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = "Europe/Moscow";
 
+  # TODO: move to features/desktop.nix
   # required for Home Manager to configure system settings
   programs.hyprland = {
     enable = true;
@@ -132,12 +135,14 @@ in {
     configs.dymmy.SUBVOLUME = "/";
   };
 
+  # TODO: move to features/zsh
   # required
   programs.zsh = {
     enable = true;
     enableCompletion = false;
   };
 
+  # TODO: move to features/llm.nix
   # GPU is not utilized when running as user service
   services.ollama = {
     enable = workstation.enable-llm;
@@ -150,6 +155,7 @@ in {
   # NOTE: requires user in wireshark group
   programs.wireshark.enable = true;
 
+  # TODO: move to features/gaming.nix
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -162,6 +168,7 @@ in {
   users.groups.libvirtd.members = ["general"];
   networking.firewall.trustedInterfaces = ["virbr0"];
 
+  # TODO: move to features/obs.nix
   # Video Input devices support (v4l2)
   programs.obs-studio.enable = true;
   programs.obs-studio.package = null; # Install using Home Manger instead if needed
@@ -192,6 +199,7 @@ in {
 
   environment.etc = lib.mkMerge [
     {
+      # TODO: move to features/gnupg.nix
       # TODO: figure out how to add package to PATH the proper way
       "gnupg/gpg-agent.conf".text = ''
         pinentry-program ${lib.getExe pkgs.pinentry-gnome3}
@@ -219,7 +227,9 @@ in {
 
   security.pki.certificates = [(builtins.readFile ../../stow-system/cert-jupiter/cert/cert.pem)];
 
+  # TODO: move to features/flatpak.nix
   services.flatpak.enable = true;
+
   services.adguardhome.enable = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 

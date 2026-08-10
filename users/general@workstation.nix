@@ -63,11 +63,14 @@ in {
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix]);
 
   nixpkgs.allowedUnfreePackages = [
+    # TODO: move to features/gaming.nix
     "steam"
     "steam-run"
     "steam-original"
     "steam-runtime"
     "steam-unwrapped"
+
+    # TODO: move to features/llm.nix
     "open-webui"
   ];
 
