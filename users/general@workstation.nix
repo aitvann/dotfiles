@@ -32,33 +32,35 @@ in {
     })
   ];
 
-  imports = [
-    # custom modules
-    ../modules/open-webui.nix
-    ../modules/unfree.nix
+  imports =
+    [
+      # custom modules
+      ../modules/open-webui.nix
+      ../modules/unfree.nix
 
-    # overrides
-    ../modules/hyprland.nix
+      # overrides
+      ../modules/hyprland.nix
 
-    # features
-    ../features/file-manager.nix
-    ../features/flatpak.nix
-    ../features/showmethekey.nix
-    ../features/minecraft.nix
-    ../features/music-library.nix
-    ../features/gnupg.nix
-    ../features/ssh.nix
-    ../features/wayland.nix
-    ../features/gramps.nix
-    ../features/chromium.nix
-    ../features/firefox
-    ../features/btop.nix
-    ../features/neovim
-    ../features/helix.nix
-    ../features/zsh
-    ../features/terminal.nix
-    ../features/git-ui.nix
-  ];
+      # features
+      ../features/file-manager.nix
+      ../features/flatpak.nix
+      ../features/showmethekey.nix
+      ../features/minecraft.nix
+      ../features/music-library.nix
+      ../features/gnupg.nix
+      ../features/ssh.nix
+      ../features/wayland.nix
+      ../features/gramps.nix
+      ../features/chromium.nix
+      ../features/firefox
+      ../features/btop.nix
+      ../features/neovim
+      ../features/helix.nix
+      ../features/zsh
+      ../features/terminal.nix
+      ../features/git-ui.nix
+    ]
+    ++ (lib.optionals workstation.enable-monerod [../features/monero.nix]);
 
   nixpkgs.allowedUnfreePackages = [
     "steam"
@@ -150,8 +152,6 @@ in {
     audacity
     qbittorrent
     tor-browser
-    monero-gui
-    monero-cli
     mpv
     vlc
     dbeaver-bin
@@ -238,7 +238,6 @@ in {
     (packageHomeFiles ../stow-home/wireplumber)
     (packageHomeFiles ../stow-home/xdg)
     (packageHomeFiles ../stow-home/xsettingsd)
-    (lib.mkIf workstation.enable-monerod (packageHomeFiles ../stow-home/monerod))
   ];
 
   xdg.dataFile = with pkgs;
