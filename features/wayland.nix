@@ -34,8 +34,11 @@ in {
     })
   ];
 
+  services.wl-clip-persist.enable = true;
+
   home.packages = with pkgs; [
     app2unit
+    wl-clipboard
   ];
 
   home.file = lib.mkMerge [

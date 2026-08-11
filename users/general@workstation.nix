@@ -85,7 +85,6 @@ in {
   # use stow package instead
   xdg.configFile."dunst/dunstrc".enable = false;
   services.awww.enable = true;
-  services.wl-clip-persist.enable = true;
   services.xsettingsd.enable = true;
   qt.enable = true;
 
@@ -107,7 +106,6 @@ in {
     networkmanager_dmenu
     networkmanagerapplet
     nerd-fonts.jetbrains-mono
-    wl-clipboard
     slurp
     grim
     tesseract
