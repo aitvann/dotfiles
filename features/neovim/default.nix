@@ -10,13 +10,14 @@
 in {
   imports = let
     fzf-lua-deps = [../bat.nix];
+    nnn-nvim-deps = [../nnn ../tmux.nix];
   in
     [
       ../terminal.nix
       ../editor-tools.nix
       ../git.nix
     ]
-    ++ fzf-lua-deps;
+    ++ fzf-lua-deps ++ nnn-nvim-deps;
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -27,6 +28,7 @@ in {
           tiny-cmdline-nvim = final.callPackage ./plugins/tiny-cmdline-nvim.nix {};
           fzf-lua-frecency = final.callPackage ./plugins/fzf-lua-frecency.nix {};
           winresize-nvim = final.callPackage ./plugins/winresize-nvim.nix {};
+          nnn-nvim = final.callPackage ./plugins/nnn-nvim.nix {};
         };
     })
   ];
@@ -88,6 +90,8 @@ in {
       winresize-nvim
       # Lazygit inside the editor
       lazygit-nvim
+      # NNN inside the editor
+      nnn-nvim
 
       # --------------------------------------------------------------------------------
       # Interface
