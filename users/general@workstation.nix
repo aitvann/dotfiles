@@ -59,20 +59,10 @@ in {
       ../features/zsh
       ../features/terminal.nix
       ../features/git-ui.nix
+      ../features/llm.nix
     ]
-    ++ (lib.optionals workstation.enable-monerod [../features/monero.nix]);
-
-  nixpkgs.allowedUnfreePackages = [
-    # TODO: move to features/gaming.nix
-    "steam"
-    "steam-run"
-    "steam-original"
-    "steam-runtime"
-    "steam-unwrapped"
-
-    # TODO: move to features/llm.nix
-    "open-webui"
-  ];
+    ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
+    ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
 
   home.username = "general";
   home.homeDirectory = "/home/${config.home.username}";
@@ -81,13 +71,6 @@ in {
   services.syncthing.enable = true;
   # services.syncthing.allProxy = "socks5://localhost:10808";
   systemd.user.services.syncthing.Service.Environment = ["all_proxy=socks5://localhost:10808"];
-  services.open-webui = {
-    enable = workstation.enable-llm;
-    host = "0.0.0.0";
-    port = 2402;
-    stateDir = "${config.xdg.dataHome}/open-webui";
-  };
-
   programs.hyprland = {
     enable = true;
     systemd.enable = false;
