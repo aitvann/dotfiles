@@ -60,6 +60,7 @@ in {
       ../features/terminal.nix
       ../features/git-ui.nix
       ../features/llm.nix
+      ../features/syncthing.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -68,9 +69,6 @@ in {
   home.homeDirectory = "/home/${config.home.username}";
 
   services.udiskie.enable = true;
-  services.syncthing.enable = true;
-  # services.syncthing.allProxy = "socks5://localhost:10808";
-  systemd.user.services.syncthing.Service.Environment = ["all_proxy=socks5://localhost:10808"];
   programs.hyprland = {
     enable = true;
     systemd.enable = false;
@@ -215,7 +213,6 @@ in {
     (packageHomeFiles ../stow-home/rofi-pass)
     (packageHomeFiles ../stow-home/scripts)
     (packageHomeFiles ../stow-home/rofimoji)
-    (packageHomeFiles ../stow-home/syncthing-${workstation.host}-general)
     (packageHomeFiles ../stow-home/wireplumber)
     (packageHomeFiles ../stow-home/xdg)
     (packageHomeFiles ../stow-home/xsettingsd)
