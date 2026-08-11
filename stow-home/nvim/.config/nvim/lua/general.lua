@@ -51,13 +51,6 @@ vim.opt.fillchars = {
     foldsep = require('symbols').get('foldinner'),
 }
 
-vim.filetype.add({
-    pattern = {
-        [".*/hyprland%.conf"] = "hyprlang",
-        [".*/binds%.conf"] = "hyprlang",
-    },
-})
-
 require('vim._core.ui2').enable({
     enable = true,
 

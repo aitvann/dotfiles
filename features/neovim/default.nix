@@ -8,11 +8,15 @@
   util = import ../../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
-  imports = [
-    ../terminal.nix
-    ../editor-tools.nix
-    ../git.nix
-  ];
+  imports = let
+    fzf-lua-deps = [../bat.nix];
+  in
+    [
+      ../terminal.nix
+      ../editor-tools.nix
+      ../git.nix
+    ]
+    ++ fzf-lua-deps;
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -40,6 +44,13 @@ in {
     withPython3 = false;
     # Keep config intact (using Stow instead)
     initLua = lib.mkForce "";
+
+    extraPackages = let
+      treesitter-deps = with pkgs; [gnutar];
+      fzf-lua-deps = with pkgs; [ripgrep fd git delta];
+      snaks-image-deps = with pkgs; [imagemagick];
+    in
+      treesitter-deps ++ fzf-lua-deps ++ snaks-image-deps;
 
     plugins = with pkgs.vimPlugins; [
       # --------------------------------------------------------------------------------

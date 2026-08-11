@@ -160,8 +160,6 @@ in {
     (pass.withExtensions (exts: with exts; [pass-otp]))
     docker-compose
     direnv
-    ripgrep
-    fd
     socat
     jq
     gojq
@@ -171,7 +169,6 @@ in {
     trash-cli
     srm
     bc
-    imagemagick
     restic
     graphviz
     btrfs-assistant
