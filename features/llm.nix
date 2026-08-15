@@ -1,6 +1,9 @@
 {config, ...}: {
   imports = [
     ../modules/unfree.nix
+
+    # Override
+    ../modules/open-webui.nix
   ];
 
   nixpkgs.allowedUnfreePackages = [

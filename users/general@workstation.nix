@@ -32,10 +32,6 @@ in {
 
   imports =
     [
-      # custom modules
-      ../modules/open-webui.nix
-      ../modules/unfree.nix
-
       # overrides
       ../modules/hyprland.nix
 
@@ -57,7 +53,6 @@ in {
       ../features/zsh
       ../features/terminal.nix
       ../features/git-ui.nix
-      ../features/llm.nix
       ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
