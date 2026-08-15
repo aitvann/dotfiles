@@ -190,9 +190,7 @@ in {
     (packageHomeFiles ../stow-home/element)
     # breaks styling
     # (packageHomeFiles ../stow-home/eww)
-    (packageHomeFiles ../stow-home/gtk-2.0-general)
-    (packageHomeFiles ../stow-home/gtk-3.0)
-    (packageHomeFiles ../stow-home/gtk-4.0)
+    (packageHomeFiles ../stow-home/gtk-${config.home.username})
     (packageHomeFiles ../stow-home/pypr)
     (packageHomeFiles ../stow-home/hypr)
     (packageHomeFiles ../stow-home/icons)

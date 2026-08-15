@@ -56,8 +56,9 @@
   "gtk" (do
           (cp-home "icons" ".local/share/icons/default/index.theme")
           (cp-home "xsettingsd" ".config/xsettingsd/xsettingsd.conf")
-          (cp-home "gtk-2.0" ".config/gtk-2.0/gtkrc")
-          (cp-home "gtk-3.0" ".config/gtk-3.0/settings.ini")
-          (cp-home "gtk-4.0" ".config/gtk-4.0/settings.ini"))
-  "adguardhome" (cp-service "adguardhome" "AdGuardHome/AdGuardHome.yaml")
-  (println "Package is not recognized"))
+          (cp-home "gtk"
+                   ".config/gtk-2.0/gtkrc"
+                   ".config/gtk-3.0/settings.ini"
+                   ".config/gtk-4.0/settings.ini")))
+"adguardhome" (cp-service "adguardhome" "AdGuardHome/AdGuardHome.yaml")
+(println "Package is not recognized")
