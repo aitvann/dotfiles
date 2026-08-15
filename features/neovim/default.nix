@@ -171,7 +171,11 @@ in {
     ];
   };
 
-  home.file = lib.mkMerge [
-    (packageHomeFiles ../../stow-home/nvim)
-  ];
+  home.file = let
+    fzf-lua-deps = [(packageHomeFiles ../../stow-home/ripgrep)];
+  in
+    lib.mkMerge ([
+      (packageHomeFiles ../../stow-home/nvim)
+    ]
+    ++ fzf-lua-deps);
 }

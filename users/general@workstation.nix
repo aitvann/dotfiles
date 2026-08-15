@@ -165,7 +165,6 @@ in {
     (packageHomeFiles ../stow-home/networkmanager-dmenu)
     (packageHomeFiles ../stow-home/pipewire-general)
     (packageHomeFiles ../stow-home/qalculate)
-    (packageHomeFiles ../stow-home/ripgrep)
     (packageHomeFiles ../stow-home/rofi)
     (packageHomeFiles ../stow-home/rofi-pass)
     (packageHomeFiles ../stow-home/scripts)
