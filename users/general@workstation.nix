@@ -159,6 +159,7 @@ in {
     (packageHomeFiles ../stow-home/icons)
     (packageHomeFiles ../stow-home/networkmanager-dmenu)
     (packageHomeFiles ../stow-home/pipewire-general)
+    (packageHomeFiles ../stow-home/pulse)
     (packageHomeFiles ../stow-home/qalculate)
     (packageHomeFiles ../stow-home/rofi)
     (packageHomeFiles ../stow-home/rofi-pass)
