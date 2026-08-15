@@ -153,6 +153,7 @@ in {
     };
   };
 
+  # TODO: move to features/dev.nix
   # NOTE: requires user in wireshark group
   programs.wireshark.enable = true;
 
@@ -187,6 +188,7 @@ in {
     };
   };
 
+  # TODO: move to features/dev.nix
   virtualisation.docker = {
     enable = true;
     storageDriver = "overlay2";

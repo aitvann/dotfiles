@@ -62,7 +62,7 @@ in {
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
       ../features/maintenance.nix
-      ../features/direnv.nix
+      ../features/dev.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -91,6 +91,8 @@ in {
   home.packages = with pkgs; [
     # desktop environment
     eww
+    socat
+    gojq
     bluetui
     rofi
     rofi-pass-wayland
@@ -114,9 +116,9 @@ in {
     zenity
     # TODO: move .desktop file to `desktop` module
     pwmenu
+    nwg-look
 
     # gui apps
-    nwg-look
     # libsForQt5.qt5ct
     # kdePackages.qt6ct
     kdePackages.kdenlive
@@ -129,16 +131,11 @@ in {
     tor-browser
     mpv
     vlc
-    dbeaver-bin
     # intalls the whole suite
     # https://www.reddit.com/r/NixOS/comments/15k5tak/comment/jv44h04
     libreoffice-qt
     tagger
     tigervnc
-    tcpdump
-    dig
-    # NOTE: requires to enable `programs.wireshark` for system configuration
-    wireshark
     comaps
 
     # cli apps
@@ -146,12 +143,6 @@ in {
     fastfetch
     # infinite recursion in overlay
     (pass.withExtensions (exts: with exts; [pass-otp]))
-    docker-compose
-    socat
-    jq
-    gojq
-    grpcui
-    grpcurl
     syncplay
     trash-cli
     srm
@@ -159,19 +150,10 @@ in {
     restic
     btrfs-assistant
     btrfs-list
-
-    # db
-    sqlite-interactive
-    clickhouse
-    postgresql_14
-
-    # rust
-    cargo
   ];
 
   home.file = lib.mkMerge [
     # stow packages
-    (packageHomeFiles ../stow-home/cargo)
     (packageHomeFiles ../stow-home/dunst)
     (packageHomeFiles ../stow-home/element)
     # breaks styling
