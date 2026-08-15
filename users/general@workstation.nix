@@ -62,6 +62,7 @@ in {
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
       ../features/maintenance.nix
+      ../features/direnv.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -146,7 +147,6 @@ in {
     # infinite recursion in overlay
     (pass.withExtensions (exts: with exts; [pass-otp]))
     docker-compose
-    direnv
     socat
     jq
     gojq
@@ -172,7 +172,6 @@ in {
   home.file = lib.mkMerge [
     # stow packages
     (packageHomeFiles ../stow-home/cargo)
-    (packageHomeFiles ../stow-home/direnv)
     (packageHomeFiles ../stow-home/dunst)
     (packageHomeFiles ../stow-home/element)
     # breaks styling
@@ -196,8 +195,6 @@ in {
 
   xdg.dataFile = with pkgs;
     lib.mkMerge [
-      (util.linkFiles "share/" "./" nix-direnv)
-
       # icone themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)
       (util.linkFiles "share/icons/Pop" "icons/Pop" pop-icon-theme)

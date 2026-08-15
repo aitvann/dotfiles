@@ -8,6 +8,10 @@
   util = import ../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
+  imports = [
+    ./direnv.nix
+  ];
+
   nixpkgs.overlays = [
     inputs.nur.overlays.default
 
