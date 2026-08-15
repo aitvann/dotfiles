@@ -61,6 +61,7 @@ in {
       ../features/git-ui.nix
       ../features/llm.nix
       ../features/syncthing.nix
+      ../features/obs-studio.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -85,14 +86,6 @@ in {
   services.awww.enable = true;
   services.xsettingsd.enable = true;
   qt.enable = true;
-
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      # Does not work with Wayland
-      # droidcam-obs
-    ];
-  };
 
   home.packages = with pkgs; [
     # desktop environment

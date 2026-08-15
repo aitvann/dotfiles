@@ -163,6 +163,7 @@ in {
   };
 
   # Virtualisation
+  # TODO: move to features/virtualization.nix
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
   users.groups.libvirtd.members = ["general"];
