@@ -62,6 +62,7 @@ in {
       ../features/llm.nix
       ../features/syncthing.nix
       ../features/obs-studio.nix
+      ../features/bypass-restrictions.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -139,7 +140,6 @@ in {
     dig
     # NOTE: requires to enable `programs.wireshark` for system configuration
     wireshark
-    v2rayn
     comaps
 
     # cli apps
@@ -162,7 +162,6 @@ in {
     graphviz
     btrfs-assistant
     btrfs-list
-    zapret
 
     # db
     sqlite-interactive
@@ -210,10 +209,7 @@ in {
 
   xdg.dataFile = with pkgs;
     lib.mkMerge [
-      (util.linkFiles "usr/share/" "./" zapret)
       (util.linkFiles "share/" "./" nix-direnv)
-      (util.linkFiles "bin/" "v2rayN/bin/xray/" xray)
-      (util.linkFiles "bin/" "v2rayN/bin/sing_box/" sing-box)
 
       # icone themes
       (util.linkFiles "share/icons/Tela" "icons/Tela" tela-icon-theme)

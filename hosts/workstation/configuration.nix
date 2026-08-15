@@ -234,6 +234,7 @@ in {
   services.adguardhome.enable = true;
   systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
+  # TODO: move to features/bypass-restrictions.nix
   # Verify working: youtube.com discord.com rutracker.org
   # Won't work since banned by ip: x.com instagram.com proton.me
   #
