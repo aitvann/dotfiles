@@ -36,7 +36,9 @@ in {
       ../modules/hyprland.nix
 
       # features
+      ../features/terminal.nix
       ../features/file-manager.nix
+      ../features/git-ui.nix
       ../features/flatpak.nix
       ../features/showmethekey.nix
       ../features/minecraft.nix
@@ -51,8 +53,6 @@ in {
       ../features/neovim
       ../features/helix.nix
       ../features/zsh
-      ../features/terminal.nix
-      ../features/git-ui.nix
       ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix

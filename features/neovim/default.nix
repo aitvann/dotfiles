@@ -13,7 +13,7 @@ in {
     nnn-nvim-deps = [../nnn ../tmux.nix];
   in
     [
-      ../terminal.nix
+      ../term.nix
       ../editor-tools.nix
       ../git.nix
     ]

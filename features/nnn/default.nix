@@ -13,7 +13,7 @@ in {
     gitroot-deps = [../git.nix];
   in
     [
-      ../terminal.nix
+      ../term.nix
       ../../modules/unfree.nix
       ../../modules/nnn.nix
     ]

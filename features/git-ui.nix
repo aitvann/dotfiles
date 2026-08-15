@@ -10,7 +10,7 @@ in {
     ./babashka.nix
     ./current-location.nix
     ./git.nix
-    ./terminal.nix
+    ./term.nix
   ];
 
   home.file = lib.mkMerge [
