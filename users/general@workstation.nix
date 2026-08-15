@@ -196,7 +196,6 @@ in {
     (packageHomeFiles ../stow-home/icons)
     (packageHomeFiles ../stow-home/networkmanager-dmenu)
     (packageHomeFiles ../stow-home/nix)
-    (packageHomeFiles ../stow-home/pam-gnupg)
     (packageHomeFiles ../stow-home/pipewire-general)
     (packageHomeFiles ../stow-home/qalculate)
     (packageHomeFiles ../stow-home/ripgrep)

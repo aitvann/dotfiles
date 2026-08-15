@@ -29,5 +29,6 @@ in {
     }
 
     (packageHomeFiles ../stow-home/gnupg)
+    (packageHomeFiles ../stow-home/pam-gnupg)
   ];
 }
