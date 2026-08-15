@@ -13,7 +13,6 @@ in {
 
   home.packages = with pkgs; [
     # Db
-    sqlite-interactive
     clickhouse
     postgresql_14
 

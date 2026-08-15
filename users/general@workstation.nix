@@ -63,6 +63,7 @@ in {
       ../features/bypass-restrictions.nix
       ../features/maintenance.nix
       ../features/dev.nix
+      ../features/backups.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -147,7 +148,6 @@ in {
     trash-cli
     srm
     bc
-    restic
     btrfs-assistant
     btrfs-list
   ];
