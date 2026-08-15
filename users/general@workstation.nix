@@ -124,7 +124,6 @@ in {
     telegram-desktop
     element-desktop
     session-desktop
-    hexchat
     audacity
     qbittorrent
     tor-browser

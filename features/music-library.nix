@@ -37,5 +37,7 @@ in {
     beets
     rmpc
     cava
+
+    hexchat
   ];
 }
