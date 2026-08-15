@@ -17,6 +17,7 @@ in {
     ../../modules/greetd.nix
   ];
 
+  # TODO: move to features/nix.nix
   # used by `nixd`
   # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];

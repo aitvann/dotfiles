@@ -10,9 +10,7 @@
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
   nixpkgs.overlays = [
-    inputs.nur.overlays.default
     (final: prev: {
-      nix-alien = inputs.nix-alien.packages.${prev.stdenv.hostPlatform.system}.default;
       rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
       hyprlandPlugins =
         prev.hyprlandPlugins
@@ -63,6 +61,7 @@ in {
       ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
+      ../features/maintenance.nix
     ]
     ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
     ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
@@ -158,7 +157,6 @@ in {
     srm
     bc
     restic
-    graphviz
     btrfs-assistant
     btrfs-list
 
@@ -166,15 +164,6 @@ in {
     sqlite-interactive
     clickhouse
     postgresql_14
-
-    # nix
-    home-manager
-    comma
-    nix-index
-    nix-alien
-    nix-du
-    deploy-rs
-    nh
 
     # rust
     cargo
@@ -193,7 +182,6 @@ in {
     (packageHomeFiles ../stow-home/hypr)
     (packageHomeFiles ../stow-home/icons)
     (packageHomeFiles ../stow-home/networkmanager-dmenu)
-    (packageHomeFiles ../stow-home/nix)
     (packageHomeFiles ../stow-home/pipewire-general)
     (packageHomeFiles ../stow-home/qalculate)
     (packageHomeFiles ../stow-home/ripgrep)
