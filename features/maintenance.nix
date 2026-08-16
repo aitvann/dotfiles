@@ -21,6 +21,8 @@ in {
   ];
 
   home.packages = with pkgs; [
+    stow
+
     home-manager
     comma
     nix-index
@@ -30,6 +32,8 @@ in {
     nh
 
     graphviz
+
+    tigervnc
   ];
 
   home.file = lib.mkMerge [

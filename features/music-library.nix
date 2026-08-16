@@ -35,6 +35,7 @@ in {
 
   home.packages = with pkgs; [
     beets
+    tagger
     rmpc
     cava
 
