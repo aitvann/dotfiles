@@ -11,13 +11,14 @@ in {
   imports = let
     preview-tui-deps = [../bat.nix];
     gitroot-deps = [../git.nix];
+    clipboard-plugin-deps = [../babashka.nix];
   in
     [
       ../term.nix
       ../../modules/unfree.nix
       ../../modules/nnn.nix
     ]
-    ++ preview-tui-deps ++ gitroot-deps;
+    ++ preview-tui-deps ++ gitroot-deps ++ clipboard-plugin-deps;
 
   nixpkgs.overlays = [
     (final: prev: {
