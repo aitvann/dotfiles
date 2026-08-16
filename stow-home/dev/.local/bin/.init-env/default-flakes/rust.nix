@@ -85,9 +85,15 @@
         devShells.stable-latest = mkDevShell pkgs.rust-bin.stable.latest.default;
         devShells.msrv = mkDevShell pkgs.rust-bin.stable.${msrv}.default;
         devShells.pinned = mkDevShell pinnedToolchain;
+        devShells.auto =
+          if builtins.pathExists toolchainFilePath
+          then self'.devShells.pinned
+          else if cargoToml.package ? rust-version
+          then self'.devShells.msrv
+          else self'.devShells.stable-latest;
 
         packages.default = self'.packages."${cargoToml.package.name}";
-        devShells.default = self'.devShells.pinned;
+        devShells.default = self'.devShells.auto;
       };
     };
 }
