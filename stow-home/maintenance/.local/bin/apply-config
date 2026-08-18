@@ -59,6 +59,6 @@
           (cp-home "gtk"
                    ".config/gtk-2.0/gtkrc"
                    ".config/gtk-3.0/settings.ini"
-                   ".config/gtk-4.0/settings.ini")))
-"adguardhome" (cp-service "adguardhome" "AdGuardHome/AdGuardHome.yaml")
-(println "Package is not recognized")
+                   ".config/gtk-4.0/settings.ini"))
+  "adguardhome" (cp-service "adguardhome" "AdGuardHome/AdGuardHome.yaml")
+  (println "Package is not recognized"))
