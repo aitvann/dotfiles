@@ -11,7 +11,7 @@
         }
       );
 
-      bgutil-ytdlp-pot-provider = final.callPackage ./bgutil-ytdlp-pot-provider.nix {};
+      bgutil-ytdlp-pot-provider = final.callPackage ./bgutil-ytdlp-pot-provider.pkg.nix {};
     })
   ];
 

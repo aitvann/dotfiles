@@ -14,6 +14,8 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:denful/import-tree";
 
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
 
@@ -37,6 +39,7 @@
   };
 
   outputs = {
+    flake-parts,
     self,
     nixpkgs,
     nur,
@@ -58,201 +61,220 @@
       enable-llm = true;
       enable-monerod = true;
     };
-  in {
-    nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit inputs;
-        workstation = pluto-workstation;
-      };
-      modules = [
-        # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-
-        hosts/workstation/configuration.nix
-        disko.nixosModules.disko
-        hosts/pluto/disko.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = false;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
+  in
+    flake-parts.lib.mkFlake {inherit inputs;} (top @ {
+      config,
+      withSystem,
+      moduleWithSystem,
+      ...
+    }: {
+      systems = [system];
+      imports = [
+        # Optional: use external flake logic, e.g.
+        # inputs.foo.flakeModules.default
+      ];
+      flake = {
+        nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
             inherit inputs;
             workstation = pluto-workstation;
           };
-          # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.general = import "${self}/users/general@workstation.nix";
-        }
-      ];
-    };
+          modules = [
+            # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-    homeConfigurations."pluto-general" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = ["${self}/users/general@workstation.nix"];
-      extraSpecialArgs = {
-        inherit inputs;
-        workstation = pluto-workstation;
-      };
-    };
+            hosts/workstation/configuration.nix
+            disko.nixosModules.disko
+            hosts/pluto/disko.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                workstation = pluto-workstation;
+              };
+              # home-manager.backupFileExtension = "hm-backup";
+              home-manager.users.general = import "${self}/users/general@workstation.nix";
+            }
+          ];
+        };
 
-    nixosConfigurations.mars = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit inputs;
-        workstation = mars-workstation;
-      };
-      modules = [
-        # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+        homeConfigurations."pluto-general" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = ["${self}/users/general@workstation.nix"];
+          extraSpecialArgs = {
+            inherit inputs;
+            workstation = pluto-workstation;
+          };
+        };
 
-        hosts/workstation/configuration.nix
-        disko.nixosModules.disko
-        hosts/mars/disko.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = false;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
+        nixosConfigurations.mars = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
             inherit inputs;
             workstation = mars-workstation;
           };
-          # home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.general = import "${self}/users/general@workstation.nix";
-        }
-      ];
-    };
+          modules = [
+            # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
-    homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = ["${self}/users/general@workstation.nix"];
-      extraSpecialArgs = {
-        inherit inputs;
-        workstation = mars-workstation;
+            hosts/workstation/configuration.nix
+            disko.nixosModules.disko
+            hosts/mars/disko.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                workstation = mars-workstation;
+              };
+              # home-manager.backupFileExtension = "hm-backup";
+              home-manager.users.general = import "${self}/users/general@workstation.nix";
+            }
+          ];
+        };
+
+        homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = ["${self}/users/general@workstation.nix"];
+          extraSpecialArgs = {
+            inherit inputs;
+            workstation = mars-workstation;
+          };
+        };
+
+        nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {inherit inputs;};
+          modules = [
+            hosts/jupiter/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.users.aitvann = import "${self}/users/aitvann@jupiter.nix";
+            }
+          ];
+        };
+
+        homeConfigurations."jupiter-aitvann" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = ["${self}/users/aitvann@jupiter.nix"];
+          extraSpecialArgs = {inherit inputs;};
+        };
+
+        deploy.nodes.jupiter = {
+          hostname = "jupiter";
+          sshUser = "aitvann";
+          profiles.system = {
+            user = "root";
+            sshOpts = [
+              "-p"
+              "9476"
+
+              # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
+              "-A"
+            ];
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.jupiter;
+          };
+        };
+
+        nixosConfigurations.venus = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {inherit inputs;};
+          modules = [
+            # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            hosts/venus/configuration.nix
+            disko.nixosModules.disko
+            # Cloud Init installation won't boot with disko
+            hosts/venus/disko.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.users.general = import "${self}/users/general@venus.nix";
+            }
+          ];
+        };
+
+        homeConfigurations."venus-general" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = ["${self}/users/general@venus.nix"];
+          extraSpecialArgs = {inherit inputs;};
+        };
+
+        deploy.nodes.venus = {
+          hostname = "venus";
+          sshUser = "general";
+          profiles.system = {
+            user = "root";
+            sshOpts = [
+              "-p"
+              "7818"
+
+              # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
+              "-A"
+            ];
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
+          };
+        };
+
+        # Initial setup
+        deploy.nodes.venus-init = {
+          hostname = "venus.home.arpa";
+          sshUser = "root";
+          profiles.system = {
+            user = "root";
+            sshOpts = [
+              # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
+              "-A"
+            ];
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
+          };
+        };
+
+        # This is highly advised, and will prevent many possible mistakes
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       };
-    };
+      perSystem = {
+        config,
+        pkgs,
+        system,
+        ...
+      }: {
+        devShells.default = let
+          overlays = [nur.overlays.default];
+          pkgs = import nixpkgs {inherit system overlays;};
+        in
+          pkgs.mkShell {
+            buildInputs = with pkgs; [
+              # Tools
+              nixos-anywhere
+              xray
+              openssl
+              pkgs.disko
+              pkgs.nur.repos.rycee.mozilla-addons-to-nix
 
-    nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {inherit inputs;};
-      modules = [
-        hosts/jupiter/configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = false;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.users.aitvann = import "${self}/users/aitvann@jupiter.nix";
-        }
-      ];
-    };
+              # Editor tools
+              efm-langserver
+              prettier
+              pandoc
+              markdownlint-cli2
 
-    homeConfigurations."jupiter-aitvann" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = ["${self}/users/aitvann@jupiter.nix"];
-      extraSpecialArgs = {inherit inputs;};
-    };
+              nixd
+              alejandra
 
-    deploy.nodes.jupiter = {
-      hostname = "jupiter";
-      sshUser = "aitvann";
-      profiles.system = {
-        user = "root";
-        sshOpts = [
-          "-p"
-          "9476"
+              lua-language-server
+              stylua
 
-          # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
-          "-A"
-        ];
-        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.jupiter;
+              marksman
+              clojure-lsp
+              vimdoc-language-server
+            ];
+          };
       };
-    };
-
-    nixosConfigurations.venus = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {inherit inputs;};
-      modules = [
-        # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        hosts/venus/configuration.nix
-        disko.nixosModules.disko
-        # Cloud Init installation won't boot with disko
-        hosts/venus/disko.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = false;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.users.general = import "${self}/users/general@venus.nix";
-        }
-      ];
-    };
-
-    homeConfigurations."venus-general" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = ["${self}/users/general@venus.nix"];
-      extraSpecialArgs = {inherit inputs;};
-    };
-
-    deploy.nodes.venus = {
-      hostname = "venus";
-      sshUser = "general";
-      profiles.system = {
-        user = "root";
-        sshOpts = [
-          "-p"
-          "7818"
-
-          # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
-          "-A"
-        ];
-        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
-      };
-    };
-
-    # Initial setup
-    deploy.nodes.venus-init = {
-      hostname = "venus.home.arpa";
-      sshUser = "root";
-      profiles.system = {
-        user = "root";
-        sshOpts = [
-          # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
-          "-A"
-        ];
-        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
-      };
-    };
-
-    # This is highly advised, and will prevent many possible mistakes
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
-    devShells.${system}.default = let
-      overlays = [nur.overlays.default];
-      pkgs = import nixpkgs {inherit system overlays;};
-    in
-      pkgs.mkShell {
-        buildInputs = with pkgs; [
-          # Tools
-          nixos-anywhere
-          xray
-          openssl
-          pkgs.disko
-          pkgs.nur.repos.rycee.mozilla-addons-to-nix
-
-          # Editor tools
-          efm-langserver
-          prettier
-          pandoc
-          markdownlint-cli2
-
-          nixd
-          alejandra
-
-          lua-language-server
-          stylua
-
-          marksman
-          clojure-lsp
-          vimdoc-language-server
-        ];
-      };
-  };
+    });
 }

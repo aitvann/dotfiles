@@ -13,7 +13,7 @@ in {
 
   nixpkgs.overlays = [
     (final: prev: {
-      zsh-fast-syntax-highlighting = final.callPackage ./plugins/zsh-fast-syntax-highlighting.nix {};
+      zsh-fast-syntax-highlighting = final.callPackage ./plugins/zsh-fast-syntax-highlighting.pkg.nix {};
     })
   ];
 

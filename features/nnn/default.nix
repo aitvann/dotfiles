@@ -26,9 +26,9 @@ in {
         makeFlags = old.makeFlags ++ ["O_GITSTATUS=1" "O_RESTOREPREVIEW=1"];
       });
       nnnPlugins =
-        final.callPackage ./nnn-plugins.nix {}
+        final.callPackage ./nnn-plugins.pkg.nix {}
         // {
-          better-preview-tui = final.callPackage ./better-preview-tui {};
+          better-preview-tui = final.callPackage ./better-preview-tui.pkg {};
         };
 
       advcpmv = inputs.advcpmv.packages.${prev.stdenv.hostPlatform.system}.default;

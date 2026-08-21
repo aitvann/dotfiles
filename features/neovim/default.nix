@@ -24,11 +24,11 @@ in {
       vimPlugins =
         prev.vimPlugins
         // {
-          repeatable-move-nvim = final.callPackage ./plugins/repeatable-move-nvim.nix {};
-          tiny-cmdline-nvim = final.callPackage ./plugins/tiny-cmdline-nvim.nix {};
-          fzf-lua-frecency = final.callPackage ./plugins/fzf-lua-frecency.nix {};
-          winresize-nvim = final.callPackage ./plugins/winresize-nvim.nix {};
-          nnn-nvim = final.callPackage ./plugins/nnn-nvim.nix {};
+          repeatable-move-nvim = final.callPackage ./plugins/repeatable-move-nvim.pkg.nix {};
+          tiny-cmdline-nvim = final.callPackage ./plugins/tiny-cmdline-nvim.pkg.nix {};
+          fzf-lua-frecency = final.callPackage ./plugins/fzf-lua-frecency.pkg.nix {};
+          winresize-nvim = final.callPackage ./plugins/winresize-nvim.pkg.nix {};
+          nnn-nvim = final.callPackage ./plugins/nnn-nvim.pkg.nix {};
         };
     })
   ];
@@ -175,7 +175,7 @@ in {
     fzf-lua-deps = [(packageHomeFiles ../../stow-home/ripgrep)];
   in
     lib.mkMerge ([
-      (packageHomeFiles ../../stow-home/nvim)
-    ]
-    ++ fzf-lua-deps);
+        (packageHomeFiles ../../stow-home/nvim)
+      ]
+      ++ fzf-lua-deps);
 }

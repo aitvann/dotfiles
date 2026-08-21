@@ -12,7 +12,7 @@ in {
     (final: prev: {
       firefox-addons =
         final.nur.repos.rycee.firefox-addons
-        // (final.callPackage ./addons {});
+        // (final.callPackage ./addons.pkg {});
 
       firefox = prev.firefox.override {nativeMessagingHosts = with pkgs; [ff2mpv-rust];};
     })
