@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  withSystem,
+  ...
+}: {
   flake.modules.nixos."general@mars" = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
       inputs.home-manager.nixosModules.home-manager
@@ -22,6 +26,8 @@
       extraSpecialArgs = {inherit inputs;};
       users.general.imports = [inputs.self.modules.homeManager."general@mars"];
     };
+
+    system.stateVersion = "22.05";
   };
 
   flake.modules.homeManager."general@mars" = {config, ...}: {
@@ -31,11 +37,14 @@
 
     home.username = "general";
     home.homeDirectory = "/home/${config.home.username}";
+
+    home.stateVersion = "22.05";
   };
 
   flake.homeConfigurations."general@mars" = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = withSystem "x86_64-linux" ({pkgs, ...}: pkgs);
     # TODO: Remove once fully migrated to flake-parts
     extraSpecialArgs = {inherit inputs;};
-    mtrueodules = [inputs.self.modules.homeManager."general@mars"];
+    modules = [inputs.self.modules.homeManager."general@mars"];
   };
 }

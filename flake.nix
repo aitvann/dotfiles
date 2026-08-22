@@ -62,6 +62,7 @@
       systems = [system];
       imports = [
         flake-parts.flakeModules.modules
+        home-manager.flakeModules.home-manager
         (import-tree ./features-parts)
         (import-tree ./hosts-parts)
         (import-tree ./users-parts)

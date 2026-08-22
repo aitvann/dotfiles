@@ -7,7 +7,7 @@
       ./_disko.nix
       ./_hardware-configuration.nix
 
-      inputs.self.modules.nixos."general@pluto"
+      inputs.self.modules.nixos."general@mars"
     ];
   };
 
