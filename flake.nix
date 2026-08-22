@@ -40,7 +40,6 @@
 
   outputs = {
     flake-parts,
-    import-tree,
     self,
     nixpkgs,
     nur,
@@ -51,16 +50,12 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
   in
-    flake-parts.lib.mkFlake {inherit inputs;} (top @ {
-      config,
-      withSystem,
-      moduleWithSystem,
-      ...
-    }: {
+    flake-parts.lib.mkFlake {inherit inputs;} ({lib, ...}: {
       systems = [system];
-      imports = [
+      imports = let
+        import-tree = inputs.import-tree.filterNot (lib.hasInfix ".pkg");
+      in [
         flake-parts.flakeModules.modules
         home-manager.flakeModules.home-manager
         (import-tree ./features-parts)

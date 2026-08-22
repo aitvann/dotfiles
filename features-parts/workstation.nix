@@ -248,7 +248,7 @@ in {
   in {
     imports = with inputs.self.modules.homeManager; [
       ../features/terminal.nix
-      ../features/file-manager.nix
+      file-manager
       ../features/git-ui.nix
       ../features/flatpak.nix
       ../features/showmethekey.nix
@@ -260,7 +260,7 @@ in {
       ../features/chromium.nix
       ../features/firefox
       ../features/btop.nix
-      ../features/neovim
+      neovim
       ../features/helix.nix
       ../features/zsh
       ../features/syncthing.nix
