@@ -1,7 +1,4 @@
 {inputs, ...}: let
-  mars-workstation = {
-    enable-llm = false;
-  };
 in {
   flake.modules.nixos."general@mars" = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [

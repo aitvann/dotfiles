@@ -1,13 +1,11 @@
 {inputs, ...}: let
-  pluto-workstation = {
-    enable-llm = true;
-  };
 in {
   flake.modules.nixos."general@pluto" = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
       inputs.home-manager.nixosModules.home-manager
 
       (inputs.self.factory-nixos.workstation pluto-workstation)
+      llm
     ];
 
     users.users.general = {
@@ -31,6 +29,8 @@ in {
   flake.modules.homeManager."general@pluto" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
       (inputs.self.factory-homeManager.workstation pluto-workstation)
+      llm
+
       monero
     ];
 

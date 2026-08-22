@@ -133,16 +133,6 @@ in {
         enableCompletion = false;
       };
 
-      # TODO: move to features/llm.nix
-      # GPU is not utilized when running as user service
-      services.ollama = {
-        enable = workstation.enable-llm;
-        package = pkgs.ollama-vulkan;
-        environmentVariables = {
-          OLLAMA_FLASH_ATTENTION = "1";
-        };
-      };
-
       # TODO: move to features/dev.nix
       # NOTE: requires user in wireshark group
       programs.wireshark.enable = true;
@@ -270,33 +260,31 @@ in {
   }: let
     packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
   in {
-    imports =
-      [
-        ../features/terminal.nix
-        ../features/file-manager.nix
-        ../features/git-ui.nix
-        ../features/flatpak.nix
-        ../features/showmethekey.nix
-        ../features/minecraft.nix
-        ../features/music-library.nix
-        ../features/gnupg.nix
-        ../features/ssh.nix
-        ../features/gramps.nix
-        ../features/chromium.nix
-        ../features/firefox
-        ../features/btop.nix
-        ../features/neovim
-        ../features/helix.nix
-        ../features/zsh
-        ../features/syncthing.nix
-        ../features/obs-studio.nix
-        ../features/bypass-restrictions.nix
-        ../features/maintenance.nix
-        ../features/dev.nix
-        ../features/backups.nix
-        ../features/desktop.nix
-      ]
-      ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
+    imports = [
+      ../features/terminal.nix
+      ../features/file-manager.nix
+      ../features/git-ui.nix
+      ../features/flatpak.nix
+      ../features/showmethekey.nix
+      ../features/minecraft.nix
+      ../features/music-library.nix
+      ../features/gnupg.nix
+      ../features/ssh.nix
+      ../features/gramps.nix
+      ../features/chromium.nix
+      ../features/firefox
+      ../features/btop.nix
+      ../features/neovim
+      ../features/helix.nix
+      ../features/zsh
+      ../features/syncthing.nix
+      ../features/obs-studio.nix
+      ../features/bypass-restrictions.nix
+      ../features/maintenance.nix
+      ../features/dev.nix
+      ../features/backups.nix
+      ../features/desktop.nix
+    ];
 
     home.packages = with pkgs; [
       # gui apps
