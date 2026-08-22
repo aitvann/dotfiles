@@ -259,13 +259,13 @@ in {
   }: let
     packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
   in {
-    imports = [
+    imports = with inputs.self.modules.homeManager; [
       ../features/terminal.nix
       ../features/file-manager.nix
       ../features/git-ui.nix
       ../features/flatpak.nix
       ../features/showmethekey.nix
-      ../features/minecraft.nix
+      minecraft
       ../features/music-library.nix
       ../features/gnupg.nix
       ../features/ssh.nix
