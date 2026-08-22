@@ -1,5 +1,5 @@
 {...}: {
-  flake.modules.homeManager.open-webui = {
+  flake.modules.homeManager.stowfulOpenWebui = {
     config,
     pkgs,
     lib,
@@ -16,8 +16,8 @@
 
         stateDir = lib.mkOption {
           type = types.path;
-          default = "/var/lib/open-webui";
-          example = "/home/foo";
+          default = "${config.xdg.dataHome}/open-webui";
+          example = "${config.xdg.configHome}/open-webui/state";
           description = "State directory of Open-WebUI.";
         };
 

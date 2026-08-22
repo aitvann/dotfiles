@@ -10,11 +10,11 @@
     };
   };
 
-  flake.modules.homeManager.llm = {config, ...}: {
+  flake.modules.homeManager.llm = {...}: {
     imports = with inputs.self.modules.homeManager; [
       ../modules/unfree.nix
 
-      open-webui
+      stowfulOpenWebui
     ];
 
     nixpkgs.allowedUnfreePackages = [
@@ -25,7 +25,6 @@
       enable = true;
       host = "0.0.0.0";
       port = 2402;
-      stateDir = "${config.xdg.dataHome}/open-webui";
     };
   };
 }
