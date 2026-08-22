@@ -54,6 +54,7 @@ in {
     nerd-fonts.jetbrains-mono
     eww
     socat
+    ripgrep
     gojq
     bluetui
     # infinite recursion in overlay
