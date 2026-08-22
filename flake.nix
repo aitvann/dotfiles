@@ -46,13 +46,10 @@
     home-manager,
     deploy-rs,
     disko,
-    zapret-discord-youtube,
     ...
-  } @ inputs: let
-    system = "x86_64-linux";
-  in
+  } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({lib, ...}: {
-      systems = [system];
+      systems = ["x86_64-linux"];
       imports = let
         import-tree = inputs.import-tree.filterNot (lib.hasInfix ".pkg");
       in [
@@ -65,7 +62,6 @@
       ];
       flake = {
         nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
-          inherit system;
           specialArgs = {inherit inputs;};
           modules = [
             hosts/jupiter/configuration.nix
@@ -102,7 +98,6 @@
         };
 
         nixosConfigurations.venus = nixpkgs.lib.nixosSystem {
-          inherit system;
           specialArgs = {inherit inputs;};
           modules = [
             # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
@@ -145,42 +140,43 @@
         # This is highly advised, and will prevent many possible mistakes
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       };
+
       perSystem = {
-        config,
-        pkgs,
         system,
+        pkgs,
         ...
       }: {
-        devShells.default = let
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
           overlays = [nur.overlays.default];
-          pkgs = import nixpkgs {inherit system overlays;};
-        in
-          pkgs.mkShell {
-            buildInputs = with pkgs; [
-              # Tools
-              nixos-anywhere
-              xray
-              openssl
-              pkgs.disko
-              pkgs.nur.repos.rycee.mozilla-addons-to-nix
+        };
 
-              # Editor tools
-              efm-langserver
-              prettier
-              pandoc
-              markdownlint-cli2
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            # Tools
+            nixos-anywhere
+            xray
+            openssl
+            pkgs.disko
+            pkgs.nur.repos.rycee.mozilla-addons-to-nix
 
-              nixd
-              alejandra
+            # Editor tools
+            efm-langserver
+            prettier
+            pandoc
+            markdownlint-cli2
 
-              lua-language-server
-              stylua
+            nixd
+            alejandra
 
-              marksman
-              clojure-lsp
-              vimdoc-language-server
-            ];
-          };
+            lua-language-server
+            stylua
+
+            marksman
+            clojure-lsp
+            vimdoc-language-server
+          ];
+        };
       };
     });
 }
