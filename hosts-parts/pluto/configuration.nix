@@ -1,9 +1,4 @@
-{inputs, ...}: let
-  pluto-workstation = {
-    enable-llm = true;
-    enable-monerod = true;
-  };
-in {
+{inputs, ...}: {
   flake.modules.nixos.pluto = {...}: {
     imports = with inputs.self.modules.nixos; [
       {networking.hostName = "pluto";}
@@ -17,23 +12,11 @@ in {
       ./_disko.nix
       ./_hardware-configuration.nix
 
-      (inputs.self.factory.workstation pluto-workstation)
-
-      inputs.home-manager.nixosModules.home-manager
-      {
-        home-manager.useGlobalPkgs = false;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = {
-          inherit inputs;
-          workstation = pluto-workstation;
-        };
-        # home-manager.backupFileExtension = "hm-backup";
-        home-manager.users.general = import "${inputs.self}/users/general@workstation.nix";
-      }
+      inputs.self.modules.nixos."general@pluto"
     ];
   };
 
   flake.nixosConfigurations.pluto = inputs.nixpkgs.lib.nixosSystem {
-    modules = with inputs.self.modules.nixos; [pluto];
+    modules = [inputs.self.modules.nixos.pluto];
   };
 }

@@ -64,26 +64,9 @@
         flake-parts.flakeModules.modules
         (import-tree ./features-parts)
         (import-tree ./hosts-parts)
+        (import-tree ./users-parts)
       ];
       flake = {
-        # homeConfigurations."pluto-general" = home-manager.lib.homeManagerConfiguration {
-        #   inherit pkgs;
-        #   modules = ["${self}/users/general@workstation.nix"];
-        #   extraSpecialArgs = {
-        #     inherit inputs;
-        #     workstation = pluto-workstation;
-        #   };
-        # };
-
-        # homeConfigurations."mars-general" = home-manager.lib.homeManagerConfiguration {
-        #   inherit pkgs;
-        #   modules = ["${self}/users/general@workstation.nix"];
-        #   extraSpecialArgs = {
-        #     inherit inputs;
-        #     workstation = mars-workstation;
-        #   };
-        # };
-
         nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {inherit inputs;};
