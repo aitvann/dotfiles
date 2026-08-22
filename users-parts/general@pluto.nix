@@ -1,7 +1,6 @@
 {inputs, ...}: let
   pluto-workstation = {
     enable-llm = true;
-    enable-monerod = true;
   };
 in {
   flake.modules.nixos."general@pluto" = {pkgs, ...}: {
@@ -32,6 +31,7 @@ in {
   flake.modules.homeManager."general@pluto" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
       (inputs.self.factory-homeManager.workstation pluto-workstation)
+      monero
     ];
 
     home.username = "general";

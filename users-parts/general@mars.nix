@@ -1,7 +1,6 @@
 {inputs, ...}: let
   mars-workstation = {
     enable-llm = false;
-    enable-monerod = false;
   };
 in {
   flake.modules.nixos."general@mars" = {pkgs, ...}: {

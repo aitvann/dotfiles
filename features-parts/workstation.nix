@@ -296,7 +296,6 @@ in {
         ../features/backups.nix
         ../features/desktop.nix
       ]
-      ++ (lib.optionals workstation.enable-monerod [../features/monero.nix])
       ++ (lib.optionals workstation.enable-llm [../features/llm.nix]);
 
     home.packages = with pkgs; [
