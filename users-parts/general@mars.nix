@@ -1,10 +1,9 @@
-{inputs, ...}: let
-in {
+{inputs, ...}: {
   flake.modules.nixos."general@mars" = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
       inputs.home-manager.nixosModules.home-manager
 
-      (inputs.self.factory-nixos.workstation mars-workstation)
+      workstation
     ];
 
     users.users.general = {
@@ -27,7 +26,7 @@ in {
 
   flake.modules.homeManager."general@mars" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
-      (inputs.self.factory-homeManager.workstation mars-workstation)
+      workstation
     ];
 
     home.username = "general";

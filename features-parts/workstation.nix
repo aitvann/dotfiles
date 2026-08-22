@@ -1,258 +1,257 @@
 {inputs, ...}: let
   util = inputs.self.util;
 in {
-  config.flake.factory-nixos.workstation = workstation: let
+  flake.modules.nixos.workstation = {
+    pkgs,
+    lib,
+    ...
+  }: let
     packageSystemFiles = util.packageStowFiles "/etc";
     packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
-  in
-    {
-      pkgs,
-      lib,
-      ...
-    }: {
-      imports = [
-        # ../${workstation.host}/hardware-configuration.nix
-        inputs.zapret-discord-youtube.nixosModules.default
-        # overriding module so it reads configuration from standard location, not from cli arg
-        ../modules/greetd.nix
+  in {
+    imports = [
+      # ../${workstation.host}/hardware-configuration.nix
+      inputs.zapret-discord-youtube.nixosModules.default
+      # overriding module so it reads configuration from standard location, not from cli arg
+      ../modules/greetd.nix
+    ];
+
+    # TODO: move to features/maintenance.nix
+    # used by `nixd`
+    # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
+    nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    # better be the same to the one defined on home-level
+    nix.settings.experimental-features = ["nix-command" "flakes"];
+
+    # TODO: move to features/gaming.nix
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "steam"
+        "steam-run"
+        "steam-original"
+        "steam-runtime"
+        "steam-unwrapped"
       ];
 
-      # TODO: move to features/maintenance.nix
-      # used by `nixd`
-      # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
-      nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-      # better be the same to the one defined on home-level
-      nix.settings.experimental-features = ["nix-command" "flakes"];
+    boot.loader.grub.enable = true;
+    boot.loader.grub.efiSupport = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
+    boot.loader.grub.devices = ["nodev"];
+    boot.kernelParams = ["quite" "mem_sleep_default=deep"];
+    boot.initrd.systemd.enable = true;
+    boot.plymouth.enable = true;
 
-      # TODO: move to features/gaming.nix
-      nixpkgs.config.allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          "steam"
-          "steam-run"
-          "steam-original"
-          "steam-runtime"
-          "steam-unwrapped"
-        ];
-
-      boot.loader.grub.enable = true;
-      boot.loader.grub.efiSupport = true;
-      boot.loader.efi.canTouchEfiVariables = true;
-      # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
-      boot.loader.grub.devices = ["nodev"];
-      boot.kernelParams = ["quite" "mem_sleep_default=deep"];
-      boot.initrd.systemd.enable = true;
-      boot.plymouth.enable = true;
-
-      services.logind.settings.Login.HandlePowerKey = "hibernate";
-      services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
-      services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
-      # hibernate after 30 min
-      systemd.sleep.settings.Sleep = {
-        HibernateDelaySec = "30m";
-        SuspendState = "mem";
-      };
-
-      networking.networkmanager.enable = true;
-      networking.nameservers = ["127.0.0.1"];
-      networking.firewall = {
-        # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama, Syncthing
-        allowedTCPPorts = [8096 8920 2402 22000];
-        allowedUDPPorts = [1900 7359];
-      };
-
-      i18n.defaultLocale = "en_GB.UTF-8";
-      time.timeZone = "Europe/Moscow";
-
-      # TODO: move to features/desktop.nix
-      # required for Home Manager to configure system settings
-      programs.hyprland = {
-        enable = true;
-        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        withUWSM = true;
-        xwayland.enable = true;
-      };
-      services.xserver = {
-        enable = true;
-        excludePackages = with pkgs; [xterm];
-      };
-      programs.regreet.enable = true;
-      # HACK: the default `pkgs.cantarell-fonts` does not compile
-      programs.regreet.font.package = pkgs.dejavu_fonts;
-      programs.regreet.font.name = "DejaVu Sans";
-      # TODO: figure out smooth plymouth transition as it is not supported out of the box
-      # https://todo.sr.ht/~kennylevinsen/greetd/17
-      services.greetd.greeterManagesPlymouth = false;
-      xdg.portal.enable = true;
-      # TODO: integrate `pass`:
-      # - https://github.com/grimsteel/pass-secret-service -- not packaged for nix
-      # - https://github.com/mdellweg/pass_secret_service -- times out
-      services.gnome.gnome-keyring.enable = true;
-      # FIX: should unlocks keyring upon login. greetd does not subtask login
-      # https://github.com/NixOS/nixpkgs/issues/357201
-      # https://wiki.nixos.org/wiki/Secret_Service#Auto-decrypt_on_login
-      # doest not work
-      security.pam.services.login.enableGnomeKeyring = true;
-      # FIX: figure out why doesn't work
-      security.pam.services.login.gnupg.enable = true;
-      security.pam.services.login.gnupg.storeOnly = true;
-      security.pam.services.greetd.gnupg.enable = true;
-      security.pam.services.greetd.gnupg.storeOnly = true;
-
-      services.udisks2.enable = true;
-      services.earlyoom.enable = true;
-      services.upower.enable = true;
-
-      services.printing.enable = true;
-      # enable WIFI printing
-      services.avahi = {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
-      };
-
-      services.pulseaudio.enable = false;
-      security.rtkit.enable = true;
-      services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        pulse.enable = true;
-      };
-      services.pipewire.extraLadspaPackages = with pkgs; [rnnoise-plugin];
-
-      services.snapper = {
-        snapshotInterval = "hourly"; # doc: {manpage}`systemd.time(7)
-        cleanupInterval = "1d";
-        # dymmy config is required to start systemd services; will by overwritten my `packageSystemFiles`
-        configs.dymmy.SUBVOLUME = "/";
-      };
-
-      # TODO: move to features/zsh
-      # required
-      programs.zsh = {
-        enable = true;
-        enableCompletion = false;
-      };
-
-      # TODO: move to features/dev.nix
-      # NOTE: requires user in wireshark group
-      programs.wireshark.enable = true;
-
-      # TODO: move to features/gaming.nix
-      programs.steam = {
-        enable = true;
-        remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-        dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-      };
-
-      # Virtualisation
-      # TODO: move to features/virtualization.nix
-      programs.virt-manager.enable = true;
-      virtualisation.libvirtd.enable = true;
-      users.groups.libvirtd.members = ["general"];
-      networking.firewall.trustedInterfaces = ["virbr0"];
-
-      # TODO: move to features/obs.nix
-      # Video Input devices support (v4l2)
-      programs.obs-studio.enable = true;
-      programs.obs-studio.package = null; # Install using Home Manger instead if needed
-      programs.obs-studio.enableVirtualCamera = true;
-
-      services.yggdrasil = {
-        enable = false;
-        persistentKeys = true;
-        settings = {
-          Peers = [
-            "tls://5.181.181.60:42853"
-          ];
-          IfName = "ygg0";
-        };
-      };
-
-      # TODO: move to features/dev.nix
-      virtualisation.docker = {
-        enable = true;
-        storageDriver = "overlay2";
-      };
-
-      hardware.bluetooth.enable = true;
-      hardware.bluetooth.powerOnBoot = true;
-
-      services.xl2tpd.enable = true;
-      services.strongswan.enable = true;
-      networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
-
-      environment.etc = lib.mkMerge [
-        {
-          # TODO: move to features/gnupg.nix
-          # TODO: figure out how to add package to PATH the proper way
-          "gnupg/gpg-agent.conf".text = ''
-            pinentry-program ${lib.getExe pkgs.pinentry-gnome3}
-          '';
-
-          # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
-          "strongswan.conf".text = "";
-        }
-
-        (packageSystemFiles ../stow-system/greetd-general)
-        (packageSystemFiles ../stow-system/regreet)
-        (packageSystemFiles ../stow-system/snapper)
-      ];
-
-      environment.pathsToLink = ["/share/zsh"];
-      # some local scripts are not fully POSIX-compatible yet
-      # environment.binsh = "${pkgs.dash}/bin/dash";
-
-      networking.extraHosts = ''
-        127.0.0.1 postgres-test
-        127.0.0.1 clickhouse-test
-
-        ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
-      '';
-
-      security.pki.certificates = [(builtins.readFile ../stow-system/cert-jupiter/cert/cert.pem)];
-
-      # TODO: move to features/flatpak.nix
-      services.flatpak.enable = true;
-
-      services.adguardhome.enable = true;
-      systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
-
-      # TODO: move to features/bypass-restrictions.nix
-      # Verify working: youtube.com discord.com rutracker.org
-      # Won't work since banned by ip: x.com instagram.com proton.me
-      #
-      # Using zapret on openwrt instead, uncommend when unable to connect to wifi
-      # services.zapret-discord-youtube = {
-      #   enable = true;
-      #   config = "general(ALT2)";
-      # };
-
-      environment.systemPackages = with pkgs; [
-        # Virtualisation
-        dnsmasq
-
-        # won't work unles system installed
-        gparted
-
-        cage
-        regreet
-      ];
-
-      # Copy the NixOS configuration file and link it from the resulting system
-      # (/run/current-system/configuration.nix). This is useful in case you
-      # accidentally delete configuration.nix.
-      # system.copySystemConfiguration = true;
-
-      # This value determines the NixOS release from which the default
-      # settings for stateful data, like file locations and database versions
-      # on your system were taken. It‘s perfectly fine and recommended to leave
-      # this value at the release version of the first install of this system.
-      # Before changing this value read the documentation for this option
-      # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-      system.stateVersion = "22.05"; # Did you read the comment?
+    services.logind.settings.Login.HandlePowerKey = "hibernate";
+    services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
+    services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+    # hibernate after 30 min
+    systemd.sleep.settings.Sleep = {
+      HibernateDelaySec = "30m";
+      SuspendState = "mem";
     };
 
-  config.flake.factory-homeManager.workstation = workstation: {
+    networking.networkmanager.enable = true;
+    networking.nameservers = ["127.0.0.1"];
+    networking.firewall = {
+      # (jellyfin)[https://jellyfin.org/docs/general/networking/index.html], ollama, Syncthing
+      allowedTCPPorts = [8096 8920 2402 22000];
+      allowedUDPPorts = [1900 7359];
+    };
+
+    i18n.defaultLocale = "en_GB.UTF-8";
+    time.timeZone = "Europe/Moscow";
+
+    # TODO: move to features/desktop.nix
+    # required for Home Manager to configure system settings
+    programs.hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      withUWSM = true;
+      xwayland.enable = true;
+    };
+    services.xserver = {
+      enable = true;
+      excludePackages = with pkgs; [xterm];
+    };
+    programs.regreet.enable = true;
+    # HACK: the default `pkgs.cantarell-fonts` does not compile
+    programs.regreet.font.package = pkgs.dejavu_fonts;
+    programs.regreet.font.name = "DejaVu Sans";
+    # TODO: figure out smooth plymouth transition as it is not supported out of the box
+    # https://todo.sr.ht/~kennylevinsen/greetd/17
+    services.greetd.greeterManagesPlymouth = false;
+    xdg.portal.enable = true;
+    # TODO: integrate `pass`:
+    # - https://github.com/grimsteel/pass-secret-service -- not packaged for nix
+    # - https://github.com/mdellweg/pass_secret_service -- times out
+    services.gnome.gnome-keyring.enable = true;
+    # FIX: should unlocks keyring upon login. greetd does not subtask login
+    # https://github.com/NixOS/nixpkgs/issues/357201
+    # https://wiki.nixos.org/wiki/Secret_Service#Auto-decrypt_on_login
+    # doest not work
+    security.pam.services.login.enableGnomeKeyring = true;
+    # FIX: figure out why doesn't work
+    security.pam.services.login.gnupg.enable = true;
+    security.pam.services.login.gnupg.storeOnly = true;
+    security.pam.services.greetd.gnupg.enable = true;
+    security.pam.services.greetd.gnupg.storeOnly = true;
+
+    services.udisks2.enable = true;
+    services.earlyoom.enable = true;
+    services.upower.enable = true;
+
+    services.printing.enable = true;
+    # enable WIFI printing
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+    services.pipewire.extraLadspaPackages = with pkgs; [rnnoise-plugin];
+
+    services.snapper = {
+      snapshotInterval = "hourly"; # doc: {manpage}`systemd.time(7)
+      cleanupInterval = "1d";
+      # dymmy config is required to start systemd services; will by overwritten my `packageSystemFiles`
+      configs.dymmy.SUBVOLUME = "/";
+    };
+
+    # TODO: move to features/zsh
+    # required
+    programs.zsh = {
+      enable = true;
+      enableCompletion = false;
+    };
+
+    # TODO: move to features/dev.nix
+    # NOTE: requires user in wireshark group
+    programs.wireshark.enable = true;
+
+    # TODO: move to features/gaming.nix
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
+
+    # Virtualisation
+    # TODO: move to features/virtualization.nix
+    programs.virt-manager.enable = true;
+    virtualisation.libvirtd.enable = true;
+    users.groups.libvirtd.members = ["general"];
+    networking.firewall.trustedInterfaces = ["virbr0"];
+
+    # TODO: move to features/obs.nix
+    # Video Input devices support (v4l2)
+    programs.obs-studio.enable = true;
+    programs.obs-studio.package = null; # Install using Home Manger instead if needed
+    programs.obs-studio.enableVirtualCamera = true;
+
+    services.yggdrasil = {
+      enable = false;
+      persistentKeys = true;
+      settings = {
+        Peers = [
+          "tls://5.181.181.60:42853"
+        ];
+        IfName = "ygg0";
+      };
+    };
+
+    # TODO: move to features/dev.nix
+    virtualisation.docker = {
+      enable = true;
+      storageDriver = "overlay2";
+    };
+
+    hardware.bluetooth.enable = true;
+    hardware.bluetooth.powerOnBoot = true;
+
+    services.xl2tpd.enable = true;
+    services.strongswan.enable = true;
+    networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
+
+    environment.etc = lib.mkMerge [
+      {
+        # TODO: move to features/gnupg.nix
+        # TODO: figure out how to add package to PATH the proper way
+        "gnupg/gpg-agent.conf".text = ''
+          pinentry-program ${lib.getExe pkgs.pinentry-gnome3}
+        '';
+
+        # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
+        "strongswan.conf".text = "";
+      }
+
+      (packageSystemFiles ../stow-system/greetd-general)
+      (packageSystemFiles ../stow-system/regreet)
+      (packageSystemFiles ../stow-system/snapper)
+    ];
+
+    environment.pathsToLink = ["/share/zsh"];
+    # some local scripts are not fully POSIX-compatible yet
+    # environment.binsh = "${pkgs.dash}/bin/dash";
+
+    networking.extraHosts = ''
+      127.0.0.1 postgres-test
+      127.0.0.1 clickhouse-test
+
+      ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
+    '';
+
+    security.pki.certificates = [(builtins.readFile ../stow-system/cert-jupiter/cert/cert.pem)];
+
+    # TODO: move to features/flatpak.nix
+    services.flatpak.enable = true;
+
+    services.adguardhome.enable = true;
+    systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
+
+    # TODO: move to features/bypass-restrictions.nix
+    # Verify working: youtube.com discord.com rutracker.org
+    # Won't work since banned by ip: x.com instagram.com proton.me
+    #
+    # Using zapret on openwrt instead, uncommend when unable to connect to wifi
+    # services.zapret-discord-youtube = {
+    #   enable = true;
+    #   config = "general(ALT2)";
+    # };
+
+    environment.systemPackages = with pkgs; [
+      # Virtualisation
+      dnsmasq
+
+      # won't work unles system installed
+      gparted
+
+      cage
+      regreet
+    ];
+
+    # Copy the NixOS configuration file and link it from the resulting system
+    # (/run/current-system/configuration.nix). This is useful in case you
+    # accidentally delete configuration.nix.
+    # system.copySystemConfiguration = true;
+
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "22.05"; # Did you read the comment?
+  };
+
+  flake.modules.homeManager.workstation = {
     pkgs,
     lib,
     config,
