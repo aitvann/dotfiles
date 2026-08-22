@@ -1,4 +1,4 @@
-{...}: {
+{inputs, ...}: {
   flake.modules.nixos.llm = {pkgs, ...}: {
     # GPU is not utilized when running as user service
     services.ollama = {
@@ -11,11 +11,10 @@
   };
 
   flake.modules.homeManager.llm = {config, ...}: {
-    imports = [
+    imports = with inputs.self.modules.homeManager; [
       ../modules/unfree.nix
 
-      # Override
-      ../modules/open-webui.nix
+      open-webui
     ];
 
     nixpkgs.allowedUnfreePackages = [

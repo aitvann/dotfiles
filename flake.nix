@@ -65,6 +65,7 @@
         (import-tree ./features-parts)
         (import-tree ./hosts-parts)
         (import-tree ./users-parts)
+        (import-tree ./modules-parts)
       ];
       flake = {
         nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
