@@ -10,7 +10,7 @@
 in {
   flake.modules.nixos."${username}@${host}" = {...}: {
     imports = with inputs.self.modules.nixos; [
-      inputs.home-manager.nixosModules.home-manager
+      base
 
       venus-host
     ];
@@ -25,24 +25,18 @@ in {
       ];
     };
 
-    home-manager = {
-      useGlobalPkgs = false;
-      useUserPackages = true;
-      users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
-    };
-
-    system.stateVersion = "22.05";
+    home-manager.users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
   };
 
   flake.modules.homeManager."${username}@${host}" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
+      base
+
       remote-admin
     ];
 
     home.username = "${username}";
     home.homeDirectory = "/home/${config.home.username}";
-
-    home.stateVersion = "22.05";
   };
 
   flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {

@@ -1,13 +1,10 @@
 {inputs, ...}: let
-  util = inputs.self.util;
 in {
   flake.modules.homeManager.file-manager = {
-    config,
     lib,
+    packageHomeFiles,
     ...
-  }: let
-    packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
-  in {
+  }: {
     imports = with inputs.self.modules.homeManager; [
       ../features/babashka.nix
       ../features/current-location.nix
@@ -16,7 +13,7 @@ in {
     ];
 
     home.file = lib.mkMerge [
-      (packageHomeFiles ../stow-home/file-manager)
+      (packageHomeFiles "file-manager")
     ];
   };
 }

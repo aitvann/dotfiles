@@ -1,4 +1,21 @@
-{lib, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}: {
+  flake.modules.homeManager.stow = {config, ...}: {
+    _module.args.packageHomeFiles = pkg:
+      inputs.self.util.packageStowFiles config.home.homeDirectory "${inputs.self}/stow-home/${pkg}";
+  };
+
+  flake.modules.nixos.stow = {...}: {
+    _module.args.packageSystemFiles = pkg:
+      inputs.self.util.packageStowFiles "/etc" "${inputs.self}/stow-system/${pkg}";
+
+    _module.args.packageServiceFilesCopyCommand = pkg:
+      inputs.self.util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${pkg}";
+  };
+
   flake.util = with lib; rec {
     stowConfig = let
       toList = set:

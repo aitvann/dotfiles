@@ -1,14 +1,11 @@
-{inputs, ...}: let
-  util = inputs.self.util;
-in {
+{inputs, ...}: {
   flake.modules.nixos.workstation = {
     pkgs,
     lib,
+    packageSystemFiles,
+    packageServiceFilesCopyCommand,
     ...
-  }: let
-    packageSystemFiles = util.packageStowFiles "/etc";
-    packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
-  in {
+  }: {
     imports = [
       # ../${workstation.host}/hardware-configuration.nix
       inputs.zapret-discord-youtube.nixosModules.default
@@ -192,9 +189,9 @@ in {
         "strongswan.conf".text = "";
       }
 
-      (packageSystemFiles ../stow-system/greetd-general)
-      (packageSystemFiles ../stow-system/regreet)
-      (packageSystemFiles ../stow-system/snapper)
+      (packageSystemFiles "greetd-general")
+      (packageSystemFiles "regreet")
+      (packageSystemFiles "snapper")
     ];
 
     environment.pathsToLink = ["/share/zsh"];
@@ -208,7 +205,7 @@ in {
       ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
     '';
 
-    security.pki.certificates = [(builtins.readFile ../stow-system/cert-jupiter/cert/cert.pem)];
+    security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
 
     # TODO: move to features/flatpak.nix
     services.flatpak.enable = true;
@@ -241,10 +238,9 @@ in {
   flake.modules.homeManager.workstation = {
     pkgs,
     lib,
-    config,
+    packageHomeFiles,
     ...
   }: let
-    packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
   in {
     imports = with inputs.self.modules.homeManager; [
       ../features/terminal.nix
@@ -302,8 +298,8 @@ in {
     ];
 
     home.file = lib.mkMerge [
-      (packageHomeFiles ../stow-home/element)
-      (packageHomeFiles ../stow-home/scripts)
+      (packageHomeFiles "element")
+      (packageHomeFiles "scripts")
     ];
   };
 }

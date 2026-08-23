@@ -1,14 +1,10 @@
-{inputs, ...}: let
-  util = inputs.self.util;
-in {
+{inputs, ...}: {
   flake.modules.homeManager.nnn = {
-    config,
     pkgs,
     lib,
+    packageHomeFiles,
     ...
-  }: let
-    packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
-  in {
+  }: {
     imports = with inputs.self.modules.homeManager; let
       preview-tui-deps = [../../features/bat.nix];
       gitroot-deps = [../../features/git.nix];
@@ -103,7 +99,7 @@ in {
       preview-tui-deps;
 
     home.file = lib.mkMerge [
-      (packageHomeFiles ../../stow-home/nnn)
+      (packageHomeFiles "nnn")
     ];
   };
 }

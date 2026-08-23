@@ -1,14 +1,10 @@
-{inputs, ...}: let
-  util = inputs.self.util;
-in {
+{...}: {
   flake.modules.homeManager.remote-admin = {
     pkgs,
     lib,
-    config,
+    packageHomeFiles,
     ...
-  }: let
-    packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
-  in {
+  }: {
     home.packages = with pkgs; [
       git
       stow
@@ -22,7 +18,7 @@ in {
     ];
 
     home.file = lib.mkMerge [
-      (packageHomeFiles ../stow-home/btop)
+      (packageHomeFiles "btop")
     ];
   };
 }

@@ -1,14 +1,10 @@
-{inputs, ...}: let
-  util = inputs.self.util;
-in {
+{inputs, ...}: {
   flake.modules.homeManager.neovim = {
-    config,
     pkgs,
     lib,
+    packageHomeFiles,
     ...
-  }: let
-    packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
-  in {
+  }: {
     imports = with inputs.self.modules.homeManager; let
       fzf-lua-deps = [../../features/bat.nix];
       nnn-nvim-deps = [
@@ -178,10 +174,10 @@ in {
     };
 
     home.file = let
-      fzf-lua-deps = [(packageHomeFiles ../../stow-home/ripgrep)];
+      fzf-lua-deps = [(packageHomeFiles "ripgrep")];
     in
       lib.mkMerge ([
-          (packageHomeFiles ../../stow-home/nvim)
+          (packageHomeFiles "nvim")
         ]
         ++ fzf-lua-deps);
   };

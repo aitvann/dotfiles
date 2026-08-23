@@ -1,15 +1,12 @@
-{inputs, ...}: let
-  util = inputs.self.util;
-in {
+{inputs, ...}: {
   flake.modules.nixos.jupiter-host = {
     config,
     pkgs,
     lib,
+    packageSystemFiles,
+    packageServiceFilesCopyCommand,
     ...
-  }: let
-    packageSystemFiles = util.packageStowFiles "/etc";
-    packageServiceFilesCopyCommand = source: util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${source}";
-  in {
+  }: {
     imports = [
       "${inputs.self}/modules/isponsorblocktv.nix"
     ];
@@ -198,9 +195,9 @@ in {
     services.isponsorblocktv.enable = true;
 
     environment.etc = lib.mkMerge [
-      (packageSystemFiles ../../stow-system/nginx-jupiter)
-      (packageSystemFiles ../../stow-system/cert-jupiter)
-      (packageSystemFiles ../../stow-system/isponsorblocktv)
+      (packageSystemFiles "nginx-jupiter")
+      (packageSystemFiles "cert-jupiter")
+      (packageSystemFiles "isponsorblocktv")
     ];
 
     # disable suspend on close laptop lid

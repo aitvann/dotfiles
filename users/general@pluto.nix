@@ -10,8 +10,7 @@
 in {
   flake.modules.nixos."${username}@${host}" = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
-      inputs.home-manager.nixosModules.home-manager
-
+      base
       workstation
       llm
     ];
@@ -25,19 +24,12 @@ in {
       shell = pkgs.zsh;
     };
 
-    home-manager = {
-      useGlobalPkgs = false;
-      useUserPackages = true;
-      # TODO: Remove once fully migrated to flake-parts
-      extraSpecialArgs = {inherit inputs;};
-      users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
-    };
-
-    system.stateVersion = "22.05";
+    home-manager.users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
   };
 
   flake.modules.homeManager."${username}@${host}" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
+      base
       workstation
       llm
 
@@ -46,8 +38,6 @@ in {
 
     home.username = username;
     home.homeDirectory = "/home/${config.home.username}";
-
-    home.stateVersion = "22.05";
   };
 
   flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
