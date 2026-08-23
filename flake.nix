@@ -61,26 +61,6 @@
         (import-tree ./modules-parts)
       ];
       flake = {
-        nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [
-            hosts/jupiter/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = false;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.users.aitvann = import "${self}/users/aitvann@jupiter.nix";
-            }
-          ];
-        };
-
-        # homeConfigurations."jupiter-aitvann" = home-manager.lib.homeManagerConfiguration {
-        #   inherit pkgs;
-        #   modules = ["${self}/users/aitvann@jupiter.nix"];
-        #   extraSpecialArgs = {inherit inputs;};
-        # };
-
         deploy.nodes.jupiter = {
           hostname = "jupiter";
           sshUser = "aitvann";
