@@ -55,9 +55,9 @@
         flake-parts.flakeModules.modules
         home-manager.flakeModules.home-manager
         (import-tree ./features-parts)
-        (import-tree ./hosts-parts)
-        (import-tree ./users-parts)
         (import-tree ./modules-parts)
+        (import-tree ./hosts)
+        (import-tree ./users)
       ];
       flake = {
         deploy.nodes.jupiter = {
