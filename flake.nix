@@ -40,11 +40,9 @@
 
   outputs = {
     flake-parts,
-    self,
     nixpkgs,
     nur,
     home-manager,
-    deploy-rs,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({lib, ...}: {
@@ -59,42 +57,6 @@
         (import-tree ./hosts)
         (import-tree ./users)
       ];
-      flake = {
-        deploy.nodes.jupiter = {
-          hostname = "jupiter";
-          sshUser = "aitvann";
-          profiles.system = {
-            user = "root";
-            sshOpts = [
-              "-p"
-              "9476"
-
-              # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
-              "-A"
-            ];
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.jupiter;
-          };
-        };
-
-        deploy.nodes.venus = {
-          hostname = "venus";
-          sshUser = "general";
-          profiles.system = {
-            user = "root";
-            sshOpts = [
-              "-p"
-              "7818"
-
-              # https://github.com/serokell/deploy-rs/issues/78#issuecomment-894640157
-              "-A"
-            ];
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.venus;
-          };
-        };
-
-        # This is highly advised, and will prevent many possible mistakes
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-      };
 
       perSystem = {
         system,
