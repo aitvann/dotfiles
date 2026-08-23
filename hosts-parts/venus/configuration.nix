@@ -1,17 +1,19 @@
-{inputs, ...}: {
-  flake.modules.nixos.venus = {...}: {
+{inputs, ...}: let
+  host = "venus";
+in {
+  flake.modules.nixos.${host} = {...}: {
     imports = with inputs.self.modules.nixos; [
-      {networking.hostName = "venus";}
+      {networking.hostName = "${host}";}
       inputs.disko.nixosModules.disko
 
       ./_disko.nix
       ./_hardware-configuration.nix
 
-      inputs.self.modules.nixos."general@venus"
+      inputs.self.modules.nixos."general@${host}"
     ];
   };
 
-  flake.nixosConfigurations.venus = inputs.nixpkgs.lib.nixosSystem {
-    modules = [inputs.self.modules.nixos.venus];
+  flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
+    modules = [inputs.self.modules.nixos.${host}];
   };
 }

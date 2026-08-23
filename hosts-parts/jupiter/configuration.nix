@@ -1,15 +1,17 @@
-{inputs, ...}: {
-  flake.modules.nixos.jupiter = {...}: {
+{inputs, ...}: let
+  host = "jupiter";
+in {
+  flake.modules.nixos.${host} = {...}: {
     imports = with inputs.self.modules.nixos; [
-      {networking.hostName = "jupiter";}
+      {networking.hostName = "${host}";}
 
       ./_hardware-configuration.nix
 
-      inputs.self.modules.nixos."aitvann@jupiter"
+      inputs.self.modules.nixos."aitvann@${host}"
     ];
   };
 
-  flake.nixosConfigurations.jupiter = inputs.nixpkgs.lib.nixosSystem {
-    modules = [inputs.self.modules.nixos.jupiter];
+  flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
+    modules = [inputs.self.modules.nixos.${host}];
   };
 }

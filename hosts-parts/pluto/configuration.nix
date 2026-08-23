@@ -1,7 +1,9 @@
-{inputs, ...}: {
-  flake.modules.nixos.pluto = {...}: {
+{inputs, ...}: let
+  host = "pluto";
+in {
+  flake.modules.nixos.${host} = {...}: {
     imports = with inputs.self.modules.nixos; [
-      {networking.hostName = "pluto";}
+      {networking.hostName = host;}
       inputs.disko.nixosModules.disko
 
       # TODO: Figure out whether we want to use plain modules by path
@@ -12,11 +14,11 @@
       ./_disko.nix
       ./_hardware-configuration.nix
 
-      inputs.self.modules.nixos."general@pluto"
+      inputs.self.modules.nixos."general@${host}"
     ];
   };
 
-  flake.nixosConfigurations.pluto = inputs.nixpkgs.lib.nixosSystem {
-    modules = [inputs.self.modules.nixos.pluto];
+  flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
+    modules = [inputs.self.modules.nixos.${host}];
   };
 }

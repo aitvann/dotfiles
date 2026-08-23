@@ -2,17 +2,22 @@
   inputs,
   withSystem,
   ...
-}: {
-  flake.modules.nixos."aitvann@jupiter" = {...}: {
+}: let
+  username = "aitvann";
+  description = "Ivan";
+  host = "jupiter";
+  inherit (inputs.self.nixosConfigurations.${host}.config.nixpkgs.hostPlatform) system;
+in {
+  flake.modules.nixos."${username}@${host}" = {...}: {
     imports = with inputs.self.modules.nixos; [
       inputs.home-manager.nixosModules.home-manager
 
       jupiter-host
     ];
 
-    users.users.aitvann = {
+    users.users.${username} = {
       isNormalUser = true;
-      description = "Ivan";
+      description = description;
       extraGroups = ["networkmanager" "wheel" "docker" "homelab"];
       initialPassword = "nopassword";
       openssh.authorizedKeys.keys = [
@@ -23,25 +28,25 @@
     home-manager = {
       useGlobalPkgs = false;
       useUserPackages = true;
-      users.aitvann.imports = [inputs.self.modules.homeManager."aitvann@jupiter"];
+      users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
     };
 
     system.stateVersion = "22.05";
   };
 
-  flake.modules.homeManager."aitvann@jupiter" = {config, ...}: {
+  flake.modules.homeManager."${username}@${host}" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
       remote-admin
     ];
 
-    home.username = "aitvann";
+    home.username = "${username}";
     home.homeDirectory = "/home/${config.home.username}";
 
     home.stateVersion = "22.05";
   };
 
-  flake.homeConfigurations."aitvann@jupiter" = inputs.home-manager.lib.homeManagerConfiguration {
-    pkgs = withSystem "x86_64-linux" ({pkgs, ...}: pkgs);
-    modules = [inputs.self.modules.homeManager."aitvann@jupiter"];
+  flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = withSystem system ({pkgs, ...}: pkgs);
+    modules = [inputs.self.modules.homeManager."${username}@${host}"];
   };
 }

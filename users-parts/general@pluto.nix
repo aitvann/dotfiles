@@ -2,8 +2,13 @@
   inputs,
   withSystem,
   ...
-}: {
-  flake.modules.nixos."general@pluto" = {pkgs, ...}: {
+}: let
+  username = "general";
+  description = "General User";
+  host = "pluto";
+  inherit (inputs.self.nixosConfigurations.${host}.config.nixpkgs.hostPlatform) system;
+in {
+  flake.modules.nixos."${username}@${host}" = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
       inputs.home-manager.nixosModules.home-manager
 
@@ -11,9 +16,9 @@
       llm
     ];
 
-    users.users.general = {
+    users.users.${username} = {
       isNormalUser = true;
-      description = "General User";
+      description = description;
       extraGroups = ["networkmanager" "wheel" "docker" "wireshark"];
       # MANUAL: set password
       initialPassword = "nopassword";
@@ -25,13 +30,13 @@
       useUserPackages = true;
       # TODO: Remove once fully migrated to flake-parts
       extraSpecialArgs = {inherit inputs;};
-      users.general.imports = [inputs.self.modules.homeManager."general@pluto"];
+      users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
     };
 
     system.stateVersion = "22.05";
   };
 
-  flake.modules.homeManager."general@pluto" = {config, ...}: {
+  flake.modules.homeManager."${username}@${host}" = {config, ...}: {
     imports = with inputs.self.modules.homeManager; [
       workstation
       llm
@@ -39,16 +44,16 @@
       monero
     ];
 
-    home.username = "general";
+    home.username = username;
     home.homeDirectory = "/home/${config.home.username}";
 
     home.stateVersion = "22.05";
   };
 
-  flake.homeConfigurations."general@pluto" = inputs.home-manager.lib.homeManagerConfiguration {
-    pkgs = withSystem "x86_64-linux" ({pkgs, ...}: pkgs);
+  flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = withSystem system ({pkgs, ...}: pkgs);
     # TODO: Remove once fully migrated to flake-parts
     extraSpecialArgs = {inherit inputs;};
-    modules = [inputs.self.modules.homeManager."general@pluto"];
+    modules = [inputs.self.modules.homeManager."${username}@${host}"];
   };
 }
