@@ -45,7 +45,6 @@
     nur,
     home-manager,
     deploy-rs,
-    disko,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({lib, ...}: {
@@ -76,30 +75,6 @@
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.jupiter;
           };
         };
-
-        nixosConfigurations.venus = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [
-            # "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            hosts/venus/configuration.nix
-            disko.nixosModules.disko
-            # Cloud Init installation won't boot with disko
-            hosts/venus/disko.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = false;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.users.general = import "${self}/users/general@venus.nix";
-            }
-          ];
-        };
-
-        # homeConfigurations."venus-general" = home-manager.lib.homeManagerConfiguration {
-        #   inherit pkgs;
-        #   modules = ["${self}/users/general@venus.nix"];
-        #   extraSpecialArgs = {inherit inputs;};
-        # };
 
         deploy.nodes.venus = {
           hostname = "venus";
