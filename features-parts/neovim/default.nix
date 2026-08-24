@@ -14,7 +14,7 @@
       [
         ../../features/term.nix
         ../../features/editor-tools.nix
-        ../../features/git.nix
+        git
       ]
       ++ fzf-lua-deps ++ nnn-nvim-deps;
 

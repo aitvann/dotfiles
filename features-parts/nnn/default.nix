@@ -7,7 +7,7 @@
   }: {
     imports = with inputs.self.modules.homeManager; let
       preview-tui-deps = [../../features/bat.nix];
-      gitroot-deps = [../../features/git.nix];
+      gitroot-deps = [git];
       clipboard-plugin-deps = [../../features/babashka.nix];
     in
       [

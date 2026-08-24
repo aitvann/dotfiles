@@ -9,6 +9,8 @@
     imports = with inputs.self.modules.nixos; [
       graphical-shell
       zsh
+      gnupg
+      ssh
       dev
       syncthing
       flatpak
@@ -117,12 +119,6 @@
 
     environment.etc = lib.mkMerge [
       {
-        # TODO: move to features/gnupg.nix
-        # TODO: figure out how to add package to PATH the proper way
-        "gnupg/gpg-agent.conf".text = ''
-          pinentry-program ${lib.getExe pkgs.pinentry-gnome3}
-        '';
-
         # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
         "strongswan.conf".text = "";
       }
@@ -152,6 +148,8 @@
     imports = with inputs.self.modules.homeManager; [
       graphical-shell
       zsh
+      gnupg
+      ssh
       dev
       syncthing
       flatpak
@@ -161,12 +159,10 @@
 
       ../features/terminal.nix
       file-manager
-      ../features/git-ui.nix
+      git-ui
       ../features/showmethekey.nix
       minecraft
       ../features/music-library.nix
-      ../features/gnupg.nix
-      ../features/ssh.nix
       ../features/gramps.nix
       ../features/chromium.nix
       ../features/firefox

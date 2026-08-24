@@ -9,7 +9,6 @@ in {
   imports = [
     ./babashka.nix
     ./current-location.nix
-    ./git.nix
     ./term.nix
   ];
 
