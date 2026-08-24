@@ -13,6 +13,7 @@ in {
       base
 
       venus-host
+      adguardhome
     ];
 
     users.users.${username} = {

@@ -3,7 +3,6 @@
     pkgs,
     lib,
     packageSystemFiles,
-    packageServiceFilesCopyCommand,
     ...
   }: {
     imports = with inputs.self.modules.nixos; [
@@ -18,6 +17,9 @@
       gaming
       obs-studio
       maintenance
+
+      adguardhome
+      {services.adguardhome.openFirewall = false;}
     ];
 
     boot.loader.grub.enable = true;
@@ -124,9 +126,6 @@
     ];
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
-
-    services.adguardhome.enable = true;
-    systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
     environment.systemPackages = with pkgs; [
       cage

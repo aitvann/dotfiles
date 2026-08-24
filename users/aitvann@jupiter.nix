@@ -13,6 +13,7 @@ in {
       base
 
       jupiter-host
+      adguardhome
     ];
 
     users.users.${username} = {

@@ -4,7 +4,6 @@
     pkgs,
     lib,
     packageSystemFiles,
-    packageServiceFilesCopyCommand,
     ...
   }: {
     boot.loader.systemd-boot.enable = true;
@@ -178,10 +177,6 @@
       enable = true;
       settingsFile = "${inputs.self}/stow-system/xray-${config.networking.hostName}/xray/config.json";
     };
-
-    services.adguardhome.enable = true;
-    services.adguardhome.openFirewall = true;
-    systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
     services.nginx = {
       enable = true;
