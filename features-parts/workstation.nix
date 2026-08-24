@@ -12,9 +12,8 @@
       dev
       syncthing
       flatpak
+      bypass-restrictions
       maintenance
-
-      inputs.zapret-discord-youtube.nixosModules.default
     ];
 
     # TODO: move to features/gaming.nix
@@ -154,16 +153,6 @@
     services.adguardhome.enable = true;
     systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
-    # TODO: move to features/bypass-restrictions.nix
-    # Verify working: youtube.com discord.com rutracker.org
-    # Won't work since banned by ip: x.com instagram.com proton.me
-    #
-    # Using zapret on openwrt instead, uncommend when unable to connect to wifi
-    # services.zapret-discord-youtube = {
-    #   enable = true;
-    #   config = "general(ALT2)";
-    # };
-
     environment.systemPackages = with pkgs; [
       cage
       regreet
@@ -182,6 +171,7 @@
       dev
       syncthing
       flatpak
+      bypass-restrictions
       maintenance
 
       ../features/terminal.nix
@@ -199,7 +189,6 @@
       neovim
       ../features/helix.nix
       ../features/obs-studio.nix
-      ../features/bypass-restrictions.nix
       ../features/backups.nix
     ];
 
