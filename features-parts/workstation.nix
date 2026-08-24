@@ -10,8 +10,6 @@
       flatpak
 
       inputs.zapret-discord-youtube.nixosModules.default
-      # overriding module so it reads configuration from standard location, not from cli arg
-      ../modules/greetd.nix
     ];
 
     # TODO: move to features/maintenance.nix
