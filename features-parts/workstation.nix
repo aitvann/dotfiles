@@ -152,7 +152,7 @@
       obs-studio
       maintenance
 
-      ../features/terminal.nix
+      terminal
       file-manager
       git-ui
       ../features/showmethekey.nix
