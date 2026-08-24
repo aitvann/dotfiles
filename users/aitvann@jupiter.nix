@@ -41,6 +41,7 @@ in {
 
   flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = withSystem system ({pkgs, ...}: pkgs);
+    extraSpecialArgs = {osConfig.networking.hostName = host;};
     modules = [inputs.self.modules.homeManager."${username}@${host}"];
   };
 }

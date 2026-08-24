@@ -42,8 +42,11 @@ in {
 
   flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = withSystem system ({pkgs, ...}: pkgs);
-    # TODO: Remove once fully migrated to flake-parts
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = {
+      osConfig.networking.hostName = host;
+      # TODO: Remove once fully migrated to flake-parts
+      inherit inputs;
+    };
     modules = [inputs.self.modules.homeManager."${username}@${host}"];
   };
 }
