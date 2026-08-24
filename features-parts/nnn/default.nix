@@ -12,7 +12,6 @@
     in
       [
         ../../modules/unfree.nix
-        stowfulNnn
         ../../features/term.nix
       ]
       ++ preview-tui-deps ++ gitroot-deps ++ clipboard-plugin-deps;

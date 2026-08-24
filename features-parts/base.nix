@@ -16,7 +16,11 @@
   };
 
   flake.modules.homeManager.base = {...}: {
-    imports = with inputs.self.modules.homeManager; [stow];
+    imports = with inputs.self.modules.homeManager; [
+      stow
+      stowfulNnn
+      stowfulOpenWebui
+    ];
 
     home.stateVersion = "22.05";
   };
