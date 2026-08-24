@@ -1,0 +1,59 @@
+{inputs, ...}: {
+  flake.modules.nixos.maintenance = {pkgs, ...}: {
+    # Used by `nixd`
+    # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
+    nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    # Better be the same to the one defined on home-level
+    nix.settings.experimental-features = ["nix-command" "flakes"];
+
+    networking.extraHosts = ''
+      ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
+    '';
+
+    environment.systemPackages = with pkgs; [
+      # Won't work unles system installed
+      gparted
+    ];
+  };
+
+  flake.modules.homeManager.maintenance = {
+    pkgs,
+    lib,
+    packageHomeFiles,
+    ...
+  }: {
+    imports = [
+      ../features/direnv.nix
+    ];
+
+    nixpkgs.overlays = [
+      # TODO: Move to the feature where NUR is actually used
+      inputs.nur.overlays.default
+
+      (final: prev: {
+        nix-alien = inputs.nix-alien.packages.${prev.stdenv.hostPlatform.system}.default;
+      })
+    ];
+
+    home.packages = with pkgs; [
+      stow
+
+      home-manager
+      comma
+      nix-index
+      nix-alien
+      nix-du
+      deploy-rs
+      nh
+
+      graphviz
+
+      tigervnc
+    ];
+
+    home.file = lib.mkMerge [
+      (packageHomeFiles "maintenance")
+      (packageHomeFiles "nix")
+    ];
+  };
+}

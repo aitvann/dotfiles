@@ -10,16 +10,10 @@
       graphical-shell
       zsh
       flatpak
+      maintenance
 
       inputs.zapret-discord-youtube.nixosModules.default
     ];
-
-    # TODO: move to features/maintenance.nix
-    # used by `nixd`
-    # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
-    nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-    # better be the same to the one defined on home-level
-    nix.settings.experimental-features = ["nix-command" "flakes"];
 
     # TODO: move to features/gaming.nix
     nixpkgs.config.allowUnfreePredicate = pkg:
@@ -171,8 +165,6 @@
     networking.extraHosts = ''
       127.0.0.1 postgres-test
       127.0.0.1 clickhouse-test
-
-      ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
     '';
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
@@ -191,9 +183,6 @@
     # };
 
     environment.systemPackages = with pkgs; [
-      # won't work unles system installed
-      gparted
-
       cage
       regreet
     ];
@@ -209,6 +198,7 @@
       graphical-shell
       zsh
       flatpak
+      maintenance
 
       ../features/terminal.nix
       file-manager
@@ -227,7 +217,6 @@
       ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
-      ../features/maintenance.nix
       ../features/dev.nix
       ../features/backups.nix
     ];
