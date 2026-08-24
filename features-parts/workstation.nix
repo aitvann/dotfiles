@@ -160,7 +160,7 @@
       music-library
       ../features/gramps.nix
       ../features/chromium.nix
-      ../features/firefox
+      firefox
       ../features/btop.nix
       neovim
       ../features/helix.nix
