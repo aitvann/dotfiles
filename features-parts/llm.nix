@@ -8,6 +8,10 @@
         OLLAMA_FLASH_ATTENTION = "1";
       };
     };
+
+    networking.firewall = {
+      allowedTCPPorts = [2402];
+    };
   };
 
   flake.modules.homeManager.llm = {...}: {
