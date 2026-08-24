@@ -16,6 +16,7 @@
       flatpak
       bypass-restrictions
       gaming
+      obs-studio
       maintenance
     ];
 
@@ -93,12 +94,6 @@
       configs.dymmy.SUBVOLUME = "/";
     };
 
-    # TODO: move to features/obs.nix
-    # Video Input devices support (v4l2)
-    programs.obs-studio.enable = true;
-    programs.obs-studio.package = null; # Install using Home Manger instead if needed
-    programs.obs-studio.enableVirtualCamera = true;
-
     services.yggdrasil = {
       enable = false;
       persistentKeys = true;
@@ -155,6 +150,7 @@
       flatpak
       bypass-restrictions
       gaming
+      obs-studio
       maintenance
 
       ../features/terminal.nix
@@ -169,7 +165,6 @@
       ../features/btop.nix
       neovim
       ../features/helix.nix
-      ../features/obs-studio.nix
       ../features/backups.nix
     ];
 
