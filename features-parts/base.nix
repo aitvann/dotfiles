@@ -20,6 +20,7 @@
     imports = with inputs.self.modules.homeManager; [
       stow
       stowfulNnn
+      stowfulMpd
       stowfulOpenWebui
     ];
 

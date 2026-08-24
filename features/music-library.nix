@@ -9,9 +9,6 @@
 in {
   imports = [
     ./yt-dlp
-
-    # Override
-    ../modules/mpd.nix
   ];
 
   nixpkgs.overlays = [
