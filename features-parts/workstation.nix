@@ -9,6 +9,7 @@
     imports = with inputs.self.modules.nixos; [
       graphical-shell
       zsh
+      dev
       flatpak
       maintenance
 
@@ -104,10 +105,6 @@
       configs.dymmy.SUBVOLUME = "/";
     };
 
-    # TODO: move to features/dev.nix
-    # NOTE: requires user in wireshark group
-    programs.wireshark.enable = true;
-
     # TODO: move to features/gaming.nix
     programs.steam = {
       enable = true;
@@ -130,12 +127,6 @@
         ];
         IfName = "ygg0";
       };
-    };
-
-    # TODO: move to features/dev.nix
-    virtualisation.docker = {
-      enable = true;
-      storageDriver = "overlay2";
     };
 
     hardware.bluetooth.enable = true;
@@ -161,11 +152,6 @@
       (packageSystemFiles "regreet")
       (packageSystemFiles "snapper")
     ];
-
-    networking.extraHosts = ''
-      127.0.0.1 postgres-test
-      127.0.0.1 clickhouse-test
-    '';
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
 
@@ -197,6 +183,7 @@
     imports = with inputs.self.modules.homeManager; [
       graphical-shell
       zsh
+      dev
       flatpak
       maintenance
 
@@ -217,7 +204,6 @@
       ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
-      ../features/dev.nix
       ../features/backups.nix
     ];
 
