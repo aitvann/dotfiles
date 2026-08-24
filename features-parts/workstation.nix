@@ -10,6 +10,7 @@
       graphical-shell
       zsh
       dev
+      syncthing
       flatpak
       maintenance
 
@@ -46,11 +47,6 @@
 
     networking.networkmanager.enable = true;
     networking.nameservers = ["127.0.0.1"];
-    networking.firewall = {
-      #  Syncthing
-      allowedTCPPorts = [22000];
-    };
-
     i18n.defaultLocale = "en_GB.UTF-8";
     time.timeZone = "Europe/Moscow";
 
@@ -184,6 +180,7 @@
       graphical-shell
       zsh
       dev
+      syncthing
       flatpak
       maintenance
 
@@ -201,7 +198,6 @@
       ../features/btop.nix
       neovim
       ../features/helix.nix
-      ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
       ../features/backups.nix
