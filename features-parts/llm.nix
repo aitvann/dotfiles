@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{...}: {
   flake.modules.nixos.llm = {pkgs, ...}: {
     # GPU is not utilized when running as user service
     services.ollama = {

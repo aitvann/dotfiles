@@ -13,18 +13,9 @@
       syncthing
       flatpak
       bypass-restrictions
+      gaming
       maintenance
     ];
-
-    # TODO: move to features/gaming.nix
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "steam"
-        "steam-run"
-        "steam-original"
-        "steam-runtime"
-        "steam-unwrapped"
-      ];
 
     boot.loader.grub.enable = true;
     boot.loader.grub.efiSupport = true;
@@ -100,13 +91,6 @@
       configs.dymmy.SUBVOLUME = "/";
     };
 
-    # TODO: move to features/gaming.nix
-    programs.steam = {
-      enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    };
-
     # TODO: move to features/obs.nix
     # Video Input devices support (v4l2)
     programs.obs-studio.enable = true;
@@ -172,6 +156,7 @@
       syncthing
       flatpak
       bypass-restrictions
+      gaming
       maintenance
 
       ../features/terminal.nix
@@ -197,7 +182,6 @@
       # libsForQt5.qt5ct
       # kdePackages.qt6ct
       kdePackages.kdenlive
-      protontricks
       telegram-desktop
       element-desktop
       session-desktop
