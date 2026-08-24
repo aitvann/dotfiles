@@ -8,8 +8,6 @@
     imports = with inputs.self.modules.homeManager; let
       fzf-lua-deps = [../../features/bat.nix];
       nnn-nvim-deps = [
-        # TODO: Fix duplication problem
-        # nnn
         ../../features/tmux.nix
       ];
     in

@@ -7,10 +7,6 @@
   util = import ../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
-  imports = [
-    ../modules/tmux.nix
-  ];
-
   programs.tmux = {
     enable = true;
     plugins = with pkgs.tmuxPlugins; [
