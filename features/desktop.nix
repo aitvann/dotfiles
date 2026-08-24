@@ -10,9 +10,6 @@
 in {
   imports = [
     ./wayland.nix
-
-    # Override
-    ../modules/hyprland.nix
   ];
 
   nixpkgs.overlays = [

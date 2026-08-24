@@ -24,6 +24,7 @@
       stowfulNnn
       stowfulMpd
       stowfulZsh
+      stowfulHyprland
       stowfulOpenWebui
     ];
 
