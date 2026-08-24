@@ -1,12 +1,12 @@
-{...}: {
+{inputs, ...}: {
   flake.modules.homeManager.terminal = {
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = [
+    imports = with inputs.self.modules.homeManager; [
       ../features/babashka.nix
-      ../features/current-location.nix
+      current-location
       ../features/term.nix
     ];
 

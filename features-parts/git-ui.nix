@@ -6,7 +6,7 @@
   }: {
     imports = with inputs.self.modules.homeManager; [
       ../features/babashka.nix
-      ../features/current-location.nix
+      current-location
       git
       ../features/term.nix
     ];
