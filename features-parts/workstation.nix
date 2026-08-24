@@ -155,12 +155,12 @@
       terminal
       file-manager
       git-ui
+      firefox
+      chromium
       ../features/showmethekey.nix
       minecraft
       music-library
       ../features/gramps.nix
-      ../features/chromium.nix
-      firefox
       ../features/btop.nix
       neovim
       helix
