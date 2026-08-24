@@ -6,8 +6,9 @@
     packageServiceFilesCopyCommand,
     ...
   }: {
-    imports = [
-      # ../${workstation.host}/hardware-configuration.nix
+    imports = with inputs.self.modules.nixos; [
+      flatpak
+
       inputs.zapret-discord-youtube.nixosModules.default
       # overriding module so it reads configuration from standard location, not from cli arg
       ../modules/greetd.nix
@@ -207,9 +208,6 @@
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
 
-    # TODO: move to features/flatpak.nix
-    services.flatpak.enable = true;
-
     services.adguardhome.enable = true;
     systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
 
@@ -243,10 +241,11 @@
   }: let
   in {
     imports = with inputs.self.modules.homeManager; [
+      flatpak
+
       ../features/terminal.nix
       file-manager
       ../features/git-ui.nix
-      ../features/flatpak.nix
       ../features/showmethekey.nix
       minecraft
       ../features/music-library.nix
