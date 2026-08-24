@@ -127,13 +127,6 @@
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     };
 
-    # Virtualisation
-    # TODO: move to features/virtualization.nix
-    programs.virt-manager.enable = true;
-    virtualisation.libvirtd.enable = true;
-    users.groups.libvirtd.members = ["general"];
-    networking.firewall.trustedInterfaces = ["virbr0"];
-
     # TODO: move to features/obs.nix
     # Video Input devices support (v4l2)
     programs.obs-studio.enable = true;
@@ -208,9 +201,6 @@
     # };
 
     environment.systemPackages = with pkgs; [
-      # Virtualisation
-      dnsmasq
-
       # won't work unles system installed
       gparted
 
