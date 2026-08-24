@@ -1,11 +1,11 @@
-{...}: {
+{inputs, ...}: {
   flake.modules.homeManager.helix = {
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = [
-      ../features/editor-tools.nix
+    imports = with inputs.self.modules.homeManager; [
+      editor-tools
     ];
 
     home.file = lib.mkMerge [

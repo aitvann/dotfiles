@@ -13,7 +13,7 @@
     in
       [
         ../../features/term.nix
-        ../../features/editor-tools.nix
+        editor-tools
         git
       ]
       ++ fzf-lua-deps ++ nnn-nvim-deps;
