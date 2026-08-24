@@ -163,7 +163,7 @@
       firefox
       ../features/btop.nix
       neovim
-      ../features/helix.nix
+      helix
       ../features/backups.nix
     ];
 
