@@ -7,6 +7,7 @@
     ...
   }: {
     imports = with inputs.self.modules.nixos; [
+      graphical-shell
       flatpak
 
       inputs.zapret-discord-youtube.nixosModules.default
@@ -57,18 +58,6 @@
     i18n.defaultLocale = "en_GB.UTF-8";
     time.timeZone = "Europe/Moscow";
 
-    # TODO: move to features/desktop.nix
-    # required for Home Manager to configure system settings
-    programs.hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      withUWSM = true;
-      xwayland.enable = true;
-    };
-    services.xserver = {
-      enable = true;
-      excludePackages = with pkgs; [xterm];
-    };
     programs.regreet.enable = true;
     # HACK: the default `pkgs.cantarell-fonts` does not compile
     programs.regreet.font.package = pkgs.dejavu_fonts;
@@ -238,6 +227,7 @@
   }: let
   in {
     imports = with inputs.self.modules.homeManager; [
+      graphical-shell
       flatpak
 
       ../features/terminal.nix
@@ -261,7 +251,6 @@
       ../features/maintenance.nix
       ../features/dev.nix
       ../features/backups.nix
-      ../features/desktop.nix
     ];
 
     home.packages = with pkgs; [
