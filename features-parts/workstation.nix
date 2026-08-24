@@ -157,7 +157,7 @@
       git-ui
       ../features/showmethekey.nix
       minecraft
-      ../features/music-library.nix
+      music-library
       ../features/gramps.nix
       ../features/chromium.nix
       ../features/firefox
