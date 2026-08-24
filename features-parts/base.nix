@@ -23,6 +23,7 @@
       stow
       stowfulNnn
       stowfulMpd
+      stowfulZsh
       stowfulOpenWebui
     ];
 

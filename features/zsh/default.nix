@@ -7,17 +7,13 @@
   util = import ../../lib/util.nix args;
   packageHomeFiles = util.packageStowFiles config.home.homeDirectory;
 in {
-  imports = [
-    ../../modules/zsh.nix
-  ];
-
   nixpkgs.overlays = [
     (final: prev: {
       zsh-fast-syntax-highlighting = final.callPackage ./plugins/zsh-fast-syntax-highlighting.pkg.nix {};
     })
   ];
 
-  programs.my-zsh = {
+  programs.stow-zsh = {
     enable = true;
     plugins = with pkgs; [
       zsh-defer
