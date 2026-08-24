@@ -8,6 +8,7 @@
   }: {
     imports = with inputs.self.modules.nixos; [
       graphical-shell
+      zsh
       flatpak
 
       inputs.zapret-discord-youtube.nixosModules.default
@@ -109,13 +110,6 @@
       configs.dymmy.SUBVOLUME = "/";
     };
 
-    # TODO: move to features/zsh
-    # required
-    programs.zsh = {
-      enable = true;
-      enableCompletion = false;
-    };
-
     # TODO: move to features/dev.nix
     # NOTE: requires user in wireshark group
     programs.wireshark.enable = true;
@@ -174,10 +168,6 @@
       (packageSystemFiles "snapper")
     ];
 
-    environment.pathsToLink = ["/share/zsh"];
-    # some local scripts are not fully POSIX-compatible yet
-    # environment.binsh = "${pkgs.dash}/bin/dash";
-
     networking.extraHosts = ''
       127.0.0.1 postgres-test
       127.0.0.1 clickhouse-test
@@ -214,10 +204,10 @@
     lib,
     packageHomeFiles,
     ...
-  }: let
-  in {
+  }: {
     imports = with inputs.self.modules.homeManager; [
       graphical-shell
+      zsh
       flatpak
 
       ../features/terminal.nix
@@ -234,7 +224,6 @@
       ../features/btop.nix
       neovim
       ../features/helix.nix
-      ../features/zsh
       ../features/syncthing.nix
       ../features/obs-studio.nix
       ../features/bypass-restrictions.nix
