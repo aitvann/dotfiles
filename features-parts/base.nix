@@ -4,6 +4,7 @@
       inputs.home-manager.nixosModules.home-manager
       stow
       stowfulGreetd
+      stowfulIsponsorblocktv
     ];
 
     home-manager = {

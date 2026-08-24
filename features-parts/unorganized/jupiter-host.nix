@@ -7,10 +7,6 @@
     packageServiceFilesCopyCommand,
     ...
   }: {
-    imports = [
-      "${inputs.self}/modules/isponsorblocktv.nix"
-    ];
-
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
