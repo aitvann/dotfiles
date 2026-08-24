@@ -1,19 +1,19 @@
-{...}: {
+{inputs, ...}: {
   flake.modules.homeManager.music-library = {
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = [
-      ../features/yt-dlp
+    imports = with inputs.self.modules.homeManager; [
+      yt-dlp
     ];
 
     nixpkgs.overlays = [
       (final: prev: {
         beets = prev.beets.overridePythonAttrs (old: {
           propagatedBuildInputs =
-            # required for lastgenre plugin
+            # Required for lastgenre plugin
             old.propagatedBuildInputs or [] ++ [prev.python3.pkgs.socksio];
         });
       })
