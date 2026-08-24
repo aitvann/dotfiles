@@ -2,7 +2,7 @@
   util = inputs.self.util;
 in {
   flake.modules.nixos.graphical-shell = {pkgs, ...}: {
-    # required for Home Manager to configure system settings
+    # Required for Home Manager to configure system settings
     programs.hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -24,8 +24,8 @@ in {
     ...
   }: let
   in {
-    imports = [
-      ../features/wayland.nix
+    imports = with inputs.self.modules.homeManager; [
+      wayland
     ];
 
     nixpkgs.overlays = [
