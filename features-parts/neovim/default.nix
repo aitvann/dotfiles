@@ -12,7 +12,6 @@
       ];
     in
       [
-        ../../modules/unfree.nix
         ../../features/term.nix
         ../../features/editor-tools.nix
         ../../features/git.nix

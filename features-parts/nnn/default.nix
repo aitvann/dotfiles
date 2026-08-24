@@ -11,7 +11,6 @@
       clipboard-plugin-deps = [../../features/babashka.nix];
     in
       [
-        ../../modules/unfree.nix
         ../../features/term.nix
       ]
       ++ preview-tui-deps ++ gitroot-deps ++ clipboard-plugin-deps;

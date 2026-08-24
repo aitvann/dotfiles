@@ -15,10 +15,6 @@
   };
 
   flake.modules.homeManager.llm = {...}: {
-    imports = with inputs.self.modules.homeManager; [
-      ../modules/unfree.nix
-    ];
-
     nixpkgs.allowedUnfreePackages = [
       "open-webui"
     ];

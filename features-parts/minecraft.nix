@@ -1,9 +1,5 @@
 {inputs, ...}: {
   flake.modules.homeManager.minecraft = {pkgs, ...}: {
-    imports = [
-      ../modules/unfree.nix
-    ];
-
     nixpkgs.overlays = [
       (final: prev: {
         graalvmPackages21 = inputs.nixpkgs-graalvm21.legacyPackages.${prev.stdenv.hostPlatform.system}.graalvmCEPackages;

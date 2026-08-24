@@ -1,8 +1,11 @@
 {inputs, ...}: {
   flake.modules.nixos.base = {...}: {
     imports = with inputs.self.modules.nixos; [
-      inputs.home-manager.nixosModules.home-manager
       stow
+      unfree
+
+      inputs.home-manager.nixosModules.home-manager
+
       stowfulAcme
       stowfulGreetd
       stowfulIsponsorblocktv
@@ -21,6 +24,8 @@
   flake.modules.homeManager.base = {...}: {
     imports = with inputs.self.modules.homeManager; [
       stow
+      unfree
+
       stowfulNnn
       stowfulMpd
       stowfulZsh
