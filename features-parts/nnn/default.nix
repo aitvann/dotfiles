@@ -8,7 +8,7 @@
     imports = with inputs.self.modules.homeManager; let
       preview-tui-deps = [bat];
       gitroot-deps = [git];
-      clipboard-plugin-deps = [../../features/babashka.nix];
+      clipboard-plugin-deps = [babashka];
     in
       [
         term
