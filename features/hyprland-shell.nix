@@ -1,7 +1,7 @@
 {inputs, ...}: let
   util = inputs.self.util;
 in {
-  flake.modules.nixos.graphical-shell = {pkgs, ...}: {
+  flake.modules.nixos.hyprland-shell = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
       wayland
     ];
@@ -18,9 +18,12 @@ in {
       enable = true;
       excludePackages = with pkgs; [xterm];
     };
+
+    # Required for bar to get battery information
+    services.upower.enable = true;
   };
 
-  flake.modules.homeManager.graphical-shell = {
+  flake.modules.homeManager.hyprland-shell = {
     config,
     pkgs,
     lib,
@@ -31,6 +34,9 @@ in {
     imports = with inputs.self.modules.homeManager; [
       wayland
 
+      terminal
+      file-manager
+      git-ui
       rofi
     ];
 

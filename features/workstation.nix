@@ -5,7 +5,7 @@
     ...
   }: {
     imports = with inputs.self.modules.nixos; [
-      graphical-shell
+      hyprland-shell
       zsh
       gnupg
       ssh
@@ -47,7 +47,6 @@
 
     services.udisks2.enable = true;
     services.earlyoom.enable = true;
-    services.upower.enable = true;
 
     services.printing.enable = true;
     # enable WIFI printing
@@ -92,7 +91,7 @@
     ...
   }: {
     imports = with inputs.self.modules.homeManager; [
-      graphical-shell
+      hyprland-shell
       zsh
       gnupg
       ssh
@@ -105,9 +104,6 @@
       obs-studio
       maintenance
 
-      terminal
-      file-manager
-      git-ui
       firefox
       chromium
       minecraft
