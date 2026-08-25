@@ -70,9 +70,6 @@ in {
       ripgrep
       gojq
       bluetui
-      # infinite recursion in overlay
-      (pass.withExtensions (exts: with exts; [pass-otp]))
-      rofi-pass-wayland
       rofimoji
       pwmenu
       networkmanager_dmenu
@@ -104,8 +101,6 @@ in {
       (packageHomeFiles "icons")
       (packageHomeFiles "networkmanager-dmenu")
       (packageHomeFiles "qalculate")
-      (packageHomeFiles "rofi")
-      (packageHomeFiles "rofi-pass")
       (packageHomeFiles "rofimoji")
       (packageHomeFiles "xdg")
       (packageHomeFiles "xsettingsd")

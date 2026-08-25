@@ -11,6 +11,7 @@
       gnupg
       ssh
       dev
+      password-manager
       syncthing
       flatpak
       bypass-restrictions
@@ -106,6 +107,7 @@
       gnupg
       ssh
       dev
+      password-manager
       syncthing
       flatpak
       bypass-restrictions
