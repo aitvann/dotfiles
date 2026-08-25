@@ -42,8 +42,6 @@ hl.bind(mainMod .. " + + + SHIFT + W",
     hl.dsp.exec_cmd(
         "wl-paste -t image/png | satty --filename - --fullscreen --early-exit --init-tool brush --copy-command wl-copy"),
     { description = "edit (Write) data from clipboard in FULLSCREEN" })
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("wl-paste -t image/png | ocr | wl-copy"),
-    { description = "Read data from clipboard image" })
 
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("pypr toggle messenger"), { description = "toggle MUSIC window" })
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("pypr toggle telegram"), { description = "toggle Telegram window" })

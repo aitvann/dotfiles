@@ -110,6 +110,7 @@
       neovim
       helix
       backups
+      ocr
       gramps
       showmethekey
     ];

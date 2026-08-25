@@ -82,7 +82,6 @@ in {
       networkmanagerapplet
       slurp
       grim
-      tesseract
       brightnessctl
       qpwgraph
       libnotify
