@@ -1,4 +1,4 @@
-{...}: {
+{inputs, ...}: {
   flake.modules.nixos.dev = {...}: {
     # NOTE: requires user in wireshark group
     programs.wireshark.enable = true;
@@ -20,8 +20,8 @@
     packageHomeFiles,
     ...
   }: {
-    imports = [
-      ../features/direnv.nix
+    imports = with inputs.self.modules.homeManager; [
+      direnv
     ];
 
     home.packages = with pkgs; [

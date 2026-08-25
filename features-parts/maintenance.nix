@@ -22,8 +22,8 @@
     packageHomeFiles,
     ...
   }: {
-    imports = [
-      ../features/direnv.nix
+    imports = with inputs.self.modules.homeManager; [
+      direnv
     ];
 
     nixpkgs.overlays = [
