@@ -18,6 +18,7 @@
       obs-studio
       maintenance
 
+      locale
       adguardhome
       {services.adguardhome.openFirewall = false;}
       corporate-vpn
@@ -43,8 +44,6 @@
 
     networking.networkmanager.enable = true;
     networking.nameservers = ["127.0.0.1"];
-    i18n.defaultLocale = "en_GB.UTF-8";
-    time.timeZone = "Europe/Moscow";
 
     services.udisks2.enable = true;
     services.earlyoom.enable = true;

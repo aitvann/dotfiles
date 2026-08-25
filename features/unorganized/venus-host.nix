@@ -29,12 +29,6 @@
     ];
     networking.nameservers = ["8.8.8.8"];
 
-    # Set your time zone.
-    time.timeZone = "Europe/Moscow";
-
-    # Select internationalisation properties.
-    i18n.defaultLocale = "en_GB.UTF-8";
-
     # https://github.com/NixOS/nix/issues/2127#issuecomment-1465191608
     # https://github.com/serokell/deploy-rs/issues/25
     nix.settings.trusted-users = ["@wheel"];

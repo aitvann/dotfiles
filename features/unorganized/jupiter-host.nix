@@ -11,9 +11,6 @@
 
     networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-    i18n.defaultLocale = "en_GB.UTF-8";
-    time.timeZone = "Europe/Moscow";
-
     # https://github.com/NixOS/nix/issues/2127#issuecomment-1465191608
     # https://github.com/serokell/deploy-rs/issues/25
     nix.settings.trusted-users = ["@wheel"];
