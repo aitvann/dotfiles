@@ -162,7 +162,7 @@
       ../features/btop.nix
       neovim
       helix
-      ../features/backups.nix
+      backups
       gramps
       showmethekey
     ];
