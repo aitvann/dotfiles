@@ -7,9 +7,7 @@
   }: {
     imports = with inputs.self.modules.homeManager; let
       fzf-lua-deps = [../../features/bat.nix];
-      nnn-nvim-deps = [
-        ../../features/tmux.nix
-      ];
+      nnn-nvim-deps = [tmux];
     in
       [
         ../../features/term.nix
