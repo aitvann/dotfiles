@@ -45,10 +45,7 @@
     i18n.defaultLocale = "en_GB.UTF-8";
     time.timeZone = "Europe/Moscow";
 
-    programs.regreet.enable = true;
-    # HACK: the default `pkgs.cantarell-fonts` does not compile
-    programs.regreet.font.package = pkgs.dejavu_fonts;
-    programs.regreet.font.name = "DejaVu Sans";
+    services.displayManager.regreet.enable = true;
     # TODO: figure out smooth plymouth transition as it is not supported out of the box
     # https://todo.sr.ht/~kennylevinsen/greetd/17
     services.greetd.greeterManagesPlymouth = false;
@@ -174,7 +171,6 @@
       kdePackages.kdenlive
       telegram-desktop
       element-desktop
-      session-desktop
       audacity
       qbittorrent
       tor-browser

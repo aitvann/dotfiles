@@ -1,41 +1,18 @@
 services:
   'git.tt-int.net': 'gitlab:git.tt-int.net'
-
 # What to do when opening Lazygit outside of a git repo.
 # - 'prompt': (default) ask whether to initialize a new repo or open in the most recent repo
 # - 'create': initialize a new repo
 # - 'skip': open most recent repo
 # - 'quit': exit Lazygit
 notARepository: quit
-
 promptToReturnFromSubprocess: false
-
 git:
   # If true, periodically fetch from remote
   # AND PROMT FOR SSH PASSWORD
   autoFetch: false
-
-  pagers:
-    - pager: delta --syntax-theme tokyonight-storm --dark --paging=never
-
+  diffRenderers:
+    - command: delta --syntax-theme tokyonight-storm --dark --paging=never
 os:
-  edit: |
-    if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then
-      nvim --server ${NVIM:-${NVIM_PIPE}} --remote-send '<cmd>lua require("git").lazygit_edit_file({{filename}})<CR>'
-
-      if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then
-        kill -TERM $(ps -o ppid= -p $$)
-      fi
-    else
-      $VISUAL -- {{filename}}
-    fi 
-  editAtLine: |
-    if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then
-      nvim --server ${NVIM:-${NVIM_PIPE}} --remote-send '<cmd>lua require("git").lazygit_edit_file({{filename}}, {{line}})<CR>'
-
-      if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then
-        kill -TERM $(ps -o ppid= -p $$)
-      fi
-    else
-      $VISUAL +{{line}} -- {{filename}}
-    fi 
+  edit: "if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then\n  nvim --server ${NVIM:-${NVIM_PIPE}} --remote-send '<cmd>lua require(\"git\").lazygit_edit_file({{filename}})<CR>'\n\n  if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then\n    kill -TERM $(ps -o ppid= -p $$)\n  fi\nelse\n  $VISUAL -- {{filename}}\nfi \n"
+  editAtLine: "if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then\n  nvim --server ${NVIM:-${NVIM_PIPE}} --remote-send '<cmd>lua require(\"git\").lazygit_edit_file({{filename}}, {{line}})<CR>'\n\n  if [[ -v NVIM_PIPE ]] && [[ ! -v NVIM ]]; then\n    kill -TERM $(ps -o ppid= -p $$)\n  fi\nelse\n  $VISUAL +{{line}} -- {{filename}}\nfi \n"

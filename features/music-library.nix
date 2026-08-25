@@ -34,7 +34,9 @@
       rmpc
       cava
 
-      hexchat
+      # Archived.
+      # TODO: find alternative
+      # hexchat
     ];
   };
 }
