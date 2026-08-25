@@ -14,8 +14,6 @@
     home-manager = {
       useGlobalPkgs = false;
       useUserPackages = true;
-      # TODO: Remove once fully migrated to flake-parts
-      extraSpecialArgs = {inherit inputs;};
     };
 
     system.stateVersion = "22.05";
