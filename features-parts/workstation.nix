@@ -159,11 +159,11 @@
       chromium
       minecraft
       music-library
-      ../features/gramps.nix
       ../features/btop.nix
       neovim
       helix
       ../features/backups.nix
+      gramps
       showmethekey
     ];
 
