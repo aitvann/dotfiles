@@ -157,7 +157,6 @@
       git-ui
       firefox
       chromium
-      ../features/showmethekey.nix
       minecraft
       music-library
       ../features/gramps.nix
@@ -165,6 +164,7 @@
       neovim
       helix
       ../features/backups.nix
+      showmethekey
     ];
 
     home.packages = with pkgs; [
