@@ -30,22 +30,18 @@ in {
   in {
     imports = with inputs.self.modules.homeManager; [
       wayland
+
+      rofi
     ];
 
     nixpkgs.overlays = [
       (final: prev: {
-        rofi-calc = prev.rofi-calc.override {rofi-unwrapped = prev.rofi-wayland-unwrapped;};
         hyprlandPlugins =
           prev.hyprlandPlugins
           // {
             hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors;
           };
         hyprcursor-phinger = inputs.hyprcursor-phinger.packages.${prev.stdenv.hostPlatform.system}.default;
-        rofi-wayland =
-          prev.rofi-wayland.override
-          (old: {
-            plugins = (old.plugins or []) ++ [prev.rofi-calc];
-          });
       })
     ];
 
@@ -76,7 +72,6 @@ in {
       bluetui
       # infinite recursion in overlay
       (pass.withExtensions (exts: with exts; [pass-otp]))
-      rofi
       rofi-pass-wayland
       rofimoji
       pwmenu
