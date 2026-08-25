@@ -10,7 +10,7 @@
       nnn-nvim-deps = [tmux];
     in
       [
-        ../../features/term.nix
+        term
         editor-tools
         git
       ]

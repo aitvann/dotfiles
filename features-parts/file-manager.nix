@@ -9,7 +9,7 @@ in {
       ../features/babashka.nix
       current-location
       nnn
-      ../features/term.nix
+      term
     ];
 
     home.file = lib.mkMerge [

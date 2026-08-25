@@ -7,7 +7,7 @@
     imports = with inputs.self.modules.homeManager; [
       ../features/babashka.nix
       current-location
-      ../features/term.nix
+      term
     ];
 
     home.file = lib.mkMerge [

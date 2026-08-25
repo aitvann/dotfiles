@@ -8,7 +8,7 @@
       ../features/babashka.nix
       current-location
       git
-      ../features/term.nix
+      term
     ];
 
     home.file = lib.mkMerge [
