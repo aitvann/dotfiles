@@ -2,6 +2,10 @@
   util = inputs.self.util;
 in {
   flake.modules.nixos.graphical-shell = {pkgs, ...}: {
+    imports = with inputs.self.modules.nixos; [
+      wayland
+    ];
+
     # Required for Home Manager to configure system settings
     programs.hyprland = {
       enable = true;
@@ -104,13 +108,10 @@ in {
       (packageHomeFiles "hypr")
       (packageHomeFiles "icons")
       (packageHomeFiles "networkmanager-dmenu")
-      (packageHomeFiles "pipewire-${config.home.username}")
-      (packageHomeFiles "pulse")
       (packageHomeFiles "qalculate")
       (packageHomeFiles "rofi")
       (packageHomeFiles "rofi-pass")
       (packageHomeFiles "rofimoji")
-      (packageHomeFiles "wireplumber")
       (packageHomeFiles "xdg")
       (packageHomeFiles "xsettingsd")
     ];
