@@ -159,7 +159,7 @@
       chromium
       minecraft
       music-library
-      ../features/btop.nix
+      btop
       neovim
       helix
       backups
