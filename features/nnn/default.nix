@@ -6,14 +6,11 @@
     ...
   }: {
     imports = with inputs.self.modules.homeManager; let
+      base-deps = [term];
       preview-tui-deps = [bat];
-      gitroot-deps = [git];
       clipboard-plugin-deps = [babashka];
     in
-      [
-        term
-      ]
-      ++ preview-tui-deps ++ gitroot-deps ++ clipboard-plugin-deps;
+      base-deps ++ preview-tui-deps ++ clipboard-plugin-deps;
 
     nixpkgs.overlays = [
       (final: prev: {
@@ -30,8 +27,9 @@
         # HACK: wallpaper plugin still uses deprecated swww
         awww = prev.awww.overrideAttrs (old: {
           postFixup =
-            (old.postFixup or "")
-            + ''
+            # FIXME: Makes it run twice for some reason
+            # (old.postFixup or "") +
+            ''
               ln -s ${prev.awww}/bin/awww $out/bin/swww
             '';
         });
@@ -45,9 +43,9 @@
     programs.nnn = {
       enable = true;
 
-      extraPackages = let
+      extraPackages = with pkgs; let
         # See https://github.com/jarun/nnn/wiki/Usage#dependencies
-        base-deps = with pkgs; [
+        base-deps = [
           file
           gnutar
           zip
@@ -60,12 +58,13 @@
           advcpmv
         ];
 
-        dragdrop-deps = with pkgs; [dragon-drop];
-        fzcd-deps = with pkgs; [fzf findutils];
-        xdgdefault-deps = with pkgs; [xdg-utils fzf];
-        fzopen-deps = with pkgs; [findutils fzf xdg-utils];
+        dragdrop-deps = [dragon-drop];
+        fzcd-deps = [fzf findutils];
+        gitroot-deps = [git];
+        xdgdefault-deps = [xdg-utils fzf];
+        fzopen-deps = [findutils fzf xdg-utils];
       in
-        base-deps ++ dragdrop-deps ++ fzcd-deps ++ xdgdefault-deps ++ fzopen-deps;
+        base-deps ++ dragdrop-deps ++ fzcd-deps ++ gitroot-deps ++ xdgdefault-deps ++ fzopen-deps;
       plugins = with pkgs.nnnPlugins; [
         helper
         # preview-tui

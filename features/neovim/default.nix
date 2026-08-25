@@ -6,15 +6,11 @@
     ...
   }: {
     imports = with inputs.self.modules.homeManager; let
+      base-deps = [term editor-tools];
       fzf-lua-deps = [bat];
-      nnn-nvim-deps = [tmux];
+      nnn-nvim-deps = [nnn tmux];
     in
-      [
-        term
-        editor-tools
-        git
-      ]
-      ++ fzf-lua-deps ++ nnn-nvim-deps;
+      base-deps ++ fzf-lua-deps ++ nnn-nvim-deps;
 
     nixpkgs.overlays = [
       (final: prev: {
@@ -44,12 +40,13 @@
       # Keep config intact (using Stow instead)
       initLua = lib.mkForce "";
 
-      extraPackages = let
-        treesitter-deps = with pkgs; [gnutar];
-        fzf-lua-deps = with pkgs; [ripgrep fd git delta];
-        snaks-image-deps = with pkgs; [imagemagick];
+      extraPackages = with pkgs; let
+        treesitter-deps = [gnutar];
+        fzf-lua-deps = [ripgrep fd git delta];
+        snaks-image-deps = [imagemagick];
+        lazygit-deps = [git lazygit delta];
       in
-        treesitter-deps ++ fzf-lua-deps ++ snaks-image-deps;
+        treesitter-deps ++ fzf-lua-deps ++ snaks-image-deps ++ lazygit-deps;
 
       plugins = with pkgs.vimPlugins; [
         # --------------------------------------------------------------------------------
