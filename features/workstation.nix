@@ -1,6 +1,5 @@
 {inputs, ...}: {
   flake.modules.nixos.workstation = {
-    pkgs,
     lib,
     packageSystemFiles,
     ...
@@ -21,6 +20,7 @@
 
       adguardhome
       {services.adguardhome.openFirewall = false;}
+      corporate-vpn
     ];
 
     boot.loader.grub.enable = true;
@@ -79,16 +79,7 @@
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
 
-    services.xl2tpd.enable = true;
-    services.strongswan.enable = true;
-    networking.networkmanager.plugins = with pkgs; [networkmanager-strongswan];
-
     environment.etc = lib.mkMerge [
-      {
-        # HACK: https://github.com/NixOS/nixpkgs/issues/375352#issue-2800029311
-        "strongswan.conf".text = "";
-      }
-
       (packageSystemFiles "snapper")
     ];
 
