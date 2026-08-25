@@ -52,7 +52,7 @@
       in [
         flake-parts.flakeModules.modules
         home-manager.flakeModules.home-manager
-        (import-tree ./features-parts)
+        (import-tree ./features)
         (import-tree ./modules)
         (import-tree ./hosts)
         (import-tree ./users)
