@@ -1,9 +1,5 @@
 {inputs, ...}: {
-  flake.modules.nixos.workstation = {
-    lib,
-    packageSystemFiles,
-    ...
-  }: {
+  flake.modules.nixos.workstation = {...}: {
     imports = with inputs.self.modules.nixos; [
       hyprland-shell
       zsh
@@ -19,6 +15,7 @@
       maintenance
 
       locale
+      desktop
       adguardhome-local
       corporate-vpn
     ];
@@ -28,38 +25,6 @@
     boot.loader.efi.canTouchEfiVariables = true;
     # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
     boot.loader.grub.devices = ["nodev"];
-    boot.kernelParams = ["quite" "mem_sleep_default=deep"];
-    boot.initrd.systemd.enable = true;
-    boot.plymouth.enable = true;
-
-    services.logind.settings.Login.HandlePowerKey = "hibernate";
-    services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
-    services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
-    # hibernate after 30 min
-    systemd.sleep.settings.Sleep = {
-      HibernateDelaySec = "30m";
-      SuspendState = "mem";
-    };
-
-    networking.networkmanager.enable = true;
-
-    services.udisks2.enable = true;
-    services.earlyoom.enable = true;
-
-    services.printing.enable = true;
-    # enable WIFI printing
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-    };
-
-    services.snapper = {
-      snapshotInterval = "hourly"; # doc: {manpage}`systemd.time(7)
-      cleanupInterval = "1d";
-      # dymmy config is required to start systemd services; will by overwritten my `packageSystemFiles`
-      configs.dymmy.SUBVOLUME = "/";
-    };
 
     services.yggdrasil = {
       enable = false;
@@ -71,13 +36,6 @@
         IfName = "ygg0";
       };
     };
-
-    hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = true;
-
-    environment.etc = lib.mkMerge [
-      (packageSystemFiles "snapper")
-    ];
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
   };
