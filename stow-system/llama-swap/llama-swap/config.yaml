@@ -1,0 +1,7 @@
+models:
+  "qwen3.8-27B":
+    cmd: |
+      llama-server
+      -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
+      --port ${PORT}
+      --ctx-size 65536
