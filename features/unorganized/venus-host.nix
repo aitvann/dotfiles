@@ -6,10 +6,14 @@
     packageSystemFiles,
     ...
   }: {
-    boot.loader.grub.enable = true;
-    boot.loader.grub.efiSupport = false;
-    boot.loader.grub.efiInstallAsRemovable = false;
-    boot.loader.grub.devices = ["nodev"];
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    # NOTE: Trying to use systemd-boot on every host.
+    # Below is the configureation that the host was first deployd with
+    # boot.loader.grub.enable = true;
+    # boot.loader.grub.efiSupport = false;
+    # boot.loader.grub.efiInstallAsRemovable = false;
+    # boot.loader.grub.devices = ["nodev"];
 
     networking.useDHCP = false;
     networking.interfaces.eth0.ipv4.addresses = [

@@ -20,11 +20,15 @@
       corporate-vpn
     ];
 
-    boot.loader.grub.enable = true;
-    boot.loader.grub.efiSupport = true;
+    boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
-    boot.loader.grub.devices = ["nodev"];
+    # NOTE: Trying to use systemd-boot on every host.
+    # Below is the configureation that the host was first deployd with
+    # boot.loader.grub.enable = true;
+    # boot.loader.grub.efiSupport = true;
+    # boot.loader.efi.canTouchEfiVariables = true;
+    # # https://github.com/nix-community/disko/issues/981#issuecomment-2691772554
+    # boot.loader.grub.devices = ["nodev"];
 
     services.yggdrasil = {
       enable = false;
