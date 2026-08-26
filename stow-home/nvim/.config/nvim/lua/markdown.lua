@@ -1,10 +1,12 @@
-require("obsidian").setup({
-    workspaces = {
-        {
-            name = "personal",
-            path = "~/data/knowledge-base",
-        },
+local workspaces = {
+    {
+        name = "personal",
+        path = "~/data/knowledge-base",
     },
+}
+
+local obsidian_conf = {
+    workspaces = workspaces,
 
     -- disable backlinks tips
     log_level = vim.log.levels.WARN,
@@ -80,7 +82,16 @@ require("obsidian").setup({
         folder = "media/images",
     },
 
-})
+}
+
+local init_obsidian = vim.iter(workspaces)
+    :any(function(workspace)
+        return vim.fn.filereadable(workspace.path) == 1
+    end)
+
+if init_obsidian then
+    require("obsidian").setup(obsidian_conf)
+end
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("markdown", { clear = true }),
