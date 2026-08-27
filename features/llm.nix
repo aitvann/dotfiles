@@ -79,6 +79,14 @@
     environment.etc = lib.mkMerge [
       (packageSystemFiles "llama-swap")
     ];
+
+    # Pretty links to GPUs without ':' symbols. Use for setting integrated GPU as primary
+    # so it does not consume scarce VRAM
+    # TODO: use options and hardware-configuration.nix module to obtain ID's
+    services.udev.extraRules = ''
+      KERNEL=="card*", KERNELS=="0000:12:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu"
+      KERNEL=="card*", KERNELS=="0000:03:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu"
+    '';
   };
 
   flake.modules.homeManager.llm = {pkgs, ...}: {
