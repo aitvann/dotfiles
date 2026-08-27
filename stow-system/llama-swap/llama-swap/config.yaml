@@ -1,7 +1,108 @@
+# Configuration doc: https://github.com/mostlygeek/llama-swap/blob/main/config.example.yaml
+
+logLevel: debug
+logToStdout: "both"
+
+globalTTL: 60
+includeAliasesInList: true
+
+macros:
+  "default-llama": >
+    llama-server --port ${PORT} --log-verbosity 4
+
+x-qwen3-8-thinking-aliases: &qwen3-8-thinking-aliases
+  filters:
+    setParamsByID:
+      "${MODEL_ID}":
+        chat_template_kwargs:
+          reasoning_effort: medium
+      "${MODEL_ID}:Thinking":
+        chat_template_kwargs:
+          reasoning_effort: medium
+      "${MODEL_ID}:Instruct":
+        chat_template_kwargs:
+          enable_thinking: false
+  aliases:
+    - "${MODEL_ID}:Instruct"
+    - "${MODEL_ID}:Thinking"
+
+x-qwen3-6-thinking-aliases: &qwen3-6-thinking-aliases
+  filters:
+    setParamsByID:
+      "${MODEL_ID}:Instruct":
+        chat_template_kwargs:
+          enable_thinking: false
+      "${MODEL_ID}:Thinking":
+        chat_template_kwargs:
+          enable_thinking: true
+  aliases:
+    - "${MODEL_ID}:Instruct"
+    - "${MODEL_ID}:Thinking"
+
+# Not assigning names to models so that
+# Open WebUI uses id istead of names
+# and aliases can be destinguished easier
 models:
-  "qwen3.8-27B":
+  "Qwen3.8-27B-RAM":
+    descriptions:
+      The model does not fit into VRAM
     cmd: |
-      llama-server
-      -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
-      --port ${PORT}
+      ${default-llama}
+      -m /var/lib/models/Qwen3.8-27B-UD-Q4_K_S.gguf
       --ctx-size 65536
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
+    <<: *qwen3-8-thinking-aliases
+
+  "Qwen3.8-27B-VRAM":
+    descriptions:
+      The model barely fits into VRAM and might require switching
+      to an integrated GPU for graphics
+    cmd: |
+      ${default-llama}
+      # -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
+      -m /var/lib/models/Qwen3.8-27B-UD-Q4_K_S.gguf
+      --gpu-layers all
+      # Does not fit
+      # --ctx-size 65536
+      # Request does not fit in OpenWebUI (additional 6k)
+      # --ctx-size 4096
+      --ctx-size 8192
+      # Does not fit
+      # --spec-type draft-mtp
+      # --spec-draft-n-max 2
+    <<: *qwen3-8-thinking-aliases
+
+  "Qwen3.6-35B-A3B-RAM":
+    description: 
+      The model does not fit into VRAM but the speed descrese
+      is compensated by A3B and MTP
+    cmd: |
+      ${default-llama}
+      -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
+      --ctx-size 65536
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
+    <<: *qwen3-6-thinking-aliases
+
+  "Qwen3.8-CODING":
+    descriptions:
+      The model does not fit into VRAM
+    cmd: |
+      ${default-llama}
+      -m /var/lib/models/Qwen3.8-27B-UD-Q4_K_S.gguf
+      --ctx-size 65536
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
+      # https://unsloth.ai/docs/models/qwen3.6#thinking-mode
+      --temperature 0.6
+      --top_p 0.95
+      --top_k 20
+      --min_p 0.0
+      --presence_penalty 0.0
+      --repetition_penalty 1.0
+    filters:
+      setParamsByID:
+        "${MODEL_ID}":
+          chat_template_kwargs:
+            reasoning_effort: medium

@@ -5,24 +5,56 @@
     lib,
     packageSystemFiles,
     ...
-  }: {
+  }: let
+    # config-path = "/home/general/dotfiles/stow-system/llama-swap/llama-swap/config.yaml";
+    config-path = "/etc/llama-swap/config.yaml";
+  in {
+    nixpkgs.overlays = [
+      (final: prev: {
+        llama-cpp =
+          (prev.llama-cpp.override {
+            rocmSupport = true;
+            # Enable BLAS for optimized CPU layer performance (OpenBLAS)
+            blasSupport = true;
+          }).overrideAttrs (oldAttrs: {
+            # Enable native CPU optimizations (AVX, AVX2, etc.)
+            cmakeFlags =
+              (oldAttrs.cmakeFlags or []) ++ ["-DGGML_NATIVE=ON"];
+            # Disable Nix's march=native stripping
+            preConfigure = ''
+              export NIX_ENFORCE_NO_NATIVE=0
+              ${oldAttrs.preConfigure or ""}
+            '';
+          });
+      })
+    ];
+
     # Making this module stow-compatible:
     # 1. Add `llama-cpp` to the PATH
     # 2. Reading config from `/etc` instead of cli arg
     systemd.services.llama-swap = {
-      path = with pkgs; [llama-cpp-rocm];
+      path = with pkgs; [llama-cpp];
 
       serviceConfig.ExecStart = with config.services.llama-swap;
         lib.mkForce
         "${lib.getExe package} ${
           lib.escapeShellArgs [
             "--listen=${listenAddress}:${toString port}"
-            "--config=/etc/llama-swap/config.yaml"
+            "--config=${config-path}"
+            "--watch-config"
           ]
         }";
 
       # A model won't start with this option turned on
       serviceConfig.MemoryDenyWriteExecute = lib.mkForce false;
+    };
+
+    # Uncomment when debugging and reading config from `dotfiles`
+    systemd.services.llama-swap = {
+      # serviceConfig.ProtectHome = lib.mkForce false;
+      # serviceConfig.ProtectSystem = lib.mkForce false;
+      # serviceConfig.DynamicUser = lib.mkForce false;
+      # serviceConfig.PrivateUsers = lib.mkForce false;
     };
 
     # How to obtain a model:

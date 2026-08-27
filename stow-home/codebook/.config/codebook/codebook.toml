@@ -3,6 +3,7 @@ dictionaries = [
     "ru",
 ]
 words = [
+    "TPS",
     "clickhouse",
     "hft",
     "llm",
