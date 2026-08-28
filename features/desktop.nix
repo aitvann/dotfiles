@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.desktop = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "desktop" ({
     lib,
     packageSystemFiles,
     ...
@@ -42,5 +42,5 @@
     environment.etc = lib.mkMerge [
       (packageSystemFiles "snapper")
     ];
-  };
+  });
 }

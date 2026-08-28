@@ -1,11 +1,11 @@
-{...}: {
-  flake.modules.nixos.syncthing = {...}: {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "syncthing" ({...}: {
     networking.firewall = {
       allowedTCPPorts = [22000];
     };
-  };
+  });
 
-  flake.modules.homeManager.syncthing = {
+  options.modules.homeManager = mkModuleOption "syncthing" ({
     config,
     lib,
     osConfig,
@@ -21,5 +21,5 @@
       # https://discourse.nixos.org/t/cant-access-osconfig/38010/2
       (packageHomeFiles "syncthing-${osConfig.networking.hostName}-${config.home.username}")
     ];
-  };
+  });
 }

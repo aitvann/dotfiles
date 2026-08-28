@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.stowfulGreetd = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "stowfulGreetd" ({
     config,
     pkgs,
     lib,
@@ -138,5 +138,5 @@
     };
 
     meta.maintainers = with lib.maintainers; [queezle];
-  };
+  });
 }

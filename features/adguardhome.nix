@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.adguardhome = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "adguardhome" ({
     lib,
     packageServiceFilesCopyCommand,
     ...
@@ -7,5 +7,5 @@
     services.adguardhome.enable = true;
     services.adguardhome.openFirewall = lib.mkDefault true;
     systemd.services.adguardhome.preStart = packageServiceFilesCopyCommand "adguardhome" ["AdGuardHome.yaml"];
-  };
+  });
 }

@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.rofi = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "rofi" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -23,5 +23,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "rofi")
     ];
-  };
+  });
 }

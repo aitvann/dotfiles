@@ -1,11 +1,15 @@
-{inputs, ...}: {
-  flake.modules.homeManager.music-library = {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "music-library" ({
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       yt-dlp
     ];
 
@@ -38,5 +42,5 @@
       # TODO: find alternative
       # hexchat
     ];
-  };
+  });
 }

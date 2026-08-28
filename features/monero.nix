@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.monero = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "monero" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -13,5 +13,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "monero")
     ];
-  };
+  });
 }

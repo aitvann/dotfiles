@@ -1,9 +1,13 @@
-{inputs, ...}: {
-  flake.modules.nixos.flatpak = {...}: {
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "flatpak" ({...}: {
     services.flatpak.enable = true;
-  };
+  });
 
-  flake.modules.homeManager.flatpak = {
+  options.modules.homeManager = mkModuleOption "flatpak" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -33,5 +37,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "flatpak")
     ];
-  };
+  });
 }

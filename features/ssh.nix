@@ -1,18 +1,22 @@
-{inputs, ...}: {
-  flake.modules.nixos.ssh = {...}: {
-    imports = with inputs.self.modules.nixos; [
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "ssh" ({...}: {
+    imports = with config'.modules.nixos; [
       gnupg
     ];
-  };
+  });
 
-  flake.modules.homeManager.ssh = {
+  options.modules.homeManager = mkModuleOption "ssh" ({
     config,
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       gnupg
     ];
 
@@ -24,5 +28,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "ssh-${config.home.username}")
     ];
-  };
+  });
 }

@@ -1,11 +1,16 @@
-{inputs, ...}: {
-  flake.modules.homeManager.nnn = {
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "nnn" ({
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; let
+    imports = with config'.modules.homeManager; let
       base-deps = [term];
       preview-tui-deps = [bat];
       clipboard-plugin-deps = [babashka];
@@ -99,5 +104,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "nnn")
     ];
-  };
+  });
 }

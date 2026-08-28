@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.showmethekey = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "showmethekey" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -12,5 +12,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "showmethekey")
     ];
-  };
+  });
 }

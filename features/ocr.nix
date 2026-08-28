@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.ocr = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "ocr" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -12,5 +12,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "ocr")
     ];
-  };
+  });
 }

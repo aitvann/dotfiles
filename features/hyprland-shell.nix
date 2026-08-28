@@ -1,8 +1,13 @@
-{inputs, ...}: let
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.nixos.hyprland-shell = {pkgs, ...}: {
-    imports = with inputs.self.modules.nixos; [
+  options.modules.nixos = mkModuleOption "hyprland-shell" ({pkgs, ...}: {
+    imports = with config'.modules.nixos; [
       wayland
     ];
 
@@ -21,17 +26,16 @@ in {
 
     # Required for bar to get battery information
     services.upower.enable = true;
-  };
+  });
 
-  flake.modules.homeManager.hyprland-shell = {
+  options.modules.homeManager = mkModuleOption "hyprland-shell" ({
     config,
     pkgs,
     lib,
     packageHomeFiles,
     ...
-  }: let
-  in {
-    imports = with inputs.self.modules.homeManager; [
+  }: {
+    imports = with config'.modules.homeManager; [
       wayland
 
       terminal
@@ -122,5 +126,5 @@ in {
         # hyprcursor
         (util.linkFiles "share/icons/" "icons/" hyprcursor-phinger)
       ];
-  };
+  });
 }

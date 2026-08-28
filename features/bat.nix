@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.bat = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "bat" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -18,5 +18,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "bat")
     ];
-  };
+  });
 }

@@ -1,5 +1,10 @@
-{inputs, ...}: {
-  flake.modules.nixos.maintenance = {pkgs, ...}: {
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "maintenance" ({pkgs, ...}: {
     # Used by `nixd`
     # https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md#default-configuration--who-needs-configuration
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
@@ -14,15 +19,15 @@
       # Won't work unles system installed
       gparted
     ];
-  };
+  });
 
-  flake.modules.homeManager.maintenance = {
+  options.modules.homeManager = mkModuleOption "maintenance" ({
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       direnv
     ];
 
@@ -55,5 +60,5 @@
       (packageHomeFiles "maintenance")
       (packageHomeFiles "nix")
     ];
-  };
+  });
 }

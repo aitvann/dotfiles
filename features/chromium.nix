@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.chromium = {...}: {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "chromium" ({...}: {
     programs.chromium = let
       extensions = {
         ublock-origin = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
@@ -25,5 +25,5 @@
       enable = true;
       extensions = map (name: {id = extensions.${name};}) (builtins.attrNames extensions);
     };
-  };
+  });
 }

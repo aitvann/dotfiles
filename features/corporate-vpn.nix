@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.corporate-vpn = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "corporate-vpn" ({
     pkgs,
     lib,
     ...
@@ -15,5 +15,5 @@
         "strongswan.conf".text = "";
       }
     ];
-  };
+  });
 }

@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.git = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "git" ({
     config,
     pkgs,
     lib,
@@ -17,5 +17,5 @@
       (packageHomeFiles "git-${config.home.username}")
       (packageHomeFiles "lazygit")
     ];
-  };
+  });
 }

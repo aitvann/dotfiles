@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.term = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "term" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -14,5 +14,5 @@
       (packageHomeFiles "kitty")
       (packageHomeFiles "xdg-terminal")
     ];
-  };
+  });
 }

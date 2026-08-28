@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.btop = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "btop" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -18,5 +18,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "btop")
     ];
-  };
+  });
 }

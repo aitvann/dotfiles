@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.nixos.zsh = {...}: {
+  options.modules.nixos = mkModuleOption "zsh" ({...}: {
     # Required for Home Manager Zsh to work
     programs.zsh = {
       enable = true;
@@ -9,9 +13,9 @@ in {
     };
 
     environment.pathsToLink = ["/share/zsh"];
-  };
+  });
 
-  flake.modules.homeManager.zsh = {
+  options.modules.homeManager = mkModuleOption "zsh" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -48,5 +52,5 @@ in {
       (packageHomeFiles "zsh")
       (packageHomeFiles "atuin")
     ];
-  };
+  });
 }

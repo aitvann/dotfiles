@@ -1,5 +1,9 @@
-{inputs, ...}: {
-  flake.modules.nixos.jupiter-host = {
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "jupiter-host" ({
     config,
     pkgs,
     lib,
@@ -219,5 +223,5 @@
       GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
       LEIN_HOME = "$XDG_DATA_HOME/lein";
     };
-  };
+  });
 }

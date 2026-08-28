@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.backups = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "backups" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -13,5 +13,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "backups")
     ];
-  };
+  });
 }

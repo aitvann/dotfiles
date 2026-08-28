@@ -1,10 +1,14 @@
-{inputs, ...}: {
-  flake.modules.homeManager.git-ui = {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "git-ui" ({
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       babashka
       current-location
       git
@@ -14,5 +18,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "git-ui")
     ];
-  };
+  });
 }

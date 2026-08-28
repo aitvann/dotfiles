@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.nixos.bypass-restrictions = {...}: {
+  options.modules.nixos = mkModuleOption "bypass-restrictions" ({...}: {
     imports = [
       inputs.zapret-discord-youtube.nixosModules.default
     ];
@@ -14,9 +18,9 @@ in {
     #   enable = true;
     #   config = "general(ALT2)";
     # };
-  };
+  });
 
-  flake.modules.homeManager.bypass-restrictions = {
+  options.modules.homeManager = mkModuleOption "bypass-restrictions" ({
     pkgs,
     lib,
     ...
@@ -34,5 +38,5 @@ in {
         (util.linkFiles "bin/" "v2rayN/bin/xray/" xray)
         (util.linkFiles "bin/" "v2rayN/bin/sing_box/" sing-box)
       ];
-  };
+  });
 }

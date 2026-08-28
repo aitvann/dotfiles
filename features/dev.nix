@@ -1,5 +1,9 @@
-{inputs, ...}: {
-  flake.modules.nixos.dev = {...}: {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "dev" ({...}: {
     # NOTE: requires user in wireshark group
     programs.wireshark.enable = true;
 
@@ -12,15 +16,15 @@
       127.0.0.1 postgres-test
       127.0.0.1 clickhouse-test
     '';
-  };
+  });
 
-  flake.modules.homeManager.dev = {
+  options.modules.homeManager = mkModuleOption "dev" ({
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       direnv
     ];
 
@@ -53,5 +57,5 @@
       (packageHomeFiles "dev")
       (packageHomeFiles "cargo")
     ];
-  };
+  });
 }

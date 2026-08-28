@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.stowfulMpd = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "stowfulMpd" ({
     config,
     pkgs,
     lib,
@@ -24,5 +24,5 @@
 
         home.packages = [cfg.package];
       };
-    };
+    });
 }

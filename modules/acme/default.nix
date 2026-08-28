@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.stowfulAcme = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "stowfulAcme" ({
     config,
     lib,
     pkgs,
@@ -1273,5 +1273,5 @@
       maintainers = lib.teams.acme.members;
       doc = ./default.md;
     };
-  };
+  });
 }

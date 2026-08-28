@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.wayland = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "wayland" ({
     pkgs,
     lib,
     packageSystemFiles,
@@ -43,9 +43,9 @@
       cage
       regreet
     ];
-  };
+  });
 
-  flake.modules.homeManager.wayland = {
+  options.modules.homeManager = mkModuleOption "wayland" ({
     config,
     pkgs,
     lib,
@@ -92,5 +92,5 @@
       (packageHomeFiles "wireplumber")
       (packageHomeFiles "pulse")
     ];
-  };
+  });
 }

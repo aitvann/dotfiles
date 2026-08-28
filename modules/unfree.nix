@@ -1,6 +1,6 @@
 # Inspiration: https://qiita.com/naogami/items/a87049008029cf318f6b#unfreenix%E3%82%92%E8%BF%BD%E5%8A%A0
-{...}: {
-  flake.modules.homeManager.unfree = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "unfree" ({
     config,
     lib,
     ...
@@ -15,9 +15,9 @@
     in {
       nixpkgs.config.allowUnfreePredicate = predicate;
     };
-  };
+  });
 
-  flake.modules.nixos.unfree = {
+  options.modules.nixos = mkModuleOption "unfree" ({
     config,
     lib,
     ...
@@ -32,5 +32,5 @@
     in {
       nixpkgs.config.allowUnfreePredicate = predicate;
     };
-  };
+  });
 }

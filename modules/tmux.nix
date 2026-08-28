@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.stowfulTmux = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "stowfulTmux" ({
     config,
     pkgs,
     lib,
@@ -72,5 +72,5 @@
           # ============================================= #
         '';
       };
-    };
+    });
 }

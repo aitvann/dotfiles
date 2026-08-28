@@ -1,11 +1,15 @@
-{inputs, ...}: {
-  flake.modules.homeManager.neovim = {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "neovim" ({
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; let
+    imports = with config'.modules.homeManager; let
       base-deps = [term editor-tools];
       fzf-lua-deps = [bat];
       nnn-nvim-deps = [nnn tmux];
@@ -172,5 +176,5 @@
           (packageHomeFiles "nvim")
         ]
         ++ fzf-lua-deps);
-  };
+  });
 }

@@ -1,6 +1,11 @@
-{inputs, ...}: {
-  flake.modules.nixos.base = {...}: {
-    imports = with inputs.self.modules.nixos; [
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "base" ({...}: {
+    imports = with config'.modules.nixos; [
       stow
       unfree
 
@@ -17,10 +22,10 @@
     };
 
     system.stateVersion = "22.05";
-  };
+  });
 
-  flake.modules.homeManager.base = {...}: {
-    imports = with inputs.self.modules.homeManager; [
+  options.modules.homeManager = mkModuleOption "base" ({...}: {
+    imports = with config'.modules.homeManager; [
       stow
       unfree
 
@@ -33,5 +38,5 @@
     ];
 
     home.stateVersion = "22.05";
-  };
+  });
 }

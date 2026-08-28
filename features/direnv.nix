@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.homeManager.direnv = {
+  options.modules.homeManager = mkModuleOption "direnv" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -19,5 +23,5 @@ in {
       lib.mkMerge [
         (util.linkFiles "share/" "./" nix-direnv)
       ];
-  };
+  });
 }

@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.tmux = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "tmux" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -16,5 +16,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "tmux")
     ];
-  };
+  });
 }

@@ -1,5 +1,9 @@
-{inputs, ...}: {
-  flake.modules.homeManager.current-location = {
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "current-location" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -18,5 +22,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "current-location")
     ];
-  };
+  });
 }

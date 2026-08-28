@@ -1,25 +1,30 @@
-{inputs, ...}: let
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   host = "venus";
   admin = "general";
   inherit (inputs.self.nixosConfigurations.${host}.config.nixpkgs.hostPlatform) system;
 in {
-  flake.modules.nixos.${host} = {...}: {
-    imports = with inputs.self.modules.nixos; [
+  options.modules.nixos = mkModuleOption host ({...}: {
+    imports = with config'.modules.nixos; [
       {networking.hostName = "${host}";}
       inputs.disko.nixosModules.disko
 
       ./_disko.nix
       ./_hardware-configuration.nix
 
-      inputs.self.modules.nixos."${admin}@${host}"
+      config'.modules.nixos."${admin}@${host}"
     ];
+  });
+
+  config.flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
+    modules = [config'.modules.nixos.${host}];
   };
 
-  flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
-    modules = [inputs.self.modules.nixos.${host}];
-  };
-
-  flake.deploy.nodes.${host} = {
+  config.flake.deploy.nodes.${host} = {
     hostname = host;
     sshUser = admin;
     profiles.system = {

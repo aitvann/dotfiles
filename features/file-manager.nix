@@ -1,11 +1,15 @@
-{inputs, ...}: let
+{
+  config',
+  mkModuleOption,
+  ...
+}: let
 in {
-  flake.modules.homeManager.file-manager = {
+  options.modules.homeManager = mkModuleOption "file-manager" ({
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       babashka
       current-location
       nnn
@@ -15,5 +19,5 @@ in {
     home.file = lib.mkMerge [
       (packageHomeFiles "file-manager")
     ];
-  };
+  });
 }

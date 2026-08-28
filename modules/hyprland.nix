@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.homeManager.stowfulHyprland = {
+  options.modules.homeManager = mkModuleOption "stowfulHyprland" ({
     config,
     lib,
     ...
@@ -62,5 +66,5 @@ in {
           };
         };
       };
-    };
+    });
 }

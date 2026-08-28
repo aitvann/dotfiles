@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.stowfulIsponsorblocktv = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "stowfulIsponsorblocktv" ({
     config,
     pkgs,
     lib,
@@ -30,5 +30,5 @@
         };
       };
     };
-  };
+  });
 }

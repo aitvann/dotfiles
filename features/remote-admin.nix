@@ -1,6 +1,10 @@
-{inputs, ...}: {
-  flake.modules.homeManager.remote-admin = {pkgs, ...}: {
-    imports = with inputs.self.modules.homeManager; [
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "remote-admin" ({pkgs, ...}: {
+    imports = with config'.modules.homeManager; [
       btop
     ];
 
@@ -14,5 +18,5 @@
 
       fastfetch
     ];
-  };
+  });
 }

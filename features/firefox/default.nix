@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.homeManager.firefox = {
+  options.modules.homeManager = mkModuleOption "firefox" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -114,5 +118,5 @@ in {
       (util.linkFiles "configs/browser-bookmarks.general.html" "firefox/bookmarks.general.html" inputs.self)
       (util.linkFiles "configs/browser-bookmarks.work.html" "firefox/bookmarks.work.html" inputs.self)
     ];
-  };
+  });
 }

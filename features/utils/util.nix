@@ -2,31 +2,32 @@
   inputs,
   config,
   lib,
+  mkModuleOption,
   ...
 }: {
-  flake.modules.homeManager.stow = {config, ...}: {
+  options.modules.homeManager = mkModuleOption "stow" ({config, ...}: {
     _module.args.packageHomeFiles = pkg:
       inputs.self.util.packageStowFiles config.home.homeDirectory "${inputs.self}/stow-home/${pkg}";
-  };
+  });
 
-  flake.modules.nixos.stow = {...}: {
+  options.modules.nixos = mkModuleOption "stow" ({...}: {
     _module.args.packageSystemFiles = pkg:
       inputs.self.util.packageStowFiles "/etc" "${inputs.self}/stow-system/${pkg}";
 
     _module.args.packageServiceFilesCopyCommand = pkg:
       inputs.self.util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${pkg}";
-  };
+  });
 
-  flake.flakeConfig = config;
-  _module.args.config' = config;
-  _module.args.mkModuleOption = name: static: {
+  config.flake.flakeConfig = config;
+  config._module.args.config' = config;
+  config._module.args.mkModuleOption = name: static: {
     ${name} = inputs.self.util.mkModuleOption {
       key = name;
       inherit static;
     };
   };
 
-  flake.util = with lib; rec {
+  config.flake.util = with lib; rec {
     # Source: https://github.com/mightyiam/infra/blob/14f357cc5f78271cb8745122b0f0e4cfb71d435f/modules/lib.nix#L5
     # Fixes duplication issues.
     # Without this a module will be imported every time it is used inside `imports` block

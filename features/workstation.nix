@@ -1,6 +1,11 @@
-{inputs, ...}: {
-  flake.modules.nixos.workstation = {...}: {
-    imports = with inputs.self.modules.nixos; [
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "workstation" ({...}: {
+    imports = with config'.modules.nixos; [
       hyprland-shell
       zsh
       gnupg
@@ -42,15 +47,15 @@
     };
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
-  };
+  });
 
-  flake.modules.homeManager.workstation = {
+  options.modules.homeManager = mkModuleOption "workstation" ({
     pkgs,
     lib,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       hyprland-shell
       zsh
       gnupg
@@ -108,5 +113,5 @@
       (packageHomeFiles "element")
       (packageHomeFiles "scripts")
     ];
-  };
+  });
 }

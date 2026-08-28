@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.yt-dlp = {pkgs, ...}: {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "yt-dlp" ({pkgs, ...}: {
     nixpkgs.overlays = [
       (final: prev: {
         # Workaround https://github.com/yt-dlp/yt-dlp/issues/12482#issuecomment-2867953965
@@ -28,5 +28,5 @@
     home.packages = with pkgs; [
       yt-dlp
     ];
-  };
+  });
 }

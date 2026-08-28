@@ -1,17 +1,21 @@
-{inputs, ...}: {
-  flake.modules.nixos.password-manager = {...}: {
-    imports = with inputs.self.modules.nixos; [
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "password-manager" ({...}: {
+    imports = with config'.modules.nixos; [
       gnupg
     ];
-  };
+  });
 
-  flake.modules.homeManager.password-manager = {
+  options.modules.homeManager = mkModuleOption "password-manager" ({
     lib,
     pkgs,
     packageHomeFiles,
     ...
   }: {
-    imports = with inputs.self.modules.homeManager; [
+    imports = with config'.modules.homeManager; [
       gnupg
 
       rofi
@@ -26,5 +30,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "rofi-pass")
     ];
-  };
+  });
 }

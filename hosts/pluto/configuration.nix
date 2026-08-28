@@ -1,8 +1,13 @@
-{inputs, ...}: let
+{
+  config',
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   host = "pluto";
 in {
-  flake.modules.nixos.${host} = {...}: {
-    imports = with inputs.self.modules.nixos; [
+  options.modules.nixos = mkModuleOption host ({...}: {
+    imports = with config'.modules.nixos; [
       {networking.hostName = host;}
       inputs.disko.nixosModules.disko
 
@@ -14,11 +19,11 @@ in {
       ./_disko.nix
       ./_hardware-configuration.nix
 
-      inputs.self.modules.nixos."general@${host}"
+      config'.modules.nixos."general@${host}"
     ];
-  };
+  });
 
-  flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
-    modules = [inputs.self.modules.nixos.${host}];
+  config.flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
+    modules = [config'.modules.nixos.${host}];
   };
 }

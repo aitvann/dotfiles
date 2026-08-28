@@ -1,7 +1,11 @@
-{inputs, ...}: let
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: let
   util = inputs.self.util;
 in {
-  flake.modules.homeManager.stowfulNnn = {
+  options.modules.homeManager = mkModuleOption "stowfulNnn" ({
     config,
     pkgs,
     lib,
@@ -56,5 +60,5 @@ in {
           in
             lib.mkMerge files;
         };
-    };
+    });
 }

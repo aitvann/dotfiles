@@ -1,5 +1,9 @@
-{config', ...}: {
-  flake.modules.nixos.llm = {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
+  options.modules.nixos = mkModuleOption "llm" ({
     config,
     pkgs,
     lib,
@@ -85,9 +89,9 @@
       KERNEL=="card*", KERNELS=="0000:12:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu"
       KERNEL=="card*", KERNELS=="0000:03:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu"
     '';
-  };
+  });
 
-  flake.modules.homeManager.llm = {pkgs, ...}: {
+  options.modules.homeManager = mkModuleOption "llm" ({pkgs, ...}: {
     imports = with config'.modules.homeManager; [
       stowfulOpenWebui
     ];
@@ -105,5 +109,5 @@
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
     ];
-  };
+  });
 }

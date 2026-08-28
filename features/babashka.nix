@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.babashka = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "babashka" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -14,5 +14,5 @@
     home.file = lib.mkMerge [
       (packageHomeFiles "babashka")
     ];
-  };
+  });
 }

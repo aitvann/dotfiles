@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.nixos.gnupg = {
+{mkModuleOption, ...}: {
+  options.modules.nixos = mkModuleOption "gnupg" ({
     pkgs,
     lib,
     ...
@@ -8,9 +8,9 @@
     environment.etc."gnupg/gpg-agent.conf".text = ''
       pinentry-program ${lib.getExe pkgs.pinentry-gnome3}
     '';
-  };
+  });
 
-  flake.modules.homeManager.gnupg = {
+  options.modules.homeManager = mkModuleOption "gnupg" ({
     config,
     pkgs,
     lib,
@@ -41,5 +41,5 @@
       (packageHomeFiles "gnupg")
       (packageHomeFiles "pam-gnupg")
     ];
-  };
+  });
 }

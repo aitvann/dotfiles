@@ -1,5 +1,9 @@
-{inputs, ...}: {
-  flake.modules.homeManager.minecraft = {pkgs, ...}: {
+{
+  inputs,
+  mkModuleOption,
+  ...
+}: {
+  options.modules.homeManager = mkModuleOption "minecraft" ({pkgs, ...}: {
     nixpkgs.overlays = [
       (final: prev: {
         graalvmPackages21 = inputs.nixpkgs-graalvm21.legacyPackages.${prev.stdenv.hostPlatform.system}.graalvmCEPackages;
@@ -21,5 +25,5 @@
       prismlauncher
       mcaselector
     ];
-  };
+  });
 }

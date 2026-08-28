@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.editor-tools = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "editor-tools" ({
     lib,
     packageHomeFiles,
     ...
@@ -8,5 +8,5 @@
       (packageHomeFiles "efm-langserver")
       (packageHomeFiles "codebook")
     ];
-  };
+  });
 }

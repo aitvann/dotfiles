@@ -1,6 +1,8 @@
 {
+  config',
   inputs,
   withSystem,
+  mkModuleOption,
   ...
 }: let
   username = "aitvann";
@@ -8,8 +10,8 @@
   host = "jupiter";
   inherit (inputs.self.nixosConfigurations.${host}.config.nixpkgs.hostPlatform) system;
 in {
-  flake.modules.nixos."${username}@${host}" = {...}: {
-    imports = with inputs.self.modules.nixos; [
+  options.modules.nixos = mkModuleOption "${username}@${host}" ({...}: {
+    imports = with config'.modules.nixos; [
       base
 
       locale
@@ -27,11 +29,11 @@ in {
       ];
     };
 
-    home-manager.users.${username}.imports = [inputs.self.modules.homeManager."${username}@${host}"];
-  };
+    home-manager.users.${username}.imports = [config'.modules.homeManager."${username}@${host}"];
+  });
 
-  flake.modules.homeManager."${username}@${host}" = {config, ...}: {
-    imports = with inputs.self.modules.homeManager; [
+  options.modules.homeManager = mkModuleOption "${username}@${host}" ({config, ...}: {
+    imports = with config'.modules.homeManager; [
       base
 
       remote-admin
@@ -39,11 +41,11 @@ in {
 
     home.username = "${username}";
     home.homeDirectory = "/home/${config.home.username}";
-  };
+  });
 
-  flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
+  config.flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = withSystem system ({pkgs, ...}: pkgs);
     extraSpecialArgs = {osConfig.networking.hostName = host;};
-    modules = [inputs.self.modules.homeManager."${username}@${host}"];
+    modules = [config'.modules.homeManager."${username}@${host}"];
   };
 }

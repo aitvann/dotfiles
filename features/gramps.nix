@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.gramps = {pkgs, ...}: {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "gramps" ({pkgs, ...}: {
     nixpkgs.overlays = [
       (final: prev: {
         gramps = prev.gramps.overrideAttrs (old: {
@@ -13,5 +13,5 @@
     home.packages = with pkgs; [
       gramps
     ];
-  };
+  });
 }
