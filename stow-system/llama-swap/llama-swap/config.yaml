@@ -94,6 +94,19 @@ x-qwen3-6-params: &qwen3-6-params
 # Open WebUI uses id istead of names
 # and aliases can be destinguished easier
 models:
+  "Qwen3.8-27B-RAM":
+    descriptions:
+      The model does not fit into VRAM
+    cmd: |
+      ${default-llama}
+      -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
+      --ctx-size 131072
+      --cache-type-k q8_0
+      --cache-type-v q4_0
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
+    <<: *qwen3-8-params
+
   "Qwen3.8-27B-VRAM-FAST":
     descriptions:
       The absence of K/V cache quantization results in very good TTFT
