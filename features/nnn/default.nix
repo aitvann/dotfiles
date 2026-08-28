@@ -11,7 +11,7 @@
     ...
   }: {
     imports = with config'.modules.homeManager; let
-      base-deps = [term];
+      base-deps = [stowfulNnn term];
       preview-tui-deps = [bat];
       clipboard-plugin-deps = [babashka];
     in

@@ -1,4 +1,5 @@
 {
+  config',
   inputs,
   mkModuleOption,
   ...
@@ -10,6 +11,10 @@
     packageSystemFiles,
     ...
   }: {
+    imports = with config'.modules.nixos; [
+      stowfulIsponsorblocktv
+    ];
+
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 

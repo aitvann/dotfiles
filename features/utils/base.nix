@@ -10,10 +10,6 @@
       unfree
 
       inputs.home-manager.nixosModules.home-manager
-
-      stowfulAcme
-      stowfulGreetd
-      stowfulIsponsorblocktv
     ];
 
     home-manager = {
@@ -28,13 +24,6 @@
     imports = with config'.modules.homeManager; [
       stow
       unfree
-
-      stowfulNnn
-      stowfulMpd
-      stowfulZsh
-      stowfulTmux
-      stowfulHyprland
-      # stowfulOpenWebui
     ];
 
     home.stateVersion = "22.05";

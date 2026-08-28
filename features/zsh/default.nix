@@ -1,4 +1,5 @@
 {
+  config',
   inputs,
   mkModuleOption,
   ...
@@ -21,6 +22,10 @@ in {
     packageHomeFiles,
     ...
   }: {
+    imports = with config'.modules.homeManager; [
+      stowfulZsh
+    ];
+
     nixpkgs.overlays = [
       (final: prev: {
         zsh-fast-syntax-highlighting = final.callPackage ./plugins/zsh-fast-syntax-highlighting.pkg.nix {};

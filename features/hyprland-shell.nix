@@ -38,6 +38,7 @@ in {
     imports = with config'.modules.homeManager; [
       wayland
 
+      stowfulHyprland
       terminal
       file-manager
       git-ui

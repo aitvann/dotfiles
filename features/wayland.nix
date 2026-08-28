@@ -1,10 +1,16 @@
-{mkModuleOption, ...}: {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
   options.modules.nixos = mkModuleOption "wayland" ({
     pkgs,
     lib,
     packageSystemFiles,
     ...
   }: {
+    imports = with config'.modules.nixos; [stowfulGreetd];
+
     services.displayManager.regreet.enable = true;
     # TODO: figure out smooth plymouth transition as it is not supported out of the box
     # https://todo.sr.ht/~kennylevinsen/greetd/17

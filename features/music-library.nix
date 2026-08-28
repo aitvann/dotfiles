@@ -10,6 +10,7 @@
     ...
   }: {
     imports = with config'.modules.homeManager; [
+      stowfulMpd
       yt-dlp
     ];
 
