@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   lib,
   ...
 }: {
@@ -16,7 +17,45 @@
       inputs.self.util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${pkg}";
   };
 
+  flake.flakeConfig = config;
+  _module.args.config' = config;
+  _module.args.mkModuleOption = name: static: {
+    ${name} = inputs.self.util.mkModuleOption {
+      key = name;
+      inherit static;
+    };
+  };
+
   flake.util = with lib; rec {
+    # Source: https://github.com/mightyiam/infra/blob/14f357cc5f78271cb8745122b0f0e4cfb71d435f/modules/lib.nix#L5
+    # Fixes duplication issues.
+    # Without this a module will be imported every time it is used inside `imports` block
+    # which causes `.enable` options conflicts and overlays to apply multiple times (on every import)
+    mkModuleOption = args @ {
+      key,
+      static ? {},
+      ...
+    }:
+      lib.mkOption {
+        type = lib.types.deferredModuleWith {
+          staticModules = [static];
+        };
+
+        ${
+          if args ? default
+          then "default"
+          else null
+        } =
+          args.default;
+
+        apply = module: {
+          inherit key;
+          imports = [module];
+        };
+
+        default = {};
+      };
+
     stowConfig = let
       toList = set:
         map

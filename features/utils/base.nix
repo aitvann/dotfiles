@@ -29,7 +29,7 @@
       stowfulZsh
       stowfulTmux
       stowfulHyprland
-      stowfulOpenWebui
+      # stowfulOpenWebui
     ];
 
     home.stateVersion = "22.05";

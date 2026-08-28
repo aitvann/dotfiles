@@ -1,4 +1,4 @@
-{...}: {
+{config', ...}: {
   flake.modules.nixos.llm = {
     config,
     pkgs,
@@ -88,6 +88,10 @@
   };
 
   flake.modules.homeManager.llm = {pkgs, ...}: {
+    imports = with config'.modules.homeManager; [
+      stowfulOpenWebui
+    ];
+
     nixpkgs.allowedUnfreePackages = [
       "open-webui"
     ];

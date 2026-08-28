@@ -1,5 +1,5 @@
-{...}: {
-  flake.modules.homeManager.stowfulOpenWebui = {
+{mkModuleOption, ...}: {
+  options.modules.homeManager = mkModuleOption "stowfulOpenWebui" ({
     config,
     pkgs,
     lib,
@@ -89,5 +89,5 @@
         };
       };
     };
-  };
+  });
 }
