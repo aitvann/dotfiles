@@ -47,14 +47,12 @@
 
       # A model won't start with this option turned on
       serviceConfig.MemoryDenyWriteExecute = lib.mkForce false;
-    };
 
-    # Uncomment when debugging and reading config from `dotfiles`
-    systemd.services.llama-swap = {
-      # serviceConfig.ProtectHome = lib.mkForce false;
-      # serviceConfig.ProtectSystem = lib.mkForce false;
+      # Uncomment when debugging and reading config from `dotfiles`
       # serviceConfig.DynamicUser = lib.mkForce false;
+      # serviceConfig.CapabilityBoundingSet = lib.mkForce "~";
       # serviceConfig.PrivateUsers = lib.mkForce false;
+      # serviceConfig.ProtectHome = lib.mkForce false;
     };
 
     # How to obtain a model:

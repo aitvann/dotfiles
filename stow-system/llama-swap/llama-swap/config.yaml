@@ -10,68 +10,134 @@ macros:
   "default-llama": >
     llama-server --port ${PORT} --log-verbosity 4
 
-x-qwen3-8-thinking-aliases: &qwen3-8-thinking-aliases
+# https://unsloth.ai/docs/models/qwen3.6#thinking-mode
+x-qwen3-8-params: &qwen3-8-params
   filters:
-    setParamsByID:
-      "${MODEL_ID}":
-        chat_template_kwargs:
-          reasoning_effort: medium
-      "${MODEL_ID}:Thinking":
-        chat_template_kwargs:
-          reasoning_effort: medium
-      "${MODEL_ID}:Instruct":
-        chat_template_kwargs:
-          enable_thinking: false
-  aliases:
-    - "${MODEL_ID}:Instruct"
-    - "${MODEL_ID}:Thinking"
+    setParams:
+      temperature: 1.0
+      top_p: 0.95
+      top_k: 20
+      min_p: 0.0
+      presence_penalty: 0.0
+      repetition_penalty: 1.0
+      chat_template_kwargs:
+        enable_thinking: true
 
-x-qwen3-6-thinking-aliases: &qwen3-6-thinking-aliases
-  filters:
     setParamsByID:
-      "${MODEL_ID}:Instruct":
+      "${MODEL_ID}:Thinking Low":
+        chat_template_kwargs:
+          reasoning_effort: low
+
+      "${MODEL_ID}:Thinking Medium":
+        chat_template_kwargs:
+          reasoning_effort: medium
+
+      "${MODEL_ID}:Thinking High":
+        chat_template_kwargs:
+          reasoning_effort: xhigh
+
+      "${MODEL_ID}:Coding":
+        temperature: 0.6
+        top_p: 0.95
+        chat_template_kwargs:
+          reasoning_effort: medium
+
+      "${MODEL_ID}":
+        temperature: 0.7
+        top_p: 0.8
+        presence_penalty: 1.5
         chat_template_kwargs:
           enable_thinking: false
+
+  aliases:
+    - "${MODEL_ID}:Thinking Low"
+    - "${MODEL_ID}:Thinking Medium"
+    - "${MODEL_ID}:Thinking High"
+    - "${MODEL_ID}:Coding"
+    # - "${MODEL_ID}" # The base param set is expected to be Instruct
+
+x-qwen3-6-params: &qwen3-6-params
+  filters:
+    setParams:
+      top_k: 20
+      min_p: 0.0
+      repetition_penalty: 1.0
+
+    setParamsByID:
       "${MODEL_ID}:Thinking":
+        temperature: 1.0
+        top_p: 0.95
+        presence_penalty: 0.0
         chat_template_kwargs:
           enable_thinking: true
+
+      "${MODEL_ID}:Coding":
+        temperature: 0.6
+        top_p: 0.95
+        presence_penalty: 0.0
+        chat_template_kwargs:
+          enable_thinking: true
+
+      "${MODEL_ID}":
+        temperature: 0.7
+        top_p: 0.8
+        presence_penalty: 1.5
+        chat_template_kwargs:
+          enable_thinking: false
+
   aliases:
-    - "${MODEL_ID}:Instruct"
     - "${MODEL_ID}:Thinking"
+    - "${MODEL_ID}:Coding"
+    # - "${MODEL_ID}" # The base param set is expected to be Instruct
 
 # Not assigning names to models so that
 # Open WebUI uses id istead of names
 # and aliases can be destinguished easier
 models:
-  "Qwen3.8-27B-RAM":
+  "Qwen3.8-27B-VRAM-FAST":
     descriptions:
-      The model does not fit into VRAM
-    cmd: |
-      ${default-llama}
-      -m /var/lib/models/Qwen3.8-27B-UD-Q4_K_S.gguf
-      --ctx-size 65536
-      --spec-type draft-mtp
-      --spec-draft-n-max 2
-    <<: *qwen3-8-thinking-aliases
+      The absence of K/V cache quantization results in very good TTFT
+      but a big context window does not fit.
+      Good for simple questions.
 
-  "Qwen3.8-27B-VRAM":
-    descriptions:
       The model barely fits into VRAM and might require switching
       to an integrated GPU for graphics
     cmd: |
       ${default-llama}
+      # Technically fits but WM freezes and llama then crashes
       # -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
-      -m /var/lib/models/Qwen3.8-27B-UD-Q4_K_S.gguf
+      -m /var/lib/models/Qwen3.8-27B-UD-IQ3_XXS.gguf
       --gpu-layers all
+      --ctx-size 32768
+      --spec-type draft-mtp
+      --spec-draft-n-max 2
+    <<: *qwen3-8-params
+
+  "Qwen3.8-27B-VRAM-WISE":
+    descriptions:
+      The presence of K/V cache quantization allows to fit a larger context window
+      but it hurts TTFT by a lot.
+      Good for coding.
+
+      The model barely fits into VRAM and might require switching
+      to an integrated GPU for graphics
+    cmd: |
+      ${default-llama}
+      -m /var/lib/models/Qwen3.8-27B-UD-IQ3_XXS.gguf
+      --gpu-layers all
+      --ctx-size 131072
       # Does not fit
-      # --ctx-size 65536
-      # Request does not fit in OpenWebUI (additional 6k)
-      # --ctx-size 4096
-      --ctx-size 8192
+      # --cache-type-k f16 
+      # --cache-type-v q8_0
+      # Why this when q8_0/q8_0 fits as well
+      # --cache-type-k q8_0
+      # --cache-type-v q4_0
+      --cache-type-k q8_0
+      --cache-type-v q8_0
       # Does not fit
       # --spec-type draft-mtp
       # --spec-draft-n-max 2
-    <<: *qwen3-8-thinking-aliases
+    <<: *qwen3-8-params
 
   "Qwen3.6-35B-A3B-RAM":
     description: 
@@ -80,29 +146,7 @@ models:
     cmd: |
       ${default-llama}
       -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
-      --ctx-size 65536
+      --ctx-size 131072
       --spec-type draft-mtp
       --spec-draft-n-max 2
-    <<: *qwen3-6-thinking-aliases
-
-  "Qwen3.8-CODING":
-    descriptions:
-      The model does not fit into VRAM
-    cmd: |
-      ${default-llama}
-      -m /var/lib/models/Qwen3.8-27B-UD-Q4_K_S.gguf
-      --ctx-size 65536
-      --spec-type draft-mtp
-      --spec-draft-n-max 2
-      # https://unsloth.ai/docs/models/qwen3.6#thinking-mode
-      --temperature 0.6
-      --top_p 0.95
-      --top_k 20
-      --min_p 0.0
-      --presence_penalty 0.0
-      --repetition_penalty 1.0
-    filters:
-      setParamsByID:
-        "${MODEL_ID}":
-          chat_template_kwargs:
-            reasoning_effort: medium
+    <<: *qwen3-6-params
