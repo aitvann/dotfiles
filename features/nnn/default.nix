@@ -32,11 +32,9 @@
         # HACK: wallpaper plugin still uses deprecated swww
         awww = prev.awww.overrideAttrs (old: {
           postFixup =
-            # HACK: Using `ln -f` because this overlay is applied as
-            # meny times as this module gets imported
             (old.postFixup or "")
             + ''
-              ln -sf ${prev.awww}/bin/awww $out/bin/swww
+              ln -s ${prev.awww}/bin/awww $out/bin/swww
             '';
         });
       })
