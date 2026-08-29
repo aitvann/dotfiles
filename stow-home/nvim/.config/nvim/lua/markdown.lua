@@ -1,7 +1,7 @@
 local workspaces = {
     {
         name = "personal",
-        path = "~/data/knowledge-base",
+        path = os.getenv('HOME') .. "/data/knowledge-base",
     },
 }
 
@@ -86,7 +86,7 @@ local obsidian_conf = {
 
 local init_obsidian = vim.iter(workspaces)
     :any(function(workspace)
-        return vim.fn.filereadable(workspace.path) == 1
+        return vim.fn.isdirectory(workspace.path) == 1
     end)
 
 if init_obsidian then
