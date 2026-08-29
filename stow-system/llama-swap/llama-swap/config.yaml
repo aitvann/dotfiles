@@ -158,8 +158,16 @@ models:
       is compensated by A3B and MTP
     cmd: |
       ${default-llama}
+      # -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf
       -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
-      --ctx-size 131072
+      # --ctx-size 131072
+      --ctx-size 262144
+      # --fit off
+      # --gpu-layers all
+      # --cpu-moe
+      # --override-tensor "\.ffn_(up|down|gate|gate_up)_(ch|)exps=CPU"
+      --cache-type-k q8_0
+      --cache-type-v q8_0
       --spec-type draft-mtp
       --spec-draft-n-max 2
     <<: *qwen3-6-params

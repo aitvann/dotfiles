@@ -51,6 +51,8 @@
 
       # A model won't start with this option turned on
       serviceConfig.MemoryDenyWriteExecute = lib.mkForce false;
+      # Model in Swap is catastrophic performance degradation
+      serviceConfig.MemorySwapMax = "0";
 
       # Uncomment when debugging and reading config from `dotfiles`
       # serviceConfig.DynamicUser = lib.mkForce false;

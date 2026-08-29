@@ -47,6 +47,8 @@
     };
 
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
+
+    boot.kernel.sysctl = {"vm.swappiness" = 10;};
   });
 
   options.modules.homeManager = mkModuleOption "workstation" ({
