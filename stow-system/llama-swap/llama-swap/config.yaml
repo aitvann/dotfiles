@@ -3,7 +3,7 @@
 logLevel: debug
 logToStdout: "both"
 
-globalTTL: 60
+globalTTL: 600
 includeAliasesInList: true
 
 macros:

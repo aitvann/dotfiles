@@ -93,9 +93,33 @@
     '';
   });
 
-  options.modules.homeManager = mkModuleOption "llm" ({pkgs, ...}: {
+  options.modules.homeManager = mkModuleOption "llm" ({
+    config,
+    pkgs,
+    lib,
+    packageHomeFiles,
+    ...
+  }: {
     imports = with config'.modules.homeManager; [
       stowfulOpenWebui
+    ];
+
+    nixpkgs.overlays = [
+      (final: prev: {
+        # Inspiration: https://discourse.nixos.org/t/pi-coding-agent-how-to-install-npm-extensions/77030/2
+        pi-coding-agent = prev.pi-coding-agent.overrideAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.makeWrapper];
+
+          postInstall =
+            (old.postInstall or "")
+            + ''
+              wrapProgram $out/bin/pi \
+                --set PI_TELEMETRY 0 \
+                --set NPM_CONFIG_PREFIX ${config.xdg.dataHome}/pi/npm/ \
+                --prefix PATH : ${final.lib.makeBinPath (with final; [nodejs_latest])}
+            '';
+        });
+      })
     ];
 
     nixpkgs.allowedUnfreePackages = [
@@ -110,6 +134,12 @@
 
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
+
+      pi-coding-agent
+    ];
+
+    home.file = lib.mkMerge [
+      (packageHomeFiles "pi")
     ];
   });
 }
