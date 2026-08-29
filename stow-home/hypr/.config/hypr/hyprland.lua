@@ -77,7 +77,9 @@ hl.animation({
     bezier = "easeInOutSin",
 })
 
-hl.plugin.load(os.getenv("XDG_DATA_HOME") .. "/hypr/plugins/libhypr-dynamic-cursors.so")
+local home = os.getenv("HOME")
+local data_dir = os.getenv("XDG_DATA_HOME") or home .. "/.local/share"
+hl.plugin.load(data_dir .. "/hypr/plugins/libhypr-dynamic-cursors.so")
 if hl.plugin.dynamic_cursors then
     hl.config { plugin = { dynamic_cursors = {
         enabled = true,
