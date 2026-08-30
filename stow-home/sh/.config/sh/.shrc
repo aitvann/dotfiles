@@ -22,6 +22,7 @@ alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --passwor
 # alias hm-rebuild-switch="nh home switch /home/${USER}/dotfiles --option download-attempts 50"
 alias nixos-rebuild-switch="sudo nixos-rebuild --flake /home/${USER}/dotfiles#${HOST} switch --option download-attempts 50"
 alias hm-rebuild-switch="home-manager build --flake /home/${USER}/dotfiles#${USER}@${HOST} switch --option download-attempts 50"
+alias nixos-rebuild-switch-impure="IMPURITY_PATH=/home/${USER}/dotfiles sudo --preserve-env=IMPURITY_PATH nixos-rebuild --flake /home/${USER}/dotfiles#${HOST}-impure switch --impure --option download-attempts 50"
 alias user-repl="nh home repl ~/dotfiles"
 alias host-repl="nh os repl ~/dotfiles"
 

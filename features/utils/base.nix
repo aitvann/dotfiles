@@ -4,18 +4,22 @@
   mkModuleOption,
   ...
 }: {
-  options.modules.nixos = mkModuleOption "base" ({...}: {
+  options.modules.nixos = mkModuleOption "base" ({impurity, ...}: {
     imports = with config'.modules.nixos; [
       stow
       unfree
 
       inputs.home-manager.nixosModules.home-manager
+      inputs.impurity.nixosModules.impurity
     ];
 
     home-manager = {
       useGlobalPkgs = false;
       useUserPackages = true;
+      extraSpecialArgs = {inherit impurity;};
     };
+
+    impurity.configRoot = inputs.self;
 
     system.stateVersion = "22.05";
   });

@@ -5,14 +5,18 @@
   mkModuleOption,
   ...
 }: {
-  options.modules.homeManager = mkModuleOption "stow" ({config, ...}: {
+  options.modules.homeManager = mkModuleOption "stow" ({
+    config,
+    impurity,
+    ...
+  }: {
     _module.args.packageHomeFiles = pkg:
-      inputs.self.util.packageStowFiles config.home.homeDirectory "${inputs.self}/stow-home/${pkg}";
+      inputs.self.util.packageStowFiles impurity config.home.homeDirectory "${inputs.self}/stow-home/${pkg}";
   });
 
-  options.modules.nixos = mkModuleOption "stow" ({...}: {
+  options.modules.nixos = mkModuleOption "stow" ({impurity, ...}: {
     _module.args.packageSystemFiles = pkg:
-      inputs.self.util.packageStowFiles "/etc" "${inputs.self}/stow-system/${pkg}";
+      inputs.self.util.packageStowFiles impurity "/etc" "${inputs.self}/stow-system/${pkg}";
 
     _module.args.packageServiceFilesCopyCommand = pkg:
       inputs.self.util.packageStowFilesCopyCommand "${inputs.self}/stow-service/${pkg}";
@@ -89,18 +93,21 @@
           else [prevPath]);
       readDir = path: flatten "" (toList (read path));
     in
-      target: package: let
+      imp: target: package: let
         paths =
           map (p: {
             name = p;
-            value = package + "/${p}";
+            # value = package + "/${p}";
+            # TODO: use groupedLink once it works. See https://github.com/outfoxxed/impurity.nix/issues/2#issue-5291917440
+            # value = imp.groupedLink (baseNameOf package) (package + "/${p}");
+            value = imp.link (package + "/${p}");
           })
           (filter (p: p != ".stow-local-ignore") (readDir package));
       in
         builtins.listToAttrs paths;
 
-    packageStowFiles = target: package:
-      builtins.mapAttrs (n: v: {source = lib.mkForce v;}) (stowConfig target package);
+    packageStowFiles = imp: target: package:
+      builtins.mapAttrs (n: v: {source = lib.mkForce v;}) (stowConfig imp target package);
 
     # TODO: make smarter
     packageStowFilesCopyCommand = source: files: let

@@ -9,10 +9,7 @@
     lib,
     packageSystemFiles,
     ...
-  }: let
-    # config-path = "/home/general/dotfiles/stow-system/llama-swap/llama-swap/config.yaml";
-    config-path = "/etc/llama-swap/config.yaml";
-  in {
+  }: {
     nixpkgs.overlays = [
       (final: prev: {
         llama-cpp =
@@ -33,33 +30,36 @@
       })
     ];
 
-    # Making this module stow-compatible:
-    # 1. Add `llama-cpp` to the PATH
-    # 2. Reading config from `/etc` instead of cli arg
-    systemd.services.llama-swap = {
-      path = with pkgs; [llama-cpp];
+    systemd.services.llama-swap = lib.mkMerge [
+      # Making this module stow-compatible:
+      # 1. Add `llama-cpp` to the PATH
+      # 2. Reading config from `/etc` instead of cli arg
+      {
+        path = with pkgs; [llama-cpp];
 
-      serviceConfig.ExecStart = with config.services.llama-swap;
-        lib.mkForce
-        "${lib.getExe package} ${
-          lib.escapeShellArgs [
-            "--listen=${listenAddress}:${toString port}"
-            "--config=${config-path}"
-            "--watch-config"
-          ]
-        }";
+        serviceConfig.ExecStart = with config.services.llama-swap;
+          lib.mkForce
+          "${lib.getExe package} ${
+            lib.escapeShellArgs [
+              "--listen=${listenAddress}:${toString port}"
+              "--config=/etc/llama-swap/config.yaml"
+              "--watch-config"
+            ]
+          }";
 
-      # A model won't start with this option turned on
-      serviceConfig.MemoryDenyWriteExecute = lib.mkForce false;
-      # Model in Swap is catastrophic performance degradation
-      serviceConfig.MemorySwapMax = "0";
+        # A model won't start with this option turned on
+        serviceConfig.MemoryDenyWriteExecute = lib.mkForce false;
+        # Model in Swap is catastrophic performance degradation
+        serviceConfig.MemorySwapMax = "0";
+      }
 
-      # Uncomment when debugging and reading config from `dotfiles`
-      # serviceConfig.DynamicUser = lib.mkForce false;
-      # serviceConfig.CapabilityBoundingSet = lib.mkForce "~";
-      # serviceConfig.PrivateUsers = lib.mkForce false;
-      # serviceConfig.ProtectHome = lib.mkForce false;
-    };
+      (lib.mkIf config.impurity.enable {
+        serviceConfig.DynamicUser = lib.mkForce false;
+        serviceConfig.CapabilityBoundingSet = lib.mkForce "~";
+        serviceConfig.PrivateUsers = lib.mkForce false;
+        serviceConfig.ProtectHome = lib.mkForce false;
+      })
+    ];
 
     # How to obtain a model:
     # 1. Go to https://huggingface.co/unsloth and find a model

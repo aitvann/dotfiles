@@ -21,4 +21,8 @@ in {
   config.flake.nixosConfigurations.${host} = inputs.nixpkgs.lib.nixosSystem {
     modules = [config'.modules.nixos.${host}];
   };
+
+  config.flake.nixosConfigurations."${host}-impure" =
+    inputs.self.nixosConfigurations.${host}.extendModules
+    {modules = [{impurity.enable = true;}];};
 }

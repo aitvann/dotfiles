@@ -670,6 +670,21 @@
         "type": "github"
       }
     },
+    "impurity": {
+      "locked": {
+        "lastModified": 1689836741,
+        "narHash": "sha256-82KeRg2sAqDXCdzVs8P8GoqVaPsZjkWgrfsj6kgOLTY=",
+        "owner": "outfoxxed",
+        "repo": "impurity.nix",
+        "rev": "bbc41b69ab5485cd55aa315d08cff865781d3913",
+        "type": "github"
+      },
+      "original": {
+        "owner": "outfoxxed",
+        "repo": "impurity.nix",
+        "type": "github"
+      }
+    },
     "nix-alien": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -862,6 +877,7 @@
         "hyprcursor-phinger": "hyprcursor-phinger",
         "hyprland": "hyprland",
         "import-tree": "import-tree_2",
+        "impurity": "impurity",
         "nix-alien": "nix-alien",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-graalvm21": "nixpkgs-graalvm21",
