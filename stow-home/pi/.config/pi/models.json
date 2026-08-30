@@ -4,7 +4,41 @@
       "baseUrl": "http://localhost:11434/v1",
       "api": "openai-completions",
       "apiKey": "ollama",
-      "models": [{ "id": "Qwen3.8-27B-VRAM-WISE:Coding" }]
+      "compat": {
+        "thinkingFormat": "chat-template",
+        "chatTemplateKwargs": {
+          "enable_thinking": {
+            "$var": "thinking.enabled"
+          },
+          "reasoning_effort": {
+            "$var": "thinking.effort",
+            "omitWhenOff": false
+          }
+        }
+      },
+      "models": [
+        {
+          "id": "Qwen3.8-27B-VRAM-WISE:Coding",
+          "contextWindow": 131072,
+          "maxTokens": 131072,
+          "reasoning": false
+        },
+        {
+          "id": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
+          "contextWindow": 131072,
+          "maxTokens": 131072,
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        }
+      ]
     }
   }
 }

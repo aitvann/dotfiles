@@ -1,4 +1,4 @@
-# Configuration doc: https://github.com/mostlygeek/llama-swap/blob/main/config.example.yaml
+# Configuration doc: https://github.com/mostlygeek/llama-swap/blob/main/docs/config.example.yaml
 
 logLevel: debug
 logToStdout: "both"
@@ -14,33 +14,33 @@ macros:
 x-qwen3-8-params: &qwen3-8-params
   filters:
     setParams:
-      temperature: 1.0
-      top_p: 0.95
       top_k: 20
       min_p: 0.0
-      presence_penalty: 0.0
       repetition_penalty: 1.0
       chat_template_kwargs:
-        enable_thinking: true
+        preserve_thinking: true
 
     setParamsByID:
-      "${MODEL_ID}:Thinking Low":
+      "${MODEL_ID}:Thinking Coding":
+        temperature: 0.6
+        top_p: 0.95
+        presence_penalty: 0.0
         chat_template_kwargs:
-          reasoning_effort: low
-
-      "${MODEL_ID}:Thinking Medium":
-        chat_template_kwargs:
-          reasoning_effort: medium
-
-      "${MODEL_ID}:Thinking High":
-        chat_template_kwargs:
-          reasoning_effort: xhigh
+          enable_thinking: true
 
       "${MODEL_ID}:Coding":
         temperature: 0.6
         top_p: 0.95
+        presence_penalty: 0.0
         chat_template_kwargs:
-          reasoning_effort: medium
+          enable_thinking: false
+
+      "${MODEL_ID}:Thinking":
+        temperature: 1.0
+        top_p: 0.95
+        presence_penalty: 0.0
+        chat_template_kwargs:
+          enable_thinking: true
 
       "${MODEL_ID}":
         temperature: 0.7
@@ -50,10 +50,9 @@ x-qwen3-8-params: &qwen3-8-params
           enable_thinking: false
 
   aliases:
-    - "${MODEL_ID}:Thinking Low"
-    - "${MODEL_ID}:Thinking Medium"
-    - "${MODEL_ID}:Thinking High"
+    - "${MODEL_ID}:Thinking Coding"
     - "${MODEL_ID}:Coding"
+    - "${MODEL_ID}:Thinking"
     # - "${MODEL_ID}" # The base param set is expected to be Instruct
 
 x-qwen3-6-params: &qwen3-6-params
@@ -150,6 +149,9 @@ models:
       # Does not fit
       # --spec-type draft-mtp
       # --spec-draft-n-max 2
+      # Pi does not send `reasoning_effort` for some reason
+      # and llama-swap does not even apply it
+      --chat-template-kwargs '{"reasoning_effort":"low"}'
     <<: *qwen3-8-params
 
   "Qwen3.6-35B-A3B-RAM":
