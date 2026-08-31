@@ -32,6 +32,10 @@ in {
       })
     ];
 
+    nixpkgs.allowedUnfreePackages = [
+      "zsh-abbr"
+    ];
+
     programs.stow-zsh = {
       enable = true;
       plugins = with pkgs; [
@@ -40,6 +44,7 @@ in {
         (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
         zsh-fzf-tab
         zsh-autosuggestions
+        (util.zsh-plugin-w-path zsh-abbr "share/zsh/")
       ];
     };
 

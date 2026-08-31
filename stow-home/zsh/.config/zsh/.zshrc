@@ -56,10 +56,18 @@ function load-fzf-tab() {
     zstyle ':fzf-tab:*' switch-group '<' '>'
 }
 
+function load-zsh-abbr() {
+    source $ZSH_PLUGINS/zsh-abbr/zsh-abbr.zsh
+
+    # Use with journalctl
+    abbr -S --quiet --global jnav="-a -o json --output-fields=MESSAGE,PRIORITY,_PID,SYSLOG_IDENTIFIER,_SYSTEMD_UNIT | lnav"
+}
+
 source $ZSH_PLUGINS/zsh-defer/zsh-defer.plugin.zsh
 
 zsh-defer -12 load-carapace
 zsh-defer -12 load-fzf-tab
+zsh-defer -12 load-zsh-abbr
 # breaks `select-word-style`, does not worth it
 # zsh-defer -12 source $ZSH_PLUGINS/zsh-autopair/autopair.zsh
 zsh-defer -12 source $ZSH_PLUGINS/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

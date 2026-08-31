@@ -54,6 +54,7 @@
       graphviz
 
       tigervnc
+      lnav
     ];
 
     home.file = lib.mkMerge [
