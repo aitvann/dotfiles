@@ -104,6 +104,12 @@ models:
       --cache-type-v q4_0
       --spec-type draft-mtp
       --spec-draft-n-max 2
+      # Pi does not send `reasoning_effort` for some reason
+      # and llama-swap does not even apply it
+      --chat-template-kwargs '{"reasoning_effort":"low"}'
+      # Does not work for some reason
+      # --chat-template-kwargs '{"preserve_thinking":true}'
+      --reasoning-preserve
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-VRAM-FAST":
@@ -123,6 +129,12 @@ models:
       --ctx-size 32768
       --spec-type draft-mtp
       --spec-draft-n-max 2
+      # Pi does not send `reasoning_effort` for some reason
+      # and llama-swap does not even apply it
+      --chat-template-kwargs '{"reasoning_effort":"low"}'
+      # Does not work for some reason
+      # --chat-template-kwargs '{"preserve_thinking":true}'
+      --reasoning-preserve
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-VRAM-WISE":
@@ -152,6 +164,9 @@ models:
       # Pi does not send `reasoning_effort` for some reason
       # and llama-swap does not even apply it
       --chat-template-kwargs '{"reasoning_effort":"low"}'
+      # Does not work for some reason
+      # --chat-template-kwargs '{"preserve_thinking":true}'
+      --reasoning-preserve
     <<: *qwen3-8-params
 
   "Qwen3.6-35B-A3B-RAM":
@@ -172,4 +187,10 @@ models:
       --cache-type-v q8_0
       --spec-type draft-mtp
       --spec-draft-n-max 2
+      # Pi does not send `reasoning_effort` for some reason
+      # and llama-swap does not even apply it
+      --chat-template-kwargs '{"reasoning_effort":"low"}'
+      # Does not work for some reason
+      # --chat-template-kwargs '{"preserve_thinking":true}'
+      --reasoning-preserve
     <<: *qwen3-6-params
