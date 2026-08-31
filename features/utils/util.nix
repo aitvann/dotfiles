@@ -123,6 +123,30 @@
     in
       command;
 
+    read-env-file = path: let
+      content = builtins.readFile path;
+      lines = lib.splitString "\n" content;
+      parseLine = line: let
+        trimmed = lib.trim line;
+      in
+        if trimmed == "" || lib.hasPrefix "#" trimmed
+        then null
+        else if lib.hasPrefix "export " trimmed
+        then
+          let
+            rest = lib.removePrefix "export " trimmed;
+            parts = lib.splitString "=" rest;
+            name = lib.trim (lib.head parts);
+            value = lib.trim (lib.concatStringsSep "=" (lib.tail parts));
+            unquoted = lib.removePrefix "\"" (lib.removeSuffix "\"" value);
+          in
+            {inherit name; value = unquoted;}
+        else
+          null;
+      parsed = builtins.filter (x: x != null) (map parseLine lines);
+    in
+      builtins.listToAttrs parsed;
+
     endsWith = str: suffix: let
       lenStr = stringLength str;
       lenSuffix = stringLength suffix;

@@ -11,6 +11,7 @@
 
       inputs.home-manager.nixosModules.home-manager
       inputs.impurity.nixosModules.impurity
+      xdg-base-directory
     ];
 
     home-manager = {
