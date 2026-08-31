@@ -1,6 +1,7 @@
 # Configuration
 
-This repo includes configuration for my hosts
+This repository contains configuration for my hosts. It is built around [Dendritic
+Pattern](https://github.com/mightyiam/dendritic)
 
 Key features:
 
@@ -17,13 +18,60 @@ Key features:
       ([Lazygit](https://github.com/jesseduffield/lazygit))
     - External (yet integrated with editor) terminal ([Kitty](https://sw.kovidgoyal.net/kitty/))
 
+## Stow Compatibility
+
+Where possible tools and services are configured using [GNU
+Stow](https://www.gnu.org/software/stow/) and Nix is used only for installing packages and their
+plugins/extensions.
+
+This repository contains three *Stow directories* each corresponding to it's *target directory*:
+
+1.  `stow-home`: target is `~/`
+2.  `stow-system`: target os `/etc/`
+3.  `stow-service` target is `/var/lib/`
+
+Instead of the usual `programs.helix.settings = { ... }` what basically happens in Nix code is
+this:
+
+``` nix
+# home.nix
+
+xdg.configHome."helix/config.toml".source = "${self}/stow-home/helix/.config/helix/config.toml"
+```
+
+But instead of manually linking each configuration file like this a helper functions exist:
+`packageHomeFiles`, `packageSystemFiles`.
+
+``` nix
+# home.nix
+
+home.file = lib.mkMerge [
+    (packageHomeFiles "helix")
+];
+```
+
+So all it takes is just picking the right helper function depending on a *target directory* and
+giving it a *package* name. The function will walk the entire *package* and link files to the
+right places just like what `stow -t ~ -S helix` would do.
+
+Here are some advantages of this approach:
+
+1.  I didn't had to rewrite all my dotfiles when migrating to Nix.
+2.  I don't have to rewrite configuration examples I find on the internet when configuring a new
+    tool.
+3.  I won't have to rewrite all my dotfiles once I decide to leave NixOS for whatever reason.
+4.  I theoretically can reuse parts of my dotfiles on a machines with no Nix whatsoever.
+5.  Combined with [impurity.nix](https://github.com/outfoxxed/impurity.nix) I can make parts of
+    nix store point directly at dotfiles repository when debugging which allows me to easily test
+    changes without constant rebuilding.
+
 ## Installation
 
 **CAUTION**:
 
 > DO NOT RUN DISKO ON A HOST WITH SIMILAR SETUP, USE LIVECD ON A FUTURE HOST INSTEAD !!!
 >
-> Filesystem and partition lables are used, expect conflicts
+> Filesystem and partition labels are used, expect conflicts
 
 ``` sh
 # Could be: pluto, mars, jupiter, venus
