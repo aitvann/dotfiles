@@ -33,7 +33,7 @@ in {
   });
 
   options.modules.homeManager = mkModuleOption "${username}@${host}" ({config, ...}: {
-    imports = with config'.homeManager; [
+    imports = with config'.modules.homeManager; [
       base
 
       remote-admin
