@@ -1,5 +1,6 @@
 {
   config',
+  lib,
   inputs,
   mkModuleOption,
   ...
@@ -17,6 +18,14 @@ in {
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
       withUWSM = true;
       xwayland.enable = true;
+    };
+    # Wants `seatd` for some reason, should not be a requirment
+    # Does not even work tho
+    environment.variables = {
+      LIBSEAT_BACKEND = lib.mkForce "logind";
+    };
+    environment.sessionVariables = {
+      LIBSEAT_BACKEND = lib.mkForce "logind";
     };
 
     services.xserver = {
