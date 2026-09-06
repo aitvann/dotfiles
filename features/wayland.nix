@@ -1,15 +1,18 @@
-{
-  config',
-  mkModuleOption,
-  ...
-}: {
+{mkModuleOption, ...}: {
   options.modules.nixos = mkModuleOption "wayland" ({
+    config,
     pkgs,
     lib,
     packageSystemFiles,
     ...
   }: {
-    imports = with config'.modules.nixos; [stowfulGreetd];
+    # Making this module stow-compatible:
+    systemd.services.greetd = let
+      cfg = config.services.greetd;
+    in
+      lib.mkForce {
+        serviceConfig.ExecStart = "${lib.getExe cfg.package}";
+      };
 
     services.displayManager.regreet.enable = true;
     # TODO: figure out smooth plymouth transition as it is not supported out of the box
