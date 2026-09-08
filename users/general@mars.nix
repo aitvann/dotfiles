@@ -16,6 +16,8 @@ in {
       workstation
     ];
 
+    nixpkgs.allowSomeUnfree = true;
+
     users.users.${username} = {
       isNormalUser = true;
       description = description;
@@ -33,6 +35,8 @@ in {
       base
       workstation
     ];
+
+    nixpkgs.allowSomeUnfree = true;
 
     home.username = "${username}";
     home.homeDirectory = "/home/${config.home.username}";

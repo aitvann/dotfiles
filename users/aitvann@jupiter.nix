@@ -20,6 +20,8 @@ in {
       adguardhome
     ];
 
+    nixpkgs.allowSomeUnfree = true;
+
     users.users.${username} = {
       isNormalUser = true;
       description = description;
@@ -43,6 +45,8 @@ in {
 
       source-env
     ];
+
+    nixpkgs.allowSomeUnfree = true;
 
     home.username = "${username}";
     home.homeDirectory = "/home/${config.home.username}";

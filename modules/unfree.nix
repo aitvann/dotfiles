@@ -10,9 +10,22 @@
       default = [];
     };
 
+    options.nixpkgs.allowSomeUnfree = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Allow some explicedly named unfree packages";
+    };
+
     config = let
       predicate = pkg: builtins.elem (lib.getName pkg) config.nixpkgs.allowedUnfreePackages;
     in {
+      assertions = [
+        {
+          assertion = !config.nixpkgs.allowSomeUnfree -> (builtins.length config.nixpkgs.allowedUnfreePackages == 0);
+          message = "Unfree packages are not allowed see `nixpkgs.allowSomeUnfree`";
+        }
+      ];
+
       nixpkgs.config.allowUnfreePredicate = predicate;
     };
   });
@@ -27,9 +40,22 @@
       default = [];
     };
 
+    options.nixpkgs.allowSomeUnfree = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Allow some explicedly named unfree packages";
+    };
+
     config = let
       predicate = pkg: builtins.elem (lib.getName pkg) config.nixpkgs.allowedUnfreePackages;
     in {
+      assertions = [
+        {
+          assertion = !config.nixpkgs.allowSomeUnfree -> (builtins.length config.nixpkgs.allowedUnfreePackages == 0);
+          message = "Unfree packages are not allowed see `nixpkgs.allowSomeUnfree`";
+        }
+      ];
+
       nixpkgs.config.allowUnfreePredicate = predicate;
     };
   });

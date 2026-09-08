@@ -9,7 +9,11 @@
   host = "gleba";
   system = "x86_64-linux";
 in {
-  options.modules.homeManager = mkModuleOption "${username}@${host}" ({config, ...}: {
+  options.modules.homeManager = mkModuleOption "${username}@${host}" ({
+    config,
+    lib,
+    ...
+  }: {
     imports = with config'.modules.homeManager; [
       base
 
@@ -17,6 +21,10 @@ in {
       zsh
       neovim
     ];
+
+    # No unfree package is allowed in work environment
+    nixpkgs.allowSomeUnfree = lib.mkForce false;
+    nixpkgs.config.allowUnfree = lib.mkForce false;
 
     home.username = "${username}";
     home.homeDirectory = "/home/${config.home.username}";

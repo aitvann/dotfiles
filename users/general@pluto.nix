@@ -17,6 +17,8 @@ in {
       llm
     ];
 
+    nixpkgs.allowSomeUnfree = true;
+
     users.users.${username} = {
       isNormalUser = true;
       description = description;
@@ -37,6 +39,8 @@ in {
 
       monero
     ];
+
+    nixpkgs.allowSomeUnfree = true;
 
     home.username = username;
     home.homeDirectory = "/home/${config.home.username}";
