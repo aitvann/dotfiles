@@ -10,6 +10,9 @@
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     # Better be the same to the one defined on home-level
     nix.settings.experimental-features = ["nix-command" "flakes"];
+    # Wheel users may configure extra substituters / import paths without
+    # the daemon prompting. Safe on a single-user laptop.
+    nix.settings.trusted-users = ["root" "@wheel"];
 
     networking.extraHosts = ''
       ${(builtins.readFile "${inputs.self}/secrets/venus-ip.txt")} venus.home.arpa
