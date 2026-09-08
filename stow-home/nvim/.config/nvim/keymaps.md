@@ -1,0 +1,1532 @@
+# Keymap
+
+This is a list of configured keymaps.
+
+## Normal
+
+Normal mode mappings.
+
+- `<Space>;`: open terminal
+- `<Space>O`: create line BELOW in normal mode
+- `<Space>Q`: Quite from editor
+- `<Space>R`: COPLETELY Rename object under cursor
+- `<Space>W`: Write ALL buffers
+- `<Space>a`: show code Actions
+- `<Space>a`: show code Actions
+- `<Space>b`: reBoot NeoVim
+- `<Space>d`: Delete and yank to system clipboard
+- `<Space>d`: Delete and yank to system clipboard
+- `<Space>d`: Delete and yank to system clipboard
+- `<Space>e`: open Git coMMits
+- `<Space>f`: Format current buffer
+- `<Space>f`: Format selected range
+- `<Space>gb`: open Git Branches
+- `<Space>gg`: open Git window
+- `<Space>gm`: open Git coMMits
+- `<Space>i`: Inspect node under cursor
+- `<Space>o`: create line ABOVE in normal mode
+- `<Space>p`: Pate from system clipboard
+- `<Space>p`: Pate from system clipboard
+- `<Space>p`: Pate from system clipboard
+- `<Space>q`: Quite from current editor
+- `<Space>r`: PARTIALLY Rename object under cursor
+- `<Space>s`: Save current layout as a Session
+- `<Space>tc`: Toggle auto-Comment
+- `<Space>tf`: Toggle Formatting on save
+- `<Space>th`: Toggle inlay Hints
+- `<Space>tl`: Toggle conceaL level
+- `<Space>w`: Write current buffer
+- `<Space>y`: Yank to system clipboard
+- `<Space>y`: Yank to system clipboard
+- `<Space>y`: Yank to system clipboard
+- `#`: :help v_#-default
+- `&`: :help &-default
+- `*`: :help v_star-default
+- `<lt>BS>`: close buffer
+- `<lt>C-H>`: no search Highlight
+- `<lt>C-L>`: :help CTRL-L-default
+- `<lt>C-P>`: show Previous search
+- `<lt>C-R>`: <C-W>L
+- `<lt>C-S>`: vim.lsp.buf.signature_help()
+- `<lt>C-W><lt>C-D>`: Show diagnostics under the cursor
+- `<lt>C-W>d`: Show diagnostics under the cursor
+- `<lt>Del>`: CLOSE window
+- `<lt>Down>`: scroll UP
+- `<lt>Down>`: scroll UP
+- `<lt>Down>`: scroll UP
+- `<lt>Left>`: scroll horizontally to the LEFT
+- `<lt>PageDown>`: scroll UP
+- `<lt>PageDown>`: scroll UP
+- `<lt>PageDown>`: scroll UP
+- `<lt>PageUp>`: scroll DOWN
+- `<lt>PageUp>`: scroll DOWN
+- `<lt>PageUp>`: scroll DOWN
+- `<lt>Plug>(MatchitNormalBackward)`: :<C-U>call matchit#Match_wrapper('',0,'n')<CR>
+- `<lt>Plug>(MatchitNormalForward)`: :<C-U>call matchit#Match_wrapper('',1,'n')<CR>
+- `<lt>Plug>(MatchitNormalMultiBackward)`: :<C-U>call matchit#MultiMatch("bW", "n")<CR>
+- `<lt>Plug>(MatchitNormalMultiForward)`: :<C-U>call matchit#MultiMatch("W",  "n")<CR>
+- `<lt>Plug>(MatchitOperationBackward)`: :<C-U>call matchit#Match_wrapper('',0,'o')<CR>
+- `<lt>Plug>(MatchitOperationForward)`: :<C-U>call matchit#Match_wrapper('',1,'o')<CR>
+- `<lt>Plug>(MatchitOperationMultiBackward)`: :<C-U>call matchit#MultiMatch("bW", "o")<CR>
+- `<lt>Plug>(MatchitOperationMultiForward)`: :<C-U>call matchit#MultiMatch("W",  "o")<CR>
+- `<lt>Plug>(MatchitVisualBackward)`: :<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``
+- `<lt>Plug>(MatchitVisualForward)`: :<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") | exe ":normal! m'" | endif<CR>gv``
+- `<lt>Plug>(MatchitVisualMultiBackward)`: :<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``
+- `<lt>Plug>(MatchitVisualMultiForward)`: :<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``
+- `<lt>Plug>(MatchitVisualTextObject)`: <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+- `<lt>Plug>(comment_toggle_blockwise)`: Comment toggle blockwise
+- `<lt>Plug>(comment_toggle_blockwise_count)`: Comment toggle blockwise with count
+- `<lt>Plug>(comment_toggle_blockwise_current)`: Comment toggle current block
+- `<lt>Plug>(comment_toggle_blockwise_visual)`: Comment toggle blockwise (visual)
+- `<lt>Plug>(comment_toggle_linewise)`: Comment toggle linewise
+- `<lt>Plug>(comment_toggle_linewise_count)`: Comment toggle linewise with count
+- `<lt>Plug>(comment_toggle_linewise_current)`: Comment toggle current line
+- `<lt>Plug>(comment_toggle_linewise_visual)`: Comment toggle linewise (visual)
+- `<lt>Plug>PlenaryTestFile`: :lua require('plenary.test_harness').test_file(vim.fn.expand("%:p"))<CR>
+- `<lt>Right>`: scroll horizontally to the RIGHT
+- `<lt>S-Del>`: CLOSE tab
+- `<lt>S-Down>`: move window divider DOWN
+- `<lt>S-Left>`: move window divider LEFT
+- `<lt>S-Right>`: move window divider RIGHT
+- `<lt>S-Tab>`: cycle trought buffers backward
+- `<lt>S-Tab>`: vim.snippet.jump if active, otherwise <S-Tab>
+- `<lt>S-Up>`: move window divider UP
+- `<lt>Tab>`: cycle trought buffers forward
+- `<lt>Tab>`: vim.snippet.jump if active, otherwise <Tab>
+- `<lt>Up>`: scroll DOWN
+- `<lt>Up>`: scroll DOWN
+- `<lt>Up>`: scroll DOWN
+- `<lt>lt>`: <lt>gv
+- `<lt>lt>a`: swap with previous Parameter
+- `>`: >gv
+- `>a`: swap with next Parameter
+- `@`: :help v_@-default
+- `G`: Gzz
+- `H`: cycle tabs to the Right
+- `L`: cycle tabs to the Left
+- `Q`: :help v_Q-default
+- `U`: <Cmd>redo<CR>
+- `Y`: y$
+- `[<Space>`: GOTO PREVIOUS quickfix item
+- `[<Space>`: GOTO PREVIOUS quickfix item
+- `[<Space>`: GOTO PREVIOUS quickfix item
+- `["`: GOTO PREVIOUS START of textobject "
+- `["`: GOTO PREVIOUS START of textobject "
+- `["`: GOTO PREVIOUS START of textobject "
+- `['`: GOTO PREVIOUS START of textobject '
+- `['`: GOTO PREVIOUS START of textobject '
+- `['`: GOTO PREVIOUS START of textobject '
+- `[(`: GOTO PREVIOUS START of textobject (
+- `[(`: GOTO PREVIOUS START of textobject (
+- `[(`: GOTO PREVIOUS START of textobject (
+- `[)`: GOTO PREVIOUS END of textobject (
+- `[)`: GOTO PREVIOUS END of textobject (
+- `[)`: GOTO PREVIOUS END of textobject (
+- `[<lt>C-L>`: :lpfile
+- `[<lt>C-Q>`: :cpfile
+- `[<lt>C-T>`: :ptprevious
+- `[<lt>lt>`: GOTO PREVIOUS START of textobject <
+- `[<lt>lt>`: GOTO PREVIOUS START of textobject <
+- `[<lt>lt>`: GOTO PREVIOUS START of textobject <
+- `[>`: GOTO PREVIOUS END of textobject <
+- `[>`: GOTO PREVIOUS END of textobject <
+- `[>`: GOTO PREVIOUS END of textobject <
+- `[?`: GOTO PREVIOUS START of textobject ?
+- `[?`: GOTO PREVIOUS START of textobject ?
+- `[?`: GOTO PREVIOUS START of textobject ?
+- `[A`: GOTO PREVIOUS END of textobject a
+- `[A`: GOTO PREVIOUS END of textobject a
+- `[A`: GOTO PREVIOUS END of textobject a
+- `[B`: GOTO PREVIOUS END of textobject b
+- `[B`: GOTO PREVIOUS END of textobject b
+- `[B`: GOTO PREVIOUS END of textobject b
+- `[C`: GOTO PREVIOUS END of textobject c
+- `[C`: GOTO PREVIOUS END of textobject c
+- `[C`: GOTO PREVIOUS END of textobject c
+- `[D`: GOTO PREVIOUS END of textobject d
+- `[D`: GOTO PREVIOUS END of textobject d
+- `[D`: GOTO PREVIOUS END of textobject d
+- `[F`: GOTO PREVIOUS END of textobject f
+- `[F`: GOTO PREVIOUS END of textobject f
+- `[F`: GOTO PREVIOUS END of textobject f
+- `[G`: GOTO PREVIOUS END of textobject g
+- `[G`: GOTO PREVIOUS END of textobject g
+- `[G`: GOTO PREVIOUS END of textobject g
+- `[I`: GOTO PREVIOUS END of textobject i
+- `[I`: GOTO PREVIOUS END of textobject i
+- `[I`: GOTO PREVIOUS END of textobject i
+- `[L`: GOTO PREVIOUS END of textobject l
+- `[L`: GOTO PREVIOUS END of textobject l
+- `[L`: GOTO PREVIOUS END of textobject l
+- `[M`: GOTO PREVIOUS END of textobject m
+- `[M`: GOTO PREVIOUS END of textobject m
+- `[M`: GOTO PREVIOUS END of textobject m
+- `[N`: GOTO PREVIOUS END of textobject n
+- `[N`: GOTO PREVIOUS END of textobject n
+- `[N`: GOTO PREVIOUS END of textobject n
+- `[O`: GOTO PREVIOUS END of textobject o
+- `[O`: GOTO PREVIOUS END of textobject o
+- `[O`: GOTO PREVIOUS END of textobject o
+- `[Q`: GOTO PREVIOUS END of textobject q
+- `[Q`: GOTO PREVIOUS END of textobject q
+- `[Q`: GOTO PREVIOUS END of textobject q
+- `[R`: GOTO PREVIOUS END of textobject r
+- `[R`: GOTO PREVIOUS END of textobject r
+- `[R`: GOTO PREVIOUS END of textobject r
+- `[S`: GOTO PREVIOUS END of textobject s
+- `[S`: GOTO PREVIOUS END of textobject s
+- `[S`: GOTO PREVIOUS END of textobject s
+- `[T`: GOTO PREVIOUS END of textobject t
+- `[T`: GOTO PREVIOUS END of textobject t
+- `[T`: GOTO PREVIOUS END of textobject t
+- `[U`: GOTO PREVIOUS END of textobject u
+- `[U`: GOTO PREVIOUS END of textobject u
+- `[U`: GOTO PREVIOUS END of textobject u
+- `[V`: GOTO PREVIOUS END of textobject v
+- `[V`: GOTO PREVIOUS END of textobject v
+- `[V`: GOTO PREVIOUS END of textobject v
+- `[X`: GOTO PREVIOUS END of textobject x
+- `[X`: GOTO PREVIOUS END of textobject x
+- `[X`: GOTO PREVIOUS END of textobject x
+- `[Y`: GOTO PREVIOUS END of textobject y
+- `[Y`: GOTO PREVIOUS END of textobject y
+- `[Y`: GOTO PREVIOUS END of textobject y
+- `[Z`: GOTO PREVIOUS END of textobject z
+- `[Z`: GOTO PREVIOUS END of textobject z
+- `[Z`: GOTO PREVIOUS END of textobject z
+- `[[`: GOTO PREVIOUS START of textobject [
+- `[[`: GOTO PREVIOUS START of textobject [
+- `[[`: GOTO PREVIOUS START of textobject [
+- `[]`: GOTO PREVIOUS END of textobject [
+- `[]`: GOTO PREVIOUS END of textobject [
+- `[]`: GOTO PREVIOUS END of textobject [
+- `[``: GOTO PREVIOUS START of textobject `
+- `[``: GOTO PREVIOUS START of textobject `
+- `[``: GOTO PREVIOUS START of textobject `
+- `[a`: GOTO PREVIOUS START of textobject a
+- `[a`: GOTO PREVIOUS START of textobject a
+- `[a`: GOTO PREVIOUS START of textobject a
+- `[b`: GOTO PREVIOUS START of textobject b
+- `[b`: GOTO PREVIOUS START of textobject b
+- `[b`: GOTO PREVIOUS START of textobject b
+- `[c`: GOTO PREVIOUS START of textobject c
+- `[c`: GOTO PREVIOUS START of textobject c
+- `[c`: GOTO PREVIOUS START of textobject c
+- `[d`: GOTO PREVIOUS START of textobject d
+- `[d`: GOTO PREVIOUS START of textobject d
+- `[d`: GOTO PREVIOUS START of textobject d
+- `[f`: GOTO PREVIOUS START of textobject f
+- `[f`: GOTO PREVIOUS START of textobject f
+- `[f`: GOTO PREVIOUS START of textobject f
+- `[g`: GOTO PREVIOUS START of textobject g
+- `[g`: GOTO PREVIOUS START of textobject g
+- `[g`: GOTO PREVIOUS START of textobject g
+- `[i`: GOTO PREVIOUS START of textobject i
+- `[i`: GOTO PREVIOUS START of textobject i
+- `[i`: GOTO PREVIOUS START of textobject i
+- `[l`: GOTO PREVIOUS START of textobject l
+- `[l`: GOTO PREVIOUS START of textobject l
+- `[l`: GOTO PREVIOUS START of textobject l
+- `[m`: GOTO PREVIOUS START of textobject m
+- `[m`: GOTO PREVIOUS START of textobject m
+- `[m`: GOTO PREVIOUS START of textobject m
+- `[n`: GOTO PREVIOUS START of textobject n
+- `[n`: GOTO PREVIOUS START of textobject n
+- `[n`: GOTO PREVIOUS START of textobject n
+- `[o`: GOTO PREVIOUS START of textobject o
+- `[o`: GOTO PREVIOUS START of textobject o
+- `[o`: GOTO PREVIOUS START of textobject o
+- `[q`: GOTO PREVIOUS START of textobject q
+- `[q`: GOTO PREVIOUS START of textobject q
+- `[q`: GOTO PREVIOUS START of textobject q
+- `[r`: GOTO PREVIOUS START of textobject r
+- `[r`: GOTO PREVIOUS START of textobject r
+- `[r`: GOTO PREVIOUS START of textobject r
+- `[s`: GOTO PREVIOUS START of textobject s
+- `[s`: GOTO PREVIOUS START of textobject s
+- `[s`: GOTO PREVIOUS START of textobject s
+- `[t`: GOTO PREVIOUS START of textobject t
+- `[t`: GOTO PREVIOUS START of textobject t
+- `[t`: GOTO PREVIOUS START of textobject t
+- `[u`: GOTO PREVIOUS START of textobject u
+- `[u`: GOTO PREVIOUS START of textobject u
+- `[u`: GOTO PREVIOUS START of textobject u
+- `[v`: GOTO PREVIOUS START of textobject v
+- `[v`: GOTO PREVIOUS START of textobject v
+- `[v`: GOTO PREVIOUS START of textobject v
+- `[x`: GOTO PREVIOUS START of textobject x
+- `[x`: GOTO PREVIOUS START of textobject x
+- `[x`: GOTO PREVIOUS START of textobject x
+- `[y`: GOTO PREVIOUS START of textobject y
+- `[y`: GOTO PREVIOUS START of textobject y
+- `[y`: GOTO PREVIOUS START of textobject y
+- `[z`: GOTO PREVIOUS START of textobject z
+- `[z`: GOTO PREVIOUS START of textobject z
+- `[z`: GOTO PREVIOUS START of textobject z
+- `[{`: GOTO PREVIOUS START of textobject {
+- `[{`: GOTO PREVIOUS START of textobject {
+- `[{`: GOTO PREVIOUS START of textobject {
+- `[}`: GOTO PREVIOUS END of textobject {
+- `[}`: GOTO PREVIOUS END of textobject {
+- `[}`: GOTO PREVIOUS END of textobject {
+- `]<Space>`: GOTO NEXT quickfix item
+- `]<Space>`: GOTO NEXT quickfix item
+- `]<Space>`: GOTO NEXT quickfix item
+- `]"`: GOTO NEXT START of textobject "
+- `]"`: GOTO NEXT START of textobject "
+- `]"`: GOTO NEXT START of textobject "
+- `]'`: GOTO NEXT START of textobject '
+- `]'`: GOTO NEXT START of textobject '
+- `]'`: GOTO NEXT START of textobject '
+- `](`: GOTO NEXT START of textobject (
+- `](`: GOTO NEXT START of textobject (
+- `](`: GOTO NEXT START of textobject (
+- `])`: GOTO NEXT END of textobject (
+- `])`: GOTO NEXT END of textobject (
+- `])`: GOTO NEXT END of textobject (
+- `]<lt>C-L>`: :lnfile
+- `]<lt>C-Q>`: :cnfile
+- `]<lt>C-T>`: :ptnext
+- `]<lt>lt>`: GOTO NEXT START of textobject <
+- `]<lt>lt>`: GOTO NEXT START of textobject <
+- `]<lt>lt>`: GOTO NEXT START of textobject <
+- `]>`: GOTO NEXT END of textobject <
+- `]>`: GOTO NEXT END of textobject <
+- `]>`: GOTO NEXT END of textobject <
+- `]?`: GOTO NEXT START of textobject ?
+- `]?`: GOTO NEXT START of textobject ?
+- `]?`: GOTO NEXT START of textobject ?
+- `]A`: GOTO NEXT END of textobject a
+- `]A`: GOTO NEXT END of textobject a
+- `]A`: GOTO NEXT END of textobject a
+- `]B`: GOTO NEXT END of textobject b
+- `]B`: GOTO NEXT END of textobject b
+- `]B`: GOTO NEXT END of textobject b
+- `]C`: GOTO NEXT END of textobject c
+- `]C`: GOTO NEXT END of textobject c
+- `]C`: GOTO NEXT END of textobject c
+- `]D`: GOTO NEXT END of textobject d
+- `]D`: GOTO NEXT END of textobject d
+- `]D`: GOTO NEXT END of textobject d
+- `]F`: GOTO NEXT END of textobject f
+- `]F`: GOTO NEXT END of textobject f
+- `]F`: GOTO NEXT END of textobject f
+- `]G`: GOTO NEXT END of textobject g
+- `]G`: GOTO NEXT END of textobject g
+- `]G`: GOTO NEXT END of textobject g
+- `]I`: GOTO NEXT END of textobject i
+- `]I`: GOTO NEXT END of textobject i
+- `]I`: GOTO NEXT END of textobject i
+- `]L`: GOTO NEXT END of textobject l
+- `]L`: GOTO NEXT END of textobject l
+- `]L`: GOTO NEXT END of textobject l
+- `]M`: GOTO NEXT END of textobject m
+- `]M`: GOTO NEXT END of textobject m
+- `]M`: GOTO NEXT END of textobject m
+- `]N`: GOTO NEXT END of textobject n
+- `]N`: GOTO NEXT END of textobject n
+- `]N`: GOTO NEXT END of textobject n
+- `]O`: GOTO NEXT END of textobject o
+- `]O`: GOTO NEXT END of textobject o
+- `]O`: GOTO NEXT END of textobject o
+- `]Q`: GOTO NEXT END of textobject q
+- `]Q`: GOTO NEXT END of textobject q
+- `]Q`: GOTO NEXT END of textobject q
+- `]R`: GOTO NEXT END of textobject r
+- `]R`: GOTO NEXT END of textobject r
+- `]R`: GOTO NEXT END of textobject r
+- `]S`: GOTO NEXT END of textobject s
+- `]S`: GOTO NEXT END of textobject s
+- `]S`: GOTO NEXT END of textobject s
+- `]T`: GOTO NEXT END of textobject t
+- `]T`: GOTO NEXT END of textobject t
+- `]T`: GOTO NEXT END of textobject t
+- `]U`: GOTO NEXT END of textobject u
+- `]U`: GOTO NEXT END of textobject u
+- `]U`: GOTO NEXT END of textobject u
+- `]V`: GOTO NEXT END of textobject v
+- `]V`: GOTO NEXT END of textobject v
+- `]V`: GOTO NEXT END of textobject v
+- `]X`: GOTO NEXT END of textobject x
+- `]X`: GOTO NEXT END of textobject x
+- `]X`: GOTO NEXT END of textobject x
+- `]Y`: GOTO NEXT END of textobject y
+- `]Y`: GOTO NEXT END of textobject y
+- `]Y`: GOTO NEXT END of textobject y
+- `]Z`: GOTO NEXT END of textobject z
+- `]Z`: GOTO NEXT END of textobject z
+- `]Z`: GOTO NEXT END of textobject z
+- `][`: GOTO NEXT START of textobject [
+- `][`: GOTO NEXT START of textobject [
+- `][`: GOTO NEXT START of textobject [
+- `]]`: GOTO NEXT END of textobject [
+- `]]`: GOTO NEXT END of textobject [
+- `]]`: GOTO NEXT END of textobject [
+- `]``: GOTO NEXT START of textobject `
+- `]``: GOTO NEXT START of textobject `
+- `]``: GOTO NEXT START of textobject `
+- `]a`: GOTO NEXT START of textobject a
+- `]a`: GOTO NEXT START of textobject a
+- `]a`: GOTO NEXT START of textobject a
+- `]b`: GOTO NEXT START of textobject b
+- `]b`: GOTO NEXT START of textobject b
+- `]b`: GOTO NEXT START of textobject b
+- `]c`: GOTO NEXT START of textobject c
+- `]c`: GOTO NEXT START of textobject c
+- `]c`: GOTO NEXT START of textobject c
+- `]d`: GOTO NEXT START of textobject d
+- `]d`: GOTO NEXT START of textobject d
+- `]d`: GOTO NEXT START of textobject d
+- `]f`: GOTO NEXT START of textobject f
+- `]f`: GOTO NEXT START of textobject f
+- `]f`: GOTO NEXT START of textobject f
+- `]g`: GOTO NEXT START of textobject g
+- `]g`: GOTO NEXT START of textobject g
+- `]g`: GOTO NEXT START of textobject g
+- `]i`: GOTO NEXT START of textobject i
+- `]i`: GOTO NEXT START of textobject i
+- `]i`: GOTO NEXT START of textobject i
+- `]l`: GOTO NEXT START of textobject l
+- `]l`: GOTO NEXT START of textobject l
+- `]l`: GOTO NEXT START of textobject l
+- `]m`: GOTO NEXT START of textobject m
+- `]m`: GOTO NEXT START of textobject m
+- `]m`: GOTO NEXT START of textobject m
+- `]n`: GOTO NEXT START of textobject n
+- `]n`: GOTO NEXT START of textobject n
+- `]n`: GOTO NEXT START of textobject n
+- `]o`: GOTO NEXT START of textobject o
+- `]o`: GOTO NEXT START of textobject o
+- `]o`: GOTO NEXT START of textobject o
+- `]q`: GOTO NEXT START of textobject q
+- `]q`: GOTO NEXT START of textobject q
+- `]q`: GOTO NEXT START of textobject q
+- `]r`: GOTO NEXT START of textobject r
+- `]r`: GOTO NEXT START of textobject r
+- `]r`: GOTO NEXT START of textobject r
+- `]s`: GOTO NEXT START of textobject s
+- `]s`: GOTO NEXT START of textobject s
+- `]s`: GOTO NEXT START of textobject s
+- `]t`: GOTO NEXT START of textobject t
+- `]t`: GOTO NEXT START of textobject t
+- `]t`: GOTO NEXT START of textobject t
+- `]u`: GOTO NEXT START of textobject u
+- `]u`: GOTO NEXT START of textobject u
+- `]u`: GOTO NEXT START of textobject u
+- `]v`: GOTO NEXT START of textobject v
+- `]v`: GOTO NEXT START of textobject v
+- `]v`: GOTO NEXT START of textobject v
+- `]x`: GOTO NEXT START of textobject x
+- `]x`: GOTO NEXT START of textobject x
+- `]x`: GOTO NEXT START of textobject x
+- `]y`: GOTO NEXT START of textobject y
+- `]y`: GOTO NEXT START of textobject y
+- `]y`: GOTO NEXT START of textobject y
+- `]z`: GOTO NEXT START of textobject z
+- `]z`: GOTO NEXT START of textobject z
+- `]z`: GOTO NEXT START of textobject z
+- `]{`: GOTO NEXT START of textobject {
+- `]{`: GOTO NEXT START of textobject {
+- `]{`: GOTO NEXT START of textobject {
+- `]}`: GOTO NEXT END of textobject {
+- `]}`: GOTO NEXT END of textobject {
+- `]}`: GOTO NEXT END of textobject {
+- `a`: Around textobject
+- `a`: Around textobject
+- `a"`: select Around CURRENT " textobject
+- `a"`: select Around CURRENT " textobject
+- `a'`: select Around CURRENT ' textobject
+- `a'`: select Around CURRENT ' textobject
+- `a(`: select Around CURRENT ( textobject
+- `a(`: select Around CURRENT ( textobject
+- `a)`: select Around CURRENT ) textobject
+- `a)`: select Around CURRENT ) textobject
+- `a<lt>lt>`: select Around CURRENT < textobject
+- `a<lt>lt>`: select Around CURRENT < textobject
+- `a>`: select Around CURRENT > textobject
+- `a>`: select Around CURRENT > textobject
+- `a?`: select Around CURRENT ? textobject
+- `a?`: select Around CURRENT ? textobject
+- `a[`: select Around CURRENT [ textobject
+- `a[`: select Around CURRENT [ textobject
+- `a]`: select Around CURRENT ] textobject
+- `a]`: select Around CURRENT ] textobject
+- `a``: select Around CURRENT ` textobject
+- `a``: select Around CURRENT ` textobject
+- `aa`: select Around CURRENT a textobject
+- `aa`: select Around CURRENT a textobject
+- `ab`: select Around CURRENT b textobject
+- `ab`: select Around CURRENT b textobject
+- `ac`: select Around CURRENT c textobject
+- `ac`: select Around CURRENT c textobject
+- `ad`: select Around CURRENT d textobject
+- `ad`: select Around CURRENT d textobject
+- `af`: select Around CURRENT f textobject
+- `af`: select Around CURRENT f textobject
+- `ag`: select Around CURRENT g textobject
+- `ag`: select Around CURRENT g textobject
+- `ai`: select Around CURRENT i textobject
+- `ai`: select Around CURRENT i textobject
+- `aj"`: select Around NEXT " textobject
+- `aj"`: select Around NEXT " textobject
+- `aj'`: select Around NEXT ' textobject
+- `aj'`: select Around NEXT ' textobject
+- `aj(`: select Around NEXT ( textobject
+- `aj(`: select Around NEXT ( textobject
+- `aj)`: select Around NEXT ) textobject
+- `aj)`: select Around NEXT ) textobject
+- `aj<lt>lt>`: select Around NEXT < textobject
+- `aj<lt>lt>`: select Around NEXT < textobject
+- `aj>`: select Around NEXT > textobject
+- `aj>`: select Around NEXT > textobject
+- `aj?`: select Around NEXT ? textobject
+- `aj?`: select Around NEXT ? textobject
+- `aj[`: select Around NEXT [ textobject
+- `aj[`: select Around NEXT [ textobject
+- `aj]`: select Around NEXT ] textobject
+- `aj]`: select Around NEXT ] textobject
+- `aj``: select Around NEXT ` textobject
+- `aj``: select Around NEXT ` textobject
+- `aja`: select Around NEXT a textobject
+- `aja`: select Around NEXT a textobject
+- `ajb`: select Around NEXT b textobject
+- `ajb`: select Around NEXT b textobject
+- `ajc`: select Around NEXT c textobject
+- `ajc`: select Around NEXT c textobject
+- `ajd`: select Around NEXT d textobject
+- `ajd`: select Around NEXT d textobject
+- `ajf`: select Around NEXT f textobject
+- `ajf`: select Around NEXT f textobject
+- `ajg`: select Around NEXT g textobject
+- `ajg`: select Around NEXT g textobject
+- `aji`: select Around NEXT i textobject
+- `aji`: select Around NEXT i textobject
+- `ajl`: select Around NEXT l textobject
+- `ajl`: select Around NEXT l textobject
+- `ajm`: select Around NEXT m textobject
+- `ajm`: select Around NEXT m textobject
+- `ajn`: select Around NEXT n textobject
+- `ajn`: select Around NEXT n textobject
+- `ajo`: select Around NEXT o textobject
+- `ajo`: select Around NEXT o textobject
+- `ajq`: select Around NEXT q textobject
+- `ajq`: select Around NEXT q textobject
+- `ajr`: select Around NEXT r textobject
+- `ajr`: select Around NEXT r textobject
+- `ajs`: select Around NEXT s textobject
+- `ajs`: select Around NEXT s textobject
+- `ajt`: select Around NEXT t textobject
+- `ajt`: select Around NEXT t textobject
+- `aju`: select Around NEXT u textobject
+- `aju`: select Around NEXT u textobject
+- `ajv`: select Around NEXT v textobject
+- `ajv`: select Around NEXT v textobject
+- `ajx`: select Around NEXT x textobject
+- `ajx`: select Around NEXT x textobject
+- `ajy`: select Around NEXT y textobject
+- `ajy`: select Around NEXT y textobject
+- `ajz`: select Around NEXT z textobject
+- `ajz`: select Around NEXT z textobject
+- `aj{`: select Around NEXT { textobject
+- `aj{`: select Around NEXT { textobject
+- `aj}`: select Around NEXT } textobject
+- `aj}`: select Around NEXT } textobject
+- `ak"`: select Around PREVIOUS " textobject
+- `ak"`: select Around PREVIOUS " textobject
+- `ak'`: select Around PREVIOUS ' textobject
+- `ak'`: select Around PREVIOUS ' textobject
+- `ak(`: select Around PREVIOUS ( textobject
+- `ak(`: select Around PREVIOUS ( textobject
+- `ak)`: select Around PREVIOUS ) textobject
+- `ak)`: select Around PREVIOUS ) textobject
+- `ak<lt>lt>`: select Around PREVIOUS < textobject
+- `ak<lt>lt>`: select Around PREVIOUS < textobject
+- `ak>`: select Around PREVIOUS > textobject
+- `ak>`: select Around PREVIOUS > textobject
+- `ak?`: select Around PREVIOUS ? textobject
+- `ak?`: select Around PREVIOUS ? textobject
+- `ak[`: select Around PREVIOUS [ textobject
+- `ak[`: select Around PREVIOUS [ textobject
+- `ak]`: select Around PREVIOUS ] textobject
+- `ak]`: select Around PREVIOUS ] textobject
+- `ak``: select Around PREVIOUS ` textobject
+- `ak``: select Around PREVIOUS ` textobject
+- `aka`: select Around PREVIOUS a textobject
+- `aka`: select Around PREVIOUS a textobject
+- `akb`: select Around PREVIOUS b textobject
+- `akb`: select Around PREVIOUS b textobject
+- `akc`: select Around PREVIOUS c textobject
+- `akc`: select Around PREVIOUS c textobject
+- `akd`: select Around PREVIOUS d textobject
+- `akd`: select Around PREVIOUS d textobject
+- `akf`: select Around PREVIOUS f textobject
+- `akf`: select Around PREVIOUS f textobject
+- `akg`: select Around PREVIOUS g textobject
+- `akg`: select Around PREVIOUS g textobject
+- `aki`: select Around PREVIOUS i textobject
+- `aki`: select Around PREVIOUS i textobject
+- `akl`: select Around PREVIOUS l textobject
+- `akl`: select Around PREVIOUS l textobject
+- `akm`: select Around PREVIOUS m textobject
+- `akm`: select Around PREVIOUS m textobject
+- `akn`: select Around PREVIOUS n textobject
+- `akn`: select Around PREVIOUS n textobject
+- `ako`: select Around PREVIOUS o textobject
+- `ako`: select Around PREVIOUS o textobject
+- `akq`: select Around PREVIOUS q textobject
+- `akq`: select Around PREVIOUS q textobject
+- `akr`: select Around PREVIOUS r textobject
+- `akr`: select Around PREVIOUS r textobject
+- `aks`: select Around PREVIOUS s textobject
+- `aks`: select Around PREVIOUS s textobject
+- `akt`: select Around PREVIOUS t textobject
+- `akt`: select Around PREVIOUS t textobject
+- `aku`: select Around PREVIOUS u textobject
+- `aku`: select Around PREVIOUS u textobject
+- `akv`: select Around PREVIOUS v textobject
+- `akv`: select Around PREVIOUS v textobject
+- `akx`: select Around PREVIOUS x textobject
+- `akx`: select Around PREVIOUS x textobject
+- `aky`: select Around PREVIOUS y textobject
+- `aky`: select Around PREVIOUS y textobject
+- `akz`: select Around PREVIOUS z textobject
+- `akz`: select Around PREVIOUS z textobject
+- `ak{`: select Around PREVIOUS { textobject
+- `ak{`: select Around PREVIOUS { textobject
+- `ak}`: select Around PREVIOUS } textobject
+- `ak}`: select Around PREVIOUS } textobject
+- `al`: select Around CURRENT l textobject
+- `al`: select Around CURRENT l textobject
+- `am`: select Around CURRENT m textobject
+- `am`: select Around CURRENT m textobject
+- `an`: select Around CURRENT n textobject
+- `an`: select Around CURRENT n textobject
+- `ao`: select Around CURRENT o textobject
+- `ao`: select Around CURRENT o textobject
+- `aq`: select Around CURRENT q textobject
+- `aq`: select Around CURRENT q textobject
+- `ar`: select Around CURRENT r textobject
+- `ar`: select Around CURRENT r textobject
+- `as`: select Around CURRENT s textobject
+- `as`: select Around CURRENT s textobject
+- `at`: select Around CURRENT t textobject
+- `at`: select Around CURRENT t textobject
+- `au`: select Around CURRENT u textobject
+- `au`: select Around CURRENT u textobject
+- `av`: select Around CURRENT v textobject
+- `av`: select Around CURRENT v textobject
+- `ax`: select Around CURRENT x textobject
+- `ax`: select Around CURRENT x textobject
+- `ay`: select Around CURRENT y textobject
+- `ay`: select Around CURRENT y textobject
+- `az`: select Around CURRENT z textobject
+- `az`: select Around CURRENT z textobject
+- `a{`: select Around CURRENT { textobject
+- `a{`: select Around CURRENT { textobject
+- `a}`: select Around CURRENT } textobject
+- `a}`: select Around CURRENT } textobject
+- `cs`: Replace surrounding
+- `csj`: Replace next surrounding
+- `csk`: Replace previous surrounding
+- `ds`: Delete surrounding
+- `dsj`: Delete next surrounding
+- `dsk`: Delete previous surrounding
+- `gA`: Align with preview
+- `gA`: Align with preview
+- `gD`: Go to type Definitions
+- `gJ`: Go to Jump point
+- `gO`: vim.lsp.buf.document_symbol()
+- `gS`: Go to WORKSPACE Symbols
+- `gW`: Go to Word in the PROJECT
+- `ga`: Align
+- `ga`: Align
+- `gb`: Go to a buffer
+- `gc`: Comment textobject
+- `gc`: Comment toggle linewise
+- `gc`: Comment toggle linewise (visual)
+- `gcA`: Comment insert end of line
+- `gcO`: Comment insert above
+- `gcc`: Comment toggle current line
+- `gco`: Comment insert below
+- `gd`: Go to Definitions
+- `gf`: Go to a File
+- `gh`: Go to the LEFT window
+- `gi`: Go to Implementations
+- `gj`: Go to the BELOW window
+- `gk`: Go to the ABOVE window
+- `gl`: Go to the RIGHT window
+- `gmh`: GO to the LEFT window mirroring the current window
+- `gmj`: GO to the BELOW window mirroring the current window
+- `gmk`: GO to the ABOVE window mirroring the current window
+- `gml`: GO to the RIGHT window mirroring the current window
+- `gph`: Go to the LEFT, Pulling the current window with you
+- `gpj`: Go DOWN, Pulling the current window with you
+- `gpk`: Go UP, Pulling the current window with you
+- `gpl`: Go to the RIFHT, Pulling the current window with you
+- `gr`: Go to References
+- `gs`: Go to DOCUMENT Symbols
+- `gt`: Go to new Tab
+- `gw`: Go to Word in the CURRENT buffer
+- `gx`: Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
+- `gx`: Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
+- `i`: Inside textobject
+- `i`: Inside textobject
+- `i"`: select Inside CURRENT " textobject
+- `i"`: select Inside CURRENT " textobject
+- `i'`: select Inside CURRENT ' textobject
+- `i'`: select Inside CURRENT ' textobject
+- `i(`: select Inside CURRENT ( textobject
+- `i(`: select Inside CURRENT ( textobject
+- `i)`: select Inside CURRENT ) textobject
+- `i)`: select Inside CURRENT ) textobject
+- `i<lt>lt>`: select Inside CURRENT < textobject
+- `i<lt>lt>`: select Inside CURRENT < textobject
+- `i>`: select Inside CURRENT > textobject
+- `i>`: select Inside CURRENT > textobject
+- `i?`: select Inside CURRENT ? textobject
+- `i?`: select Inside CURRENT ? textobject
+- `i[`: select Inside CURRENT [ textobject
+- `i[`: select Inside CURRENT [ textobject
+- `i]`: select Inside CURRENT ] textobject
+- `i]`: select Inside CURRENT ] textobject
+- `i``: select Inside CURRENT ` textobject
+- `i``: select Inside CURRENT ` textobject
+- `ia`: select Inside CURRENT a textobject
+- `ia`: select Inside CURRENT a textobject
+- `ib`: select Inside CURRENT b textobject
+- `ib`: select Inside CURRENT b textobject
+- `ic`: select Inside CURRENT c textobject
+- `ic`: select Inside CURRENT c textobject
+- `id`: select Inside CURRENT d textobject
+- `id`: select Inside CURRENT d textobject
+- `if`: select Inside CURRENT f textobject
+- `if`: select Inside CURRENT f textobject
+- `ig`: select Inside CURRENT g textobject
+- `ig`: select Inside CURRENT g textobject
+- `ii`: select Inside CURRENT i textobject
+- `ii`: select Inside CURRENT i textobject
+- `ij"`: select Inside NEXT " textobject
+- `ij"`: select Inside NEXT " textobject
+- `ij'`: select Inside NEXT ' textobject
+- `ij'`: select Inside NEXT ' textobject
+- `ij(`: select Inside NEXT ( textobject
+- `ij(`: select Inside NEXT ( textobject
+- `ij)`: select Inside NEXT ) textobject
+- `ij)`: select Inside NEXT ) textobject
+- `ij<lt>lt>`: select Inside NEXT < textobject
+- `ij<lt>lt>`: select Inside NEXT < textobject
+- `ij>`: select Inside NEXT > textobject
+- `ij>`: select Inside NEXT > textobject
+- `ij?`: select Inside NEXT ? textobject
+- `ij?`: select Inside NEXT ? textobject
+- `ij[`: select Inside NEXT [ textobject
+- `ij[`: select Inside NEXT [ textobject
+- `ij]`: select Inside NEXT ] textobject
+- `ij]`: select Inside NEXT ] textobject
+- `ij``: select Inside NEXT ` textobject
+- `ij``: select Inside NEXT ` textobject
+- `ija`: select Inside NEXT a textobject
+- `ija`: select Inside NEXT a textobject
+- `ijb`: select Inside NEXT b textobject
+- `ijb`: select Inside NEXT b textobject
+- `ijc`: select Inside NEXT c textobject
+- `ijc`: select Inside NEXT c textobject
+- `ijd`: select Inside NEXT d textobject
+- `ijd`: select Inside NEXT d textobject
+- `ijf`: select Inside NEXT f textobject
+- `ijf`: select Inside NEXT f textobject
+- `ijg`: select Inside NEXT g textobject
+- `ijg`: select Inside NEXT g textobject
+- `iji`: select Inside NEXT i textobject
+- `iji`: select Inside NEXT i textobject
+- `ijl`: select Inside NEXT l textobject
+- `ijl`: select Inside NEXT l textobject
+- `ijm`: select Inside NEXT m textobject
+- `ijm`: select Inside NEXT m textobject
+- `ijn`: select Inside NEXT n textobject
+- `ijn`: select Inside NEXT n textobject
+- `ijo`: select Inside NEXT o textobject
+- `ijo`: select Inside NEXT o textobject
+- `ijq`: select Inside NEXT q textobject
+- `ijq`: select Inside NEXT q textobject
+- `ijr`: select Inside NEXT r textobject
+- `ijr`: select Inside NEXT r textobject
+- `ijs`: select Inside NEXT s textobject
+- `ijs`: select Inside NEXT s textobject
+- `ijt`: select Inside NEXT t textobject
+- `ijt`: select Inside NEXT t textobject
+- `iju`: select Inside NEXT u textobject
+- `iju`: select Inside NEXT u textobject
+- `ijv`: select Inside NEXT v textobject
+- `ijv`: select Inside NEXT v textobject
+- `ijx`: select Inside NEXT x textobject
+- `ijx`: select Inside NEXT x textobject
+- `ijy`: select Inside NEXT y textobject
+- `ijy`: select Inside NEXT y textobject
+- `ijz`: select Inside NEXT z textobject
+- `ijz`: select Inside NEXT z textobject
+- `ij{`: select Inside NEXT { textobject
+- `ij{`: select Inside NEXT { textobject
+- `ij}`: select Inside NEXT } textobject
+- `ij}`: select Inside NEXT } textobject
+- `ik"`: select Inside PREVIOUS " textobject
+- `ik"`: select Inside PREVIOUS " textobject
+- `ik'`: select Inside PREVIOUS ' textobject
+- `ik'`: select Inside PREVIOUS ' textobject
+- `ik(`: select Inside PREVIOUS ( textobject
+- `ik(`: select Inside PREVIOUS ( textobject
+- `ik)`: select Inside PREVIOUS ) textobject
+- `ik)`: select Inside PREVIOUS ) textobject
+- `ik<lt>lt>`: select Inside PREVIOUS < textobject
+- `ik<lt>lt>`: select Inside PREVIOUS < textobject
+- `ik>`: select Inside PREVIOUS > textobject
+- `ik>`: select Inside PREVIOUS > textobject
+- `ik?`: select Inside PREVIOUS ? textobject
+- `ik?`: select Inside PREVIOUS ? textobject
+- `ik[`: select Inside PREVIOUS [ textobject
+- `ik[`: select Inside PREVIOUS [ textobject
+- `ik]`: select Inside PREVIOUS ] textobject
+- `ik]`: select Inside PREVIOUS ] textobject
+- `ik``: select Inside PREVIOUS ` textobject
+- `ik``: select Inside PREVIOUS ` textobject
+- `ika`: select Inside PREVIOUS a textobject
+- `ika`: select Inside PREVIOUS a textobject
+- `ikb`: select Inside PREVIOUS b textobject
+- `ikb`: select Inside PREVIOUS b textobject
+- `ikc`: select Inside PREVIOUS c textobject
+- `ikc`: select Inside PREVIOUS c textobject
+- `ikd`: select Inside PREVIOUS d textobject
+- `ikd`: select Inside PREVIOUS d textobject
+- `ikf`: select Inside PREVIOUS f textobject
+- `ikf`: select Inside PREVIOUS f textobject
+- `ikg`: select Inside PREVIOUS g textobject
+- `ikg`: select Inside PREVIOUS g textobject
+- `iki`: select Inside PREVIOUS i textobject
+- `iki`: select Inside PREVIOUS i textobject
+- `ikl`: select Inside PREVIOUS l textobject
+- `ikl`: select Inside PREVIOUS l textobject
+- `ikm`: select Inside PREVIOUS m textobject
+- `ikm`: select Inside PREVIOUS m textobject
+- `ikn`: select Inside PREVIOUS n textobject
+- `ikn`: select Inside PREVIOUS n textobject
+- `iko`: select Inside PREVIOUS o textobject
+- `iko`: select Inside PREVIOUS o textobject
+- `ikq`: select Inside PREVIOUS q textobject
+- `ikq`: select Inside PREVIOUS q textobject
+- `ikr`: select Inside PREVIOUS r textobject
+- `ikr`: select Inside PREVIOUS r textobject
+- `iks`: select Inside PREVIOUS s textobject
+- `iks`: select Inside PREVIOUS s textobject
+- `ikt`: select Inside PREVIOUS t textobject
+- `ikt`: select Inside PREVIOUS t textobject
+- `iku`: select Inside PREVIOUS u textobject
+- `iku`: select Inside PREVIOUS u textobject
+- `ikv`: select Inside PREVIOUS v textobject
+- `ikv`: select Inside PREVIOUS v textobject
+- `ikx`: select Inside PREVIOUS x textobject
+- `ikx`: select Inside PREVIOUS x textobject
+- `iky`: select Inside PREVIOUS y textobject
+- `iky`: select Inside PREVIOUS y textobject
+- `ikz`: select Inside PREVIOUS z textobject
+- `ikz`: select Inside PREVIOUS z textobject
+- `ik{`: select Inside PREVIOUS { textobject
+- `ik{`: select Inside PREVIOUS { textobject
+- `ik}`: select Inside PREVIOUS } textobject
+- `ik}`: select Inside PREVIOUS } textobject
+- `il`: select Inside CURRENT l textobject
+- `il`: select Inside CURRENT l textobject
+- `im`: select Inside CURRENT m textobject
+- `im`: select Inside CURRENT m textobject
+- `in`: select Inside CURRENT n textobject
+- `in`: select Inside CURRENT n textobject
+- `io`: select Inside CURRENT o textobject
+- `io`: select Inside CURRENT o textobject
+- `iq`: select Inside CURRENT q textobject
+- `iq`: select Inside CURRENT q textobject
+- `ir`: select Inside CURRENT r textobject
+- `ir`: select Inside CURRENT r textobject
+- `is`: select Inside CURRENT s textobject
+- `is`: select Inside CURRENT s textobject
+- `it`: select Inside CURRENT t textobject
+- `it`: select Inside CURRENT t textobject
+- `iu`: select Inside CURRENT u textobject
+- `iu`: select Inside CURRENT u textobject
+- `iv`: select Inside CURRENT v textobject
+- `iv`: select Inside CURRENT v textobject
+- `ix`: select Inside CURRENT x textobject
+- `ix`: select Inside CURRENT x textobject
+- `iy`: select Inside CURRENT y textobject
+- `iy`: select Inside CURRENT y textobject
+- `iz`: select Inside CURRENT z textobject
+- `iz`: select Inside CURRENT z textobject
+- `i{`: select Inside CURRENT { textobject
+- `i{`: select Inside CURRENT { textobject
+- `i}`: select Inside CURRENT } textobject
+- `i}`: select Inside CURRENT } textobject
+- `s`: Add surrounding
+- `s`: Add surrounding to selection
+- `s<lt>CR>`: split line
+- `vv`: V
+- `ъъ`: Comment toggle blockwise (visual)
+- `ъъ`: Comment toggle current block
+
+## Insert
+
+Insert mode mappings.
+
+- `<lt>C-Down>`: scroll UP
+- `<lt>C-S>`: vim.lsp.buf.signature_help()
+- `<lt>C-U>`: :help i_CTRL-U-default
+- `<lt>C-Up>`: scroll DOWN
+- `<lt>C-W>`: :help i_CTRL-W-default
+- `<lt>C-Z>`: <Esc>zza
+- `<lt>CR>`: autopairs completion confirm
+- `<lt>Plug>(parinfer-backtab)`: <Cmd>lua parinfer.tab(false)<CR>
+- `<lt>Plug>(parinfer-tab)`: <Cmd>lua parinfer.tab(true)<CR>
+- `<lt>S-Tab>`: vim.snippet.jump if active, otherwise <S-Tab>
+- `<lt>Tab>`: vim.snippet.jump if active, otherwise <Tab>
+- `jj`: <Esc>
+- `kk`: <Esc>:w<CR>
+
+## Visual Or Select
+
+Visual or select (`x`) mode mappings.
+
+- `<Space>a`: show code Actions
+- `<Space>d`: Delete and yank to system clipboard
+- `<Space>f`: Format selected range
+- `<Space>p`: Pate from system clipboard
+- `<Space>y`: Yank to system clipboard
+- `#`: :help v_#-default
+- `*`: :help v_star-default
+- `<lt>Down>`: scroll UP
+- `<lt>PageDown>`: scroll UP
+- `<lt>PageUp>`: scroll DOWN
+- `<lt>Plug>(MatchitVisualBackward)`: :<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``
+- `<lt>Plug>(MatchitVisualForward)`: :<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") | exe ":normal! m'" | endif<CR>gv``
+- `<lt>Plug>(MatchitVisualMultiBackward)`: :<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``
+- `<lt>Plug>(MatchitVisualMultiForward)`: :<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``
+- `<lt>Plug>(MatchitVisualTextObject)`: <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+- `<lt>Plug>(comment_toggle_blockwise_visual)`: Comment toggle blockwise (visual)
+- `<lt>Plug>(comment_toggle_linewise_visual)`: Comment toggle linewise (visual)
+- `<lt>Up>`: scroll DOWN
+- `<lt>lt>`: <lt>gv
+- `>`: >gv
+- `@`: :help v_@-default
+- `Q`: :help v_Q-default
+- `[<Space>`: GOTO PREVIOUS quickfix item
+- `["`: GOTO PREVIOUS START of textobject "
+- `['`: GOTO PREVIOUS START of textobject '
+- `[(`: GOTO PREVIOUS START of textobject (
+- `[)`: GOTO PREVIOUS END of textobject (
+- `[<lt>lt>`: GOTO PREVIOUS START of textobject <
+- `[>`: GOTO PREVIOUS END of textobject <
+- `[?`: GOTO PREVIOUS START of textobject ?
+- `[A`: GOTO PREVIOUS END of textobject a
+- `[B`: GOTO PREVIOUS END of textobject b
+- `[C`: GOTO PREVIOUS END of textobject c
+- `[D`: GOTO PREVIOUS END of textobject d
+- `[F`: GOTO PREVIOUS END of textobject f
+- `[G`: GOTO PREVIOUS END of textobject g
+- `[I`: GOTO PREVIOUS END of textobject i
+- `[L`: GOTO PREVIOUS END of textobject l
+- `[M`: GOTO PREVIOUS END of textobject m
+- `[N`: GOTO PREVIOUS END of textobject n
+- `[O`: GOTO PREVIOUS END of textobject o
+- `[Q`: GOTO PREVIOUS END of textobject q
+- `[R`: GOTO PREVIOUS END of textobject r
+- `[S`: GOTO PREVIOUS END of textobject s
+- `[T`: GOTO PREVIOUS END of textobject t
+- `[U`: GOTO PREVIOUS END of textobject u
+- `[V`: GOTO PREVIOUS END of textobject v
+- `[X`: GOTO PREVIOUS END of textobject x
+- `[Y`: GOTO PREVIOUS END of textobject y
+- `[Z`: GOTO PREVIOUS END of textobject z
+- `[[`: GOTO PREVIOUS START of textobject [
+- `[]`: GOTO PREVIOUS END of textobject [
+- `[``: GOTO PREVIOUS START of textobject `
+- `[a`: GOTO PREVIOUS START of textobject a
+- `[b`: GOTO PREVIOUS START of textobject b
+- `[c`: GOTO PREVIOUS START of textobject c
+- `[d`: GOTO PREVIOUS START of textobject d
+- `[f`: GOTO PREVIOUS START of textobject f
+- `[g`: GOTO PREVIOUS START of textobject g
+- `[i`: GOTO PREVIOUS START of textobject i
+- `[l`: GOTO PREVIOUS START of textobject l
+- `[m`: GOTO PREVIOUS START of textobject m
+- `[n`: GOTO PREVIOUS START of textobject n
+- `[o`: GOTO PREVIOUS START of textobject o
+- `[q`: GOTO PREVIOUS START of textobject q
+- `[r`: GOTO PREVIOUS START of textobject r
+- `[s`: GOTO PREVIOUS START of textobject s
+- `[t`: GOTO PREVIOUS START of textobject t
+- `[u`: GOTO PREVIOUS START of textobject u
+- `[v`: GOTO PREVIOUS START of textobject v
+- `[x`: GOTO PREVIOUS START of textobject x
+- `[y`: GOTO PREVIOUS START of textobject y
+- `[z`: GOTO PREVIOUS START of textobject z
+- `[{`: GOTO PREVIOUS START of textobject {
+- `[}`: GOTO PREVIOUS END of textobject {
+- `]<Space>`: GOTO NEXT quickfix item
+- `]"`: GOTO NEXT START of textobject "
+- `]'`: GOTO NEXT START of textobject '
+- `](`: GOTO NEXT START of textobject (
+- `])`: GOTO NEXT END of textobject (
+- `]<lt>lt>`: GOTO NEXT START of textobject <
+- `]>`: GOTO NEXT END of textobject <
+- `]?`: GOTO NEXT START of textobject ?
+- `]A`: GOTO NEXT END of textobject a
+- `]B`: GOTO NEXT END of textobject b
+- `]C`: GOTO NEXT END of textobject c
+- `]D`: GOTO NEXT END of textobject d
+- `]F`: GOTO NEXT END of textobject f
+- `]G`: GOTO NEXT END of textobject g
+- `]I`: GOTO NEXT END of textobject i
+- `]L`: GOTO NEXT END of textobject l
+- `]M`: GOTO NEXT END of textobject m
+- `]N`: GOTO NEXT END of textobject n
+- `]O`: GOTO NEXT END of textobject o
+- `]Q`: GOTO NEXT END of textobject q
+- `]R`: GOTO NEXT END of textobject r
+- `]S`: GOTO NEXT END of textobject s
+- `]T`: GOTO NEXT END of textobject t
+- `]U`: GOTO NEXT END of textobject u
+- `]V`: GOTO NEXT END of textobject v
+- `]X`: GOTO NEXT END of textobject x
+- `]Y`: GOTO NEXT END of textobject y
+- `]Z`: GOTO NEXT END of textobject z
+- `][`: GOTO NEXT START of textobject [
+- `]]`: GOTO NEXT END of textobject [
+- `]``: GOTO NEXT START of textobject `
+- `]a`: GOTO NEXT START of textobject a
+- `]b`: GOTO NEXT START of textobject b
+- `]c`: GOTO NEXT START of textobject c
+- `]d`: GOTO NEXT START of textobject d
+- `]f`: GOTO NEXT START of textobject f
+- `]g`: GOTO NEXT START of textobject g
+- `]i`: GOTO NEXT START of textobject i
+- `]l`: GOTO NEXT START of textobject l
+- `]m`: GOTO NEXT START of textobject m
+- `]n`: GOTO NEXT START of textobject n
+- `]o`: GOTO NEXT START of textobject o
+- `]q`: GOTO NEXT START of textobject q
+- `]r`: GOTO NEXT START of textobject r
+- `]s`: GOTO NEXT START of textobject s
+- `]t`: GOTO NEXT START of textobject t
+- `]u`: GOTO NEXT START of textobject u
+- `]v`: GOTO NEXT START of textobject v
+- `]x`: GOTO NEXT START of textobject x
+- `]y`: GOTO NEXT START of textobject y
+- `]z`: GOTO NEXT START of textobject z
+- `]{`: GOTO NEXT START of textobject {
+- `]}`: GOTO NEXT END of textobject {
+- `a`: Around textobject
+- `a"`: select Around CURRENT " textobject
+- `a'`: select Around CURRENT ' textobject
+- `a(`: select Around CURRENT ( textobject
+- `a)`: select Around CURRENT ) textobject
+- `a<lt>lt>`: select Around CURRENT < textobject
+- `a>`: select Around CURRENT > textobject
+- `a?`: select Around CURRENT ? textobject
+- `a[`: select Around CURRENT [ textobject
+- `a]`: select Around CURRENT ] textobject
+- `a``: select Around CURRENT ` textobject
+- `aa`: select Around CURRENT a textobject
+- `ab`: select Around CURRENT b textobject
+- `ac`: select Around CURRENT c textobject
+- `ad`: select Around CURRENT d textobject
+- `af`: select Around CURRENT f textobject
+- `ag`: select Around CURRENT g textobject
+- `ai`: select Around CURRENT i textobject
+- `aj"`: select Around NEXT " textobject
+- `aj'`: select Around NEXT ' textobject
+- `aj(`: select Around NEXT ( textobject
+- `aj)`: select Around NEXT ) textobject
+- `aj<lt>lt>`: select Around NEXT < textobject
+- `aj>`: select Around NEXT > textobject
+- `aj?`: select Around NEXT ? textobject
+- `aj[`: select Around NEXT [ textobject
+- `aj]`: select Around NEXT ] textobject
+- `aj``: select Around NEXT ` textobject
+- `aja`: select Around NEXT a textobject
+- `ajb`: select Around NEXT b textobject
+- `ajc`: select Around NEXT c textobject
+- `ajd`: select Around NEXT d textobject
+- `ajf`: select Around NEXT f textobject
+- `ajg`: select Around NEXT g textobject
+- `aji`: select Around NEXT i textobject
+- `ajl`: select Around NEXT l textobject
+- `ajm`: select Around NEXT m textobject
+- `ajn`: select Around NEXT n textobject
+- `ajo`: select Around NEXT o textobject
+- `ajq`: select Around NEXT q textobject
+- `ajr`: select Around NEXT r textobject
+- `ajs`: select Around NEXT s textobject
+- `ajt`: select Around NEXT t textobject
+- `aju`: select Around NEXT u textobject
+- `ajv`: select Around NEXT v textobject
+- `ajx`: select Around NEXT x textobject
+- `ajy`: select Around NEXT y textobject
+- `ajz`: select Around NEXT z textobject
+- `aj{`: select Around NEXT { textobject
+- `aj}`: select Around NEXT } textobject
+- `ak"`: select Around PREVIOUS " textobject
+- `ak'`: select Around PREVIOUS ' textobject
+- `ak(`: select Around PREVIOUS ( textobject
+- `ak)`: select Around PREVIOUS ) textobject
+- `ak<lt>lt>`: select Around PREVIOUS < textobject
+- `ak>`: select Around PREVIOUS > textobject
+- `ak?`: select Around PREVIOUS ? textobject
+- `ak[`: select Around PREVIOUS [ textobject
+- `ak]`: select Around PREVIOUS ] textobject
+- `ak``: select Around PREVIOUS ` textobject
+- `aka`: select Around PREVIOUS a textobject
+- `akb`: select Around PREVIOUS b textobject
+- `akc`: select Around PREVIOUS c textobject
+- `akd`: select Around PREVIOUS d textobject
+- `akf`: select Around PREVIOUS f textobject
+- `akg`: select Around PREVIOUS g textobject
+- `aki`: select Around PREVIOUS i textobject
+- `akl`: select Around PREVIOUS l textobject
+- `akm`: select Around PREVIOUS m textobject
+- `akn`: select Around PREVIOUS n textobject
+- `ako`: select Around PREVIOUS o textobject
+- `akq`: select Around PREVIOUS q textobject
+- `akr`: select Around PREVIOUS r textobject
+- `aks`: select Around PREVIOUS s textobject
+- `akt`: select Around PREVIOUS t textobject
+- `aku`: select Around PREVIOUS u textobject
+- `akv`: select Around PREVIOUS v textobject
+- `akx`: select Around PREVIOUS x textobject
+- `aky`: select Around PREVIOUS y textobject
+- `akz`: select Around PREVIOUS z textobject
+- `ak{`: select Around PREVIOUS { textobject
+- `ak}`: select Around PREVIOUS } textobject
+- `al`: select Around CURRENT l textobject
+- `am`: select Around CURRENT m textobject
+- `an`: select Around CURRENT n textobject
+- `ao`: select Around CURRENT o textobject
+- `aq`: select Around CURRENT q textobject
+- `ar`: select Around CURRENT r textobject
+- `as`: select Around CURRENT s textobject
+- `at`: select Around CURRENT t textobject
+- `au`: select Around CURRENT u textobject
+- `av`: select Around CURRENT v textobject
+- `ax`: select Around CURRENT x textobject
+- `ay`: select Around CURRENT y textobject
+- `az`: select Around CURRENT z textobject
+- `a{`: select Around CURRENT { textobject
+- `a}`: select Around CURRENT } textobject
+- `gA`: Align with preview
+- `ga`: Align
+- `gc`: Comment toggle linewise (visual)
+- `gx`: Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
+- `i`: Inside textobject
+- `i"`: select Inside CURRENT " textobject
+- `i'`: select Inside CURRENT ' textobject
+- `i(`: select Inside CURRENT ( textobject
+- `i)`: select Inside CURRENT ) textobject
+- `i<lt>lt>`: select Inside CURRENT < textobject
+- `i>`: select Inside CURRENT > textobject
+- `i?`: select Inside CURRENT ? textobject
+- `i[`: select Inside CURRENT [ textobject
+- `i]`: select Inside CURRENT ] textobject
+- `i``: select Inside CURRENT ` textobject
+- `ia`: select Inside CURRENT a textobject
+- `ib`: select Inside CURRENT b textobject
+- `ic`: select Inside CURRENT c textobject
+- `id`: select Inside CURRENT d textobject
+- `if`: select Inside CURRENT f textobject
+- `ig`: select Inside CURRENT g textobject
+- `ii`: select Inside CURRENT i textobject
+- `ij"`: select Inside NEXT " textobject
+- `ij'`: select Inside NEXT ' textobject
+- `ij(`: select Inside NEXT ( textobject
+- `ij)`: select Inside NEXT ) textobject
+- `ij<lt>lt>`: select Inside NEXT < textobject
+- `ij>`: select Inside NEXT > textobject
+- `ij?`: select Inside NEXT ? textobject
+- `ij[`: select Inside NEXT [ textobject
+- `ij]`: select Inside NEXT ] textobject
+- `ij``: select Inside NEXT ` textobject
+- `ija`: select Inside NEXT a textobject
+- `ijb`: select Inside NEXT b textobject
+- `ijc`: select Inside NEXT c textobject
+- `ijd`: select Inside NEXT d textobject
+- `ijf`: select Inside NEXT f textobject
+- `ijg`: select Inside NEXT g textobject
+- `iji`: select Inside NEXT i textobject
+- `ijl`: select Inside NEXT l textobject
+- `ijm`: select Inside NEXT m textobject
+- `ijn`: select Inside NEXT n textobject
+- `ijo`: select Inside NEXT o textobject
+- `ijq`: select Inside NEXT q textobject
+- `ijr`: select Inside NEXT r textobject
+- `ijs`: select Inside NEXT s textobject
+- `ijt`: select Inside NEXT t textobject
+- `iju`: select Inside NEXT u textobject
+- `ijv`: select Inside NEXT v textobject
+- `ijx`: select Inside NEXT x textobject
+- `ijy`: select Inside NEXT y textobject
+- `ijz`: select Inside NEXT z textobject
+- `ij{`: select Inside NEXT { textobject
+- `ij}`: select Inside NEXT } textobject
+- `ik"`: select Inside PREVIOUS " textobject
+- `ik'`: select Inside PREVIOUS ' textobject
+- `ik(`: select Inside PREVIOUS ( textobject
+- `ik)`: select Inside PREVIOUS ) textobject
+- `ik<lt>lt>`: select Inside PREVIOUS < textobject
+- `ik>`: select Inside PREVIOUS > textobject
+- `ik?`: select Inside PREVIOUS ? textobject
+- `ik[`: select Inside PREVIOUS [ textobject
+- `ik]`: select Inside PREVIOUS ] textobject
+- `ik``: select Inside PREVIOUS ` textobject
+- `ika`: select Inside PREVIOUS a textobject
+- `ikb`: select Inside PREVIOUS b textobject
+- `ikc`: select Inside PREVIOUS c textobject
+- `ikd`: select Inside PREVIOUS d textobject
+- `ikf`: select Inside PREVIOUS f textobject
+- `ikg`: select Inside PREVIOUS g textobject
+- `iki`: select Inside PREVIOUS i textobject
+- `ikl`: select Inside PREVIOUS l textobject
+- `ikm`: select Inside PREVIOUS m textobject
+- `ikn`: select Inside PREVIOUS n textobject
+- `iko`: select Inside PREVIOUS o textobject
+- `ikq`: select Inside PREVIOUS q textobject
+- `ikr`: select Inside PREVIOUS r textobject
+- `iks`: select Inside PREVIOUS s textobject
+- `ikt`: select Inside PREVIOUS t textobject
+- `iku`: select Inside PREVIOUS u textobject
+- `ikv`: select Inside PREVIOUS v textobject
+- `ikx`: select Inside PREVIOUS x textobject
+- `iky`: select Inside PREVIOUS y textobject
+- `ikz`: select Inside PREVIOUS z textobject
+- `ik{`: select Inside PREVIOUS { textobject
+- `ik}`: select Inside PREVIOUS } textobject
+- `il`: select Inside CURRENT l textobject
+- `im`: select Inside CURRENT m textobject
+- `in`: select Inside CURRENT n textobject
+- `io`: select Inside CURRENT o textobject
+- `iq`: select Inside CURRENT q textobject
+- `ir`: select Inside CURRENT r textobject
+- `is`: select Inside CURRENT s textobject
+- `it`: select Inside CURRENT t textobject
+- `iu`: select Inside CURRENT u textobject
+- `iv`: select Inside CURRENT v textobject
+- `ix`: select Inside CURRENT x textobject
+- `iy`: select Inside CURRENT y textobject
+- `iz`: select Inside CURRENT z textobject
+- `i{`: select Inside CURRENT { textobject
+- `i}`: select Inside CURRENT } textobject
+- `s`: Add surrounding to selection
+- `ъъ`: Comment toggle blockwise (visual)
+
+## Operator
+
+Text objects mappings.
+
+- `<lt>Plug>(MatchitOperationBackward)`: :<C-U>call matchit#Match_wrapper('',0,'o')<CR>
+- `<lt>Plug>(MatchitOperationForward)`: :<C-U>call matchit#Match_wrapper('',1,'o')<CR>
+- `<lt>Plug>(MatchitOperationMultiBackward)`: :<C-U>call matchit#MultiMatch("bW", "o")<CR>
+- `<lt>Plug>(MatchitOperationMultiForward)`: :<C-U>call matchit#MultiMatch("W",  "o")<CR>
+- `[<Space>`: GOTO PREVIOUS quickfix item
+- `["`: GOTO PREVIOUS START of textobject "
+- `['`: GOTO PREVIOUS START of textobject '
+- `[(`: GOTO PREVIOUS START of textobject (
+- `[)`: GOTO PREVIOUS END of textobject (
+- `[<lt>lt>`: GOTO PREVIOUS START of textobject <
+- `[>`: GOTO PREVIOUS END of textobject <
+- `[?`: GOTO PREVIOUS START of textobject ?
+- `[A`: GOTO PREVIOUS END of textobject a
+- `[B`: GOTO PREVIOUS END of textobject b
+- `[C`: GOTO PREVIOUS END of textobject c
+- `[D`: GOTO PREVIOUS END of textobject d
+- `[F`: GOTO PREVIOUS END of textobject f
+- `[G`: GOTO PREVIOUS END of textobject g
+- `[I`: GOTO PREVIOUS END of textobject i
+- `[L`: GOTO PREVIOUS END of textobject l
+- `[M`: GOTO PREVIOUS END of textobject m
+- `[N`: GOTO PREVIOUS END of textobject n
+- `[O`: GOTO PREVIOUS END of textobject o
+- `[Q`: GOTO PREVIOUS END of textobject q
+- `[R`: GOTO PREVIOUS END of textobject r
+- `[S`: GOTO PREVIOUS END of textobject s
+- `[T`: GOTO PREVIOUS END of textobject t
+- `[U`: GOTO PREVIOUS END of textobject u
+- `[V`: GOTO PREVIOUS END of textobject v
+- `[X`: GOTO PREVIOUS END of textobject x
+- `[Y`: GOTO PREVIOUS END of textobject y
+- `[Z`: GOTO PREVIOUS END of textobject z
+- `[[`: GOTO PREVIOUS START of textobject [
+- `[]`: GOTO PREVIOUS END of textobject [
+- `[``: GOTO PREVIOUS START of textobject `
+- `[a`: GOTO PREVIOUS START of textobject a
+- `[b`: GOTO PREVIOUS START of textobject b
+- `[c`: GOTO PREVIOUS START of textobject c
+- `[d`: GOTO PREVIOUS START of textobject d
+- `[f`: GOTO PREVIOUS START of textobject f
+- `[g`: GOTO PREVIOUS START of textobject g
+- `[i`: GOTO PREVIOUS START of textobject i
+- `[l`: GOTO PREVIOUS START of textobject l
+- `[m`: GOTO PREVIOUS START of textobject m
+- `[n`: GOTO PREVIOUS START of textobject n
+- `[o`: GOTO PREVIOUS START of textobject o
+- `[q`: GOTO PREVIOUS START of textobject q
+- `[r`: GOTO PREVIOUS START of textobject r
+- `[s`: GOTO PREVIOUS START of textobject s
+- `[t`: GOTO PREVIOUS START of textobject t
+- `[u`: GOTO PREVIOUS START of textobject u
+- `[v`: GOTO PREVIOUS START of textobject v
+- `[x`: GOTO PREVIOUS START of textobject x
+- `[y`: GOTO PREVIOUS START of textobject y
+- `[z`: GOTO PREVIOUS START of textobject z
+- `[{`: GOTO PREVIOUS START of textobject {
+- `[}`: GOTO PREVIOUS END of textobject {
+- `]<Space>`: GOTO NEXT quickfix item
+- `]"`: GOTO NEXT START of textobject "
+- `]'`: GOTO NEXT START of textobject '
+- `](`: GOTO NEXT START of textobject (
+- `])`: GOTO NEXT END of textobject (
+- `]<lt>lt>`: GOTO NEXT START of textobject <
+- `]>`: GOTO NEXT END of textobject <
+- `]?`: GOTO NEXT START of textobject ?
+- `]A`: GOTO NEXT END of textobject a
+- `]B`: GOTO NEXT END of textobject b
+- `]C`: GOTO NEXT END of textobject c
+- `]D`: GOTO NEXT END of textobject d
+- `]F`: GOTO NEXT END of textobject f
+- `]G`: GOTO NEXT END of textobject g
+- `]I`: GOTO NEXT END of textobject i
+- `]L`: GOTO NEXT END of textobject l
+- `]M`: GOTO NEXT END of textobject m
+- `]N`: GOTO NEXT END of textobject n
+- `]O`: GOTO NEXT END of textobject o
+- `]Q`: GOTO NEXT END of textobject q
+- `]R`: GOTO NEXT END of textobject r
+- `]S`: GOTO NEXT END of textobject s
+- `]T`: GOTO NEXT END of textobject t
+- `]U`: GOTO NEXT END of textobject u
+- `]V`: GOTO NEXT END of textobject v
+- `]X`: GOTO NEXT END of textobject x
+- `]Y`: GOTO NEXT END of textobject y
+- `]Z`: GOTO NEXT END of textobject z
+- `][`: GOTO NEXT START of textobject [
+- `]]`: GOTO NEXT END of textobject [
+- `]``: GOTO NEXT START of textobject `
+- `]a`: GOTO NEXT START of textobject a
+- `]b`: GOTO NEXT START of textobject b
+- `]c`: GOTO NEXT START of textobject c
+- `]d`: GOTO NEXT START of textobject d
+- `]f`: GOTO NEXT START of textobject f
+- `]g`: GOTO NEXT START of textobject g
+- `]i`: GOTO NEXT START of textobject i
+- `]l`: GOTO NEXT START of textobject l
+- `]m`: GOTO NEXT START of textobject m
+- `]n`: GOTO NEXT START of textobject n
+- `]o`: GOTO NEXT START of textobject o
+- `]q`: GOTO NEXT START of textobject q
+- `]r`: GOTO NEXT START of textobject r
+- `]s`: GOTO NEXT START of textobject s
+- `]t`: GOTO NEXT START of textobject t
+- `]u`: GOTO NEXT START of textobject u
+- `]v`: GOTO NEXT START of textobject v
+- `]x`: GOTO NEXT START of textobject x
+- `]y`: GOTO NEXT START of textobject y
+- `]z`: GOTO NEXT START of textobject z
+- `]{`: GOTO NEXT START of textobject {
+- `]}`: GOTO NEXT END of textobject {
+- `a`: Around textobject
+- `a"`: select Around CURRENT " textobject
+- `a'`: select Around CURRENT ' textobject
+- `a(`: select Around CURRENT ( textobject
+- `a)`: select Around CURRENT ) textobject
+- `a<lt>lt>`: select Around CURRENT < textobject
+- `a>`: select Around CURRENT > textobject
+- `a?`: select Around CURRENT ? textobject
+- `a[`: select Around CURRENT [ textobject
+- `a]`: select Around CURRENT ] textobject
+- `a``: select Around CURRENT ` textobject
+- `aa`: select Around CURRENT a textobject
+- `ab`: select Around CURRENT b textobject
+- `ac`: select Around CURRENT c textobject
+- `ad`: select Around CURRENT d textobject
+- `af`: select Around CURRENT f textobject
+- `ag`: select Around CURRENT g textobject
+- `ai`: select Around CURRENT i textobject
+- `aj"`: select Around NEXT " textobject
+- `aj'`: select Around NEXT ' textobject
+- `aj(`: select Around NEXT ( textobject
+- `aj)`: select Around NEXT ) textobject
+- `aj<lt>lt>`: select Around NEXT < textobject
+- `aj>`: select Around NEXT > textobject
+- `aj?`: select Around NEXT ? textobject
+- `aj[`: select Around NEXT [ textobject
+- `aj]`: select Around NEXT ] textobject
+- `aj``: select Around NEXT ` textobject
+- `aja`: select Around NEXT a textobject
+- `ajb`: select Around NEXT b textobject
+- `ajc`: select Around NEXT c textobject
+- `ajd`: select Around NEXT d textobject
+- `ajf`: select Around NEXT f textobject
+- `ajg`: select Around NEXT g textobject
+- `aji`: select Around NEXT i textobject
+- `ajl`: select Around NEXT l textobject
+- `ajm`: select Around NEXT m textobject
+- `ajn`: select Around NEXT n textobject
+- `ajo`: select Around NEXT o textobject
+- `ajq`: select Around NEXT q textobject
+- `ajr`: select Around NEXT r textobject
+- `ajs`: select Around NEXT s textobject
+- `ajt`: select Around NEXT t textobject
+- `aju`: select Around NEXT u textobject
+- `ajv`: select Around NEXT v textobject
+- `ajx`: select Around NEXT x textobject
+- `ajy`: select Around NEXT y textobject
+- `ajz`: select Around NEXT z textobject
+- `aj{`: select Around NEXT { textobject
+- `aj}`: select Around NEXT } textobject
+- `ak"`: select Around PREVIOUS " textobject
+- `ak'`: select Around PREVIOUS ' textobject
+- `ak(`: select Around PREVIOUS ( textobject
+- `ak)`: select Around PREVIOUS ) textobject
+- `ak<lt>lt>`: select Around PREVIOUS < textobject
+- `ak>`: select Around PREVIOUS > textobject
+- `ak?`: select Around PREVIOUS ? textobject
+- `ak[`: select Around PREVIOUS [ textobject
+- `ak]`: select Around PREVIOUS ] textobject
+- `ak``: select Around PREVIOUS ` textobject
+- `aka`: select Around PREVIOUS a textobject
+- `akb`: select Around PREVIOUS b textobject
+- `akc`: select Around PREVIOUS c textobject
+- `akd`: select Around PREVIOUS d textobject
+- `akf`: select Around PREVIOUS f textobject
+- `akg`: select Around PREVIOUS g textobject
+- `aki`: select Around PREVIOUS i textobject
+- `akl`: select Around PREVIOUS l textobject
+- `akm`: select Around PREVIOUS m textobject
+- `akn`: select Around PREVIOUS n textobject
+- `ako`: select Around PREVIOUS o textobject
+- `akq`: select Around PREVIOUS q textobject
+- `akr`: select Around PREVIOUS r textobject
+- `aks`: select Around PREVIOUS s textobject
+- `akt`: select Around PREVIOUS t textobject
+- `aku`: select Around PREVIOUS u textobject
+- `akv`: select Around PREVIOUS v textobject
+- `akx`: select Around PREVIOUS x textobject
+- `aky`: select Around PREVIOUS y textobject
+- `akz`: select Around PREVIOUS z textobject
+- `ak{`: select Around PREVIOUS { textobject
+- `ak}`: select Around PREVIOUS } textobject
+- `al`: select Around CURRENT l textobject
+- `am`: select Around CURRENT m textobject
+- `an`: select Around CURRENT n textobject
+- `ao`: select Around CURRENT o textobject
+- `aq`: select Around CURRENT q textobject
+- `ar`: select Around CURRENT r textobject
+- `as`: select Around CURRENT s textobject
+- `at`: select Around CURRENT t textobject
+- `au`: select Around CURRENT u textobject
+- `av`: select Around CURRENT v textobject
+- `ax`: select Around CURRENT x textobject
+- `ay`: select Around CURRENT y textobject
+- `az`: select Around CURRENT z textobject
+- `a{`: select Around CURRENT { textobject
+- `a}`: select Around CURRENT } textobject
+- `gc`: Comment textobject
+- `i`: Inside textobject
+- `i"`: select Inside CURRENT " textobject
+- `i'`: select Inside CURRENT ' textobject
+- `i(`: select Inside CURRENT ( textobject
+- `i)`: select Inside CURRENT ) textobject
+- `i<lt>lt>`: select Inside CURRENT < textobject
+- `i>`: select Inside CURRENT > textobject
+- `i?`: select Inside CURRENT ? textobject
+- `i[`: select Inside CURRENT [ textobject
+- `i]`: select Inside CURRENT ] textobject
+- `i``: select Inside CURRENT ` textobject
+- `ia`: select Inside CURRENT a textobject
+- `ib`: select Inside CURRENT b textobject
+- `ic`: select Inside CURRENT c textobject
+- `id`: select Inside CURRENT d textobject
+- `if`: select Inside CURRENT f textobject
+- `ig`: select Inside CURRENT g textobject
+- `ii`: select Inside CURRENT i textobject
+- `ij"`: select Inside NEXT " textobject
+- `ij'`: select Inside NEXT ' textobject
+- `ij(`: select Inside NEXT ( textobject
+- `ij)`: select Inside NEXT ) textobject
+- `ij<lt>lt>`: select Inside NEXT < textobject
+- `ij>`: select Inside NEXT > textobject
+- `ij?`: select Inside NEXT ? textobject
+- `ij[`: select Inside NEXT [ textobject
+- `ij]`: select Inside NEXT ] textobject
+- `ij``: select Inside NEXT ` textobject
+- `ija`: select Inside NEXT a textobject
+- `ijb`: select Inside NEXT b textobject
+- `ijc`: select Inside NEXT c textobject
+- `ijd`: select Inside NEXT d textobject
+- `ijf`: select Inside NEXT f textobject
+- `ijg`: select Inside NEXT g textobject
+- `iji`: select Inside NEXT i textobject
+- `ijl`: select Inside NEXT l textobject
+- `ijm`: select Inside NEXT m textobject
+- `ijn`: select Inside NEXT n textobject
+- `ijo`: select Inside NEXT o textobject
+- `ijq`: select Inside NEXT q textobject
+- `ijr`: select Inside NEXT r textobject
+- `ijs`: select Inside NEXT s textobject
+- `ijt`: select Inside NEXT t textobject
+- `iju`: select Inside NEXT u textobject
+- `ijv`: select Inside NEXT v textobject
+- `ijx`: select Inside NEXT x textobject
+- `ijy`: select Inside NEXT y textobject
+- `ijz`: select Inside NEXT z textobject
+- `ij{`: select Inside NEXT { textobject
+- `ij}`: select Inside NEXT } textobject
+- `ik"`: select Inside PREVIOUS " textobject
+- `ik'`: select Inside PREVIOUS ' textobject
+- `ik(`: select Inside PREVIOUS ( textobject
+- `ik)`: select Inside PREVIOUS ) textobject
+- `ik<lt>lt>`: select Inside PREVIOUS < textobject
+- `ik>`: select Inside PREVIOUS > textobject
+- `ik?`: select Inside PREVIOUS ? textobject
+- `ik[`: select Inside PREVIOUS [ textobject
+- `ik]`: select Inside PREVIOUS ] textobject
+- `ik``: select Inside PREVIOUS ` textobject
+- `ika`: select Inside PREVIOUS a textobject
+- `ikb`: select Inside PREVIOUS b textobject
+- `ikc`: select Inside PREVIOUS c textobject
+- `ikd`: select Inside PREVIOUS d textobject
+- `ikf`: select Inside PREVIOUS f textobject
+- `ikg`: select Inside PREVIOUS g textobject
+- `iki`: select Inside PREVIOUS i textobject
+- `ikl`: select Inside PREVIOUS l textobject
+- `ikm`: select Inside PREVIOUS m textobject
+- `ikn`: select Inside PREVIOUS n textobject
+- `iko`: select Inside PREVIOUS o textobject
+- `ikq`: select Inside PREVIOUS q textobject
+- `ikr`: select Inside PREVIOUS r textobject
+- `iks`: select Inside PREVIOUS s textobject
+- `ikt`: select Inside PREVIOUS t textobject
+- `iku`: select Inside PREVIOUS u textobject
+- `ikv`: select Inside PREVIOUS v textobject
+- `ikx`: select Inside PREVIOUS x textobject
+- `iky`: select Inside PREVIOUS y textobject
+- `ikz`: select Inside PREVIOUS z textobject
+- `ik{`: select Inside PREVIOUS { textobject
+- `ik}`: select Inside PREVIOUS } textobject
+- `il`: select Inside CURRENT l textobject
+- `im`: select Inside CURRENT m textobject
+- `in`: select Inside CURRENT n textobject
+- `io`: select Inside CURRENT o textobject
+- `iq`: select Inside CURRENT q textobject
+- `ir`: select Inside CURRENT r textobject
+- `is`: select Inside CURRENT s textobject
+- `it`: select Inside CURRENT t textobject
+- `iu`: select Inside CURRENT u textobject
+- `iv`: select Inside CURRENT v textobject
+- `ix`: select Inside CURRENT x textobject
+- `iy`: select Inside CURRENT y textobject
+- `iz`: select Inside CURRENT z textobject
+- `i{`: select Inside CURRENT { textobject
+- `i}`: select Inside CURRENT } textobject

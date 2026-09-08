@@ -16,6 +16,21 @@ M.resolve_capabilities = function(client, buffer)
     end
 end
 
+-- Loads all capabilities from a capabilities directory. Use with keymaps-fmt.lua
+-- module name: the same as appropriate capability
+-- module structure:
+--     function(capability_value) - function to call if capability were resolved
+M.load_all_capabilities = function(client)
+    local handlers_root = utils.get_config_root() .. "/lua/lsp/capabilities"
+    for filename, _ in vim.fs.dir(handlers_root) do
+        local module_name = 'lsp.capabilities.' .. filename:gsub('%.lua$', '')
+        local res, module = pcall(require, module_name)
+        if res and module then
+            module(nil, client, nil)
+        end
+    end
+end
+
 -- applies each handler from a handlers directory
 -- module name: any
 -- module structure:

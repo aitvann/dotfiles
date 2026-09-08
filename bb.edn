@@ -12,4 +12,11 @@
   ; `browser.places.importBookmarksHTML` setting overrides existing bookmarks
   ; run it in case of closing Firefox without importing bookmarks
   preserve-ff-bookmarks
-  (shell (str "rm " home "/.local/share/firefox/bookmarks.html"))}}
+  (shell (str "rm " home "/.local/share/firefox/bookmarks.html"))
+  neovim-keymap-gen-doc
+  (shell {:err "stow-home/nvim/.config/nvim/keymaps.md"}
+         "nvim"
+         "--headless"
+         "-c" "lua require('lsp.utils').load_all_capabilities()"
+         "-c" "lua print(require('keymaps-fmt').format_keymaps())"
+         "-c" "qa!")}}
