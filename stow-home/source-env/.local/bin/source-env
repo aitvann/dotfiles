@@ -1,0 +1,45 @@
+#! /usr/bin/env sh
+
+# minimal helpers (adapted from uwsm’s prepare-env.sh)
+reverse() {
+  __out__=
+  IFS="${2:-:}"
+  for i in $1; do
+    [ -n "$i" ] && __out__="${i}${__out__:+$IFS}${__out__}"
+  done
+  printf '%s' "$__out__"
+  unset __out__
+}
+
+source_file() {
+  [ -f "$1" ] && [ -r "$1" ] && . "$1"
+}
+
+source_dir() {
+  [ -d "$1" ] || return
+  for f in "$1"/*; do
+    [ -f "$f" ] && source_file "$f"
+  done
+}
+
+# set defaults if needed
+: "${XDG_CONFIG_HOME:=$HOME/.config}"
+: "${XDG_CONFIG_DIRS:=/etc/xdg}"
+: "${XDG_DATA_DIRS:=/usr/local/share:/usr/share}"
+
+# walk dirs in reverse (increasing priority)
+IFS=:
+for dir in $(reverse "${XDG_CONFIG_HOME}:${XDG_CONFIG_DIRS}:${XDG_DATA_DIRS}"); do
+  # common
+  source_file "$dir/uwsm/env"
+  source_dir  "$dir/uwsm/env.d"
+
+  # desktop-specific (XDG_CURRENT_DESKTOP items, lowercased, reverse order)
+  if [ -n "${XDG_CURRENT_DESKTOP:-}" ]; then
+    for desk in $(reverse "$(printf '%s' "$XDG_CURRENT_DESKTOP" | tr '[:upper:]' '[:lower:]')"); do
+      source_file "$dir/uwsm/env-$desk"
+      source_dir  "$dir/uwsm/env-$desk.d"
+    done
+  fi
+done
+unset IFS

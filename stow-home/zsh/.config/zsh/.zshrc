@@ -88,7 +88,6 @@ setopt SHARE_HISTORY
 unsetopt EXTENDED_HISTORY
 
 eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
 zsh-defer -12 eval "$(atuin init zsh)"
 export _ZL_MATCH_MODE=1
 export _ZL_DATA=$ZSH_DATA/.zlua

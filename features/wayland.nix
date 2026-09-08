@@ -96,6 +96,7 @@
     ];
 
     home.file = lib.mkMerge [
+      (packageHomeFiles "uwsm-env")
       (packageHomeFiles "wayland")
       (packageHomeFiles "pipewire-${config.home.username}")
       (packageHomeFiles "wireplumber")

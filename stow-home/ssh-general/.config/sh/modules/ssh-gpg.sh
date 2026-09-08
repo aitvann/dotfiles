@@ -1,0 +1,2 @@
+# Telling SSH how to access the gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
