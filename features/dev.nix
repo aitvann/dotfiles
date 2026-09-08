@@ -29,6 +29,8 @@
     ];
 
     home.packages = with pkgs; [
+      zed-editor
+
       # Db
       clickhouse
       postgresql_14
@@ -54,6 +56,7 @@
     ];
 
     home.file = lib.mkMerge [
+      (packageHomeFiles "zed")
       (packageHomeFiles "dev")
       (packageHomeFiles "cargo")
     ];
