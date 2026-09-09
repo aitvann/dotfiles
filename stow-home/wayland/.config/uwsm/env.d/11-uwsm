@@ -1,3 +1,10 @@
 #! /usr/bin/env sh
 
 export OPENER="app2unit-open"
+
+# HACK: because 
+# Overriding `xdg-open` with binary in `~/.local/bin`
+# does not work for NNN. It uses the original `xdg-open`
+# passed to it through wrapper
+export NNN_OPENER="app2unit-open"
+
