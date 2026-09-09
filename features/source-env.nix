@@ -6,7 +6,7 @@
   }: {
     home.file = lib.mkMerge [
       (packageHomeFiles "sh")
-      (packageHomeFiles "uwsm-env")
+      (packageHomeFiles "environment")
       (packageHomeFiles "source-env")
     ];
   });

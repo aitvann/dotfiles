@@ -1,4 +1,4 @@
-# vim: set ft=sh:
+#! /usr/bin/env sh
 
 # NOTE: no settings.ini for hyprcursor, using env vars instead
 export HYPRCURSOR_THEME=theme_phinger-cursors-dark

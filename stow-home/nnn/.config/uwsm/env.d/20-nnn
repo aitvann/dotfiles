@@ -1,4 +1,4 @@
-# vim: set ft=sh:
+#! /usr/bin/env sh
 
 export NNN_OPTS="aAGr"
 

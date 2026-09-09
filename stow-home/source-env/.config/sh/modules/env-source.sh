@@ -1,1 +1,3 @@
-source ~/.local/bin/source-env
+#! /usr/bin/env sh
+
+. ~/.local/bin/source-env
