@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+# Only for custom scripts. Install any external software uisng Nix only
+export PATH="${XDG_BIN_HOME}:${PATH}"

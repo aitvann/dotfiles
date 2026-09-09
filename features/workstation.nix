@@ -112,6 +112,8 @@
     ];
 
     home.file = lib.mkMerge [
+      (packageHomeFiles "workstation")
+
       (packageHomeFiles "element")
       (packageHomeFiles "scripts")
     ];

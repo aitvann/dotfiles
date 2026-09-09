@@ -1,0 +1,3 @@
+#! /usr/bin/env sh
+
+export OPENER="app2unit-open"
