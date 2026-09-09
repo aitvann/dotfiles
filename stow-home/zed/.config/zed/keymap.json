@@ -4,8 +4,8 @@
     "context": "vim_mode == insert",
     "bindings": {
       "j j": "vim::NormalBefore",
-      "k k": ["workspace::SendKeystrokes", "j j space w"]
-    }
+      "k k": ["workspace::SendKeystrokes", "j j space w"],
+    },
   },
   {
     "context": "vim_mode == normal",
@@ -14,23 +14,23 @@
       "shift-u": "editor::Redo",
       // "ctrl-r": "workspace::MovePaneRight",
       "v v": "vim::ToggleVisualLine",
-      "delete": "pane::JoinIntoNext"
+      "delete": "pane::JoinIntoNext",
       // Already does what it suppose to do
       // "s enter": "editor::SplitLine",
-    }
+    },
   },
   {
     "context": "vim_mode == visual",
     "bindings": {
       "<": ["workspace::SendKeystrokes", "< g v"],
-      ">": ["workspace::SendKeystrokes", "> g v"]
-    }
+      ">": ["workspace::SendKeystrokes", "> g v"],
+    },
   },
   {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
-      "g x": "editor::OpenUrl"
-    }
+      "g x": "editor::OpenUrl",
+    },
   },
 
   // Leader key
@@ -42,8 +42,8 @@
       "space q": "pane::CloseActiveItem",
       "space shift-q": "workspace::CloseAllItemsAndPanes",
       "space o": ["workspace::SendKeystrokes", "o j j"],
-      "space shift-o": ["workspace::SendKeystrokes", "O j j"]
-    }
+      "space shift-o": ["workspace::SendKeystrokes", "O j j"],
+    },
   },
   {
     "context": "vim_mode == normal || vim_mode == visual",
@@ -51,15 +51,15 @@
       // Actually redundant because Zed already uses system clipboard
       "space y": ["action::Sequence", ["editor::Copy", "vim::NormalBefore"]],
       "space p": ["action::Sequence", ["editor::Paste", "vim::NormalBefore"]],
-      "space d": ["action::Sequence", ["editor::Delete", "vim::NormalBefore"]]
-    }
+      "space d": ["action::Sequence", ["editor::Delete", "vim::NormalBefore"]],
+    },
   },
   {
     "context": "vim_mode == normal || Terminal",
     "bindings": {
       // Instead of <leader>;
-      "ctrl-j": "terminal_panel::Toggle"
-    }
+      "ctrl-j": "terminal_panel::Toggle",
+    },
   },
 
   // Buffers
@@ -68,8 +68,8 @@
     "bindings": {
       "tab": "pane::ActivateNextItem",
       "shift-tab": "pane::ActivatePreviousItem",
-      "backspace": "pane::CloseActiveItem"
-    }
+      "backspace": "pane::CloseActiveItem",
+    },
   },
 
   // Moving over windows
@@ -79,8 +79,8 @@
       "g h": "workspace::ActivatePaneLeft",
       "g l": "workspace::ActivatePaneRight",
       "g k": "workspace::ActivatePaneUp",
-      "g j": "workspace::ActivatePaneDown"
-    }
+      "g j": "workspace::ActivatePaneDown",
+    },
   },
 
   // Moving(pulling) current window
@@ -90,8 +90,8 @@
       "g p h": "workspace::MovePaneLeft",
       "g p l": "workspace::MovePaneRight",
       "g p k": "workspace::MovePaneUp",
-      "g p j": "workspace::MovePaneDown"
-    }
+      "g p j": "workspace::MovePaneDown",
+    },
   },
 
   // Resizing
@@ -101,8 +101,8 @@
       "shift-left": "vim::ResizePaneLeft",
       "shift-right": "vim::ResizePaneRight",
       "shift-up": "vim::ResizePaneUp",
-      "shift-down": "vim::ResizePaneDown"
-    }
+      "shift-down": "vim::ResizePaneDown",
+    },
   },
 
   // Scrolling
@@ -115,15 +115,15 @@
       "right": "vim::ColumnRight",
 
       "pageup": "vim::ScrollUp",
-      "pagedown": "vim::ScrollDown"
-    }
+      "pagedown": "vim::ScrollDown",
+    },
   },
   {
     "context": "vim_mode == insert",
     "bindings": {
       "ctrl-down": "vim::LineDown",
-      "ctrl-up": "vim::LineUp"
-    }
+      "ctrl-up": "vim::LineUp",
+    },
   },
 
   // Navigation
@@ -133,8 +133,8 @@
       "g f": "file_finder::Toggle",
       "g w": "buffer_search::Deploy",
       "g shift-w": "pane::DeploySearch",
-      "g b": "tab_switcher::ToggleAll"
-    }
+      "g b": "tab_switcher::ToggleAll",
+    },
   },
 
   // LSP
@@ -150,9 +150,9 @@
       "space i": "editor::Hover",
       "space r": "editor::Rename",
       "space shift-r": "editor::Rename",
-      "space t h": "editor::ToggleInlayHints"
+      "space t h": "editor::ToggleInlayHints",
       // "space m": "editor::Hover",
-    }
+    },
   },
   {
     "context": "vim_mode == normal || vim_mode == visual",
@@ -161,8 +161,8 @@
       "space a": "editor::ToggleCodeActions",
 
       "] ;": "editor::GoToDiagnostic",
-      "[ ;": "editor::GoToPreviousDiagnostic"
-    }
+      "[ ;": "editor::GoToPreviousDiagnostic",
+    },
   },
 
   // Git
@@ -175,15 +175,15 @@
       "space g shift-s": "git::StageFile",
       "space g shift-u": "git::UnstageFile",
       "space g shift-x": "git::RestoreFile",
-      "space g shift-b": "editor::BlameHover"
-    }
+      "space g shift-b": "editor::BlameHover",
+    },
   },
   {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "] h": "editor::GoToHunk",
-      "[ h": "editor::GoToPreviousHunk"
-    }
+      "[ h": "editor::GoToPreviousHunk",
+    },
   },
 
   // Textobjects
@@ -196,15 +196,34 @@
       "[ F": "vim::PreviousMethodEnd",
 
       "] m": "vim::NextComment",
-      "[ m": "vim::PreviousComment"
-    }
+      "[ m": "vim::PreviousComment",
+    },
   },
 
   // Session
   {
     "context": "vim_mode == normal",
     "bindings": {
-      "space b": "workspace::Reload"
-    }
-  }
+      "space b": "workspace::Reload",
+    },
+  },
+
+  // Explorer
+  {
+    "context": "vim_mode == normal || ProjectPanel",
+    "bindings": {
+      "space e": "project_panel::ToggleFocus",
+    },
+  },
+
+  // Lazygit
+  {
+    "context": "Workspace",
+    "bindings": {
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "lazygit", "reveal_target": "center" },
+      ],
+    },
+  },
 ]

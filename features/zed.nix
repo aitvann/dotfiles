@@ -3,7 +3,7 @@
   mkModuleOption,
   ...
 }: {
-  options.modules.homeManager = mkModuleOption "helix" ({
+  options.modules.homeManager = mkModuleOption "zed" ({
     pkgs,
     lib,
     packageHomeFiles,
@@ -14,11 +14,11 @@
     ];
 
     home.packages = with pkgs; [
-      helix
+      zed-editor
     ];
 
     home.file = lib.mkMerge [
-      (packageHomeFiles "helix")
+      (packageHomeFiles "zed")
     ];
   });
 }

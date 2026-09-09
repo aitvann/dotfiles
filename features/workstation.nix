@@ -78,6 +78,7 @@
       btop
       neovim
       helix
+      zed
       backups
       ocr
       gramps
