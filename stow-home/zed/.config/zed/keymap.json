@@ -1,21 +1,210 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
+  // General
   {
-    "context": "Workspace",
+    "context": "vim_mode == insert",
     "bindings": {
-      // "shift shift": "file_finder::Toggle"
+      "j j": "vim::NormalBefore",
+      "k k": ["workspace::SendKeystrokes", "j j space w"]
     }
   },
   {
-    "context": "Editor && vim_mode == insert",
+    "context": "vim_mode == normal",
     "bindings": {
-      // "j k": "vim::NormalBefore"
+      "shift-y": ["workspace::SendKeystrokes", "v $ y"],
+      "shift-u": "editor::Redo",
+      // "ctrl-r": "workspace::MovePaneRight",
+      "v v": "vim::ToggleVisualLine",
+      "delete": "pane::JoinIntoNext"
+      // Already does what it suppose to do
+      // "s enter": "editor::SplitLine",
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "<": ["workspace::SendKeystrokes", "< g v"],
+      ">": ["workspace::SendKeystrokes", "> g v"]
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "g x": "editor::OpenUrl"
+    }
+  },
+
+  // Leader key
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space w": "workspace::Save",
+      "space shift-w": "workspace::SaveAll",
+      "space q": "pane::CloseActiveItem",
+      "space shift-q": "workspace::CloseAllItemsAndPanes",
+      "space o": ["workspace::SendKeystrokes", "o j j"],
+      "space shift-o": ["workspace::SendKeystrokes", "O j j"]
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      // Actually redundant because Zed already uses system clipboard
+      "space y": ["action::Sequence", ["editor::Copy", "vim::NormalBefore"]],
+      "space p": ["action::Sequence", ["editor::Paste", "vim::NormalBefore"]],
+      "space d": ["action::Sequence", ["editor::Delete", "vim::NormalBefore"]]
+    }
+  },
+  {
+    "context": "vim_mode == normal || Terminal",
+    "bindings": {
+      // Instead of <leader>;
+      "ctrl-j": "terminal_panel::Toggle"
+    }
+  },
+
+  // Buffers
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+      "backspace": "pane::CloseActiveItem"
+    }
+  },
+
+  // Moving over windows
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "g h": "workspace::ActivatePaneLeft",
+      "g l": "workspace::ActivatePaneRight",
+      "g k": "workspace::ActivatePaneUp",
+      "g j": "workspace::ActivatePaneDown"
+    }
+  },
+
+  // Moving(pulling) current window
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "g p h": "workspace::MovePaneLeft",
+      "g p l": "workspace::MovePaneRight",
+      "g p k": "workspace::MovePaneUp",
+      "g p j": "workspace::MovePaneDown"
+    }
+  },
+
+  // Resizing
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "shift-left": "vim::ResizePaneLeft",
+      "shift-right": "vim::ResizePaneRight",
+      "shift-up": "vim::ResizePaneUp",
+      "shift-down": "vim::ResizePaneDown"
+    }
+  },
+
+  // Scrolling
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "up": "vim::LineUp",
+      "down": "vim::LineDown",
+      "left": "vim::ColumnLeft",
+      "right": "vim::ColumnRight",
+
+      "pageup": "vim::ScrollUp",
+      "pagedown": "vim::ScrollDown"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-down": "vim::LineDown",
+      "ctrl-up": "vim::LineUp"
+    }
+  },
+
+  // Navigation
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "g f": "file_finder::Toggle",
+      "g w": "buffer_search::Deploy",
+      "g shift-w": "pane::DeploySearch",
+      "g b": "tab_switcher::ToggleAll"
+    }
+  },
+
+  // LSP
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "g d": "editor::GoToDefinition",
+      "g shift-d": "editor::GoToTypeDefinition",
+      "g i": "editor::GoToImplementation",
+      "g r": "editor::FindAllReferences",
+      "g s": "outline::Toggle",
+      "g shift-s": "project_symbols::Toggle",
+      "space i": "editor::Hover",
+      "space r": "editor::Rename",
+      "space shift-r": "editor::Rename",
+      "space t h": "editor::ToggleInlayHints"
+      // "space m": "editor::Hover",
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "space f": "editor::Format",
+      "space a": "editor::ToggleCodeActions",
+
+      "] ;": "editor::GoToDiagnostic",
+      "[ ;": "editor::GoToPreviousDiagnostic"
+    }
+  },
+
+  // Git
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space h s": "git::ToggleStaged",
+      "space h u": "git::ToggleStaged",
+      "space h x": "git::Restore",
+      "space g shift-s": "git::StageFile",
+      "space g shift-u": "git::UnstageFile",
+      "space g shift-x": "git::RestoreFile",
+      "space g shift-b": "editor::BlameHover"
+    }
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPreviousHunk"
+    }
+  },
+
+  // Textobjects
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "] f": "vim::NextMethodStart",
+      "] F": "vim::NextMethodEnd",
+      "[ f": "vim::PreviousMethodEnd",
+      "[ F": "vim::PreviousMethodEnd",
+
+      "] m": "vim::NextComment",
+      "[ m": "vim::PreviousComment"
+    }
+  },
+
+  // Session
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space b": "workspace::Reload"
     }
   }
 ]
