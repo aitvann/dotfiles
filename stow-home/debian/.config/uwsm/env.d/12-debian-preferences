@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+export PATH="${CARGO_HOME}/bin:${PATH}"
+export PATH="${GOPATH}/bin:${PATH}"
