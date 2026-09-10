@@ -3,6 +3,10 @@ local workspaces = {
         name = "personal",
         path = os.getenv('HOME') .. "/data/knowledge-base",
     },
+    {
+        name = "portable-personal",
+        path = os.getenv('HOME') .. "/shared/private/portable-knowledge-base",
+    },
 }
 
 local obsidian_conf = {
