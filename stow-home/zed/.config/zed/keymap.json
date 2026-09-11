@@ -192,7 +192,7 @@
     "bindings": {
       "] f": "vim::NextMethodStart",
       "] F": "vim::NextMethodEnd",
-      "[ f": "vim::PreviousMethodEnd",
+      "[ f": "vim::PreviousMethodStart",
       "[ F": "vim::PreviousMethodEnd",
 
       "] m": "vim::NextComment",
