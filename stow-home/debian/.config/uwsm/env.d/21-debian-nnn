@@ -1,0 +1,4 @@
+#! /usr/bin/env sh
+
+# Debian version is not patched with Git status symbols
+export NNN_OPTS="aAr"

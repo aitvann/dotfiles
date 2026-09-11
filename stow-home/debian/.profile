@@ -122,3 +122,12 @@ w:$HOME/data/knowledge-base/media/wallpapers;\
 e:/run/media/$USER;\
 s:/run/current-system/sw;\
 u:/etc/profiles/per-user/$USER"
+
+# -----------------------------------------------------------------------------
+# Copy paste environmet from uwsm/env.d/20-nnn
+# -----------------------------------------------------------------------------
+
+#! /usr/bin/env sh
+
+# Debian version is not patched with Git status symbols
+export NNN_OPTS="aAr"
