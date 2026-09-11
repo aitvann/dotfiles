@@ -8,7 +8,7 @@
     },
   },
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "shift-y": ["workspace::SendKeystrokes", "v $ y"],
       "shift-u": "editor::Redo",
@@ -20,14 +20,14 @@
     },
   },
   {
-    "context": "vim_mode == visual",
+    "context": "vim_mode == visual && Editor",
     "bindings": {
       "<": ["workspace::SendKeystrokes", "< g v"],
       ">": ["workspace::SendKeystrokes", "> g v"],
     },
   },
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "g x": "editor::OpenUrl",
     },
@@ -35,7 +35,7 @@
 
   // Leader key
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "space w": "workspace::Save",
       "space shift-w": "workspace::SaveAll",
@@ -46,7 +46,7 @@
     },
   },
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "(vim_mode == normal || vim_mode == visual) && Editor",
     "bindings": {
       // Actually redundant because Zed already uses system clipboard
       "space y": ["action::Sequence", ["editor::Copy", "vim::NormalBefore"]],
@@ -55,16 +55,16 @@
     },
   },
   {
-    "context": "vim_mode == normal || Terminal",
+    "context": "Editor || Terminal",
     "bindings": {
       // Instead of <leader>;
-      "ctrl-j": "terminal_panel::Toggle",
+      "ctrl-;": "terminal_panel::Toggle",
     },
   },
 
   // Buffers
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "tab": "pane::ActivateNextItem",
       "shift-tab": "pane::ActivatePreviousItem",
@@ -74,7 +74,7 @@
 
   // Moving over windows
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "g h": "workspace::ActivatePaneLeft",
       "g l": "workspace::ActivatePaneRight",
@@ -85,7 +85,7 @@
 
   // Moving(pulling) current window
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "g p h": "workspace::MovePaneLeft",
       "g p l": "workspace::MovePaneRight",
@@ -96,7 +96,7 @@
 
   // Resizing
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "shift-left": "vim::ResizePaneLeft",
       "shift-right": "vim::ResizePaneRight",
@@ -107,7 +107,7 @@
 
   // Scrolling
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "(vim_mode == normal || vim_mode == visual) && Editor",
     "bindings": {
       "up": "vim::LineUp",
       "down": "vim::LineDown",
@@ -119,7 +119,7 @@
     },
   },
   {
-    "context": "vim_mode == insert",
+    "context": "vim_mode == insert && Editor",
     "bindings": {
       "ctrl-down": "vim::LineDown",
       "ctrl-up": "vim::LineUp",
@@ -128,7 +128,7 @@
 
   // Navigation
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "g f": "file_finder::Toggle",
       "g w": "buffer_search::Deploy",
@@ -139,7 +139,7 @@
 
   // LSP
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "g d": "editor::GoToDefinition",
       "g shift-d": "editor::GoToTypeDefinition",
@@ -155,7 +155,7 @@
     },
   },
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "(vim_mode == normal || vim_mode == visual) && Editor",
     "bindings": {
       "space f": "editor::Format",
       "space a": "editor::ToggleCodeActions",
@@ -167,7 +167,7 @@
 
   // Git
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "space h s": "git::ToggleStaged",
       "space h u": "git::ToggleStaged",
@@ -179,7 +179,7 @@
     },
   },
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "(vim_mode == normal || vim_mode == visual) && Editor",
     "bindings": {
       "] h": "editor::GoToHunk",
       "[ h": "editor::GoToPreviousHunk",
@@ -188,7 +188,7 @@
 
   // Textobjects
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "(vim_mode == normal || vim_mode == visual) && Editor",
     "bindings": {
       "] f": "vim::NextMethodStart",
       "] F": "vim::NextMethodEnd",
@@ -202,7 +202,7 @@
 
   // Session
   {
-    "context": "vim_mode == normal",
+    "context": "vim_mode == normal && Editor",
     "bindings": {
       "space b": "workspace::Reload",
     },
@@ -210,7 +210,7 @@
 
   // Explorer
   {
-    "context": "vim_mode == normal || ProjectPanel",
+    "context": "(vim_mode == normal && Editor) || ProjectPanel",
     "bindings": {
       "space e": "project_panel::ToggleFocus",
     },
@@ -218,7 +218,7 @@
 
   // Lazygit
   {
-    "context": "Workspace",
+    "context": "Editor",
     "bindings": {
       "space g g": [
         "task::Spawn",
