@@ -94,7 +94,7 @@ export NNN_MCLICK='p'
 export NNN_TERMINAL="${TERMINAL}"
 
 export NNN_PLUG=\
-'v:better-preview-tui;'\
+'v:preview-tui;'\
 'd:dragdrop;'\
 'j:fzcd;'\
 'r:gitroot;'\

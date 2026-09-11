@@ -10,7 +10,7 @@ stdenv.mkDerivation {
   phases = ["installPhase" "fixupPhase"];
 
   installPhase = ''
-    install -Dm755 $src/better-preview-tui -t $out/bin
+    install -Dm755 $src/preview-tui -t $out/bin
   '';
 
   meta = with lib; {
