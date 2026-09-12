@@ -11,6 +11,7 @@ in {
     programs.zsh = {
       enable = true;
       enableCompletion = false;
+      enableGlobalCompInit = false;
     };
 
     environment.pathsToLink = ["/share/zsh"];
@@ -41,9 +42,11 @@ in {
       plugins = with pkgs; [
         zsh-defer
         zsh-fast-syntax-highlighting
-        (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
+        # Breaks `select-word-style`, does not worth it
+        # (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
         zsh-fzf-tab
         zsh-autosuggestions
+        pkgs.master.zsh-autocomplete
         (util.zsh-plugin-w-path zsh-abbr "share/zsh/")
       ];
     };
