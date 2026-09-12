@@ -39,6 +39,7 @@
       inputs.nur.overlays.default
 
       (final: prev: {
+        master = import inputs.nixpkgs-master {inherit (prev.stdenv.hostPlatform) system;};
         nix-alien = inputs.nix-alien.packages.${prev.stdenv.hostPlatform.system}.default;
       })
     ];

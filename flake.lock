@@ -805,6 +805,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1789226463,
+        "narHash": "sha256-3MlllSRXG3szSeeTsvAR/4TMZPPyX5tFEju5JeL/q2Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "20c3f1c34508fba92a5ff825002eaf7cd9de7e7e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1787498568,
@@ -881,6 +897,7 @@
         "nix-alien": "nix-alien",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-graalvm21": "nixpkgs-graalvm21",
+        "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "zapret-discord-youtube": "zapret-discord-youtube"
       }
