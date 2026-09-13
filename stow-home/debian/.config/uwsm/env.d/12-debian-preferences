@@ -2,3 +2,5 @@
 
 export PATH="${CARGO_HOME}/bin:${PATH}"
 export PATH="${GOPATH}/bin:${PATH}"
+
+export NP_RUNTIME=bwrap

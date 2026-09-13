@@ -50,6 +50,7 @@ export XCURSOR_PATH="${XDG_DATA_HOME}/icons"
 export LEIN_HOME="${XDG_DATA_HOME}/lein"
 export SQLITE_HISTORY=${XDG_STATE_HOME}/sqlite_history
 export PI_CODING_AGENT_DIR="${XDG_CONFIG_HOME}/pi"
+export NP_LOCATION="${XDG_DATA_HOME}"
 
 # Might break some systems
 # export XCOMPOSEFILE="${XDG_CONFIG_HOME}/X11/xcompose"
@@ -77,6 +78,8 @@ export PATH="${XDG_BIN_HOME}:${PATH}"
 
 export PATH="${CARGO_HOME}/bin:${PATH}"
 export PATH="${GOPATH}/bin:${PATH}"
+
+export NP_RUNTIME=bwrap
 
 # -----------------------------------------------------------------------------
 # Copy paste environmet from uwsm/env.d/20-nnn
