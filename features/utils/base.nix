@@ -8,6 +8,7 @@
     imports = with config'.modules.nixos; [
       stow
       unfree
+      overlays
       impurity
 
       inputs.home-manager.nixosModules.home-manager
@@ -28,6 +29,7 @@
     imports = with config'.modules.homeManager; [
       stow
       unfree
+      overlays
       impurity
     ];
 

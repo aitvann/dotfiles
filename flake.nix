@@ -75,9 +75,6 @@
 
           # Duplicating it here so that `nix flake check` does not fail
           # (do not forget to pass --impure flag)
-          # TODO: fix impurity.nix by printing a warning and falling back to
-          # an `enable = false` behaviour when IMPURITY_PATH is not set
-          # instead of just failing
           shellHook = ''
             export IMPURITY_PATH="$PWD"
           '';

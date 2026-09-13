@@ -5,15 +5,20 @@
   mkModuleOption,
   ...
 }: let
-  username = "work";
+  host-username = builtins.getEnv "USER";
+  username =
+    if host-username == ""
+    then "work"
+    else host-username;
+  host-home = builtins.getEnv "HOME";
+  home =
+    if host-home == ""
+    then "/home/${username}"
+    else host-home;
   host = "gleba";
   system = "x86_64-linux";
 in {
-  options.modules.homeManager = mkModuleOption "${username}@${host}" ({
-    config,
-    lib,
-    ...
-  }: {
+  options.modules.homeManager = mkModuleOption "${username}@${host}" ({lib, ...}: {
     imports = with config'.modules.homeManager; [
       base
 
@@ -28,8 +33,8 @@ in {
     nixpkgs.allowSomeUnfree = lib.mkForce false;
     nixpkgs.config.allowUnfree = lib.mkForce false;
 
-    home.username = "${username}";
-    home.homeDirectory = "/home/${config.home.username}";
+    home.username = username;
+    home.homeDirectory = home;
   });
 
   config.flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
