@@ -4,20 +4,19 @@
   mkModuleOption,
   ...
 }: {
-  options.modules.nixos = mkModuleOption "base" ({impurity, ...}: {
+  options.modules.nixos = mkModuleOption "base" ({...}: {
     imports = with config'.modules.nixos; [
       stow
       unfree
+      impurity
 
       inputs.home-manager.nixosModules.home-manager
-      inputs.impurity.nixosModules.impurity
       xdg-base-directory
     ];
 
     home-manager = {
       useGlobalPkgs = false;
       useUserPackages = true;
-      extraSpecialArgs = {inherit impurity;};
     };
 
     impurity.configRoot = inputs.self;
@@ -29,7 +28,10 @@
     imports = with config'.modules.homeManager; [
       stow
       unfree
+      impurity
     ];
+
+    impurity.configRoot = inputs.self;
 
     home.stateVersion = "22.05";
   });

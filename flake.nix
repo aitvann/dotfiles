@@ -17,7 +17,6 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:denful/import-tree";
-    impurity.url = "github:outfoxxed/impurity.nix";
 
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
 

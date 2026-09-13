@@ -21,8 +21,9 @@ alias restic-jupiter="restic --repo 'sftp:jupiter:/mnt/backup-storage' --passwor
 # alias nixos-rebuild-switch="nh os switch /home/${USER}/dotfiles"
 # alias hm-rebuild-switch="nh home switch /home/${USER}/dotfiles"
 alias nixos-rebuild-switch="nixos-rebuild --sudo --flake /home/${USER}/dotfiles#${HOST} switch"
-alias hm-rebuild-switch="home-manager build --flake /home/${USER}/dotfiles#${USER}@${HOST} switch"
 alias nixos-rebuild-switch-impure="nixos-rebuild --sudo --flake /home/${USER}/dotfiles#${HOST}-impure switch --impure"
+alias hm-rebuild-switch="home-manager build --flake /home/${USER}/dotfiles#${USER}@${HOST} switch"
+alias hm-rebuild-switch-impure="home-manager --flake /home/${USER}/dotfiles#${USER}@${HOST}-impure switch --impure"
 alias user-repl="nh home repl ~/dotfiles"
 alias host-repl="nh os repl ~/dotfiles"
 

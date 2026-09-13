@@ -47,4 +47,8 @@ in {
     extraSpecialArgs = {osConfig.networking.hostName = host;};
     modules = [config'.modules.homeManager."${username}@${host}"];
   };
+
+  config.flake.homeConfigurations."${username}@${host}-impure" =
+    inputs.self.homeConfigurations."${username}@${host}".extendModules
+    {modules = [{impurity.enable = true;}];};
 }
