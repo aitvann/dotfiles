@@ -15,7 +15,7 @@ style = "compact"
 
 ## the maximum number of lines the interface should take up
 ## set it to 0 to always go full screen
-inline_height = 30
+inline_height = 60
 
 ## Invert the UI - put the search bar at the top , Default to `false`
 invert = false
@@ -32,6 +32,12 @@ show_help = false
 ## Configure whether or not to show tabs for search and inspect
 show_tabs = false
 
-## Defaults to true. If enabled, upon hitting enter Atuin will immediately execute the command. Press tab to return to the shell and edit.
-# This applies for new installs. Old installs will keep the old behaviour unless configured otherwise.
-enter_accept = true
+[preview]
+strategy = "static"
+
+keymap_mode = "emacs"
+[keymap.emacs]
+"tab" = "select-next"
+"shift-tab" = "select-previous"
+"enter" = "return-selection"
+"ctrl-enter" = "accept"
