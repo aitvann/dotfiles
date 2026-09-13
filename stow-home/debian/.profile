@@ -133,4 +133,5 @@ u:/etc/profiles/per-user/$USER"
 #! /usr/bin/env sh
 
 # Debian version is not patched with Git status symbols
-export NNN_OPTS="aAr"
+# Not using advcpmv for now
+export NNN_OPTS="aA"
