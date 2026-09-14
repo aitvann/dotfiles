@@ -18,6 +18,7 @@ in {
   });
 
   options.modules.homeManager = mkModuleOption "zsh" ({
+    config,
     pkgs,
     lib,
     packageHomeFiles,
@@ -33,22 +34,25 @@ in {
       })
     ];
 
-    nixpkgs.allowedUnfreePackages = [
+    nixpkgs.allowedUnfreePackages = lib.optionals config.nixpkgs.allowSomeUnfree [
       "zsh-abbr"
     ];
 
     programs.stow-zsh = {
       enable = true;
-      plugins = with pkgs; [
-        zsh-defer
-        zsh-fast-syntax-highlighting
-        # Breaks `select-word-style`, does not worth it
-        # (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
-        zsh-fzf-tab
-        zsh-autosuggestions
-        pkgs.master.zsh-autocomplete
-        (util.zsh-plugin-w-path zsh-abbr "share/zsh/")
-      ];
+      plugins = with pkgs;
+        [
+          zsh-defer
+          zsh-fast-syntax-highlighting
+          # Breaks `select-word-style`, does not worth it
+          # (util.zsh-plugin-w-path zsh-autopair "share/zsh/")
+          zsh-fzf-tab
+          zsh-autosuggestions
+          pkgs.master.zsh-autocomplete
+        ]
+        ++ (lib.optionals config.nixpkgs.allowSomeUnfree [
+          (util.zsh-plugin-w-path zsh-abbr "share/zsh/")
+        ]);
     };
 
     home.packages = with pkgs; [
