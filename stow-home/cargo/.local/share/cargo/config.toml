@@ -2,11 +2,6 @@
 # https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#profile-rustflags-option
 profile-rustflags = true
 
-[registries.zubr]
-index = "ssh://git@git.tt-int.net/shared/crates/index.git"
-
-[registries.legacy]
-index = "ssh://git.tt-int.net/shared/crates/index.git"
-
+# Example
 [registries.internal]
-index = "ssh://git@git.tt-int.net/phoenex/shared/crate-index.git"
+index = "ssh://git@git.private-service.net/path/to/index.git"
