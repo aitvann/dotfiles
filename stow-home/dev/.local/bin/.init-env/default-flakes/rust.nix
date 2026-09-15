@@ -88,7 +88,7 @@
         devShells.auto =
           if builtins.pathExists toolchainFilePath
           then self'.devShells.pinned
-          else if cargoToml.package ? rust-version
+          else if cargoToml ? package ? rust-version
           then self'.devShells.msrv
           else self'.devShells.stable-latest;
 

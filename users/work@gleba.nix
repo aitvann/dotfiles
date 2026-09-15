@@ -23,6 +23,7 @@ in {
       term
       zsh
       nnn
+      lazygit
       direnv
       neovim
     ];

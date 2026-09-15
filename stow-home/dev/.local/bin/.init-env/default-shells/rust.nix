@@ -53,7 +53,7 @@
   shell-auto =
     if builtins.pathExists toolchainFilePath
     then shell-pinned
-    else if cargoToml.package ? rust-version
+    else if cargoToml ? package ? rust-version
     then shell-msrv
     else shell-stable-latest;
 in

@@ -17,7 +17,6 @@
     home.packages = with pkgs; [
       git
       git-crypt
-      delta
     ];
 
     home.file = lib.mkMerge [
