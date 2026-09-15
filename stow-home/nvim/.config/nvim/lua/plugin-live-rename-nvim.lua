@@ -1,4 +1,7 @@
-require("live-rename").setup({
+local res, live_rename = pcall(require, "live-rename")
+if not res or not live_rename then return end
+
+live_rename.setup({
     hl = {
         current = "LspReferenceText",
         others = "LspReferenceText",
