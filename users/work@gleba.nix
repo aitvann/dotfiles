@@ -19,7 +19,7 @@ in {
       term
       zsh
       nnn
-      # neovim
+      neovim
     ];
 
     # No unfree package is allowed in work environment
