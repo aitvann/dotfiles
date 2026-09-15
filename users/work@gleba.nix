@@ -18,6 +18,7 @@ in {
 
       term
       zsh
+      nnn
       # neovim
     ];
 

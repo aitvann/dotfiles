@@ -5,6 +5,7 @@
   ...
 }: {
   options.modules.homeManager = mkModuleOption "nnn" ({
+    config,
     pkgs,
     lib,
     packageHomeFiles,
@@ -40,7 +41,7 @@
       })
     ];
 
-    nixpkgs.allowedUnfreePackages = [
+    nixpkgs.allowedUnfreePackages = lib.optionals config.nixpkgs.allowSomeUnfree [
       "unrar"
     ];
 
@@ -49,18 +50,21 @@
 
       extraPackages = with pkgs; let
         # See https://github.com/jarun/nnn/wiki/Usage#dependencies
-        base-deps = [
-          file
-          gnutar
-          zip
-          unzip
-          unrar
-          atool
-          archivemount
-          sshfs
-          trash-cli
-          advcpmv
-        ];
+        base-deps =
+          [
+            file
+            gnutar
+            zip
+            unzip
+            atool
+            archivemount
+            sshfs
+            trash-cli
+            advcpmv
+          ]
+          ++ (lib.optionals config.nixpkgs.allowSomeUnfree [
+            unrar
+          ]);
 
         dragdrop-deps = [dragon-drop];
         fzcd-deps = [fzf findutils];
