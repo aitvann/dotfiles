@@ -1,4 +1,8 @@
-{mkModuleOption, ...}: {
+{
+  config',
+  mkModuleOption,
+  ...
+}: {
   options.modules.homeManager = mkModuleOption "git" ({
     config,
     pkgs,
@@ -6,16 +10,18 @@
     packageHomeFiles,
     ...
   }: {
+    imports = with config'.modules.homeManager; [
+      lazygit
+    ];
+
     home.packages = with pkgs; [
       git
       git-crypt
-      lazygit
       delta
     ];
 
     home.file = lib.mkMerge [
       (packageHomeFiles "git-${config.home.username}")
-      (packageHomeFiles "lazygit")
     ];
   });
 }
