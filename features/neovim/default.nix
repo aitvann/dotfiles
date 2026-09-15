@@ -11,7 +11,7 @@
     ...
   }: {
     imports = with config'.modules.homeManager; let
-      base-deps = [term editor-tools];
+      base-deps = [term editor-tools lazygit];
       fzf-lua-deps = [bat];
       nnn-nvim-deps = [nnn tmux];
     in
