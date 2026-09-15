@@ -92,7 +92,11 @@ export NP_RUNTIME=bwrap
 
 #! /usr/bin/env sh
 
-export NNN_OPTS="aAGr"
+export NNN_OPTS="aAG"
+
+if command -v cpg >/dev/null 2>&1 && command -v mvg >/dev/null 2>&1; then
+    export NNN_OPTS="${NNN_OPTS}r"
+fi
 
 export NNN_FIFO=/tmp/nnn.fifo
 
@@ -113,8 +117,9 @@ export NNN_PLUG=\
 'y:-!wayland-copy-file "$nnn"*;'\
 'p:!wayland-paste-file*'
 
-# use trash-cli
-export NNN_TRASH=1
+if command -v trash-cli >/dev/null 2>&1; then
+    export NNN_TRASH=1
+fi
 
 export NNN_BMS="\
 c:$HOME/.config;\

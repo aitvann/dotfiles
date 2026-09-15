@@ -82,9 +82,9 @@
       ];
     };
 
-    home.packages = let
+    home.packages = with pkgs; let
       # `extraPackages` does not work for it
-      preview-tui-deps = with pkgs; [
+      preview-tui-deps = [
         tree
         unzip
         imagemagick
@@ -97,7 +97,13 @@
         glow
       ];
     in
-      preview-tui-deps;
+      [
+        # Adding `cpg` and `mvg` to PATH so that `NNN_OPTS` can be set accordingly
+        advcpmv
+        # Adding `trash-cli` to PATH so that `NNN_OPTS` can be set accordingly
+        trash-cli
+      ]
+      ++ preview-tui-deps;
 
     home.file = lib.mkMerge [
       (packageHomeFiles "nnn")
