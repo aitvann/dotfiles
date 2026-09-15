@@ -6,15 +6,9 @@
   ...
 }: let
   host-username = builtins.getEnv "USER";
-  username =
-    if host-username == ""
-    then "work"
-    else host-username;
   host-home = builtins.getEnv "HOME";
-  home =
-    if host-home == ""
-    then "/home/${username}"
-    else host-home;
+  username = "work";
+  home = "/home/${username}";
   host = "gleba";
   system = "x86_64-linux";
 in {
@@ -31,8 +25,14 @@ in {
     nixpkgs.allowSomeUnfree = lib.mkForce false;
     nixpkgs.config.allowUnfree = lib.mkForce false;
 
-    home.username = username;
-    home.homeDirectory = home;
+    home.username =
+      if host-username == ""
+      then username
+      else host-username;
+    home.homeDirectory =
+      if host-home == ""
+      then home
+      else host-home;
   });
 
   config.flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {
