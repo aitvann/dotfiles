@@ -78,6 +78,11 @@ export PATH="${XDG_BIN_HOME}:${PATH}"
 
 export PATH="${CARGO_HOME}/bin:${PATH}"
 export PATH="${GOPATH}/bin:${PATH}"
+export PATH="${HOME}/.nix-profile/bin:${PATH}"
+
+# Re-enabling XDG_BIN_HOME to make sure binaries from it
+# take precedence over everything else
+export PATH="${XDG_BIN_HOME}:${PATH}"
 
 export NP_RUNTIME=bwrap
 
