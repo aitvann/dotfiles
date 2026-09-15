@@ -12,7 +12,11 @@
   host = "gleba";
   system = "x86_64-linux";
 in {
-  options.modules.homeManager = mkModuleOption "${username}@${host}" ({lib, ...}: {
+  options.modules.homeManager = mkModuleOption "${username}@${host}" ({
+    lib,
+    packageHomeFiles,
+    ...
+  }: {
     imports = with config'.modules.homeManager; [
       base
 
@@ -34,6 +38,10 @@ in {
       if host-home == ""
       then home
       else host-home;
+
+    home.file = lib.mkMerge [
+      (packageHomeFiles "work-at-gleba")
+    ];
   });
 
   config.flake.homeConfigurations."${username}@${host}" = inputs.home-manager.lib.homeManagerConfiguration {

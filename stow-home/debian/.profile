@@ -71,7 +71,7 @@ export NP_LOCATION="${XDG_DATA_HOME}"
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
 # -----------------------------------------------------------------------------
-# Copy paste environmet from uwsm/env.d/12-debian-preferences
+# Copy paste environmet from VIRTUAL uwsm/env.d/12-debian-preferences
 # -----------------------------------------------------------------------------
 
 #! /usr/bin/env sh
