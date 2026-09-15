@@ -22,11 +22,9 @@ in {
     imports = with config'.modules.homeManager; [
       base
 
-      # term
-      # zsh
+      term
+      zsh
       # neovim
-
-      helix
     ];
 
     # No unfree package is allowed in work environment
