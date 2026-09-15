@@ -23,6 +23,7 @@ in {
       term
       zsh
       nnn
+      direnv
       neovim
     ];
 
