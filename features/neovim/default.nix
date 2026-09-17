@@ -93,6 +93,8 @@
           lazygit-nvim
           # NNN inside the editor
           nnn-nvim
+          # Profiling
+          pkgs.master.vimPlugins.profile-nvim
 
           # --------------------------------------------------------------------------------
           # Interface
