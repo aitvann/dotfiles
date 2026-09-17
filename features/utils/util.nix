@@ -98,9 +98,7 @@
           map (p: {
             name = p;
             # value = package + "/${p}";
-            # TODO: use groupedLink once it works. See https://github.com/outfoxxed/impurity.nix/issues/2#issue-5291917440
-            # value = imp.groupedLink (baseNameOf package) (package + "/${p}");
-            value = imp.link (package + "/${p}");
+            value = imp.groupedLink (baseNameOf package) (package + "/${p}");
           })
           (filter (p: p != ".stow-local-ignore") (readDir package));
       in
@@ -132,17 +130,17 @@
         if trimmed == "" || lib.hasPrefix "#" trimmed
         then null
         else if lib.hasPrefix "export " trimmed
-        then
-          let
-            rest = lib.removePrefix "export " trimmed;
-            parts = lib.splitString "=" rest;
-            name = lib.trim (lib.head parts);
-            value = lib.trim (lib.concatStringsSep "=" (lib.tail parts));
-            unquoted = lib.removePrefix "\"" (lib.removeSuffix "\"" value);
-          in
-            {inherit name; value = unquoted;}
-        else
-          null;
+        then let
+          rest = lib.removePrefix "export " trimmed;
+          parts = lib.splitString "=" rest;
+          name = lib.trim (lib.head parts);
+          value = lib.trim (lib.concatStringsSep "=" (lib.tail parts));
+          unquoted = lib.removePrefix "\"" (lib.removeSuffix "\"" value);
+        in {
+          inherit name;
+          value = unquoted;
+        }
+        else null;
       parsed = builtins.filter (x: x != null) (map parseLine lines);
     in
       builtins.listToAttrs parsed;
@@ -171,5 +169,6 @@
     zsh-plugin-w-path = package: path: {inherit package path;};
 
     dbg = x: lib.trace (builtins.toJSON x) x;
+    dbg-note = note: x: lib.trace "${note}${(builtins.toJSON x)}" x;
   };
 }

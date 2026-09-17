@@ -11,22 +11,33 @@
         with builtins; strings.removePrefix (toString config.impurity.configRoot) (toString path);
 
       impurityGroupEnabled = group: let
-        impurityGroups = strings.splitString " " (builtins.getEnv "IMPURITY_GROUPS");
+        groupsStr = builtins.getEnv "IMPURITY_GROUPS";
+        impurityGroups = strings.splitString " " groupsStr;
       in
-        group == "*" || builtins.elem group impurityGroups;
+        group == "" || groupsStr == "*" || builtins.elem group impurityGroups;
 
-      impurePath = let
-        impurePathEnv = builtins.getEnv "IMPURITY_PATH";
-      in
-        if impurePathEnv == ""
-        then throw "impurity.enable is true but IMPURITY_PATH is not set"
-        else impurePathEnv;
+      impurePath = builtins.getEnv "IMPURITY_PATH";
 
       createImpurePath = path: let
         relative = relativePath path;
         full = impurePath + relative;
       in
         pkgs.runCommand "impurity-${relative}" {} "ln -s ${full} $out";
+
+      impurity-lib = rec {
+        groupedLink = groupspec: path:
+        # assert types.string.check groupspec;
+          assert types.path.check path; let
+            enabled = config.impurity.enable && impurityGroupEnabled groupspec;
+          in
+            if !enabled
+            then path
+            else if impurePath == ""
+            then path
+            else createImpurePath path;
+
+        link = path: groupedLink "" path;
+      };
     in {
       options.impurity = {
         enable = mkOption {
@@ -41,24 +52,10 @@
         };
       };
 
-      config._module.args.impurity = rec {
-        groupedLink = groupspec: path:
-          assert types.path.check path; let
-            groups =
-              if groupspec == null
-              then [""]
-              else if (types.listOf types.string).check groupspec
-              then groupspec
-              else
-                assert types.string.check groupspec;
-                  strings.splitString " " groupspec;
-          in
-            if config.impurity.enable && lists.any (group: impurityGroupEnabled group) groups
-            then createImpurePath path
-            else path;
-
-        link = path: groupedLink null path;
-      };
+      config._module.args.impurity =
+        if config.impurity.enable && impurePath == ""
+        then warn "Option impurity.enable is true but IMPURITY_PATH is not set; Falling back to pure linking" impurity-lib
+        else impurity-lib;
     };
 in {
   options.modules.nixos = mkModuleOption "impurity" mkImpurityModule;

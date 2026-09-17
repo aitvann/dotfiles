@@ -70,11 +70,7 @@
         };
 
         devShells.default = pkgs.mkShell {
-          # Does not work at the moment
-          # IMPURITY_GROUPS = "eww";
-
-          # Duplicating it here so that `nix flake check` does not fail
-          # (do not forget to pass --impure flag)
+          IMPURITY_GROUPS = "*";
           shellHook = ''
             export IMPURITY_PATH="$PWD"
           '';

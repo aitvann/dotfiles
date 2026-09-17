@@ -24,5 +24,5 @@ in {
 
   config.flake.nixosConfigurations."${host}-impure" =
     inputs.self.nixosConfigurations.${host}.extendModules
-    {modules = [{impurity.enable = true;}];};
+    {modules = [{impurity.enable = true;} {home-manager.sharedModules = [{impurity.enable = true;}];}];};
 }
