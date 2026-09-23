@@ -46,13 +46,12 @@
       initLua = lib.mkForce "";
 
       extraPackages = with pkgs; let
-        base-deps = [libnotify];
         treesitter-deps = [gnutar];
         fzf-lua-deps = [ripgrep fd git delta];
         snaks-image-deps = [imagemagick];
         lazygit-deps = [git lazygit delta];
       in
-        base-deps ++ treesitter-deps ++ fzf-lua-deps ++ snaks-image-deps ++ lazygit-deps;
+        treesitter-deps ++ fzf-lua-deps ++ snaks-image-deps ++ lazygit-deps;
 
       plugins = with pkgs.vimPlugins;
         [
