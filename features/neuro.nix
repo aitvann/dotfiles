@@ -3,7 +3,7 @@
   mkModuleOption,
   ...
 }: {
-  options.modules.nixos = mkModuleOption "llm" ({
+  options.modules.nixos = mkModuleOption "neuro" ({
     config,
     pkgs,
     lib,
@@ -93,7 +93,7 @@
     '';
   });
 
-  options.modules.homeManager = mkModuleOption "llm" ({
+  options.modules.homeManager = mkModuleOption "neuro" ({
     config,
     pkgs,
     lib,

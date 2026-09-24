@@ -14,7 +14,7 @@ in {
     imports = with config'.modules.nixos; [
       base
       workstation
-      llm
+      neuro
     ];
 
     nixpkgs.allowSomeUnfree = true;
@@ -35,7 +35,7 @@ in {
     imports = with config'.modules.homeManager; [
       base
       workstation
-      llm
+      neuro
 
       monero
     ];
