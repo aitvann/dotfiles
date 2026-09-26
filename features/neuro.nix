@@ -2,7 +2,56 @@
   config',
   mkModuleOption,
   ...
-}: {
+}: let
+  overlay-llama-cpp = final: prev: {
+    llama-cpp =
+      (prev.llama-cpp.override {
+        rocmSupport = true;
+        # Enable BLAS for optimized CPU layer performance (OpenBLAS)
+        blasSupport = true;
+      }).overrideAttrs (oldAttrs: {
+        # Enable native CPU optimizations (AVX, AVX2, etc.)
+        cmakeFlags =
+          (oldAttrs.cmakeFlags or []) ++ ["-DGGML_NATIVE=ON"];
+        # Disable Nix's march=native stripping
+        preConfigure = ''
+          export NIX_ENFORCE_NO_NATIVE=0
+          ${oldAttrs.preConfigure or ""}
+        '';
+      });
+  };
+  overlay-stable-diffusion-cpp = final: prev: {
+    stable-diffusion-cpp =
+      (prev.stable-diffusion-cpp.override {
+        rocmSupport = true;
+      }).overrideAttrs (
+        finalAttrs: prevAttrs: rec {
+          version = "master-920-2f88688";
+
+          src = prev.fetchFromGitHub {
+            owner = "leejet";
+            repo = "stable-diffusion.cpp";
+            tag = version;
+            hash = "sha256-TkPBSL0DBIYP4fSFXGaV/zHsswic4LbniK/Ug+fl7Hw";
+            fetchSubmodules = true;
+          };
+
+          cmakeFlags =
+            prevAttrs.cmakeFlags
+            ++ [
+              "-DSDCPP_BUILD_VERSION=${version}"
+            ];
+
+          # # Use prebuild frontend
+          # patchPhase = ''
+          #   cp -r ${final.sdcpp-webui} examples/server/frontend/dist
+          # '';
+
+          meta.mainProgram = "sd-server";
+        }
+      );
+  };
+in {
   options.modules.nixos = mkModuleOption "neuro" ({
     config,
     pkgs,
@@ -11,23 +60,8 @@
     ...
   }: {
     nixpkgs.overlays = [
-      (final: prev: {
-        llama-cpp =
-          (prev.llama-cpp.override {
-            rocmSupport = true;
-            # Enable BLAS for optimized CPU layer performance (OpenBLAS)
-            blasSupport = true;
-          }).overrideAttrs (oldAttrs: {
-            # Enable native CPU optimizations (AVX, AVX2, etc.)
-            cmakeFlags =
-              (oldAttrs.cmakeFlags or []) ++ ["-DGGML_NATIVE=ON"];
-            # Disable Nix's march=native stripping
-            preConfigure = ''
-              export NIX_ENFORCE_NO_NATIVE=0
-              ${oldAttrs.preConfigure or ""}
-            '';
-          });
-      })
+      overlay-llama-cpp
+      overlay-stable-diffusion-cpp
     ];
 
     systemd.services.llama-swap = lib.mkMerge [
@@ -35,7 +69,7 @@
       # 1. Add `llama-cpp` to the PATH
       # 2. Reading config from `/etc` instead of cli arg
       {
-        path = with pkgs; [llama-cpp];
+        path = with pkgs; [llama-cpp stable-diffusion-cpp];
 
         serviceConfig.ExecStart = with config.services.llama-swap;
           lib.mkForce
@@ -105,21 +139,25 @@
     ];
 
     nixpkgs.overlays = [
-      (final: prev: {
-        # Inspiration: https://discourse.nixos.org/t/pi-coding-agent-how-to-install-npm-extensions/77030/2
-        pi-coding-agent = prev.pi-coding-agent.overrideAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.makeWrapper];
+      overlay-llama-cpp
+      overlay-stable-diffusion-cpp
+      (
+        final: prev: {
+          # Inspiration: https://discourse.nixos.org/t/pi-coding-agent-how-to-install-npm-extensions/77030/2
+          pi-coding-agent = prev.pi-coding-agent.overrideAttrs (old: {
+            nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.makeWrapper];
 
-          postInstall =
-            (old.postInstall or "")
-            + ''
-              wrapProgram $out/bin/pi \
-                --set PI_TELEMETRY 0 \
-                --set NPM_CONFIG_PREFIX ${config.xdg.dataHome}/pi/npm/ \
-                --prefix PATH : ${final.lib.makeBinPath (with final; [nodejs_latest])}
-            '';
-        });
-      })
+            postInstall =
+              (old.postInstall or "")
+              + ''
+                wrapProgram $out/bin/pi \
+                  --set PI_TELEMETRY 0 \
+                  --set NPM_CONFIG_PREFIX ${config.xdg.dataHome}/pi/npm/ \
+                  --prefix PATH : ${final.lib.makeBinPath (with final; [nodejs_latest])}
+              '';
+          });
+        }
+      )
     ];
 
     nixpkgs.allowedUnfreePackages = [

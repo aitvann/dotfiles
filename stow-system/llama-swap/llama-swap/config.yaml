@@ -9,6 +9,8 @@ includeAliasesInList: true
 macros:
   "default-llama": >
     llama-server --port ${PORT} --log-verbosity 4
+  "default-sd": >
+    sd-server --listen-port ${PORT}
 
 # https://unsloth.ai/docs/models/qwen3.6#thinking-mode
 x-qwen3-8-params: &qwen3-8-params
@@ -93,6 +95,34 @@ x-qwen3-6-params: &qwen3-6-params
 # Open WebUI uses id istead of names
 # and aliases can be destinguished easier
 models:
+  "Qwen-Image-2.1-VRAM-FAST":
+    description:
+      Image generation. The model fits into VRAM and works relatively fast
+    cmd: |
+      ${default-sd}
+      --diffusion-model /var/lib/models/qwen-image-2.1/qwen-image-2.1-Q4_K_M.gguf
+      --vae /var/lib/models/qwen-image-2.1/qwen_image_2.1_vae_bf16.safetensors
+      --llm /var/lib/models/qwen-image-2.1/Qwen3-VL-8B-Instruct-UD-Q4_K_XL.gguf
+      --diffusion-fa
+      --steps 40
+      --cfg-scale 6.0
+      --sampling-method euler
+    checkEndpoint: none
+
+  "Z-Image-VRAM-FAST":
+    description:
+      Outdated image generation. The model fits into VRAM and works relatively fast
+    cmd: |
+      ${default-sd}
+      --diffusion-model /var/lib/models/z-image-turbo/z_image_turbo-Q8_0.gguf
+      --vae /var/lib/models/z-image-turbo/ae.safetensors
+      --llm /var/lib/models/z-image-turbo/Qwen3-4B-Instruct-2507-Q8_0.gguf
+      --diffusion-fa
+      --vae-conv-direct
+      --cfg-scale 1.0
+      --steps 8
+    checkEndpoint: none
+
   "Qwen3.8-27B-RAM":
     descriptions:
       The model does not fit into VRAM
