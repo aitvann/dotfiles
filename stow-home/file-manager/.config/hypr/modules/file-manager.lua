@@ -27,7 +27,7 @@ hl.window_rule({
 hl.window_rule({
     match = { title = "^(nnn-file-manager)$", },
     size = "(monitor_w*0.3) (monitor_h*0.6)",
-    move = "(monitor_w*0.1) (monitor_h*0.2)",
+    move = "(monitor_w*0.102) (monitor_h*0.2)",
 })
 hl.window_rule({
     match = { title = "^(nnn-file-manager-preview)$", },

@@ -63,7 +63,8 @@
             advcpmv
           ]
           ++ (lib.optionals config.nixpkgs.allowSomeUnfree [
-            unrar
+            # TODO: Enable once source available
+            # unrar
           ]);
 
         dragdrop-deps = [dragon-drop];
