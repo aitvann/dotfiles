@@ -26,6 +26,7 @@
     # FIX: should unlocks keyring upon login. greetd does not subtask login
     # https://github.com/NixOS/nixpkgs/issues/357201
     # https://wiki.nixos.org/wiki/Secret_Service#Auto-decrypt_on_login
+    # https://discourse.nixos.org/t/login-keyring-did-not-get-unlocked-hyprland/40869/26
     # doest not work
     security.pam.services.login.enableGnomeKeyring = true;
     # FIX: figure out why doesn't work

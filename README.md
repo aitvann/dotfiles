@@ -92,6 +92,39 @@ mkdir -p {~/.local/share/mpd,~/.config/gtk-2.0}
 reboot
 ```
 
+## Recovery
+
+``` sh
+lsblk -o type,name,partlabel,label,fsroots,fstype,mountpoints
+
+cryptsetup luksOpen /dev/nvme0n1p1 crypted
+
+mkdir -p /mnt
+mount -o subvol=@root /dev/mapper/crypted /mnt
+
+btrfs subvolume list /mnt
+
+mkdir -p /mnt/nix
+mount -o subvol=@nix /dev/mapper/crypted /mnt/nix
+mkdir -p /mnt/var/log
+mount -o subvol=@log /dev/mapper/crypted /mnt/var/log
+mkdir -p /mnt/home/general
+mount -o subvol=@home-general /dev/mapper/crypted /mnt/home/general
+
+mkdir -p /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
+
+nixos-enter
+
+# If recovering EFI entries is required.
+# NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+
+# Clean up
+
+umount -R /mnt
+cryptsetup luksClose crypted
+```
+
 ## Workstation
 
 "Workstation" is a configuration shared between two hosts: mars (laptop), pluto (pc)
