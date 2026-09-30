@@ -79,7 +79,7 @@ hl.animation({
 
 local home = os.getenv("HOME")
 local data_dir = os.getenv("XDG_DATA_HOME") or home .. "/.local/share"
-hl.plugin.load(data_dir .. "/hypr/plugins/libhypr-dynamic-cursors.so")
+hl.plugin.load(data_dir .. "/hyprland/plugins/libhypr-dynamic-cursors.so")
 if hl.plugin.dynamic_cursors then
     hl.config { plugin = { dynamic_cursors = {
         enabled = true,

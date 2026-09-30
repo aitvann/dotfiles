@@ -1,6 +1,5 @@
 {
   config',
-  lib,
   inputs,
   mkModuleOption,
   ...
@@ -12,20 +11,17 @@ in {
       wayland
     ];
 
+    nixpkgs.overlays = [
+      inputs.hyprland.overlays.default
+    ];
+
     # Required for Home Manager to configure system settings
     programs.hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       withUWSM = true;
       xwayland.enable = true;
-    };
-    # Wants `seatd` for some reason, should not be a requirment
-    # Does not even work tho
-    environment.variables = {
-      LIBSEAT_BACKEND = lib.mkForce "logind";
-    };
-    environment.sessionVariables = {
-      LIBSEAT_BACKEND = lib.mkForce "logind";
     };
 
     services.xserver = {
@@ -55,6 +51,7 @@ in {
     ];
 
     nixpkgs.overlays = [
+      inputs.hyprland.overlays.default
       (final: prev: {
         hyprlandPlugins =
           prev.hyprlandPlugins
@@ -66,10 +63,14 @@ in {
     ];
 
     services.udiskie.enable = true;
-    programs.hyprland = {
+    wayland.windowManager.hyprland = {
       enable = true;
+      # NOTE: Old stateVersion warning
+      configType = "lua";
+      package = null;
+      portalPackage = null;
       systemd.enable = false;
-      plugins = with pkgs.hyprlandPlugins; [
+      stowPlugins = with pkgs.hyprlandPlugins; [
         hypr-dynamic-cursors
       ];
     };

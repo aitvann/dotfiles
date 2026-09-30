@@ -24,11 +24,18 @@
 
   config.flake.flakeConfig = config;
   config._module.args.config' = config;
-  config._module.args.mkModuleOption = name: static: {
-    ${name} = inputs.self.util.mkModuleOption {
-      key = name;
-      inherit static;
-    };
+  config._module.args.mkModuleOption = name: static: let
+    prefix = "plain-";
+    name' = lib.removePrefix prefix name;
+  in {
+    ${name'} =
+      if lib.hasPrefix "plain-" name
+      then static
+      else
+        (inputs.self.util.mkModuleOption {
+          key = name';
+          inherit static;
+        });
   };
 
   config.flake.util = with lib; rec {

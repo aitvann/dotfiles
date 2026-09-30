@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+
+if uwsm check may-start 0 -v $@ && uwsm select; then
+    exec uwsm start default;
+fi

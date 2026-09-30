@@ -114,7 +114,7 @@ models:
       Outdated image generation. The model fits into VRAM and works relatively fast
     cmd: |
       ${default-sd}
-      --diffusion-model /var/lib/models/z-image-turbo/z_image_turbo-Q8_0.gguf
+      --diffusion-model /var/lib/models/z-image-turbo/z-image-turbo-Q8_0.gguf
       --vae /var/lib/models/z-image-turbo/ae.safetensors
       --llm /var/lib/models/z-image-turbo/Qwen3-4B-Instruct-2507-Q8_0.gguf
       --diffusion-fa
