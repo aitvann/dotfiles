@@ -7,10 +7,31 @@ globalTTL: 600
 includeAliasesInList: true
 
 macros:
-  "default-llama": >
-    llama-server --port ${PORT} --log-verbosity 4
-  "default-sd": >
-    sd-server --listen-port ${PORT}
+  "llama-base": >
+    llama-server
+      --port ${PORT}
+      --log-verbosity 4
+
+      # Saves 1.3 Gb VRAM, FOR FREE?
+      --parallel 1
+
+      # https://huggingface.co/froggeric/Qwen-Fixed-Chat-Templates
+      --jinja
+      --chat-template-file /var/lib/models/froggeric-chat_template.jinja
+      --reasoning-format deepseek
+
+      # TODO: Figure out switching reasoning effort per-prompt
+      --reasoning_effort "low"
+      --reasoning-preserve
+  "llama-mtp": >
+    ${llama-base}
+      --spec-type draft-mtp
+      --spec-draft-backend-sampling
+      --spec-draft-n-max 2
+
+  "sd-base": >
+    sd-server
+      --listen-port ${PORT}
 
 # https://unsloth.ai/docs/models/qwen3.6#thinking-mode
 x-qwen3-8-params: &qwen3-8-params
@@ -95,11 +116,15 @@ x-qwen3-6-params: &qwen3-6-params
 # Open WebUI uses id istead of names
 # and aliases can be destinguished easier
 models:
-  "Qwen-Image-2.1-VRAM-FAST":
+  # --------------------------------------------------------------------------------
+  # Image
+  # --------------------------------------------------------------------------------
+
+  "Qwen-Image-2.1-VRAM":
     description:
       Image generation. The model fits into VRAM and works relatively fast
     cmd: |
-      ${default-sd}
+      ${sd-base}
       --diffusion-model /var/lib/models/qwen-image-2.1/qwen-image-2.1-Q4_K_M.gguf
       --vae /var/lib/models/qwen-image-2.1/qwen_image_2.1_vae_bf16.safetensors
       --llm /var/lib/models/qwen-image-2.1/Qwen3-VL-8B-Instruct-UD-Q4_K_XL.gguf
@@ -109,11 +134,11 @@ models:
       --sampling-method euler
     checkEndpoint: none
 
-  "Z-Image-VRAM-FAST":
+  "Z-Image-VRAM":
     description:
       Outdated image generation. The model fits into VRAM and works relatively fast
     cmd: |
-      ${default-sd}
+      ${sd-base}
       --diffusion-model /var/lib/models/z-image-turbo/z-image-turbo-Q8_0.gguf
       --vae /var/lib/models/z-image-turbo/ae.safetensors
       --llm /var/lib/models/z-image-turbo/Qwen3-4B-Instruct-2507-Q8_0.gguf
@@ -123,104 +148,82 @@ models:
       --steps 8
     checkEndpoint: none
 
-  "Qwen3.8-27B-RAM":
+  # --------------------------------------------------------------------------------
+  # Qwen3.8 VRAM
+  # --------------------------------------------------------------------------------
+
+  "Qwen3.8-27B-VRAM-SMART":
     descriptions:
-      The model does not fit into VRAM
+      The model is smarter but not much is left for context.
+      Good for simple questions.
     cmd: |
-      ${default-llama}
+      ${llama-mtp}
       -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
-      --ctx-size 131072
+      --gpu-layers all
+      # 2^15 + 2^14
+      --ctx-size 49152
       --cache-type-k q8_0
       --cache-type-v q4_0
-      --spec-type draft-mtp
-      --spec-draft-n-max 2
-      # Pi does not send `reasoning_effort` for some reason
-      # and llama-swap does not even apply it
-      --chat-template-kwargs '{"reasoning_effort":"low"}'
-      # Does not work for some reason
-      # --chat-template-kwargs '{"preserve_thinking":true}'
-      --reasoning-preserve
-    <<: *qwen3-8-params
-
-  "Qwen3.8-27B-VRAM-FAST":
-    descriptions:
-      The absence of K/V cache quantization results in very good TTFT
-      but a big context window does not fit.
-      Good for simple questions.
-
-      The model barely fits into VRAM and might require switching
-      to an integrated GPU for graphics
-    cmd: |
-      ${default-llama}
-      # Technically fits but WM freezes and llama then crashes
-      # -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
-      -m /var/lib/models/Qwen3.8-27B-UD-IQ3_XXS.gguf
-      --gpu-layers all
-      --ctx-size 32768
-      --spec-type draft-mtp
-      --spec-draft-n-max 2
-      # Pi does not send `reasoning_effort` for some reason
-      # and llama-swap does not even apply it
-      --chat-template-kwargs '{"reasoning_effort":"low"}'
-      # Does not work for some reason
-      # --chat-template-kwargs '{"preserve_thinking":true}'
-      --reasoning-preserve
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-VRAM-WISE":
     descriptions:
-      The presence of K/V cache quantization allows to fit a larger context window
-      but it hurts TTFT by a lot.
+      The model takes less space and thus can fit bigger context.
       Good for coding.
-
-      The model barely fits into VRAM and might require switching
-      to an integrated GPU for graphics
     cmd: |
-      ${default-llama}
+      ${llama-mtp}
       -m /var/lib/models/Qwen3.8-27B-UD-IQ3_XXS.gguf
       --gpu-layers all
+      # 2^17
       --ctx-size 131072
-      # Does not fit
-      # --cache-type-k f16 
-      # --cache-type-v q8_0
-      # Why this when q8_0/q8_0 fits as well
-      # --cache-type-k q8_0
-      # --cache-type-v q4_0
+      --cache-type-k q8_0
+      --cache-type-v q4_0
+    <<: *qwen3-8-params
+
+  # https://www.reddit.com/r/LocalLLaMA/s/L7cci70aK9
+  "Qwen3.8-27B-VRAM-UNCENSORED":
+    descriptions:
+      The model takes less space and thus can fit bigger context.
+      Fine-tuning hurts accuracy, good for tasks that really require uncensored results.
+    cmd: |
+      ${llama-mtp}
+      --model /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-Uncensored-v1.1.gguf
+      --gpu-layers all
+      # 2^17
+      --ctx-size 131072
+      --cache-type-k q8_0
+      --cache-type-v q4_0
+    <<: *qwen3-8-params
+
+  # --------------------------------------------------------------------------------
+  # Qwen3.8 RAM
+  # --------------------------------------------------------------------------------
+
+  "Qwen3.8-27B-RAM":
+    descriptions:
+      The model does not fit into VRAM, full context
+    cmd: |
+      ${llama-mtp}
+      -m /var/lib/models/Qwen3.8-27B-UD-Q8_K_XL.gguf
+      --ctx-size 262144
       --cache-type-k q8_0
       --cache-type-v q8_0
-      # Does not fit
-      # --spec-type draft-mtp
-      # --spec-draft-n-max 2
-      # Pi does not send `reasoning_effort` for some reason
-      # and llama-swap does not even apply it
-      --chat-template-kwargs '{"reasoning_effort":"low"}'
-      # Does not work for some reason
-      # --chat-template-kwargs '{"preserve_thinking":true}'
-      --reasoning-preserve
     <<: *qwen3-8-params
+
+  # --------------------------------------------------------------------------------
+  # Qwen3.6 RAM
+  # --------------------------------------------------------------------------------
 
   "Qwen3.6-35B-A3B-RAM":
     description: 
       The model does not fit into VRAM but the speed descrese
       is compensated by A3B and MTP
     cmd: |
-      ${default-llama}
+      ${llama-mtp}
       # -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf
       -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
       # --ctx-size 131072
       --ctx-size 262144
-      # --fit off
-      # --gpu-layers all
-      # --cpu-moe
-      # --override-tensor "\.ffn_(up|down|gate|gate_up)_(ch|)exps=CPU"
       --cache-type-k q8_0
       --cache-type-v q8_0
-      --spec-type draft-mtp
-      --spec-draft-n-max 2
-      # Pi does not send `reasoning_effort` for some reason
-      # and llama-swap does not even apply it
-      --chat-template-kwargs '{"reasoning_effort":"low"}'
-      # Does not work for some reason
-      # --chat-template-kwargs '{"preserve_thinking":true}'
-      --reasoning-preserve
     <<: *qwen3-6-params
