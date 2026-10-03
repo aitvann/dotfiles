@@ -84,6 +84,8 @@ in {
         # A model won't start with this option turned on
         serviceConfig.MemoryDenyWriteExecute = lib.mkForce false;
         # Model in Swap is catastrophic performance degradation
+        # Consider removing this line because llama.cpp has `--load-mode` flag
+        # that controls exactly this behaviour
         serviceConfig.MemorySwapMax = "0";
       }
 
@@ -173,6 +175,9 @@ in {
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
 
+      llama-cpp
+
+      unsloth-desktop
       pi-coding-agent
     ];
 
