@@ -152,7 +152,7 @@ models:
     checkEndpoint: none
 
   # --------------------------------------------------------------------------------
-  # Qwen3.8 VRAM
+  # Qwen3.8 27b
   # --------------------------------------------------------------------------------
 
   "Qwen3.8-27B-VRAM-SMART":
@@ -204,14 +204,25 @@ models:
       --cache-type-v q4_0
     <<: *qwen3-8-params
 
-  # --------------------------------------------------------------------------------
-  # Qwen3.8 RAM
-  # --------------------------------------------------------------------------------
+  "Qwen3.8-27B-RAM":
+    descriptions:
+      The model does not fit into VRAM, full context.
+    cmd: |
+      ${llama-mtp}
+      -m /var/lib/models/Qwen3.8-27B-UD-Q8_K_XL.gguf
+      --ctx-size 262144
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+    <<: *qwen3-8-params
 
   # TODO: Try Strata: https://github.com/Niko1221/Strata
+  # --------------------------------------------------------------------------------
+  # Qwen3.8 Flash Next
+  # --------------------------------------------------------------------------------
+
   "Qwen3.8-Flash-Next-RAM":
     descriptions:
-      The model does not fit into VRAM
+      The model does not fit into VRAM.
     cmd: |
       # TODO: Figure out why it was working before and now it does not
       # ${llama-mtp}
@@ -226,19 +237,29 @@ models:
       --cache-type-v q4_0
     <<: *qwen3-8-params
 
-  "Qwen3.8-27B-RAM":
+  "Qwen3.8-Flash-Next-Coder-RAM":
     descriptions:
-      The model does not fit into VRAM, full context
+      The model does not fit into VRAM.
+      Good for coding
     cmd: |
-      ${llama-mtp}
-      -m /var/lib/models/Qwen3.8-27B-UD-Q8_K_XL.gguf
-      --ctx-size 262144
+      ${llama-base}
+      -m /var/lib/models/qwen3.8-flash-next/IQ1_M-Coder/Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00001-of-00002.gguf
+      # 2^17
+      --ctx-size 131072
       --cache-type-k q8_0
-      --cache-type-v q8_0
-    <<: *qwen3-8-params
+      --cache-type-v q4_0
+    filters:
+      setParams:
+        top_k: 20
+        min_p: 0.0
+        repetition_penalty: 1.0
+        temperature: 0.6
+        top_p: 0.95
+        presence_penalty: 0.0
+        chat_template_kwargs:
 
   # --------------------------------------------------------------------------------
-  # Qwen3.6 RAM
+  # Qwen3.6 35b A3b
   # --------------------------------------------------------------------------------
 
   "Qwen3.6-35B-A3B-RAM":
