@@ -1,4 +1,5 @@
 {
+  inputs,
   config',
   mkModuleOption,
   ...
@@ -59,9 +60,14 @@ in {
     packageSystemFiles,
     ...
   }: {
+    imports = [
+      inputs.comfyui-nix.nixosModules.default
+    ];
+
     nixpkgs.overlays = [
       overlay-llama-cpp
       overlay-stable-diffusion-cpp
+      inputs.comfyui-nix.overlays.default
     ];
 
     systemd.services.llama-swap = lib.mkMerge [
@@ -97,6 +103,31 @@ in {
       })
     ];
 
+    services.llama-swap = {
+      enable = true;
+      # package = pkgs.llama-swap-minimal;
+      port = 11434; # Same as Ollama
+    };
+
+    systemd.services.comfyui = lib.mkMerge [
+      {
+        serviceConfig.ReadWritePaths = ["/etc/comfyui/extra_model_paths.yaml"];
+      }
+
+      # TODO: Make it actually work
+      (lib.mkIf config.impurity.enable {
+        serviceConfig.ProtectHome = lib.mkForce false;
+      })
+    ];
+
+    # TODO: Check if Qwen Image 2.1 in supported in the next update
+    # https://github.com/city96/ComfyUI-GGUF/pull/483
+    services.comfyui = {
+      enable = true;
+      gpuSupport = "rocm";
+      extraArgs = ["--extra-model-paths-config" "/etc/comfyui/extra_model_paths.yaml"];
+    };
+
     # How to obtain a model:
     # 1. Go to https://huggingface.co/unsloth and find a model
     # 2. Choose quantization and click on it
@@ -106,17 +137,15 @@ in {
       "d /var/lib/models  0777 root root -"
     ];
 
-    services.llama-swap = {
-      enable = true;
-      # package = pkgs.llama-swap-minimal;
-      port = 11434; # Same as Ollama
-    };
-
     networking.firewall = {
       allowedTCPPorts = [2402];
     };
 
     environment.etc = lib.mkMerge [
+      # So it works even with impure enabled
+      {"comfyui/extra_model_paths.yaml".source = "${inputs.self}/stow-system/comfyui/comfyui/extra_model_paths.yaml";}
+      # (packageSystemFiles "comfyui")
+
       (packageSystemFiles "llama-swap")
     ];
 
@@ -143,6 +172,7 @@ in {
     nixpkgs.overlays = [
       overlay-llama-cpp
       overlay-stable-diffusion-cpp
+      inputs.comfyui-nix.overlays.default
       (
         final: prev: {
           # Inspiration: https://discourse.nixos.org/t/pi-coding-agent-how-to-install-npm-extensions/77030/2
@@ -174,9 +204,7 @@ in {
 
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
-
       llama-cpp
-
       unsloth-desktop
       pi-coding-agent
     ];

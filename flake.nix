@@ -29,6 +29,9 @@
     advcpmv.url = "github:Gigahawk/advcpmv-flake";
     advcpmv.inputs.nixpkgs.follows = "nixpkgs";
 
+    comfyui-nix.url = "github:utensils/comfyui-nix";
+    comfyui-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 

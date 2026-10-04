@@ -1,0 +1,32 @@
+shared_models:
+    base_path: /var/lib/models
+
+    # You can use is_default to mark that these folders should be listed first, and used as the default dirs for eg downloads
+    #is_default: true
+    checkpoints: ./
+    configs: ./
+    loras: ./
+    vae: ./
+    text_encoders: ./
+    diffusion_models: ./
+    clip_vision: ./
+    style_models: ./
+    embeddings: ./
+    diffusers: ./
+    vae_approx: ./
+    controlnet: ./
+    gligen: ./
+    upscale_models: ./
+    latent_upscale_models: ./
+    custom_nodes: ./
+    datasets: ./
+    hypernetworks: ./
+    photomaker: ./
+    classifiers: ./
+    model_patches: ./
+    audio_encoders: ./
+    background_removal: ./
+    frame_interpolation: ./
+    geometry_estimation: ./
+    optical_flow: ./
+    detection: ./
