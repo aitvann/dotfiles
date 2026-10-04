@@ -7,7 +7,8 @@
   overlay-llama-cpp = final: prev: {
     llama-cpp =
       (prev.llama-cpp.override {
-        rocmSupport = true;
+        # rocmSupport = true;
+        vulkanSupport = true;
         # Enable BLAS for optimized CPU layer performance (OpenBLAS)
         blasSupport = true;
       }).overrideAttrs (oldAttrs: {

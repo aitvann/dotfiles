@@ -23,6 +23,7 @@
 
     services.udisks2.enable = true;
     services.earlyoom.enable = true;
+    services.earlyoom.freeMemKillThreshold = 2;
 
     services.printing.enable = true;
     # Enable WIFI printing

@@ -12,6 +12,9 @@ macros:
       --port ${PORT}
       --log-verbosity 4
 
+      --no-warmup
+      --fit-target 256
+
       # Saves 1.3 Gb VRAM, FOR FREE?
       --parallel 1
 
@@ -160,8 +163,11 @@ models:
       ${llama-mtp}
       -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
       --gpu-layers all
-      # 2^15 + 2^14
-      --ctx-size 49152
+      # 2^16
+      --ctx-size 65536
+      # Does fit but too slow
+      # 2^17
+      # --ctx-size 131072
       --cache-type-k q8_0
       --cache-type-v q4_0
     <<: *qwen3-8-params
@@ -176,6 +182,9 @@ models:
       --gpu-layers all
       # 2^17
       --ctx-size 131072
+      # Does fit but too slow
+      # 2^18
+      # --ctx-size 262144
       --cache-type-k q8_0
       --cache-type-v q4_0
     <<: *qwen3-8-params
@@ -204,17 +213,17 @@ models:
     descriptions:
       The model does not fit into VRAM
     cmd: |
-      ${llama-mtp}
-      --spec-draft-model /var/lib/models/qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-Q4_0.gguf
+      # TODO: Figure out why it was working before and now it does not
+      # ${llama-mtp}
+      # --spec-draft-model /var/lib/models/qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-Q4_0.gguf
       # TODO: Figre out how to use shared MTP head (reuses tensors from the base model)
       # --spec-draft-model /var/lib/models/qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf
-      -m /var/lib/models/qwen3.8-flash-next/IQ3_XXS/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf
+      ${llama-base}
+      -m /var/lib/models/qwen3.8-flash-next/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
       # 2^17
       --ctx-size 131072
       --cache-type-k q8_0
       --cache-type-v q4_0
-      # --load-mode mmap+mlock
-      # --lazy-mode on
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-RAM":
