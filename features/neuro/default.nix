@@ -6,15 +6,31 @@
 }: let
   overlay-llama-cpp = final: prev: {
     llama-cpp =
+      # stew675/llama.cpp/rdna-boosts
+      # On par with Vulkan
+      # and it wants k and v cache quantization levels to match.
+      # (inputs.llama-cpp-rdna.packages.${final.stdenv.hostPlatform.system}.rocm.override {
+      #   rocmGpuTargets = "gfx1102";
+      # })
       (prev.master.llama-cpp.override {
         # rocmSupport = true;
         vulkanSupport = true;
         # Enable BLAS for optimized CPU layer performance (OpenBLAS)
         blasSupport = true;
-      }).overrideAttrs (oldAttrs: {
-        # Enable native CPU optimizations (AVX, AVX2, etc.)
+        rocmGpuTargets = ["gfx1102"];
+      })
+      .overrideAttrs (oldAttrs: {
         cmakeFlags =
-          (oldAttrs.cmakeFlags or []) ++ ["-DGGML_NATIVE=ON"];
+          (oldAttrs.cmakeFlags or [])
+          ++ [
+            # Enable native CPU optimizations (AVX, AVX2, etc.)
+            "-DGGML_NATIVE=ON"
+
+            # Cache miss is guarantied when adjusting compilation flags,
+            # this helps reduce build times (potentially)
+            "-DLLAMA_BUILD_TESTS=OFF"
+            "-DLLAMA_BUILD_EXAMPLES=OFF"
+          ];
         # Disable Nix's march=native stripping
         preConfigure = ''
           export NIX_ENFORCE_NO_NATIVE=0

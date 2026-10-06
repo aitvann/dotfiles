@@ -32,6 +32,9 @@
     comfyui-nix.url = "github:utensils/comfyui-nix";
     comfyui-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    llama-cpp-rdna.url = "github:stew675/llama.cpp/rdna-boosts";
+    llama-cpp-rdna.inputs.nixpkgs.follows = "nixpkgs";
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
