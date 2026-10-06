@@ -6,7 +6,13 @@
          '[cheshire.core :as json])
 
 (def interval-ms 1000) ; 1s
-(def keyboards ["zmk-project-charybdis-keyboard" "charybdis-keyboard-1" "dao-keyboard" "dao-keyboard-2" "at-translated-set-2-keyboard"])
+(def keyboards
+  ["zmk-project-charybdis-keyboard"
+   "charybdis-keyboard-1"
+   "dao-keyboard"
+   "dao-keyboard-2"
+   "at-translated-set-2-keyboard"
+   "gaming-keyboard"])
 
 (defn start-process [command & args]
   (let [pb (ProcessBuilder. (into [command] args))]
@@ -29,6 +35,8 @@
     (->> keyboards
          (map (fn [kb] (first (filter #(= (:name %) kb) devices))))
          (filter identity))))
+
+(get-keyboards)
 
 (defn get-info []
   (some->> (get-keyboards)
