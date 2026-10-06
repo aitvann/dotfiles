@@ -33,6 +33,8 @@
       openFirewall = true;
     };
 
+    services.lact.enable = true;
+
     services.snapper = {
       snapshotInterval = "hourly"; # doc: {manpage}`systemd.time(7)
       cleanupInterval = "1d";

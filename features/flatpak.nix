@@ -19,6 +19,8 @@
 
     services.flatpak = {
       enable = true;
+      # Suppress warning
+      runWithoutGui = false;
       preSwitchCommand = ''
         # https://github.com/in-a-dil-emma/declarative-flatpak/issues/30#issuecomment-2360118207
         ${lib.getExe pkgs.flatpak} override --user --unshare=network md.obsidian.Obsidian

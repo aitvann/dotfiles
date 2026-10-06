@@ -92,6 +92,8 @@
             pandoc
             markdownlint-cli2
 
+            codebook
+
             nixd
             alejandra
 

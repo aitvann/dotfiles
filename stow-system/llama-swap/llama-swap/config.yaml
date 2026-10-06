@@ -40,6 +40,8 @@ macros:
 x-qwen3-8-params: &qwen3-8-params
   filters:
     setParams:
+      max_tokens: 262144
+
       top_k: 20
       min_p: 0.0
       repetition_penalty: 1.0
