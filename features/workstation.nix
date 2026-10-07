@@ -110,6 +110,7 @@
       bc
       btrfs-assistant
       btrfs-list
+      wget
     ];
 
     home.file = lib.mkMerge [

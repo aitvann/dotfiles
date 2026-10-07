@@ -1,4 +1,9 @@
 # Configuration doc: https://github.com/mostlygeek/llama-swap/blob/main/docs/config.example.yaml
+#
+# Choose quants:
+# - ISTA-DASLab: best but only Q2, Q3 are available
+# - Bartowski: more quants, least size efficient but faster
+# - Unsloth: more quants and most size efficient but UD quants are 10% slower
 
 logLevel: debug
 logToStdout: "both"
@@ -12,9 +17,17 @@ macros:
       --port ${PORT}
       --log-verbosity 4
 
+  "qwen38-base": >
+    ${llama-base}
       --no-warmup
       --fit-target 256
-      --parallel 1
+
+      # It uses maybe half of the available cores by default
+      --threads 16
+
+      # Embedding lookup runs once per request and stays mmapped,
+      # so offloading it saves 388 MiB for no measurable cost.
+      --override-tensor token_embd=CPU
 
       # https://huggingface.co/froggeric/Qwen-Fixed-Chat-Templates
       --jinja
@@ -24,8 +37,8 @@ macros:
       # TODO: Figure out switching reasoning effort per-prompt
       --reasoning_effort "low"
       --reasoning-preserve
-  "llama-mtp": >
-    ${llama-base}
+  "qwen38-mtp": >
+    ${qwen38-base}
       --spec-type draft-mtp
       --spec-draft-backend-sampling
       --spec-draft-n-max 2
@@ -158,29 +171,35 @@ models:
   "Qwen3.8-27B-VRAM-SMART":
     descriptions:
       The model is smarter but not much is left for context.
-      Good for simple questions.
+      Good for simple chatting.
     cmd: |
-      ${llama-mtp}
-      -m /var/lib/models/Qwen3.8-27B-UD-IQ4_XS.gguf
+      ${qwen38-mtp}
+      -m /var/lib/models/Qwen3.8-27B-IQ4_XS.gguf
       --gpu-layers all
+      # 2^14
+      --ctx-size 16384
+      # Sizes below fit but too slow
+      # 2^15
+      # --ctx-size 32768
       # 2^15 + 2^14
       # --ctx-size 49152
       # 2^16
-      --ctx-size 65536
-      # Does fit but too slow
+      # --ctx-size 65536
       # 2^17
       # --ctx-size 131072
       --cache-type-k q8_0
       --cache-type-v q4_0
+      --parallel 2
+      --mmproj /var/lib/models/mmproj-Qwen3.8-27B-f16.gguf
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-VRAM-WISE":
     descriptions:
       The model takes less space and thus can fit bigger context.
-      Good for coding.
+      Good for agentic coding coding.
     cmd: |
-      ${llama-mtp}
-      -m /var/lib/models/Qwen3.8-27B-UD-IQ3_XXS.gguf
+      ${qwen38-mtp}
+      -m /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-mtp.gguf
       --gpu-layers all
       # 2^17
       --ctx-size 131072
@@ -188,7 +207,8 @@ models:
       # 2^18
       # --ctx-size 262144
       --cache-type-k q8_0
-      --cache-type-v q4_0
+      --cache-type-v q5_0
+      --parallel 4
     <<: *qwen3-8-params
 
   # https://www.reddit.com/r/LocalLLaMA/s/L7cci70aK9
@@ -197,24 +217,27 @@ models:
       The model takes less space and thus can fit bigger context.
       Fine-tuning hurts accuracy, good for tasks that really require uncensored results.
     cmd: |
-      ${llama-mtp}
+      ${qwen38-mtp}
       --model /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-Uncensored-v1.1.gguf
       --gpu-layers all
       # 2^17
       --ctx-size 131072
       --cache-type-k q8_0
       --cache-type-v q4_0
+      --parallel 4
+      --mmproj /var/lib/models/mmproj-Qwen3.8-27B-f16.gguf
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-RAM":
     descriptions:
       The model does not fit into VRAM, full context.
     cmd: |
-      ${llama-mtp}
+      ${qwen38-mtp}
       -m /var/lib/models/Qwen3.8-27B-UD-Q8_K_XL.gguf
       --ctx-size 262144
       --cache-type-k q8_0
       --cache-type-v q8_0
+      --parallel 4
     <<: *qwen3-8-params
 
   # TODO: Try Strata: https://github.com/Niko1221/Strata
@@ -227,11 +250,11 @@ models:
       The model does not fit into VRAM.
     cmd: |
       # TODO: No TG speed gains, more VRAM consumed and slower PP
-      # ${llama-mtp}
+      # ${qwen38-mtp}
       # --spec-draft-model /var/lib/models/qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-Q4_0.gguf
       # TODO: Figre out how to use shared MTP head (reuses tensors from the base model)
       # --spec-draft-model /var/lib/models/qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf
-      ${llama-base}
+      ${qwen38-base}
       -m /var/lib/models/qwen3.8-flash-next/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
       # 2^16 + 2^15
       # --ctx-size 98304
@@ -239,6 +262,7 @@ models:
       --ctx-size 131072
       --cache-type-k q8_0
       --cache-type-v q4_0
+      --parallel 4
     <<: *qwen3-8-params
 
   "Qwen3.8-Flash-Next-Coder-RAM":
@@ -271,11 +295,12 @@ models:
       The model does not fit into VRAM but the speed descrese
       is compensated by A3B and MTP
     cmd: |
-      ${llama-mtp}
+      ${qwen38-mtp}
       # -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf
       -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
       # --ctx-size 131072
       --ctx-size 262144
       --cache-type-k q8_0
       --cache-type-v q8_0
+      --parallel 4
     <<: *qwen3-6-params
