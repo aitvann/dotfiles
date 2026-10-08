@@ -164,6 +164,20 @@ models:
       --steps 8
     checkEndpoint: none
 
+  "Image-Master-RAM":
+    description:
+      Finetune. The model fits into VRAM and works relatively fast
+    cmd: |
+      ${sd-base}
+      --diffusion-model /var/lib/models/image-master/ImageMaster-z-image-Turbo-V3.5_bf16.safetensors
+      --vae /var/lib/models/image-master/ae.safetensors
+      --llm /var/lib/models/image-master/qwen_3_4b.safetensors
+      --diffusion-fa
+      --vae-conv-direct
+      --cfg-scale 2.0
+      --steps 16
+    checkEndpoint: none
+
   # --------------------------------------------------------------------------------
   # Qwen3.8 27b
   # --------------------------------------------------------------------------------

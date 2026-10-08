@@ -37,6 +37,21 @@
             "xhigh": "xhigh",
             "max": null
           }
+        },
+        {
+          "id": "Qwen3.8-27B-VRAM-UNCENSORED:Thinking",
+          "contextWindow": 131072,
+          "maxTokens": 131072,
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
         }
       ]
     }

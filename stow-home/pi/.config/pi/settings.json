@@ -1,0 +1,9 @@
+{
+  "lastChangelogVersion": "0.87.1",
+  "theme": "dark",
+  "defaultProvider": "ollama",
+  "defaultModel": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
+  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "low",
+  "tuiMode": "regular"
+}
