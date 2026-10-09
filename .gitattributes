@@ -12,6 +12,7 @@ stow-home/syncthing-pluto-general/.config/syncthing/https-key.pem filter=git-cry
 stow-home/syncthing-pluto-general/.config/syncthing/key.pem filter=git-crypt diff=git-crypt
 stow-home/gnupg/.config/gnupg/sshcontrol filter=git-crypt diff=git-crypt
 stow-home/git-work/.gitconfig filter=git-crypt diff=git-crypt
+stow-home/pi/.config/pi/prompts/analyze-knowledge-base.md filter=git-crypt diff=git-crypt
 configs/searx-preferences.url filter=git-crypt diff=git-crypt
 stow-system/xray-venus/xray/config.json filter=git-crypt diff=git-crypt
 stow-system/xray-jupiter/xray/config.json filter=git-crypt diff=git-crypt

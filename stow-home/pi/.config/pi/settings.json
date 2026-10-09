@@ -5,5 +5,7 @@
   "defaultModel": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
-  "tuiMode": "regular"
+  "tuiMode": "regular",
+  "enableInstallTelemetry": false,
+  "enableAnalytics": false
 }
