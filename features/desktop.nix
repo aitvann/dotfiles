@@ -5,7 +5,9 @@
     ...
   }: {
     boot.initrd.systemd.enable = true;
-    boot.plymouth.enable = true;
+    # HACK: Makes usb errors visible because it wount be able
+    # to resume from hibernation until they are all gone
+    boot.plymouth.enable = false;
 
     boot.kernelParams = ["quite" "mem_sleep_default=deep"];
     services.logind.settings.Login.HandlePowerKey = "hibernate";
