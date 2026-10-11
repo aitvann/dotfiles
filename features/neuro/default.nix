@@ -12,7 +12,7 @@
       # (inputs.llama-cpp-rdna.packages.${final.stdenv.hostPlatform.system}.rocm.override {
       #   rocmGpuTargets = "gfx1102";
       # })
-      (prev.master.llama-cpp.override {
+      (prev.llama-cpp.override {
         # rocmSupport = true;
         vulkanSupport = true;
         # Enable BLAS for optimized CPU layer performance (OpenBLAS)
@@ -140,7 +140,8 @@ in {
     # TODO: Check if Qwen Image 2.1 in supported in the next update
     # https://github.com/city96/ComfyUI-GGUF/pull/483
     services.comfyui = {
-      enable = true;
+      # TODO: Enable once compiles again
+      # enable = true;
       gpuSupport = "rocm";
       extraArgs = ["--extra-model-paths-config" "/etc/comfyui/extra_model_paths.yaml"];
     };
@@ -214,7 +215,8 @@ in {
     ];
 
     services.open-webui = {
-      enable = true;
+      # TODO: Enable once compiles again
+      # enable = true;
       host = "0.0.0.0";
       port = 2402;
     };
