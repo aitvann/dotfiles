@@ -87,6 +87,11 @@ in {
       inputs.comfyui-nix.overlays.default
     ];
 
+    nixpkgs.allowedUnfreePackages = [
+      # MongoDB for LibreChat
+      "mongodb"
+    ];
+
     systemd.services.llama-swap = lib.mkMerge [
       # Making this module stow-compatible:
       # 1. Add `llama-cpp` to the PATH
@@ -146,6 +151,43 @@ in {
       extraArgs = ["--extra-model-paths-config" "/etc/comfyui/extra_model_paths.yaml"];
     };
 
+    systemd.services.librechat = lib.mkMerge [
+      # Making this module stow-compatible:
+      {
+        environment.CONFIG_PATH = lib.mkForce "/etc/librechat/config.yaml";
+      }
+
+      # TODO: Make it actually work
+      # (lib.mkIf config.impurity.enable {
+      (lib.mkIf true {
+        serviceConfig.DynamicUser = lib.mkForce false;
+        serviceConfig.CapabilityBoundingSet = lib.mkForce "~";
+        serviceConfig.PrivateUsers = lib.mkForce false;
+        serviceConfig.ProtectHome = lib.mkForce false;
+      })
+    ];
+
+    # Secrets are stored in a git-crypt encrypted stow package and loaded
+    # via systemd credentials, so they never end up in the Nix store.
+    services.librechat = {
+      enable = true;
+      openFirewall = true;
+      enableLocalDB = true;
+
+      env = {
+        HOST = "0.0.0.0";
+        PORT = 3080;
+        ALLOW_REGISTRATION = true;
+      };
+
+      credentials = {
+        CREDS_KEY = "/etc/librechat/secrets/CREDS_KEY";
+        CREDS_IV = "/etc/librechat/secrets/CREDS_IV";
+        JWT_SECRET = "/etc/librechat/secrets/JWT_SECRET";
+        JWT_REFRESH_SECRET = "/etc/librechat/secrets/JWT_REFRESH_SECRET";
+      };
+    };
+
     # How to obtain a model:
     # 1. Go to https://huggingface.co/unsloth and find a model
     # 2. Choose quantization and click on it
@@ -156,13 +198,18 @@ in {
     ];
 
     networking.firewall = {
+      # open-webui
       allowedTCPPorts = [2402];
     };
 
     environment.etc = lib.mkMerge [
+      (packageSystemFiles "comfyui")
       # So it works even with impure enabled
-      {"comfyui/extra_model_paths.yaml".source = "${inputs.self}/stow-system/comfyui/comfyui/extra_model_paths.yaml";}
-      # (packageSystemFiles "comfyui")
+      {"comfyui/extra_model_paths.yaml".source = lib.mkOverride 40 "${inputs.self}/stow-system/comfyui/comfyui/extra_model_paths.yaml";}
+
+      (packageSystemFiles "librechat")
+      # So it works even with impure enabled
+      {"librechat/config.yaml".source = lib.mkOverride 40 "${inputs.self}/stow-system/librechat/librechat/config.yaml";}
 
       (packageSystemFiles "llama-swap")
     ];

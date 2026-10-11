@@ -1,0 +1,16 @@
+version: 1.2.1
+
+endpoints:
+  custom:
+    - name: "Local"
+      apiKey: "none"
+      baseURL: "http://localhost:11434/v1"
+      models:
+        default:
+          - "Qwen3.8-27B-VRAM-SMART"
+        fetch: true
+      titleConvo: true
+      titleModel: "titleModel"
+      summarize: false
+      forcePrompt: false
+      modelDisplayLabel: "modelDisplayLabel"
