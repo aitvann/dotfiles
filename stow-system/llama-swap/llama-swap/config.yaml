@@ -41,8 +41,8 @@ macros:
   "qwen38-mtp": >
     ${qwen38-base}
       --spec-type draft-mtp
-      --spec-draft-backend-sampling
-      --spec-draft-n-max 2
+      --spec-draft-n-max 3
+      --spec-draft-sampling probabilistic
 
   "sd-base": >
     sd-server

@@ -203,10 +203,13 @@ vim.keymap.set("n", "gW", function()
         fzf_lua.live_grep({
             -- Enter `blob` mode immediately
             glob_separator = "file:",
-            search = "file:*",
+            -- No `*` in the end because it makes grep
+            -- skip .gitignore and hidden files filtration.
+            -- search = "file:*",
             no_esc = true,
-            -- Skip filename from search (still displayed)
-            fzf_opts = { ['--nth'] = '2..' }
+            -- This is supposed to skip filename from search (still displayed).
+            -- But it skips the first word of every file as weill.
+            -- fzf_opts = { ['--nth'] = '2..' }
         })
     end,
     { silent = true, desc = "Go to Word in the PROJECT" })

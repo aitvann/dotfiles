@@ -10,7 +10,7 @@ endpoints:
           - "Qwen3.8-27B-VRAM-SMART"
         fetch: true
       titleConvo: true
-      titleModel: "titleModel"
+      titleModel: testTitleModel
       summarize: false
       forcePrompt: false
-      modelDisplayLabel: "modelDisplayLabel"
+      modelDisplayLabel: Local Intelligence

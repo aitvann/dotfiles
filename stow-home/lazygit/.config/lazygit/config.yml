@@ -15,6 +15,14 @@ git:
   autoFetch: false
   diffRenderers:
     - command: delta --syntax-theme tokyonight-storm --dark --paging=never
+
+keybindig:
+  universal:
+    # Consider this more consistent keybind (it is used for other actions)
+    # prevScreenMode: '-'
+    # Default
+    # nextScreenMode: +
+
 os:
   edit: |
     if [[ $VISUAL == nvim* ]] && { [[ -v NVIM_PIPE ]] || [[ -v NVIM ]]; }; then
