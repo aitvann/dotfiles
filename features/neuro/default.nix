@@ -4,6 +4,8 @@
   ...
 }: let
   overrides = final: prev: {
+    qmd = inputs.qmd.packages.${prev.stdenv.hostPlatform.system}.default;
+
     llama-cpp =
       # stew675/llama.cpp/rdna-boosts
       # On par with Vulkan
@@ -218,12 +220,12 @@ in {
   });
 
   options.modules.homeManager = mkModuleOption "neuro" ({
+    config,
     pkgs,
     lib,
     packageHomeFiles,
     ...
-  }: let
-  in {
+  }: {
     nixpkgs.overlays = overlays;
 
     programs.pi-coding-agent = {
@@ -234,10 +236,12 @@ in {
       python314Packages.huggingface-hub
       llama-cpp
       unsloth-desktop
+      qmd
     ];
 
     home.file = lib.mkMerge [
       (packageHomeFiles "pi")
+      (packageHomeFiles "qmd-${config.home.username}")
     ];
   });
 }
