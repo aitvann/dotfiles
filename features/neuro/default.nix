@@ -1,6 +1,5 @@
 {
   inputs,
-  config',
   mkModuleOption,
   ...
 }: let
@@ -197,11 +196,6 @@ in {
       "d /var/lib/models  0777 root root -"
     ];
 
-    networking.firewall = {
-      # open-webui
-      allowedTCPPorts = [2402];
-    };
-
     environment.etc = lib.mkMerge [
       (packageSystemFiles "comfyui")
       # So it works even with impure enabled
@@ -230,22 +224,7 @@ in {
     ...
   }: let
   in {
-    imports = with config'.modules.homeManager; [
-      stowfulOpenWebui
-    ];
-
     nixpkgs.overlays = overlays;
-
-    nixpkgs.allowedUnfreePackages = [
-      "open-webui"
-    ];
-
-    services.open-webui = {
-      # TODO: Enable once compiles again
-      # enable = true;
-      host = "0.0.0.0";
-      port = 2402;
-    };
 
     programs.pi-coding-agent = {
       enable = true;
