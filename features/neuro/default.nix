@@ -4,7 +4,7 @@
   mkModuleOption,
   ...
 }: let
-  overlay-llama-cpp = final: prev: {
+  overrides = final: prev: {
     llama-cpp =
       # stew675/llama.cpp/rdna-boosts
       # On par with Vulkan
@@ -37,8 +37,7 @@
           ${oldAttrs.preConfigure or ""}
         '';
       });
-  };
-  overlay-stable-diffusion-cpp = final: prev: {
+
     stable-diffusion-cpp =
       (prev.stable-diffusion-cpp.override {
         rocmSupport = true;
@@ -69,6 +68,11 @@
         }
       );
   };
+
+  overlays = [
+    inputs.comfyui-nix.overlays.default
+    overrides
+  ];
 in {
   options.modules.nixos = mkModuleOption "neuro" ({
     config,
@@ -81,11 +85,7 @@ in {
       inputs.comfyui-nix.nixosModules.default
     ];
 
-    nixpkgs.overlays = [
-      overlay-llama-cpp
-      overlay-stable-diffusion-cpp
-      inputs.comfyui-nix.overlays.default
-    ];
+    nixpkgs.overlays = overlays;
 
     nixpkgs.allowedUnfreePackages = [
       # MongoDB for LibreChat
@@ -224,38 +224,17 @@ in {
   });
 
   options.modules.homeManager = mkModuleOption "neuro" ({
-    config,
     pkgs,
     lib,
     packageHomeFiles,
     ...
-  }: {
+  }: let
+  in {
     imports = with config'.modules.homeManager; [
       stowfulOpenWebui
     ];
 
-    nixpkgs.overlays = [
-      overlay-llama-cpp
-      overlay-stable-diffusion-cpp
-      inputs.comfyui-nix.overlays.default
-      (
-        final: prev: {
-          # Inspiration: https://discourse.nixos.org/t/pi-coding-agent-how-to-install-npm-extensions/77030/2
-          pi-coding-agent = prev.pi-coding-agent.overrideAttrs (old: {
-            nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.makeWrapper];
-
-            postInstall =
-              (old.postInstall or "")
-              + ''
-                wrapProgram $out/bin/pi \
-                  --set PI_TELEMETRY 0 \
-                  --set NPM_CONFIG_PREFIX ${config.xdg.dataHome}/pi/npm/ \
-                  --prefix PATH : ${final.lib.makeBinPath (with final; [nodejs_latest])}
-              '';
-          });
-        }
-      )
-    ];
+    nixpkgs.overlays = overlays;
 
     nixpkgs.allowedUnfreePackages = [
       "open-webui"
@@ -268,11 +247,14 @@ in {
       port = 2402;
     };
 
+    programs.pi-coding-agent = {
+      enable = true;
+    };
+
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
       llama-cpp
       unsloth-desktop
-      pi-coding-agent
     ];
 
     home.file = lib.mkMerge [
