@@ -26,9 +26,10 @@ in {
       lazygit
       direnv
       neovim
+      agent
     ];
 
-    # No unfree package is allowed in work environment
+    # No unfree package are allowed in work environment
     nixpkgs.allowSomeUnfree = lib.mkForce false;
     nixpkgs.config.allowUnfree = lib.mkForce false;
 

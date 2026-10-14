@@ -1,0 +1,11 @@
+{
+  "lastChangelogVersion": "1.1.0",
+  "theme": "dark",
+  "defaultProvider": "ollama",
+  "defaultModel": "Qwen/Qwen3.8-27B",
+  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "low",
+  "tuiMode": "regular",
+  "enableInstallTelemetry": false,
+  "enableAnalytics": false
+}

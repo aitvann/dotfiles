@@ -1,0 +1,27 @@
+{
+  "providers": {
+    "ollama": {
+      "baseUrl": "http://localhost:11434/v1",
+      "api": "openai-completions",
+      "apiKey": "ollama",
+      "compat": {
+        "thinkingFormat": "chat-template",
+        "chatTemplateKwargs": {
+          "enable_thinking": {
+            "$var": "thinking.enabled"
+          },
+          "reasoning_effort": {
+            "$var": "thinking.effort",
+            "omitWhenOff": false
+          }
+        }
+      },
+      "models": [
+        {
+          "id": "Qwen/Qwen3.8-27B",
+          "reasoning": true
+        }
+      ]
+    }
+  }
+}

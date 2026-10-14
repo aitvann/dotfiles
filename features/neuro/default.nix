@@ -1,4 +1,5 @@
 {
+  config',
   inputs,
   mkModuleOption,
   ...
@@ -226,11 +227,11 @@ in {
     packageHomeFiles,
     ...
   }: {
-    nixpkgs.overlays = overlays;
+    imports = with config'.modules.homeManager; [
+      agent
+    ];
 
-    programs.pi-coding-agent = {
-      enable = true;
-    };
+    nixpkgs.overlays = overlays;
 
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
@@ -240,7 +241,6 @@ in {
     ];
 
     home.file = lib.mkMerge [
-      (packageHomeFiles "pi")
       (packageHomeFiles "qmd-${config.home.username}")
     ];
   });

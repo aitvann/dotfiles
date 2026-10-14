@@ -205,7 +205,7 @@ vim.keymap.set("n", "gW", function()
             glob_separator = "file:",
             -- No `*` in the end because it makes grep
             -- skip .gitignore and hidden files filtration.
-            -- search = "file:*",
+            search = "file:",
             no_esc = true,
             -- This is supposed to skip filename from search (still displayed).
             -- But it skips the first word of every file as weill.
