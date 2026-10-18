@@ -100,6 +100,10 @@
 
             codebook
 
+            bash-language-server
+            shellcheck
+            shfmt
+
             nixd
             alejandra
 

@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd("User", {
             "nixd",          -- nix
             "marksman",      -- markdown
             "clojure_lsp",   -- clojure
+            "bashls",        -- bash
             "tombi",         -- toml
             "tinymist",      -- typst
             "codebook",      -- spelling
