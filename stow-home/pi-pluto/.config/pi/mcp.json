@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "docs-mcp-server": {
+      "enabled": false,
+      "env": {
+        "OPENAI_API_BASE": "http://localhost:11434/v1",
+        "OPENAI_API_KEY": "none",
+        "DOCS_MCP_EMBEDDING_MODEL": "EmbeddingGemma-2-VRAM-IGPU"
+      },
+      "command": "docs-mcp-server",
+      "args": [],
+      "description": "Search and read library documentation for any prgramming language.",
+      "exposure": "direct",
+      "toolExposure": {
+        "list_libraries": "direct",
+        "find_version": "direct",
+        "search_docs": "direct",
+        "list_pages": "direct",
+        "read_page": "direct",
+
+        "scrape_docs": "hidden",
+        "refresh_version": "hidden",
+        "list_jobs": "hidden",
+        "get_job_info": "hidden",
+        "cancel_job": "hidden",
+        "remove_docs": "hidden",
+        "fetch_url": "hidden"
+      }
+    }
+  }
+}

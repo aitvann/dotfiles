@@ -18,6 +18,7 @@ macros:
       --log-verbosity 4
 
       --no-warmup
+      --split-mode none
       --fit-target 256
       --kv-unified
 
@@ -370,3 +371,50 @@ models:
       --cache-type-v q8_0
       --parallel 4
     <<: *qwen3-6-params
+
+  # --------------------------------------------------------------------------------
+  # Embeddings
+  # --------------------------------------------------------------------------------
+
+  "EmbeddingGemma-2-VRAM-IGPU":
+    description: 
+      Embeddings model.
+      Runs on iGPU so can be used concurently with dGPU models
+    cmd: |
+      ${llama-base}
+      -m /var/lib/models/embeddinggemma-2/embeddinggemma-2-BF16.gguf
+      --embeddings
+      --gpu-layers all
+      --ctx-size 8192
+      --batch-size 8192
+      --ubatch-size 8192
+      --pooling mean
+      --parallel 1
+      # Forcing it to use iGPU
+      --device Vulkan1
+      # It does not see iGPU for some reason
+      # --main-gpu 1
+
+routing:
+  router:
+    settings:
+      groups:
+        "dGPU-models":
+          exclusive: false
+          members:
+            - "Qwen-Image-2.1-VRAM"
+            - "Z-Image-VRAM"
+            - "Image-Master-RAM"
+            - "Gemma4-26B-A4B-RAM-UNCENSORED"
+            - "Qwen3.8-27B-VRAM-SMART"
+            - "Qwen3.8-27B-VRAM-WISE"
+            - "Qwen3.8-27B-VRAM-UNCENSORED"
+            - "Qwen3.8-27B-RAM"
+            - "Qwen3.8-Flash-Next-RAM"
+            - "Qwen3.8-Flash-Next-Coder-RAM"
+            - "Qwen3.6-35B-A3B-RAM"
+
+        "iGPU-models":
+          exclusive: false
+          members:
+            - "EmbeddingGemma-2-VRAM-IGPU"

@@ -4,6 +4,25 @@
   mkModuleOption,
   ...
 }: let
+  llama-cpp-override-attrs = oldAttrs: {
+    cmakeFlags =
+      (oldAttrs.cmakeFlags or [])
+      ++ [
+        # Enable native CPU optimizations (AVX, AVX2, etc.)
+        "-DGGML_NATIVE=ON"
+
+        # Cache miss is guarantied when adjusting compilation flags,
+        # this helps reduce build times (potentially)
+        "-DLLAMA_BUILD_TESTS=OFF"
+        "-DLLAMA_BUILD_EXAMPLES=OFF"
+      ];
+    # Disable Nix's march=native stripping
+    preConfigure = ''
+      export NIX_ENFORCE_NO_NATIVE=0
+      ${oldAttrs.preConfigure or ""}
+    '';
+  };
+
   overrides = final: prev: {
     qmd = inputs.qmd.packages.${prev.stdenv.hostPlatform.system}.default;
 
@@ -21,24 +40,16 @@
         blasSupport = true;
         rocmGpuTargets = ["gfx1102"];
       })
-      .overrideAttrs (oldAttrs: {
-        cmakeFlags =
-          (oldAttrs.cmakeFlags or [])
-          ++ [
-            # Enable native CPU optimizations (AVX, AVX2, etc.)
-            "-DGGML_NATIVE=ON"
+      .overrideAttrs
+      llama-cpp-override-attrs;
 
-            # Cache miss is guarantied when adjusting compilation flags,
-            # this helps reduce build times (potentially)
-            "-DLLAMA_BUILD_TESTS=OFF"
-            "-DLLAMA_BUILD_EXAMPLES=OFF"
-          ];
-        # Disable Nix's march=native stripping
-        preConfigure = ''
-          export NIX_ENFORCE_NO_NATIVE=0
-          ${oldAttrs.preConfigure or ""}
-        '';
-      });
+    # Use when nixpkgs/master lags behind
+    llama-cpp-upstream =
+      (inputs.llama-cpp.packages.${final.stdenv.hostPlatform.system}.vulkan.override {
+        useRocm = false;
+      })
+      .overrideAttrs
+      llama-cpp-override-attrs;
 
     stable-diffusion-cpp =
       (prev.stable-diffusion-cpp.override {
@@ -95,11 +106,16 @@ in {
     ];
 
     systemd.services.llama-swap = lib.mkMerge [
+      {
+        # Make it see both GPU's
+        environment.GGML_VK_VISIBLE_DEVICES = "0,1";
+      }
+
       # Making this module stow-compatible:
       # 1. Add `llama-cpp` to the PATH
       # 2. Reading config from `/etc` instead of cli arg
       {
-        path = with pkgs; [llama-cpp stable-diffusion-cpp];
+        path = with pkgs; [llama-cpp-upstream stable-diffusion-cpp];
 
         serviceConfig.ExecStart = with config.services.llama-swap;
           lib.mkForce
@@ -235,7 +251,7 @@ in {
 
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
-      llama-cpp
+      llama-cpp-upstream
       unsloth-desktop
 
       # Enable GPU support

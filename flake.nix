@@ -35,6 +35,9 @@
     llama-cpp-rdna.url = "github:stew675/llama.cpp/rdna-boosts";
     llama-cpp-rdna.inputs.nixpkgs.follows = "nixpkgs";
 
+    llama-cpp.url = "github:ggml-org/llama.cpp/master";
+    llama-cpp.inputs.nixpkgs.follows = "nixpkgs";
+
     qmd.url = "github:tobi/qmd";
     qmd.inputs.nixpkgs.follows = "nixpkgs";
 
