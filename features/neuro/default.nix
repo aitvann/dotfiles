@@ -237,6 +237,12 @@ in {
       python314Packages.huggingface-hub
       llama-cpp
       unsloth-desktop
+
+      # Enable GPU support
+      # https://github.com/numtide/llm-agents.nix/blob/main/packages/qmd/package.nix
+      #
+      # Use embedding model by api
+      # https://github.com/tobi/qmd/issues/620
       qmd
     ];
 

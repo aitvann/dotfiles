@@ -17,8 +17,6 @@ macros:
       --port ${PORT}
       --log-verbosity 4
 
-  "qwen38-base": >
-    ${llama-base}
       --no-warmup
       --fit-target 256
       --kv-unified
@@ -26,6 +24,8 @@ macros:
       # It uses maybe half of the available cores by default
       --threads 16
 
+  "qwen38-base": >
+    ${llama-base}
       # Embedding lookup runs once per request and stays mmapped,
       # so offloading it saves 388 MiB for no measurable cost.
       --override-tensor token_embd=CPU
@@ -180,6 +180,41 @@ models:
     checkEndpoint: none
 
   # --------------------------------------------------------------------------------
+  # Gemma4 26b A4b
+  # --------------------------------------------------------------------------------
+
+  "Gemma4-26B-A4B-RAM-UNCENSORED":
+    descriptions:
+      Does not fit into VRAM, but the speed should still be good since it's MoE.
+      Good for creative writing.
+      Fine-tuning hurts accuracy, good for tasks that really require uncensored results.
+    capabilities:
+      context: 65536
+    cmd: |
+      ${llama-base}
+      --model /var/lib/models/gemma-4-26B-A4B-it-uncensored-Q8_0.gguf
+      --gpu-layers all
+      # 2^17
+      # --ctx-size 131072
+      # 2^16 + 2^15
+      # --ctx-size 98304
+      # 2^16
+      --ctx-size 65536
+      --cache-type-k q8_0
+      --cache-type-v q5_0
+      --parallel 1
+    filters:
+      setParams:
+        top_k: 20
+        min_p: 0.0
+        repetition_penalty: 1.2
+        temperature: 1.0
+        top_p: 0.95
+        presence_penalty: 0.0
+        chat_template_kwargs:
+          enable_thinking: false
+
+  # --------------------------------------------------------------------------------
   # Qwen3.8 27b
   # --------------------------------------------------------------------------------
 
@@ -218,19 +253,21 @@ models:
       context: 131072
     cmd: |
       ${qwen38-mtp}
-      -m /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-mtp.gguf
+      -m /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf
       --gpu-layers all
+      # 2^15
+      # --ctx-size 32768
+      # 2^16
+      # --ctx-size 65536
+      # 2^16 + 2^15
+      # --ctx-size 98304
       # 2^17
       --ctx-size 131072
-      # Does fit but too slow
-      # 2^18
-      # --ctx-size 262144
       --cache-type-k q8_0
       --cache-type-v q5_0
-      --parallel 4
+      --parallel 1
     <<: *qwen3-8-params
 
-  # https://www.reddit.com/r/LocalLLaMA/s/L7cci70aK9
   "Qwen3.8-27B-VRAM-UNCENSORED":
     descriptions:
       The model takes less space and thus can fit bigger context.
