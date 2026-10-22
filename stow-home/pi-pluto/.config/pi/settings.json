@@ -3,9 +3,12 @@
   "theme": "dark",
   "defaultProvider": "ollama",
   "defaultModel": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "tuiMode": "regular",
   "enableInstallTelemetry": false,
-  "enableAnalytics": false
+  "enableAnalytics": false,
+  "packages": [
+    "git:github.com/jojopirker/pi-timer"
+  ]
 }
