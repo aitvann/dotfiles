@@ -225,6 +225,16 @@ A commit message should follow Conventional Commits style and be structured as f
 [optional footer(s)]
 ```
 
+The commit contains the following structural elements, to communicate intent to the consumers of
+your library:
+
+1.  **fix:** a commit of the type fix patches a bug in your codebase (this correlates with PATCH
+    in Semantic Versioning).
+2.  **feat:** a commit of the type feat introduces a new feature to the codebase (this correlates
+    with MINOR in Semantic Versioning).
+3.  types other than *fix:* and *feat:* are allowed, for example *build:*, *chore:*, *ci:*,
+    *docs:*, *style:*, *refactor:*, perf:, test:, and others.
+
 The feature name is a good candidate for `scope`. For big features such as NeoVim, scope could be
 further specified with a sub-module, example `feat(neovim::lsp)`.
 

@@ -10,6 +10,7 @@ services:
 notARepository: quit
 promptToReturnFromSubprocess: false
 git:
+  overrideGpg: true
   # If true, periodically fetch from remote
   # AND PROMT FOR SSH PASSWORD
   autoFetch: false

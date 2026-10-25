@@ -25,6 +25,10 @@
         "remove_docs": "hidden",
         "fetch_url": "hidden"
       }
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "exposure": "direct"
     }
   }
 }
