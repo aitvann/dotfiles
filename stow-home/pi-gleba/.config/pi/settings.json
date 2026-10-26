@@ -7,5 +7,14 @@
   "defaultThinkingLevel": "low",
   "tuiMode": "regular",
   "enableInstallTelemetry": false,
-  "enableAnalytics": false
+  "enableAnalytics": false,
+  "httpIdleTimeoutMs": 600000,
+  "packages": [
+    "https://github.com/jojopirker/pi-timer",
+    "https://github.com/sting8k/pi-vcc"
+  ],
+  "defaultTools": ["+codemode"],
+  "compaction": {
+    "enabled": true
+  }
 }

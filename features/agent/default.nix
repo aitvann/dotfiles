@@ -17,6 +17,7 @@
     nixpkgs.overlays = [
       (final: prev: {
         docs-mcp-server = final.callPackage ./docs-mcp-server.pkg.nix {};
+        cratesio-mcp = final.callPackage ./cratesio-mcp.pkg.nix {};
       })
     ];
 
@@ -38,6 +39,7 @@
       openspec
 
       docs-mcp-server
+      cratesio-mcp
 
       # Reqired for Pi to install extentions
       nodejs_22

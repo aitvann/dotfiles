@@ -25,6 +25,19 @@ macros:
       # It uses maybe half of the available cores by default
       --threads 16
 
+  "llama-base-upstream": >
+    llama-server-upstream
+      --port ${PORT}
+      --log-verbosity 4
+
+      --no-warmup
+      --split-mode none
+      --fit-target 256
+      --kv-unified
+
+      # It uses maybe half of the available cores by default
+      --threads 16
+
   "qwen38-base": >
     ${llama-base}
       # Embedding lookup runs once per request and stays mmapped,
@@ -381,7 +394,7 @@ models:
       Embeddings model.
       Runs on iGPU so can be used concurently with dGPU models
     cmd: |
-      ${llama-base}
+      ${llama-base-upstream}
       -m /var/lib/models/embeddinggemma-2/embeddinggemma-2-BF16.gguf
       --embeddings
       --gpu-layers all

@@ -8,15 +8,14 @@
         "DOCS_MCP_EMBEDDING_MODEL": "EmbeddingGemma-2-VRAM-IGPU"
       },
       "command": "docs-mcp-server",
-      "args": [],
       "description": "Search and read library documentation for any prgramming language.",
-      "exposure": "direct",
       "toolExposure": {
-        "list_libraries": "direct",
-        "find_version": "direct",
-        "search_docs": "direct",
-        "list_pages": "direct",
-        "read_page": "direct",
+        "list_libraries": "codemode",
+        "find_version": "codemode",
+        "search_docs": "codemode",
+        "list_pages": "codemode",
+        "read_page": "codemode",
+
         "scrape_docs": "hidden",
         "refresh_version": "hidden",
         "list_jobs": "hidden",
@@ -26,9 +25,52 @@
         "fetch_url": "hidden"
       }
     },
+    "cratesio-mcp": {
+      "enabled": false,
+      "command": "cratesio-mcp",
+      "toolExposure": {
+        "search_crates": "codemode",
+        "get_categories": "codemode",
+        "get_category": "codemode",
+        "get_keywords": "codemode",
+        "get_keyword": "codemode",
+        "get_crate_info": "codemode",
+        "get_dependencies": "codemode",
+        "get_reverse_dependencies": "codemode",
+
+        "get_crate_versions": "hidden",
+        "get_crate_version": "hidden",
+        "get_crate_readme": "hidden",
+        "get_crate_features": "hidden",
+        "get_crate_docs": "hidden",
+        "get_doc_item": "hidden",
+        "search_docs": "hidden",
+        "audit_dependencies": "hidden",
+        "get_downloads": "hidden",
+        "get_version_downloads": "hidden",
+        "get_crate_authors": "hidden",
+        "get_owners": "hidden",
+        "get_user": "hidden",
+        "get_user_stats": "hidden",
+        "get_summary": "hidden",
+        "compare_crates": "hidden",
+        "get_dependency_tree": "hidden",
+        "get_crate_health": "hidden",
+        "get_alternatives": "hidden",
+        "get_crate_changelog": "hidden",
+        "get_release_timeline": "hidden"
+      }
+    },
     "context7": {
+      "enabled": true,
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "context7-auth": {
+      "enabled": false,
       "url": "https://mcp.context7.com/mcp",
-      "exposure": "direct"
+      "headers": {
+        "Authorization": "Bearer ${CONTEXT7_API_KEY}"
+      }
     }
   }
 }

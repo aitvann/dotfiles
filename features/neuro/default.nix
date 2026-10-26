@@ -51,6 +51,10 @@
       .overrideAttrs
       llama-cpp-override-attrs;
 
+    llama-cpp-upstream-server = final.writeShellScriptBin "llama-server-upstream" ''
+      exec ${final.llama-cpp-upstream}/bin/llama-server "$@"
+    '';
+
     stable-diffusion-cpp =
       (prev.stable-diffusion-cpp.override {
         rocmSupport = true;
@@ -115,7 +119,7 @@ in {
       # 1. Add `llama-cpp` to the PATH
       # 2. Reading config from `/etc` instead of cli arg
       {
-        path = with pkgs; [llama-cpp-upstream stable-diffusion-cpp];
+        path = with pkgs; [llama-cpp llama-cpp-upstream-server stable-diffusion-cpp];
 
         serviceConfig.ExecStart = with config.services.llama-swap;
           lib.mkForce
@@ -217,11 +221,11 @@ in {
 
     environment.etc = lib.mkMerge [
       (packageSystemFiles "comfyui")
-      # So it works even with impure enabled
+      # HACK: So it works even with impure enabled
       {"comfyui/extra_model_paths.yaml".source = lib.mkOverride 40 "${inputs.self}/stow-system/comfyui/comfyui/extra_model_paths.yaml";}
 
       (packageSystemFiles "librechat")
-      # So it works even with impure enabled
+      # HACK: So it works even with impure enabled
       {"librechat/config.yaml".source = lib.mkOverride 40 "${inputs.self}/stow-system/librechat/librechat/config.yaml";}
 
       (packageSystemFiles "llama-swap")
@@ -251,7 +255,8 @@ in {
 
     home.packages = with pkgs; [
       python314Packages.huggingface-hub
-      llama-cpp-upstream
+      llama-cpp
+      llama-cpp-upstream-server
       unsloth-desktop
 
       # Enable GPU support
