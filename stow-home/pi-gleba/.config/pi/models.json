@@ -3,7 +3,7 @@
     "ollama": {
       "baseUrl": "http://localhost:11434/v1",
       "api": "openai-completions",
-      "apiKey": "ollama",
+      "apiKey": "none",
       "compat": {
         "thinkingFormat": "chat-template",
         "chatTemplateKwargs": {
@@ -19,6 +19,8 @@
       "models": [
         {
           "id": "Qwen/Qwen3.8-27B",
+          "contextWindow": 262144,
+          "maxTokens": 65536,
           "reasoning": true
         }
       ]
