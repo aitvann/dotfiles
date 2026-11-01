@@ -62,8 +62,26 @@ macros:
     sd-server
       --listen-port ${PORT}
 
+x-gemma4-params: &gemma4-params
+  filters:
+    setParams:
+      top_k: 20
+      min_p: 0.0
+      repetition_penalty: 1.2
+      temperature: 1.0
+      top_p: 0.95
+      presence_penalty: 0.0
+      chat_template_kwargs:
+        enable_thinking: false
+
 # https://unsloth.ai/docs/models/qwen3.6#thinking-mode
 x-qwen3-8-params: &qwen3-8-params
+  metadata:
+    output_length: 65536
+    reasoning:
+      format: qwen3.8
+      levels: [low, medium, xhigh]
+
   filters:
     setParams:
       max_tokens: 262144
@@ -194,6 +212,23 @@ models:
     checkEndpoint: none
 
   # --------------------------------------------------------------------------------
+  # Context Sizes
+  # --------------------------------------------------------------------------------
+  #
+  # 2^14
+  # ctx-size: 16384
+  # 2^15
+  # ctx-size: 32768
+  # 2^15 + 2^14
+  # ctx-size: 49152
+  # 2^16 + 2^15
+  # ctx-size: 98304
+  # 2^16
+  # ctx-size: 65536
+  # 2^17
+  # ctx-size: 131072
+
+  # --------------------------------------------------------------------------------
   # Gemma4 26b A4b
   # --------------------------------------------------------------------------------
 
@@ -202,31 +237,17 @@ models:
       Does not fit into VRAM, but the speed should still be good since it's MoE.
       Good for creative writing.
       Fine-tuning hurts accuracy, good for tasks that really require uncensored results.
-    capabilities:
-      context: 65536
+    macros:
+      ctx-size: 65536 
     cmd: |
       ${llama-base}
       --model /var/lib/models/gemma-4-26B-A4B-it-uncensored-Q8_0.gguf
       --gpu-layers all
-      # 2^17
-      # --ctx-size 131072
-      # 2^16 + 2^15
-      # --ctx-size 98304
-      # 2^16
-      --ctx-size 65536
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q5_0
       --parallel 1
-    filters:
-      setParams:
-        top_k: 20
-        min_p: 0.0
-        repetition_penalty: 1.2
-        temperature: 1.0
-        top_p: 0.95
-        presence_penalty: 0.0
-        chat_template_kwargs:
-          enable_thinking: false
+    <<: *gemma4-params
 
   # --------------------------------------------------------------------------------
   # Qwen3.8 27b
@@ -236,23 +257,16 @@ models:
     descriptions:
       The model is smarter but not much is left for context.
       Good for simple chatting.
+    macros:
+      ctx-size: 16384 
     capabilities:
-      context: 16384
+      context: ${ctx-size}
+      in: [text, image]
     cmd: |
       ${qwen38-mtp}
       -m /var/lib/models/Qwen3.8-27B-IQ4_XS.gguf
       --gpu-layers all
-      # 2^14
-      --ctx-size 16384
-      # Sizes below fit but too slow
-      # 2^15
-      # --ctx-size 32768
-      # 2^15 + 2^14
-      # --ctx-size 49152
-      # 2^16
-      # --ctx-size 65536
-      # 2^17
-      # --ctx-size 131072
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q4_0
       --parallel 2
@@ -263,20 +277,15 @@ models:
     descriptions:
       The model takes less space and thus can fit bigger context.
       Good for agentic coding coding.
+    macros:
+      ctx-size: 131072
     capabilities:
-      context: 131072
+      context: ${ctx-size}
     cmd: |
       ${qwen38-mtp}
       -m /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf
       --gpu-layers all
-      # 2^15
-      # --ctx-size 32768
-      # 2^16
-      # --ctx-size 65536
-      # 2^16 + 2^15
-      # --ctx-size 98304
-      # 2^17
-      --ctx-size 131072
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q5_0
       --parallel 1
@@ -286,14 +295,15 @@ models:
     descriptions:
       The model takes less space and thus can fit bigger context.
       Fine-tuning hurts accuracy, good for tasks that really require uncensored results.
+    macros:
+      ctx-size: 131072
     capabilities:
-      context: 131072
+      context: ${ctx-size}
     cmd: |
       ${qwen38-mtp}
       --model /var/lib/models/Qwen3.8-27B-GSQ-RCO-IQ3_XXS-Uncensored-v1.1.gguf
       --gpu-layers all
-      # 2^17
-      --ctx-size 131072
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q4_0
       --parallel 4
@@ -303,12 +313,14 @@ models:
   "Qwen3.8-27B-RAM":
     descriptions:
       The model does not fit into VRAM, full context.
+    macros:
+      ctx-size: 262144
     capabilities:
-      context: 262144
+      context: ${ctx-size}
     cmd: |
       ${qwen38-mtp}
       -m /var/lib/models/Qwen3.8-27B-UD-Q8_K_XL.gguf
-      --ctx-size 262144
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q8_0
       --parallel 4
@@ -322,8 +334,10 @@ models:
   "Qwen3.8-Flash-Next-RAM":
     descriptions:
       The model does not fit into VRAM.
+    macros:
+      ctx-size: 131072
     capabilities:
-      context: 131072
+      context: ${ctx-size}
     cmd: |
       # TODO: No TG speed gains, more VRAM consumed and slower PP
       # ${qwen38-mtp}
@@ -332,10 +346,7 @@ models:
       # --spec-draft-model /var/lib/models/qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-shared-Q4_K_M.gguf
       ${qwen38-base}
       -m /var/lib/models/qwen3.8-flash-next/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
-      # 2^16 + 2^15
-      # --ctx-size 98304
-      # 2^17
-      --ctx-size 131072
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q4_0
       --parallel 4
@@ -345,13 +356,14 @@ models:
     descriptions:
       The model does not fit into VRAM.
       Good for coding
+    macros:
+      ctx-size: 131072
     capabilities:
-      context: 131072
+      context: ${ctx-size}
     cmd: |
       ${llama-base}
       -m /var/lib/models/qwen3.8-flash-next/IQ1_M-Coder/Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00001-of-00002.gguf
-      # 2^17
-      --ctx-size 131072
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q4_0
     filters:
@@ -372,14 +384,15 @@ models:
     description: 
       The model does not fit into VRAM but the speed descrese
       is compensated by A3B and MTP
+    macros:
+      ctx-size: 262144
     capabilities:
-      context: 262144
+      context: ${ctx-size}
     cmd: |
       ${qwen38-mtp}
       # -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf
       -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
-      # --ctx-size 131072
-      --ctx-size 262144
+      --ctx-size ${ctx-size}
       --cache-type-k q8_0
       --cache-type-v q8_0
       --parallel 4
@@ -393,14 +406,18 @@ models:
     description: 
       Embeddings model.
       Runs on iGPU so can be used concurently with dGPU models
+    macros:
+      ctx-size: 8192
+    capabilities:
+      context: ${ctx-size}
     cmd: |
       ${llama-base-upstream}
       -m /var/lib/models/embeddinggemma-2/embeddinggemma-2-BF16.gguf
       --embeddings
       --gpu-layers all
-      --ctx-size 8192
-      --batch-size 8192
-      --ubatch-size 8192
+      --ctx-size ${ctx-size}
+      --batch-size ${ctx-size}
+      --ubatch-size ${ctx-size}
       --pooling mean
       --parallel 1
       # Forcing it to use iGPU
