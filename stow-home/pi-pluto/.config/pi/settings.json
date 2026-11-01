@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "1.1.0",
   "theme": "dark",
-  "defaultProvider": "ollama",
+  "defaultProvider": "llama-swap",
   "defaultModel": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
@@ -11,10 +11,12 @@
   "httpIdleTimeoutMs": 600000,
   "packages": [
     "https://github.com/jojopirker/pi-timer",
-    "https://github.com/sting8k/pi-vcc"
+    "https://github.com/sting8k/pi-vcc",
+    "https://github.com/hypnoglow/pi-llama-swap"
   ],
   "defaultTools": ["+codemode"],
   "compaction": {
     "enabled": true
   }
 }
+

@@ -1,26 +1,19 @@
 {
   "providers": {
-    "ollama": {
-      "baseUrl": "http://localhost:11434/v1",
-      "api": "openai-completions",
-      "apiKey": "none",
+    "llama-swap": {
       "compat": {
         "thinkingFormat": "chat-template",
         "chatTemplateKwargs": {
-          "enable_thinking": {
-            "$var": "thinking.enabled"
-          },
+          "enable_thinking": { "$var": "thinking.enabled" },
+          "preserve_thinking": true,
           "reasoning_effort": {
             "$var": "thinking.effort",
-            "omitWhenOff": false
+            "omitWhenOff": true
           }
         }
       },
-      "models": [
-        {
-          "id": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
-          "contextWindow": 131072,
-          "maxTokens": 65536,
+      "modelOverrides": {
+        "Qwen3.8-27B-VRAM-WISE:Thinking Coding": {
           "reasoning": true,
           "thinkingLevelMap": {
             "off": null,
@@ -32,27 +25,8 @@
             "max": null
           }
         },
-        {
-          "id": "Qwen3.8-27B-VRAM-UNCENSORED:Thinking",
-          "contextWindow": 131072,
-          "maxTokens": 65536,
+        "Qwen3.8-27B-VRAM-SMART:Thinking Coding": {
           "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null,
-            "minimal": null,
-            "low": "low",
-            "medium": "medium",
-            "high": null,
-            "xhigh": "xhigh",
-            "max": null
-          }
-        },
-        {
-          "id": "Qwen3.8-27B-VRAM-SMART:Thinking",
-          "contextWindow": 131072,
-          "maxTokens": 65536,
-          "reasoning": true,
-          "input": ["text", "image"],
           "thinkingLevelMap": {
             "off": null,
             "minimal": null,
@@ -63,7 +37,7 @@
             "max": null
           }
         }
-      ]
+      }
     }
   }
 }

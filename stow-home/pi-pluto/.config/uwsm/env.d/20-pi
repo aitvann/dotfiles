@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+
+# HACK: pi-llama-swap.json sets required values but it does not work
+# TODO: fix the extension
+export LLAMA_SWAP_URL=http://localhost:11434/v1

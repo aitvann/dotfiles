@@ -48,7 +48,7 @@ macros:
       --jinja
       --chat-template-file /var/lib/models/froggeric-chat_template.jinja
       --reasoning-format deepseek
-
+    
       # TODO: Figure out switching reasoning effort per-prompt
       --reasoning_effort "low"
       --reasoning-preserve
@@ -76,6 +76,9 @@ x-gemma4-params: &gemma4-params
 
 # https://unsloth.ai/docs/models/qwen3.6#thinking-mode
 x-qwen3-8-params: &qwen3-8-params
+  capabilities:
+    tools: true
+
   metadata:
     output_length: 65536
     reasoning:
@@ -128,6 +131,14 @@ x-qwen3-8-params: &qwen3-8-params
     # - "${MODEL_ID}" # The base param set is expected to be Instruct
 
 x-qwen3-6-params: &qwen3-6-params
+  capabilities:
+    tools: true
+
+  metadata:
+    output_length: 65536
+    reasoning:
+      format: qwen3.6
+
   filters:
     setParams:
       top_k: 20
