@@ -24,18 +24,6 @@
             "xhigh": "xhigh",
             "max": null
           }
-        },
-        "Qwen3.8-27B-VRAM-SMART:Coding": {
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null,
-            "minimal": null,
-            "low": "low",
-            "medium": "medium",
-            "high": null,
-            "xhigh": "xhigh",
-            "max": null
-          }
         }
       }
     }
