@@ -96,19 +96,12 @@ x-qwen3-8-params: &qwen3-8-params
         preserve_thinking: true
 
     setParamsByID:
-      "${MODEL_ID}:Thinking Coding":
-        temperature: 0.6
-        top_p: 0.95
-        presence_penalty: 0.0
-        chat_template_kwargs:
-          enable_thinking: true
-
       "${MODEL_ID}:Coding":
         temperature: 0.6
         top_p: 0.95
         presence_penalty: 0.0
         chat_template_kwargs:
-          enable_thinking: false
+          enable_thinking: true
 
       "${MODEL_ID}:Thinking":
         temperature: 1.0
@@ -125,7 +118,6 @@ x-qwen3-8-params: &qwen3-8-params
           enable_thinking: false
 
   aliases:
-    - "${MODEL_ID}:Thinking Coding"
     - "${MODEL_ID}:Coding"
     - "${MODEL_ID}:Thinking"
     # - "${MODEL_ID}" # The base param set is expected to be Instruct
@@ -146,15 +138,15 @@ x-qwen3-6-params: &qwen3-6-params
       repetition_penalty: 1.0
 
     setParamsByID:
-      "${MODEL_ID}:Thinking":
-        temperature: 1.0
+      "${MODEL_ID}:Coding":
+        temperature: 0.6
         top_p: 0.95
         presence_penalty: 0.0
         chat_template_kwargs:
           enable_thinking: true
 
-      "${MODEL_ID}:Coding":
-        temperature: 0.6
+      "${MODEL_ID}:Thinking":
+        temperature: 1.0
         top_p: 0.95
         presence_penalty: 0.0
         chat_template_kwargs:
@@ -168,8 +160,8 @@ x-qwen3-6-params: &qwen3-6-params
           enable_thinking: false
 
   aliases:
-    - "${MODEL_ID}:Thinking"
     - "${MODEL_ID}:Coding"
+    - "${MODEL_ID}:Thinking"
     # - "${MODEL_ID}" # The base param set is expected to be Instruct
 
 # Not assigning names to models so that

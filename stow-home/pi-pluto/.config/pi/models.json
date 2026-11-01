@@ -13,7 +13,7 @@
         }
       },
       "modelOverrides": {
-        "Qwen3.8-27B-VRAM-WISE:Thinking Coding": {
+        "Qwen3.8-27B-VRAM-WISE:Coding": {
           "reasoning": true,
           "thinkingLevelMap": {
             "off": null,
@@ -25,7 +25,7 @@
             "max": null
           }
         },
-        "Qwen3.8-27B-VRAM-SMART:Thinking Coding": {
+        "Qwen3.8-27B-VRAM-SMART:Coding": {
           "reasoning": true,
           "thinkingLevelMap": {
             "off": null,

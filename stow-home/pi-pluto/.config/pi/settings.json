@@ -2,7 +2,7 @@
   "lastChangelogVersion": "1.1.0",
   "theme": "dark",
   "defaultProvider": "llama-swap",
-  "defaultModel": "Qwen3.8-27B-VRAM-WISE:Thinking Coding",
+  "defaultModel": "Qwen3.8-27B-VRAM-WISE:Coding",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "low",
   "tuiMode": "regular",
@@ -19,4 +19,3 @@
     "enabled": true
   }
 }
-
