@@ -50,6 +50,8 @@ macros:
       --reasoning-format deepseek
     
       # TODO: Figure out switching reasoning effort per-prompt
+      # https://github.com/ggml-org/llama.cpp/issues/27023#issuecomment-6559108039
+      # https://github.com/soster/qwen38-thinking-levels
       --reasoning_effort "low"
       --reasoning-preserve
 
@@ -93,8 +95,9 @@ x-qwen3-8-params: &qwen3-8-params
       top_k: 20
       min_p: 0.0
       repetition_penalty: 1.0
-      chat_template_kwargs:
-        preserve_thinking: true
+      # Maps don't merge!
+      # chat_template_kwargs:
+      #   preserve_thinking: true
 
     setParamsByID:
       "${MODEL_ID}:Coding":
