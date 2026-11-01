@@ -254,6 +254,7 @@ models:
     <<: *qwen3-8-params
 
   "Qwen3.8-27B-VRAM-UNCENSORED":
+    unlisted: true
     descriptions:
       The model takes less space and thus can fit bigger context.
       Fine-tuning hurts accuracy, good for tasks that really require uncensored results.
@@ -315,6 +316,7 @@ models:
     <<: *qwen3-8-params
 
   "Qwen3.8-Flash-Next-Coder-RAM":
+    unlisted: true
     descriptions:
       The model does not fit into VRAM.
       Good for coding
