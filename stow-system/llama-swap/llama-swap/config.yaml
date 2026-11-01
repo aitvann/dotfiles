@@ -52,6 +52,7 @@ macros:
       # TODO: Figure out switching reasoning effort per-prompt
       --reasoning_effort "low"
       --reasoning-preserve
+
   "qwen38-mtp": >
     ${qwen38-base}
       --spec-type draft-mtp
@@ -94,48 +95,6 @@ x-qwen3-8-params: &qwen3-8-params
       repetition_penalty: 1.0
       chat_template_kwargs:
         preserve_thinking: true
-
-    setParamsByID:
-      "${MODEL_ID}:Coding":
-        temperature: 0.6
-        top_p: 0.95
-        presence_penalty: 0.0
-        chat_template_kwargs:
-          enable_thinking: true
-
-      "${MODEL_ID}:Thinking":
-        temperature: 1.0
-        top_p: 0.95
-        presence_penalty: 0.0
-        chat_template_kwargs:
-          enable_thinking: true
-
-      "${MODEL_ID}":
-        temperature: 0.7
-        top_p: 0.8
-        presence_penalty: 1.5
-        chat_template_kwargs:
-          enable_thinking: false
-
-  aliases:
-    - "${MODEL_ID}:Coding"
-    - "${MODEL_ID}:Thinking"
-    # - "${MODEL_ID}" # The base param set is expected to be Instruct
-
-x-qwen3-6-params: &qwen3-6-params
-  capabilities:
-    tools: true
-
-  metadata:
-    output_length: 65536
-    reasoning:
-      format: qwen3.6
-
-  filters:
-    setParams:
-      top_k: 20
-      min_p: 0.0
-      repetition_penalty: 1.0
 
     setParamsByID:
       "${MODEL_ID}:Coding":
@@ -380,28 +339,6 @@ models:
         chat_template_kwargs:
 
   # --------------------------------------------------------------------------------
-  # Qwen3.6 35b A3b
-  # --------------------------------------------------------------------------------
-
-  "Qwen3.6-35B-A3B-RAM":
-    description: 
-      The model does not fit into VRAM but the speed descrese
-      is compensated by A3B and MTP
-    macros:
-      ctx-size: 262144
-    capabilities:
-      context: ${ctx-size}
-    cmd: |
-      ${qwen38-mtp}
-      # -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf
-      -m /var/lib/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
-      --ctx-size ${ctx-size}
-      --cache-type-k q8_0
-      --cache-type-v q8_0
-      --parallel 4
-    <<: *qwen3-6-params
-
-  # --------------------------------------------------------------------------------
   # Embeddings
   # --------------------------------------------------------------------------------
 
@@ -445,7 +382,6 @@ routing:
             - "Qwen3.8-27B-RAM"
             - "Qwen3.8-Flash-Next-RAM"
             - "Qwen3.8-Flash-Next-Coder-RAM"
-            - "Qwen3.6-35B-A3B-RAM"
 
         "iGPU-models":
           exclusive: false
