@@ -14,7 +14,6 @@
       password-manager
       syncthing
       flatpak
-      bypass-restrictions
       gaming
       obs-studio
       maintenance

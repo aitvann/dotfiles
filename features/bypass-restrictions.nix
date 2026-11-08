@@ -5,21 +5,6 @@
 }: let
   util = inputs.self.util;
 in {
-  options.modules.nixos = mkModuleOption "bypass-restrictions" ({...}: {
-    imports = [
-      inputs.zapret-discord-youtube.nixosModules.default
-    ];
-
-    # Verify working: youtube.com discord.com rutracker.org
-    # Won't work since banned by ip: x.com instagram.com proton.me
-    #
-    # Using zapret on openwrt instead, uncommend when unable to connect to wifi
-    # services.zapret-discord-youtube = {
-    #   enable = true;
-    #   config = "general(ALT2)";
-    # };
-  });
-
   options.modules.homeManager = mkModuleOption "bypass-restrictions" ({
     pkgs,
     lib,
