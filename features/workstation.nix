@@ -4,7 +4,7 @@
   mkModuleOption,
   ...
 }: {
-  options.modules.nixos = mkModuleOption "workstation" ({...}: {
+  options.modules.nixos = mkModuleOption "workstation" ({pkgs, ...}: {
     imports = with config'.modules.nixos; [
       hyprland-shell
       zsh
@@ -48,6 +48,12 @@
     security.pki.certificates = [(builtins.readFile "${inputs.self}/stow-system/cert-jupiter/cert/cert.pem")];
 
     boot.kernel.sysctl = {"vm.swappiness" = 10;};
+
+    environment.systemPackages = with pkgs; [
+      ntfs3g
+    ];
+
+    boot.supportedFilesystems = ["ntfs"];
   });
 
   options.modules.homeManager = mkModuleOption "workstation" ({
