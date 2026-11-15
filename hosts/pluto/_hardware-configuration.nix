@@ -17,7 +17,9 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  hardware.amdgpu.overdrive.enable = true;
+  # HACK: temporary disable Adrenaline untile the next update
+  # where it stops using SSD
+  hardware.amdgpu.overdrive.enable = false;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

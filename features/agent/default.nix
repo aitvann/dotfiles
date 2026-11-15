@@ -37,6 +37,7 @@
 
     home.packages = with pkgs; [
       openspec
+      skills
 
       docs-mcp-server
       cratesio-mcp
