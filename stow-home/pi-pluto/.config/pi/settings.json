@@ -3,19 +3,25 @@
   "theme": "dark",
   "defaultProvider": "llama-swap",
   "defaultModel": "Qwen3.8-27B-VRAM-WISE:Coding",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "defaultThinkingLevel": "low",
   "tuiMode": "regular",
   "enableInstallTelemetry": false,
   "enableAnalytics": false,
   "httpIdleTimeoutMs": 600000,
-  "packages": [
-    "https://github.com/jojopirker/pi-timer",
-    "https://github.com/sting8k/pi-vcc",
-    "https://github.com/hypnoglow/pi-llama-swap"
-  ],
   "defaultTools": ["+codemode"],
   "compaction": {
     "enabled": true
-  }
+  },
+  "packages": [
+    "https://github.com/jojopirker/pi-timer",
+    "https://github.com/sting8k/pi-vcc",
+    "https://github.com/hypnoglow/pi-llama-swap",
+    {
+      "source": "https://github.com/nicobailon/pi-subagents",
+      "prompts": [],
+      "skills": ["!council-mode"]
+    }
+  ],
+  "subagents": { "disableBuiltins": true }
 }

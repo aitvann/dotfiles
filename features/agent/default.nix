@@ -42,7 +42,7 @@
       docs-mcp-server
       cratesio-mcp
 
-      # Reqired for Pi to install extentions
+      # Required for Pi to install extentions
       nodejs_22
     ];
 

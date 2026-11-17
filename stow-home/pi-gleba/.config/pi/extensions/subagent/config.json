@@ -1,0 +1,5 @@
+{
+  "disabledFeatures": ["watchdog"],
+  "asyncByDefault": true,
+  "globalConcurrencyLimit": 1
+}
