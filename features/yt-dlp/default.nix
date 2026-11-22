@@ -20,7 +20,7 @@
     services.podman = {
       enable = true;
       containers.bgutil-ytdlp-pot-provider = {
-        image = "docker.io/brainicism/bgutil-ytdlp-pot-provider:1.1.0";
+        image = "docker.io/brainicism/bgutil-ytdlp-pot-provider:latest";
         ports = ["4416:4416"];
       };
     };
